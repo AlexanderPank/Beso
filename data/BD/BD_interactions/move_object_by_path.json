@@ -1,0 +1,17 @@
+{
+    "title": "Модель движения объекта по маршруту",
+    "type_object": "Надводные корабли:*",
+    "id":"move_object",
+    "object_list": [
+        {"name": "TARGET", "description": "Объект который двигаем"}
+    ],
+    "interaction_list": [
+        {
+          "title": "Движение объекта",
+          "source_object_id": "!TARGET!",
+          "interaction_type": "moving",
+          "trigger_condition": "!TARGET!.properties['state'] =='moving'",
+          "response_action": "!TARGET!.actions.move(item=!TARGET!,  path=!TARGET!.properties['geo_path'],  time_in_seconds=self.second_in_iteration)"
+        }
+    ]
+}

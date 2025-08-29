@@ -1,0 +1,1 @@
+{"description":"Расчет количество попаданий из АК","function":"ModelTasks.shoot_in_object","id":"alg_id_shoot_in_object","input_parameters":[],"output_parameters":[{"count":"int","title":"Кол-во попаданий"}],"output_splitter":" ","subType":"Общие алгоритмы","title":"Расчет кол-ва поподаний по целе","type":"inner"}

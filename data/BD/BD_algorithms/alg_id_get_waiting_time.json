@@ -1,0 +1,1 @@
+{"description":"Новый","function":"ModelTasks.get_waiting_time","id":"alg_id_get_waiting_time","input_parameters":[],"output_parameters":[{"time":"float","title":"время ожидания в секундах"}],"output_splitter":" ","subType":"Общие алгоритмы","title":"Получение времени ожидания в РОЖ","type":"inner"}

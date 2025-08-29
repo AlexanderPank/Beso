@@ -1,0 +1,57 @@
+{
+  "title": "Модель поведения БПЛА разведчика без учета модели связи",
+  "type_object": "БПЛА:Разведывательный",
+  "object_list": [
+    {"name": "BPLA", "description": "Идентификатор БПЛА"},
+    {"name": "BPLA_ZONE", "description": "Идентификатор зоны разведки БПЛА"}
+  ],
+  "interaction_list": [
+    {
+      "title": "Недопустимые метеоусловия для полета",
+      "interaction_type": "moving",
+      "response_action": "",
+      "response_set_values": "",
+      "source_object_id": "!BPLA!",
+      "trigger_condition": " WEATHER.properties['wind_speed'] > !BPLA!.properties['max_wind_speed']"
+    },
+    {
+      "title": "Расчет маршрута в зону разведки",
+      "interaction_type": "moving",
+      "response_action": "",
+      "response_set_values": "!BPLA!.properties['geo_path']['geometry']['coordinates'] = !BPLA!.actions.find_path(ship_lat=!BPLA!.properties['lat'], ship_lon=!BPLA!.properties['lon'], target_lat=self.features['!BPLA_ZONE!'].coordinates[0][0], target_lon=self.features['!BPLA_ZONE!'].coordinates[0][1], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"))",
+      "source_object_id": "!BPLA!",
+      "trigger_condition": "!BPLA!.properties['state'] == 'standing' and WEATHER.properties['wind_speed'] <= !BPLA!.properties['max_wind_speed']"
+    },
+    {
+      "title": "Маршрут рассчитан, начато движения",
+      "interaction_type": "moving",
+      "response_action": "",
+      "response_set_values": "!BPLA!.properties['state'] = 'moving'",
+      "source_object_id": "!BPLA!",
+      "trigger_condition": "!BPLA!.properties['state'] == 'standing' and len(!BPLA!.properties['geo_path']['geometry']['coordinates']) > 0 and WEATHER.properties['wind_speed'] <= !BPLA!.properties['max_wind_speed']"
+    },
+    {
+      "title": "Движение по маршруту",
+      "source_object_id": "!BPLA!",
+      "interaction_type": "moving",
+      "response_action": "!BPLA!.actions.move(item=!BPLA!,  path=!BPLA!.properties['geo_path'],  time_in_seconds=self.second_in_iteration)",
+      "trigger_condition": "len(!BPLA!.properties['geo_path']['geometry']['coordinates']) > 0 and !BPLA!.properties['state'] in ['moving', 'attacking']"
+    },
+    {
+      "title": "Расчет маршрута для зоны разведки",
+      "interaction_type": "moving",
+      "response_action": "",
+      "response_set_values": "!BPLA!.properties['geo_path']['geometry']['coordinates'] = Model_00.actions.get_bpla_search_path(input_vector=self.features['!BPLA_ZONE!'].coordinates, roll_angle=!BPLA!.properties['roll_angle'], speed=!BPLA!.properties['speed']); !BPLA!.properties['state'] = 'moving'; !BPLA!.properties['segment_index'] = 0; ",
+      "source_object_id": "!BPLA!",
+      "trigger_condition": "!BPLA!.properties['state'] == 'finished'"
+    },
+    {
+      "title": "Обнаружение объекта",
+      "interaction_type": "detect_enemy",
+      "response_action": "",
+      "response_set_values": "!BPLA!.properties['target'] = !BPLA!.actions.detect_enemy(item1=!BPLA!, objects=self.objects, rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], max_distance=!BPLA!.properties['oes_radius']) ",
+      "source_object_id": "!BPLA!",
+      "trigger_condition": "!BPLA!.actions.detect_enemy(item1=!BPLA!, objects=self.objects, rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], max_distance=!BPLA!.properties['oes_radius']) != '' "
+    }
+  ]
+}

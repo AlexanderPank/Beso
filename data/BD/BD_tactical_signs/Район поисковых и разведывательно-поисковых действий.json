@@ -1,0 +1,20 @@
+{
+  "class_code": "121065000108",
+  "color": "base",
+  "coordinates": [],
+  "description": "Наносится n-точками. Двойной клик для завершения нанесения.",
+  "geometry_type": 3,
+  "group": "*",
+  "id": "SEARCH_REGION",
+  "is_own": 1,
+  "line_width": 0.5,
+  "parent_object_id": "no",
+  "properties": [],
+  "scale": 100,
+  "icon": "tactical_signs/white_search_region.png",
+  "scheme": "tactical_signs/white_search_region.png",
+  "short_name": "Р-н поиска",
+  "spline": false,
+  "title": "Район поисковых и разведывательно-поисковых действий",
+  "type": "SEARCH_REGION"
+}

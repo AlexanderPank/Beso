@@ -1,0 +1,255 @@
+{
+"scenario_id":"Отладка Поражение пулеметом",
+
+  "objects":
+	[
+
+      {
+          "id": "BEK_01",
+          "title": "БЭК 1",
+          "properties":
+          [
+            {"name": "class_code", "value": "10213", "type": "str"},
+            {"name": "is_own", "value": 1, "type": "int"},
+            {"name": "lat", "value": 43.64884808016087, "type": "float"},
+            {"name": "lon", "value": 39.49935640908352, "type": "float"},
+            {"name": "alt", "value": 0.0, "type": "float"},
+            {"name": "course", "value": 125.22, "type": "float"},
+            {"name": "speed", "value": 30.0, "type": "float"},
+            {"name": "distance_of_defeat", "value": 7408, "type": "int"},
+            {"name": "detection_distance", "value": 20000, "type": "int"},
+            {"name": "target_distans", "value": 1500, "type": "float"},
+            {"name": "bullet_count", "value": 100, "type": "int"},
+            {"name": "bullet_per_seconds", "value": 10, "type": "int"},
+            {"name": "sigmaH", "value": 0.37, "type": "float"},
+            {"name": "sigmaV", "value": 0.57, "type": "float"},
+            {"name": "height", "value": 1.57, "type": "float"},
+            {"name": "state", "value": "standing", "type": "str"}
+          ],
+          "actions": [
+            {
+              "name": "движение",
+              "type": "move",
+              "algorithm_id": "alg_id_0",
+              "output_mapping":  [
+                {"lat": "new_lat"},
+                {"lon":  "new_lon"}
+              ]
+            },
+            {
+              "name": "расчет эфективности поражения воздушной цели",
+              "type": "calculate",
+              "algorithm_id": "alg_id_calc_effect_air",
+              "output_mapping": []
+            }
+          ]
+        },
+      {
+        "id": "BPLA_01",
+        "title": "БПЛА",
+        "properties": [
+          {"name": "class_code", "value": "10188", "type": "str"},
+          {"name": "is_own", "value": 0, "type": "int"},
+          {"name": "lat", "value": 43.626, "type": "float"},
+          {"name": "lon", "value": 39.543, "type": "float"},
+          {"name": "alt", "value": 500.0, "type": "float"},
+          {"name": "course", "value": 204.327, "type": "float"},
+          {"name": "angle", "value": 90.40, "type": "float"},
+          {"name": "speed", "value": 125.6, "type": "float"},
+          {"name": "segment_index", "value": 0, "type": "int"},
+          {"name": "image", "value": "ship-blue.png", "type": "str"},
+          {"name": "width", "value": 2.5, "type": "float"},
+          {"name": "height", "value": 1.2, "type": "float"},
+          {"name": "hit_count", "value": 0, "type": "float"},
+          {"name": "state", "value": "moving", "type": "str"}
+        ],
+        "actions": [
+          {
+            "name": "движение",
+            "type": "move",
+            "algorithm_id": "alg_id_0",
+            "output_mapping": [
+              {"lat": "new_lat"},
+              {"lon": "new_lon"}
+            ]
+          }
+
+        ]
+      },
+	  {
+			"id":"Model_00",
+			"title":"Среда взаимодействия",
+			"properties":
+            [
+              {"name": "current_iteration", "value": 0, "type": "int"},
+              {"name": "elapsed_time_in_sec", "value": 0, "type": "int"},
+              {"name": "time_per_sec", "value": 1, "type": "int"},
+              {"name": "lon", "value": 37.504, "type": "float"},
+              {"name": "lat", "value": 42.915, "type": "float"},
+              {"name": "alt", "value": 0.0, "type": "float"},
+              {"name": "is_caught", "value": -1, "type": "int"},
+              {"name": "point_exists", "value": 0, "type": "int"}
+            ],
+
+			"actions":
+				[
+					{
+						"type":"create_point",
+						"algorithm_id":"alg_create_point",
+						"output_mapping": [],
+						"name":"создание объекта точки"
+					},
+                    {
+                      "name": "Расчет точки перехвата",
+                      "type": "calculation",
+                      "algorithm_id": "alg_id_fox_rabbit",
+                      "output_mapping":[
+                        {"lon": "_lon"},
+                        {"lat": "_lat"},
+                        {"alt": "_alt"},
+                        {"is_caught": "_is_caught"}
+                      ]
+                    }
+				 ]
+		}
+
+	],
+    "classes": [ ],
+
+    "interactions": [
+      {
+        "source_object_id": "BEK_01",
+        "interaction_type": "calculate",
+        "trigger_condition": "BEK_01.properties['state'] =='standing'",
+        "response_set_values": "BPLA_01.properties['hit_count'] += BEK_01.actions.calculate(weapon_latitude=BEK_01.properties['lat'], weapon_longitude=BEK_01.properties['lon'], weapon_altitude=BEK_01.properties['alt'], target_latitude=BPLA_01.properties['lat'], target_longitude=BPLA_01.properties['lon'], target_altitude=BPLA_01.properties['alt'], spread_horizontal=BEK_01.properties['sigmaH'], spread_vertical=BEK_01.properties['sigmaV'], target_width=BPLA_01.properties['width'], target_height=BPLA_01.properties['height'], bullet_count=BEK_01.properties['bullet_per_seconds'] ); BEK_01.properties['bullet_count'] -= BEK_01.properties['bullet_per_seconds']"
+      },
+      {
+        "source_object_id": "BPLA_01",
+        "interaction_type": "moving",
+        "trigger_condition": "BPLA_01.properties['state'] =='moving'",
+        "response_action": "BPLA_01.actions.move(item=BPLA_01, time_in_seconds=self.second_in_iteration)"
+      }
+    ],
+    "algorithms" : [
+      {
+        "id":"alg_id_0",
+        "title": "Алгоритм движения объекта",
+        "description": "Простой встроенный алгоритм в модель движения объекта из точки 1 в точку 2 используя координаты курс и скорость",
+        "type": "inner",
+        "function": "ModelTasks.move_object",
+        "input_parameters": [],
+        "output_parameters": [
+          {"new_lat": "float"},
+          {"new_lon": "float"}
+        ]
+      },
+      {
+        "id":"alg_id_calc_effect_air",
+        "title": "Алгоритм Расчета эффективности поражения пулемётом воздушной цели",
+        "description": "Расчет эффективности поражения пулемётом воздушной цели",
+        "type": "libcpp",
+        "function": "LIBCPP04.GetHitCount",
+        "input_parameters": [
+
+          {"weapon_latitude" :"float"},
+          {"weapon_longitude" :"float"},
+          {"weapon_altitude" : "float"},
+          {"target_latitude" : "float"},
+          {"target_longitude" :  "float"},
+          {"target_altitude" :  "float"},
+          {"spread_horizontal" : "float"},
+          {"spread_vertical" :  "float"},
+          {"target_width" : "float"},
+          {"target_height" :  "float"},
+          {"bullet_count" :  "int"}
+
+        ],
+        "output_parameters": [
+          {"count":  "int"}
+        ]
+      },
+        {
+            "id":"alg_create_point",
+            "title": "Алгоритм позиционирования точки перехвата на карте",
+            "description": "Простой встроенный алгоритм в модель ",
+            "type": "inner",
+            "function": "ModelTasks.create_point",
+            "input_parameters": [],
+            "output_parameters": []
+        },
+        {
+            "id":"alg_id_fox_rabbit",
+            "title": "алгоритма расчета точки встречи",
+            "description": "алгоритма расчета точки встречи С++ ",
+            "type": "libcpp",
+            "function": "LIBCPP01.calc_point_single",
+            "input_parameters": [
+              {"lat1": "float"},
+              {"lon1": "float"},
+              {"alt1": "float"},
+              {"speed1": "float"},
+              {"lat2": "float"},
+              {"lon2": "float"},
+              {"alt2": "float"},
+              {"speed2": "float"},
+              {"course2": "float"},
+              {"dt": "float"}
+            ],
+            "output_parameters": [
+              {"_lat": "float"},
+              {"_lon": "float"},
+              {	"_alt": "float"},
+              {	"_is_caught": "bool"}
+            ]
+        },
+      {
+        "id":"alg_id_9",
+        "title": "Алгоритм движения объекта по заданному маршруту",
+        "description": "Простой алгоритм движения объекта по заданному маршруту",
+        "type": "inner",
+        "function": "ModelTasks.move_object_by_path",
+        "input_parameters": [],
+        "output_parameters": [
+
+          {"new_course": "float"},
+          {"new_lat": "float"},
+          {"new_lon": "float"},
+          {"new_segment_index": "int"}
+        ]
+      },
+      {
+        "id":"alg_id_3",
+        "title": "Алгоритм маневрирования ПКР",
+        "description": "Используется передаваемый файл pkr_object.py",
+        "type": "python_file",
+        "function": "pkr_object.pkr_maneuver",
+        "input_parameters": {},
+        "output_parameters":[
+            {"new_course": "float"}
+          ]
+      }
+    ],
+    "files": [
+        {
+            "id": "LIBCPP01",
+            "file_name": "fox-rabbit.so",
+			"type":"libcpp",
+            "md5_hash": "698d51a19d8a121ce581499d7b701668"
+        },
+        {
+            "id": "LIBCPP04",
+            "file_name": "libcalcsea.so.1.0.0",
+			"type":"libcpp",
+            "md5_hash": "698d51a19d8a121ce581499d7b701668"
+        }
+    ],
+    "simulation_parameters": {
+        "time_step": 1,
+        "end_condition": "BPLA_01.properties['hit_count'] > 100 or BEK_01.properties['bullet_count'] <= 0",
+        "max_iterations": 100000,
+        "map_center": "43.65295,39.53285",
+        "map_zoom": 6
+    }
+}
+
+

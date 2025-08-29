@@ -1,0 +1,241 @@
+{
+"scenario_id":"scen_fox_rabbit",
+  "map_center": "43.49387,39.59992",
+  "map_zoom": 6,
+  "objects":
+	[
+      {
+        "id": "RABBIT_00",
+        "title": "Корабль",
+        "properties": {
+          "class_code": "131472600009",
+          "is_own": 0,
+          "lat":  43.41686,  "lon": 39.47805, "alt": 0,
+          "course": 10.40,          "speed": 9.6,          "hull_damage": 0,
+          "image": "ship-blue.png",
+          "state": "moving",
+          "segment_index": 0,
+          "geo_path": {"type": "Feature","properties": {"id": "RABBIT_00_path", "class_code": "131405000210000000"}, "geometry": {"coordinates": [ [ 43.41699, 39.47942 ], [ 43.53046765068351, 39.63733607804841 ]],"type": "LineString"}}
+        },
+        "actions": [
+          {
+            "name": "движение",
+            "type": "move",
+            "algorithm_id": "alg_id_9",
+            "output_mapping": { "lat": "new_lat", "lon": "new_lon", "course": "new_course" }
+          }
+        ]
+      },
+      {
+          "id": "FOX_01",
+          "title": "БЭК 1",
+          "properties": {
+            "class_code": "10213",
+            "is_own": 1,
+            "lat": 43.70455659984211,"lon": 39.54307426549977,  "alt": 0.0,
+            "course": 246.8,
+            "speed": 30.0,
+            "distance_of_defeat": 7408,
+            "detection_distance": 20000,
+            "rocket_count": 2,
+            "image": "бэк-red.png",
+            "state": "moving"
+          },
+          "actions": [
+            {
+              "name": "движение",
+              "type": "move",
+              "algorithm_id": "alg_id_0",
+              "output_mapping": {
+                "lat": "new_lat",
+                "lon": "new_lon"
+              }
+            },
+            {
+              "name": "маневрирование",
+              "type": "maneuver",
+              "algorithm_id": "alg_id_3",
+              "output_mapping": {
+                "course": "new_course"
+              }
+            }
+          ]
+        },
+		{
+			"id":"Model_00",
+			"title":"Среда взаимодействия",
+			"properties": {
+					"current_iteration":0,
+					"elapsed_time_in_sec":0,
+					"time_per_sec":1,
+					"lon": 37.504,
+					"lat": 42.915,
+					"alt": 0.0, 
+					"is_caught": -1,
+                    "point_exists": 0
+            },
+			"actions": 
+				[
+					{
+						"type":"create_point",
+						"algorithm_id":"alg_create_point",
+						"output_mapping": {},
+						"name":"создание объекта точки"
+					},
+                    {
+                      "name": "Расчет точки перехвата",
+                      "type": "calculation",
+                      "algorithm_id": "alg_id_fox_rabbit",
+                      "output_mapping": {
+                        "lon": "_lon",
+                        "lat": "_lat",
+                        "alt": "_alt",
+                        "is_caught": "_is_caught"
+                      }
+                    }
+				 ]
+		}
+	
+
+
+	],
+    "classes": [
+        {
+            "id": "PNT_01",
+            "title": "Точка перехвата объекта",
+            "properties": {
+                "class_code": "7132250034230000000",
+                "is_own": 1,
+                "lat": 43.82,
+                "lon": 37.9,
+                "alt": 0,
+                "course": 66.8,
+                "speed": 0.0,
+                "image": "cross.png",
+                "state": "standing"
+            },
+            "actions": []
+        }
+    ],
+
+    "interactions": [
+      {
+        "source_object_id": "RABBIT_00",
+        "interaction_type": "moving",
+        "trigger_condition": "RABBIT_00.properties['state'] =='moving'",
+        "response_action": "RABBIT_00.actions.move(item=RABBIT_00, path=RABBIT_00.properties['geo_path'], time_in_seconds=self.second_in_iteration)"
+      },
+        {
+            "source_object_id": "Model_00",
+            "interaction_type": "in_zone",
+            "trigger_condition": "Model_00.properties['point_exists']==0",
+            "response_action": "Model_00.actions.calculation(lat1=FOX_01.properties['lat'], lon1=FOX_01.properties['lon'], alt1=FOX_01.properties['alt'], speed1=FOX_01.properties['speed'], lat2=RABBIT_00.properties['lat'], lon2=RABBIT_00.properties['lon'], alt2=RABBIT_00.properties['alt'], speed2=RABBIT_00.properties['speed'], course2=RABBIT_00.properties['course'], dt=100.0)"
+        },
+        {
+            "source_object_id": "Model_00",
+            "interaction_type": "in_zone",
+            "trigger_condition": "Model_00.properties['point_exists']==0",
+            "response_action": "Model_00.actions.create_point(lon=Model_00.properties['lon'], lat=Model_00.properties['lat'], objects=self.objects, create_object_func=self.create_object)"
+        },
+
+
+        {
+          "source_object_id": "FOX_01",
+          "interaction_type": "moving",
+          "trigger_condition": "FOX_01.properties['state'] =='moving'",
+          "response_action": "FOX_01.actions.move(item=FOX_01, time_in_seconds=self.second_in_iteration)"
+        },
+      {
+        "source_object_id": "FOX_01",
+        "interaction_type": "maneuver",
+        "trigger_condition": "FOX_01.properties['state'] =='moving'",
+        "response_action":   "FOX_01.actions.maneuver(object_1=FOX_01, object_2=PNT_01)"
+      }
+    ],
+    "algorithms" : [
+      {
+        "id":"alg_id_0",
+        "title": "Алгоритм движения объекта",
+        "description": "Простой встроенный алгоритм в модель движения объекта из точки 1 в точку 2 используя координаты курс и скорость",
+        "type": "inner",
+        "function": "ModelTasks.move_object",
+        "input_parameters": {},
+        "output_parameters": {
+          "new_lat": "float",
+          "new_lon": "float"
+        }
+      },
+        {
+            "id":"alg_create_point",
+            "title": "Алгоритм позиционирования точки перехвата на карте",
+            "description": "Простой встроенный алгоритм в модель ",
+            "type": "inner",
+            "function": "ModelTasks.create_point",
+            "input_parameters": {},
+            "output_parameters": {}
+        },
+        {
+            "id":"alg_id_fox_rabbit",
+            "title": "алгоритма атаки одной цели одним объектом",
+            "description": "алгоритма атаки одной цели одним объектом написанный на С++ по факту расчет точки пересечения",
+            "type": "libcpp",
+            "function": "LIBCPP01.calc_point_single",
+          "input_parameters": [
+            {"lat1": "float"},
+            {"lon1": "float"},
+            {"alt1": "float"},
+            {"speed1": "float"},
+            {"lat2": "float"},
+            {"lon2": "float"},
+            {"alt2": "float"},
+            {"speed2": "float"},
+            {"course2": "float"},
+            {"dt": "float"}
+          ],
+          "output_parameters": [
+            {"_lat": "float"},
+            {"_lon": "float"},
+            {	"_alt": "float"},
+            {	"_is_caught": "bool"}
+          ]
+        },
+
+      {
+        "id":"alg_id_9",
+        "title": "Алгоритм движения объекта по заданному маршруту",
+        "description": "Простой алгоритм движения объекта по заданному маршруту",
+        "type": "inner",
+        "function": "ModelTasks.move_object_by_path",
+        "input_parameters": {},
+        "output_parameters": {
+          "new_lat": "float",
+          "new_lon": "float",
+          "new_course": "float"
+        }
+      },
+      {
+        "id":"alg_id_3",
+        "title": "Алгоритм маневрирования ПКР",
+        "description": "Используется передаваемый файл pkr_object.py",
+        "type": "python_file",
+        "function": "pkr_object.pkr_maneuver",
+        "input_parameters": {},
+        "output_parameters": {
+          "new_course": "float"
+        }
+      }
+    ],
+    "files": [
+        {
+            "id": "LIBCPP01",
+            "file_name": "fox-rabbit.so",
+			"type":"libcpp",
+            "md5_hash": "698d51a19d8a121ce581499d7b701668"
+        }
+    ],
+    "simulation_parameters": {
+        "time_step": 1,
+        "end_condition": "Model_00.properties['is_caught'] == -1",
+        "max_iterations": 100000
+    }
+}

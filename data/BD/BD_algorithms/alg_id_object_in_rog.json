@@ -1,0 +1,1 @@
+{"description":"Проверка нахождения объекта в районе ожидания","function":"ModelTasks.object_in_rog","id":"alg_id_object_in_rog","input_parameters":[],"output_parameters":[{"rog_name":"str"}],"output_splitter":" ","subType":"Общие алгоритмы","title":"Находится  ли объект в РОЖ","type":"inner"}

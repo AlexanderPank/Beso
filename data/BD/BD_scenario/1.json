@@ -1,0 +1,292 @@
+   {
+   "Сценарий":"scenario_multi_001"
+   "Моделируемые объекты":""
+      {
+      "Корабль":""
+         {
+         "id":"A_00"
+         "title":"корабль"
+         "properties":""
+            {
+            "position":""
+               {
+               "lat":"56.4567"
+               "lon":"4.1827"
+               "alt":"0"
+               }
+            "course":"90"
+            "speed":"10"
+            "detection_range":"100"
+            "state":"moving"
+            }
+         "actions:":""
+            {
+            "name":"движение"
+               {
+               "type":"move"
+               "algorithm_id":"alg_id_0"
+               "output_mapping":""
+                  {
+                  "properties.position.lat":"new_lat"
+                  "properties.position.lon":"new_lon"
+                  }
+               }
+            "name":"обнаружение"
+               {
+               "type":"detection"
+               "algorithm_id":"alg_id_1"
+               "output_mapping":""
+               }
+            }
+         }
+      "ПКР":""
+         {
+         "id":"B_00"
+         "title":"ПКР"
+         "properties":""
+            {
+            "position":""
+               {
+               "lat":"56.4567"
+               "lon":"4.1827"
+               "alt":"0"
+               }
+            "course":"90"
+            "speed":"10"
+            "state":"moving"
+            }
+         "actions:":""
+            {
+            "name":"движение"
+               {
+               "type":"move"
+               "algorithm_id":"alg_id_0"
+               "output_mapping":""
+                  {
+                  "properties.position.lat":"new_lat"
+                  "properties.position.lon":"new_lon"
+                  }
+               }
+            "name":"обнаружение"
+               {
+               "type":"detection"
+               "algorithm_id":"alg_id_2"
+               "output_mapping":""
+                  {
+                  "data":""
+                  }
+               }
+            "name":"маневрирование"
+               {
+               "type":"maneuver"
+               "algorithm_id":"alg_id_3"
+               "output_mapping":""
+                  {
+                  "course":"new_course"
+                  }
+               }
+            }
+         }
+      "ЗУР":""
+         {
+         "id":"C_00"
+         "title":"ПКР"
+         "properties":""
+            {
+            "position":""
+               {
+               "lat":"56.4567"
+               "lon":"4.1827"
+               "alt":"0"
+               }
+            "course":"10"
+            "speed":"150"
+            "state":"staying"
+            }
+         "actions:":""
+            {
+            "name":"движение"
+               {
+               "type":"move"
+               "algorithm_id":"alg_id_0"
+               "output_mapping":""
+                  {
+                  "properties.position.lat":"new_lat"
+                  "properties.position.lon":"new_lon"
+                  }
+               }
+            "name":"обнаружение"
+               {
+               "type":"detection"
+               "algorithm_id":"alg_id_4"
+               "output_mapping":""
+               }
+            "name":"маневрирование"
+               {
+               "type":"maneuver"
+               "algorithm_id":"alg_id_5"
+               "output_mapping":""
+                  {
+                  "course":"new_course"
+                  }
+               }
+            }
+         }
+      }
+   "Взаимодействия":""
+      {
+      "Обнаружение ПРК средствами БЭК":""
+         {
+         "source_object_id":"A_00"
+         "interaction_type":"detection"
+         "trigger_condition":"A_00.actions.detection(object_1=B_00, object_2=A_00, detection_range=23000.0) == True and C_00.properties['state'] != 'moving'"
+         "response_set_values":"C_00.properties['lat'] = A_00.properties['lat']; C_00.properties['lon'] = A_00.properties['lon']; C_00.properties['state'] = 'moving'"
+         "response_action":""
+         }
+      "Обнаружение БЭК ГСН ПКР":""
+         {
+         "source_object_id":"B_00"
+         "interaction_type":"detection"
+         "trigger_condition":"B_00.actions.detection(object_1=B_00, object_2=A_00, detection_range=21000.0) == True "
+         "response_action":"B_00.actions.maneuver(object_1=B_00, object_2=A_00)"
+         }
+      "Обнаружение ПКР ГСН зур":""
+         {
+         "source_object_id":"C_00"
+         "interaction_type":"detection"
+         "trigger_condition":"C_00.actions.detection(lon1=C_00.properties['lon'], lat1=C_00.properties['lat'], lon2=B_00.properties['lon'], lat2=B_00.properties['lat'], detection_range=23000.0) == True "
+         "response_action":"C_00.actions.maneuver(lon1=C_00.properties['lon'], lat1=C_00.properties['lat'], lon2=B_00.properties['lon'], lat2=B_00.properties['lat'])"
+         }
+      }
+   "Алгоритмы":""
+      {
+      "Движения объекта":""
+         {
+         "id":"alg_id_0"
+         "title":"Алгоритм движения объекта"
+         "description":"Простой встроенный алгоритм в модель движения объекта из точки 1 в точку 2 используя координаты курс и скорость"
+         "type":"inner"
+         "function":"ModelTasks.move_object"
+         "input_parameters":""
+         "output_parameters":""
+            {
+            "new_lat":"float"
+            "new_lon":"float"
+            }
+         }
+      "Определения дистанции между объектами":""
+         {
+         "id":"alg_id_7"
+         "title":"Алгоритм определения дистанции между  объектами в двумерном пространстве"
+         "description":"Простой встроенный алгоритм определения дистанции между 2-мя объектами в двумерном пространстве"
+         "type":"inner"
+         "function":"ModelTasks.distance"
+         "input_parameters":""
+         "output_parameters":""
+            {
+            "distance":"float"
+            }
+         }
+      "Обнаружения ПКР СР корабля ":""
+         {
+         "id":"alg_id_1"
+         "title":"Алгоритм обнаружения ПКР"
+         "description":"Используется передаваемый файл pkr_object.py"
+         "type":"python_file"
+         "function":"pkr_object.pkr_detect"
+         "input_parameters":""
+         "output_parameters":""
+            {
+            "is_find":"bool"
+            }
+         }
+      "Обнаружения корабля ГСН ПКР":""
+         {
+         "id":"alg_id_2"
+         "title":"Алгоритм обнаружения корабля"
+         "description":"Используется передаваемый файл pkr_object.py"
+         "type":"python_file"
+         "function":"pkr_object.pkr_detect"
+         "input_parameters":""
+         "output_parameters":""
+            {
+            "is_find":"bool"
+            }
+         }
+      "Маневрирования ПКР":""
+         {
+         "id":"alg_id_3"
+         "title":"Алгоритм маневрирования ПКР"
+         "description":"Используется передаваемый файл pkr_object.py"
+         "type":"python_file"
+         "function":"pkr_object.pkr_maneuver"
+         "input_parameters":""
+         "output_parameters":""
+            {
+            "new_course":"float"
+            }
+         }
+      "Обнаружение ПКР ГСН ЗУР ":""
+         {
+         "id":"alg_id_4"
+         "title":"Алгоритм обнаружения ПКР ЗУРом"
+         "description":"Используется передаваемый файл zur_object"
+         "type":"binary_file"
+         "function":"zur_exe_source.exe --type detect"
+         "input_parameters":""
+         "output_parameters":""
+            {
+            "is_find":"bool"
+            }
+         }
+      "Маневрирования ЗУР":""
+         {
+         "id":"alg_id_5"
+         "title":"Алгоритм маневрирования ЗУР"
+         "description":"Используется передаваемый файл zur_object"
+         "type":"binary_file"
+         "function":"zur_exe_source.exe --type maneuver"
+         "input_parameters":""
+         "output_parameters":""
+            {
+            "new_course":"float"
+            }
+         }
+      }
+   "Файлы":""
+      {
+      "модель ПКР":""
+         {
+         "file_name":"detect_pkr.py"
+         "md5_hash":"698d51a19d8a121ce581499d7b701668"
+         }
+      "модель ЗУР":""
+         {
+         "file_name":"zur_object"
+         "md5_hash":"8ef0418d58070161131ed4960391e169"
+         }
+      }
+   "Параметры моделирования":""
+      {
+      "time_step":"1"
+      "end_condition":""Model_00.actions.distance(item1=A_00,item2=B_00) < 100 or Model_00.actions.distance(item1=B_00,item2=C_00) < 20",
+        "max_iterations": 100000"
+      }
+   "Свойства и методы имитационной модели":""
+      {
+      "id":"Model_00"
+      "title":"свойства и методы доступные из самой модели модели"
+      "properties":""
+         {
+         "current_iteration":"0"
+         "elapsed_time_in_sec":"0"
+         }
+      "actions":""
+         {
+         "name":"дистанция между объектами"
+         "type":"distance"
+         "algorithm_id":"alg_id_7"
+         "output_mapping":""
+         }
+      }
+   }

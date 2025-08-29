@@ -1,0 +1,198 @@
+/* Основной фон */
+QWidget {
+    background-color: #2d2d2d;
+    color: #ffffff;
+    font-family: "Segoe UI";
+    font-size: 14px;
+}
+
+/* Кнопки */
+QPushButton {
+    background-color: #3c3c3c;
+    border: 1px solid #555;
+    padding: 5px;
+    border-radius: 3px;
+    color: #ffffff;
+}
+QToolBox::tab {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+    stop: 0 #3c3c3c, stop: 1.0 #1c1c1c);
+
+   border: 1px solid #1c1c1c;
+    border-top-right-radius: 6px;
+         border-bottom-left-radius: 6px;
+    color: darkgray;
+}
+
+QToolBox::tab:selected {
+    font: italic;
+    color: white;
+}
+QPushButton:hover {
+    background-color: #4c4c4c;
+}
+
+QPushButton:pressed {
+    background-color: #2c2c2c;
+}
+
+/* Текстовые поля */
+QLineEdit, QTextEdit, QPlainTextEdit {
+    background-color: #3c3c3c;
+    border: 1px solid #555;
+    color: #ffffff;
+    padding: 0px;
+}
+
+
+QComboBox {
+    background-color: #3c3c3c;
+    border: 1px solid #555;
+    color: #ffffff;
+    padding: 5px;
+}
+
+QComboBox QAbstractItemView {
+    background-color: #3c3c3c;
+    color: #ffffff;
+}
+
+
+
+
+QComboBox::drop-down
+{
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 15px;
+    border-left-width: 0px;
+    border-left-color: darkgray;
+    border-left-style: solid;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+
+QComboBox::down-arrow
+{
+    image: url(:/icons/images/dropdown_arrow 28x28 black.png);
+    width: 16px;
+    height: 16px;
+}
+
+QComboBox:disabled {
+    background-color: lightgray;
+    color: gray;
+}
+
+/* Меню */
+QMenuBar {
+    background-color: #2d2d2d;
+    color: #ffffff;
+}
+
+QMenuBar::item {
+    background-color: transparent;
+}
+
+QMenuBar::item:selected {
+    background-color: #4c4c4c;
+}
+
+QMenu {
+    background-color: #3c3c3c;
+    color: #ffffff;
+    border: 1px solid #555;
+}
+
+QMenu::item:selected {
+    background-color: #4c4c4c;
+}
+
+/* Полосы прокрутки */
+QScrollBar:vertical {
+    background: #2d2d2d;
+    width: 10px;
+    margin: 0px 0px 0px 0px;
+}
+
+QScrollBar::handle:vertical {
+    background: #4c4c4c;
+    min-height: 20px;
+}
+
+QScrollBar::add-line:vertical,
+QScrollBar::sub-line:vertical {
+    background: none;
+}
+
+QScrollBar::add-page:vertical,
+QScrollBar::sub-page:vertical {
+    background: none;
+}
+
+/* Горизонтальные полосы прокрутки */
+QScrollBar:horizontal {
+   background: #2d2d2d;
+   height: 10px;
+   margin: 0px 0px 0px 0px;
+}
+QScrollBar::handle:horizontal {
+   background: #4c4c4c;
+   min-width: 20px;
+}
+QScrollBar::add-line:horizontal,
+QScrollBar::sub-line:horizontal {
+   background: none;
+}
+QScrollBar::add-page:horizontal,
+QScrollBar::sub-page:horizontal {
+   background: none;
+}
+
+/* Специфичный стиль для вашего конкретного виджета */
+MapInformer,
+MapCoordinates {
+    background-color: transparent !important;
+}
+MapInformer QLineEdit,
+MapCoordinates QLineEdit {
+    background-color: #ffffff;
+    border: none;
+    color:#333;
+    border-radius: 4px;
+}
+MapInformer QLineEdit{
+    background-color: rgba(255,255,255,0.5);
+}
+
+.transparent-widget {
+    background-color: transparent;
+}
+
+QPushButton#pbOpen:enabled,
+QPushButton#pbPlay:enabled,
+QPushButton#pbPause:enabled,
+QPushButton#pbStop:enabled,
+QPushButton#pbResume:enabled,
+QPushButton#cbSpeed:enabled,
+QPushButton#pbReload:enabled,
+QPushButton#pb3D:enabled,
+QPushButton#pbOpen:enabled{
+    background:#eee;
+    border:1px solid #eee;
+}
+
+
+ScenarioEditor{
+    border: 2px solid #000;
+}
+
+SimulationEventWidgetInMap QTextEdit{
+    background-color: rgba(255,255,255,0.9);
+}
+
+
+#enemyTab QLabel {
+    color : #ff00ff !important;
+}

@@ -1,0 +1,20 @@
+{
+  "class_code": "312635000302",
+  "color": "0",
+  "coordinates": [],
+  "description": "Знак наносится несколькими точками.",
+  "geometry_type": 1,
+  "group": "*",
+  "icon": "tactical_signs/white_link_line.png",
+  "id": "LINK_LINE",
+  "is_own": 3,
+  "line_width": 0.2,
+  "parent_object_id": "yes",
+  "properties": [],
+  "scale": 50,
+  "scheme": ":/icons/images/tacticals/destination_point_scheme.png",
+  "short_name": "Линия св.",
+  "spline": false,
+  "title": "Служебный знак линии связи",
+  "type": "LINK_LINE"
+}

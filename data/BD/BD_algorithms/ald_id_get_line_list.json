@@ -1,0 +1,1 @@
+{"description":"Получает перечень линий связи между объектами","function":"CommunicationModel.get_line_list","id":"ald_id_get_line_list","input_parameters":[],"output_parameters":[{"list":"list","title":"Перечень линий связи"}],"output_splitter":" ","subType":"Связь","title":"Список соединений","type":"inner"}

@@ -1,0 +1,80 @@
+[
+    {
+        "children": [
+            {
+                "children": [
+                ],
+                "name": "id",
+                "text": "LN_01"
+            },
+            {
+                "children": [
+                ],
+                "name": "title",
+                "text": "Рубеж атаки"
+            },
+            {
+                "children": [
+                    {
+                        "children": [
+                        ],
+                        "name": "course",
+                        "text": "90"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "speed",
+                        "text": "0"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "state",
+                        "text": "standing"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "lat",
+                        "text": "0"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "lon",
+                        "text": "0"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "alt",
+                        "text": "0"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "image",
+                        "text": "line-of-attack.png"
+                    }
+                ],
+                "name": "properties",
+                "text": ""
+            },
+            {
+                "children": [
+                ],
+                "name": "actions:",
+                "text": "[]"
+            },
+            {
+                "children": [
+                ],
+                "name": "name",
+                "text": ""
+            }
+        ],
+        "name": "Линия атаки",
+        "text": "Линия_атаки.json"
+    }
+]

@@ -1,0 +1,403 @@
+{
+"scenario_id":"ИРЗ Целераспределение",
+
+  "objects":
+	[
+      {
+        "id": "SHIP_00",
+        "title": "Корабль",
+        "properties":[
+            {"name": "class_code", "value": "131472600009", "type": "str"},
+            {"name": "is_own", "value": 1, "type": "int"},
+            {"name": "lat", "value": 43.53174, "type": "float"},
+            {"name": "lon", "value": 39.46268, "type": "float"},
+            {"name": "alt", "value": 0, "type": "int"},
+            {"name": "course", "value": 10.40, "type": "float"},
+            {"name": "speed", "value": 9.6, "type": "float"},
+            {"name": "hull_damage", "value": 0, "type": "int"},
+            {"name": "image", "value": "ship-blue.png", "type": "str"},
+            {"name": "state", "value": "standing", "type": "str"}
+        ],
+        "actions": [
+          {
+            "name": "Целераспределение",
+            "type": "targeting",
+            "algorithm_id": "alg_id_targeting",
+            "output_mapping":[]
+          }
+        ]
+      },
+      {
+        "id": "DETECT_00",
+        "title": "Система обнаружения",
+        "properties":[
+            {"name": "class_code", "value": "31261500011300000001", "type": "str"},
+            {"name": "is_own", "value": 1, "type": "int"},
+            {"name": "lat", "value": 43.53174, "type": "float"},
+            {"name": "lon", "value": 39.46268, "type": "float"},
+            {"name": "alt", "value": 0, "type": "int"},
+            {"name": "detection_radius", "value": 13000, "type": "int"},
+            {"name": "detected_object", "value": [], "type": "list"},
+            {"name": "detected_count", "value": [], "type": "list"},
+            {"name": "state", "value": "scanning", "type": "str"}
+        ],
+        "actions": [
+          {
+            "name": "обнаружение",
+            "type": "detect",
+            "algorithm_id": "alg_id_detect",
+            "output_mapping": [ {"detected_object": "enemy_list"}, {"detected_count":  "count"} ]
+          }
+        ]
+      },
+      {
+          "id": "BEK_01",
+          "title": "БЭК 1",
+          "properties":
+          [
+            {"name": "class_code", "value": "10213", "type": "str"},
+            {"name": "is_own", "value": 0, "type": "int"},
+            {"name": "lat", "value": 43.626470178732255, "type": "float"},
+            {"name": "lon", "value": 39.48991308634684, "type": "float"},
+            {"name": "alt", "value": 0.0, "type": "float"},
+            {"name": "course", "value": 184.19, "type": "float"},
+            {"name": "speed", "value": 20.0, "type": "float"},
+            {"name": "distance_of_defeat", "value": 7408, "type": "int"},
+            {"name": "detection_distance", "value": 20000, "type": "int"},
+            {"name": "rocket_count", "value": 2, "type": "int"},
+            {"name": "state", "value": "moving", "type": "str"}
+          ],
+          "actions": [
+            {
+              "name": "движение",
+              "type": "move",
+              "algorithm_id": "alg_id_0",
+              "output_mapping":  [ {"lat": "new_lat"}, {"lon":  "new_lon"} ]
+            },
+            {
+              "name": "маневрирование",
+              "type": "maneuver",
+              "algorithm_id": "alg_id_3",
+              "output_mapping": [ { "course": "new_course"} ]
+            }
+          ]
+        },
+
+      {
+        "id": "BEK_02",
+        "title": "БЭК 2",
+        "properties":
+        [
+          {"name": "class_code", "value": "10213", "type": "str"},
+          {"name": "is_own", "value": 0, "type": "int"},
+          {"name": "lat", "value": 43.610292063473096, "type": "float"},
+          {"name": "lon", "value": 39.53649212169146, "type": "float"},
+          {"name": "alt", "value": 0.0, "type": "float"},
+          {"name": "course", "value": 269.68, "type": "float"},
+          {"name": "speed", "value": 20.0, "type": "float"},
+          {"name": "distance_of_defeat", "value": 7408, "type": "int"},
+          {"name": "detection_distance", "value": 20000, "type": "int"},
+          {"name": "rocket_count", "value": 2, "type": "int"},
+          {"name": "state", "value": "moving", "type": "str"}
+        ],
+        "actions": [
+          {
+            "name": "движение",
+            "type": "move",
+            "algorithm_id": "alg_id_0",
+            "output_mapping":  [ {"lat": "new_lat"}, {"lon":  "new_lon"} ]
+          },
+          {
+            "name": "маневрирование",
+            "type": "maneuver",
+            "algorithm_id": "alg_id_3",
+            "output_mapping": [ { "course": "new_course"} ]
+          }
+        ]
+      },
+
+      {
+        "id": "BPLA_01",
+        "title": "БПЛА 1 (свой)",
+        "properties":
+        [
+          {"name": "class_code", "value": "10185", "type": "str"},
+          {"name": "is_own", "value": 1, "type": "int"},
+          {"name": "lat", "value": 43.53174, "type": "float"},
+          {"name": "lon", "value": 39.46268, "type": "float"},
+          {"name": "alt", "value": 0.0, "type": "float"},
+          {"name": "course", "value": 269.68, "type": "float"},
+          {"name": "speed", "value": 35.0, "type": "float"},
+          {"name": "distance_of_defeat", "value": 10, "type": "int"},
+          {"name": "state", "value": "standing", "type": "str"},
+          {"name": "target", "value": "", "type":  "str"}
+        ],
+        "actions": [
+          {
+            "name": "движение",
+            "type": "move",
+            "algorithm_id": "alg_id_0",
+            "output_mapping":  [ {"lat": "new_lat"}, {"lon":  "new_lon"} ]
+          },
+          {
+            "name": "расчет курса для тарана цели",
+            "type": "course_to_damage_ram",
+            "algorithm_id": "alg_id_kamikaze",
+            "output_mapping":  [
+              {"state": "new_state"},
+              {"course": "new_course"}
+            ]
+          }
+        ]
+      },
+
+      {
+        "id": "BPLA_02",
+        "title": "БПЛА 2 (свой)",
+        "properties":
+        [
+          {"name": "class_code", "value": "10185", "type": "str"},
+          {"name": "is_own", "value": 1, "type": "int"},
+          {"name": "lat", "value": 43.53174, "type": "float"},
+          {"name": "lon", "value": 39.46268, "type": "float"},
+          {"name": "alt", "value": 0.0, "type": "float"},
+          {"name": "course", "value": 269.68, "type": "float"},
+          {"name": "speed", "value": 35.0, "type": "float"},
+          {"name": "distance_of_defeat", "value": 10, "type": "int"},
+          {"name": "state", "value": "standing", "type": "str"},
+          {"name": "target", "value": "", "type":  "str"}
+        ],
+        "actions": [
+          {
+            "name": "движение",
+            "type": "move",
+            "algorithm_id": "alg_id_0",
+            "output_mapping":  [ {"lat": "new_lat"}, {"lon":  "new_lon"} ]
+          },
+          {
+            "name": "расчет курса для тарана цели",
+            "type": "course_to_damage_ram",
+            "algorithm_id": "alg_id_kamikaze",
+            "output_mapping":  [
+              {"state": "new_state"},
+              {"course": "new_course"}
+            ]
+          }
+        ]
+      },
+
+      {
+        "id": "BPLA_03",
+        "title": "БПЛА 3 (свой)",
+        "properties":
+        [
+          {"name": "class_code", "value": "10185", "type": "str"},
+          {"name": "is_own", "value": 1, "type": "int"},
+          {"name": "lat", "value": 43.53174, "type": "float"},
+          {"name": "lon", "value": 39.46268, "type": "float"},
+          {"name": "alt", "value": 0.0, "type": "float"},
+          {"name": "course", "value": 269.68, "type": "float"},
+          {"name": "speed", "value": 35.0, "type": "float"},
+          {"name": "distance_of_defeat", "value": 10, "type": "int"},
+          {"name": "state", "value": "standing", "type": "str"},
+          {"name": "target", "value": "", "type":  "str"}
+        ],
+        "actions": [
+          {
+            "name": "движение",
+            "type": "move",
+            "algorithm_id": "alg_id_0",
+            "output_mapping":  [ {"lat": "new_lat"}, {"lon":  "new_lon"} ]
+          },
+          {
+            "name": "расчет курса для тарана цели",
+            "type": "course_to_damage_ram",
+            "algorithm_id": "alg_id_kamikaze",
+            "output_mapping":  [
+              {"state": "new_state"},
+              {"course": "new_course"}
+            ]
+          }
+        ]
+      },
+
+	  {
+			"id":"Model_00",
+			"title":"Среда взаимодействия",
+			"properties":
+            [
+              {"name": "current_iteration", "value": 0, "type": "int"},
+              {"name": "elapsed_time_in_sec", "value": 0, "type": "int"},
+              {"name": "time_per_sec", "value": 1, "type": "int"},
+              {"name": "lon", "value": 37.504, "type": "float"},
+              {"name": "lat", "value": 42.915, "type": "float"},
+              {"name": "alt", "value": 0.0, "type": "float"},
+              {"name": "is_caught", "value": -1, "type": "int"},
+              {"name": "point_exists", "value": 0, "type": "int"}
+            ],
+			"actions":[]
+	  }
+
+	],
+    "classes": [],
+
+    "interactions": [
+      {
+        "source_object_id": "DETECT_00",
+        "interaction_type": "detect",
+        "trigger_condition": "DETECT_00.properties['state'] =='scanning'",
+        "response_action": "DETECT_00.actions.detect(source=DETECT_00, items=self.objects, radius_meters=DETECT_00.properties['detection_radius'])"
+      },
+      {
+        "source_object_id": "SHIP_00",
+        "interaction_type": "targeting",
+        "trigger_condition": "DETECT_00.properties['detected_count'] > 0",
+        "response_action": "SHIP_00.actions.targeting(target_list=DETECT_00.properties['detected_object'], all_items=self.objects, ship=SHIP_00, func_name='calcObjectDistributionJSON', library_name='libtask3_1_1.so.1.0.0')"
+      },
+      {
+        "source_object_id": "BEK_01",
+        "interaction_type": "moving",
+        "trigger_condition": "BEK_01.properties['state'] =='moving'",
+        "response_action": "BEK_01.actions.move(item=BEK_01, time_in_seconds=self.second_in_iteration)"
+      },
+      {
+        "source_object_id": "BEK_02",
+        "interaction_type": "moving",
+        "trigger_condition": "BEK_02.properties['state'] =='moving'",
+        "response_action": "BEK_02.actions.move(item=BEK_02, time_in_seconds=self.second_in_iteration)"
+      },
+      {
+        "source_object_id": "BPLA_01",
+        "interaction_type": "moving",
+        "trigger_condition": "BPLA_01.properties['state'] =='moving'",
+        "response_action": "BPLA_01.actions.move(item=BPLA_01, time_in_seconds=self.second_in_iteration)"
+      },
+      {
+        "source_object_id": "BPLA_01",
+        "interaction_type": "moving",
+        "trigger_condition": "BPLA_01.properties['target'] != '' ",
+        "response_action": "BPLA_01.actions.course_to_damage_ram(item=BPLA_01, items=self.objects, target=BPLA_01.properties['target'])"
+      },
+      {
+        "source_object_id": "BPLA_02",
+        "interaction_type": "moving",
+        "trigger_condition": "BPLA_02.properties['state'] =='moving'",
+        "response_action": "BPLA_02.actions.move(item=BPLA_02, time_in_seconds=self.second_in_iteration)"
+      },
+      {
+        "source_object_id": "BPLA_02",
+        "interaction_type": "moving",
+        "trigger_condition": "BPLA_02.properties['target'] != '' ",
+        "response_action": "BPLA_02.actions.course_to_damage_ram(item=BPLA_02, items=self.objects, target=BPLA_02.properties['target'])"
+      },
+      {
+        "source_object_id": "BPLA_03",
+        "interaction_type": "moving",
+        "trigger_condition": "BPLA_03.properties['state'] =='moving'",
+        "response_action": "BPLA_03.actions.move(item=BPLA_03, time_in_seconds=self.second_in_iteration)"
+      },
+      {
+        "source_object_id": "BPLA_03",
+        "interaction_type": "moving",
+        "trigger_condition": "BPLA_03.properties['target'] != '' ",
+        "response_action": "BPLA_03.actions.course_to_damage_ram(item=BPLA_03, items=self.objects, target=BPLA_03.properties['target'])"
+      }
+    ],
+    "algorithms" : [
+      {
+        "id":"alg_id_0",
+        "title": "Алгоритм движения объекта",
+        "description": "Простой встроенный алгоритм в модель движения объекта из точки 1 в точку 2 используя координаты курс и скорость",
+        "type": "inner",
+        "function": "ModelTasks.move_object",
+        "input_parameters": [],
+        "output_parameters": [
+          {"new_lat": "float"},
+          {"new_lon": "float"}
+        ]
+      },
+
+      {
+        "id":"alg_id_9",
+        "title": "Алгоритм движения объекта по заданному маршруту",
+        "description": "Простой алгоритм движения объекта по заданному маршруту",
+        "type": "inner",
+        "function": "ModelTasks.move_object_by_path",
+        "input_parameters": [],
+        "output_parameters": [
+
+          {"new_course": "float"},
+          {"new_lat": "float"},
+          {"new_lon": "float"},
+          {"new_segment_index": "int"}
+        ]
+      },
+      {
+        "id":"alg_id_detect",
+        "title": "Алгоритм обнаружения объектов противника на заданном радиусе",
+        "description": "Использует простой алгоритм расчета расстояния между объектами и сравнивает с дальностью обнаружения",
+        "type": "inner",
+        "function": "ModelTasks.detect_objects_area",
+        "input_parameters": [],
+        "output_parameters": [ {"enemy_list": "list"}, {"count":  "int"}]
+      },
+      {
+        "id":"alg_id_kamikaze",
+        "title": "Алгоритм расчета курса движения на таран",
+        "description": "Использует 2 алгоритма, 1 можем ли догнать, 2 определяем курс на перехвата",
+        "type": "inner",
+        "function": "ModelTasks.course_to_damage_ram",
+        "input_parameters": [],
+        "output_parameters": [
+          {"new_state": "str"},
+          {"new_course": "float"}
+        ]
+      },
+      {
+        "id":"alg_id_targeting",
+        "title": "Алгоритм целераспределения",
+        "description": "Использует питоновску обертку и вызывает с++ функцию из либины",
+        "type": "inner",
+        "function": "ModelTasks.targeting",
+        "input_parameters": [],
+        "output_parameters": []
+      },
+      {
+        "id":"alg_id_targeting_cpp",
+        "title": "Алгоритм целераспределения",
+        "description": "Использует с++ функцию из либины",
+        "type": "inner",
+        "function": "LIBCPP06.calcObjectDistributionJSON",
+        "input_parameters": [{"bpla": "str"}, {"bek": "str"}, {"ship": "str"}],
+        "output_parameters": [
+          { "length": "int",
+            "list": ["list", { "id1": "str", "id2": "str" }]
+          }
+
+        ]
+      }
+
+    ],
+    "files": [
+        {
+            "id": "LIBCPP01",
+            "file_name": "fox-rabbit.so",
+			"type":"libcpp",
+            "md5_hash": "698d51a19d8a121ce581499d7b701668"
+        },{
+            "id": "LIBCPP06",
+            "file_name": "libtask3_1_1.so.1.0.0",
+			"type":"libcpp",
+            "md5_hash": "698d51a19d8a121ce581499d7b701669"
+        }
+    ],
+    "simulation_parameters": {
+        "time_step": 1,
+        "end_condition": "0 == -1",
+        "max_iterations": 100000,
+        "map_center": "43.53174, 39.46268",
+        "map_zoom": 6
+    }
+}
+
+

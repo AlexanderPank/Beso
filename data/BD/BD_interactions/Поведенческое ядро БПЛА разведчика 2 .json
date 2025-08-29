@@ -1,0 +1,83 @@
+{
+  "title": "Модель поведения БПЛА разведчика с учетом модели связи",
+  "type_object": "БПЛА:Разведывательный",
+  "object_list": [
+    {"name": "BPLA", "description": "Идентификатор БПЛА"},
+    {"name": "BPLA_ZONE", "description": "Идентификатор зоны разведки БПЛА"},
+    {"name": "SHIP", "description": "Идентификатор объекта связи"}
+  ],
+  "interaction_list": [
+    {
+      "title": "Недопустимые метеоусловия для полета",
+      "interaction_type": "moving",
+      "response_action": "",
+      "response_set_values": "",
+      "source_object_id": "!BPLA!",
+      "trigger_condition": " WEATHER.properties['wind_speed'] > !BPLA!.properties['max_wind_speed']"
+    },
+    {
+      "title": "Расчет маршрута в зону разведки",
+      "interaction_type": "moving",
+      "response_set_values": "!BPLA!.properties['geo_path']['geometry']['coordinates'] = !BPLA!.actions.find_path(ship_lat=!BPLA!.properties['lat'], ship_lon=!BPLA!.properties['lon'], target_lat=self.features['!BPLA_ZONE!'].coordinates[0][0], target_lon=self.features['AIR_SEARCH_REGION_1'].coordinates[0][1], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"))",
+      "source_object_id": "!BPLA!",
+      "trigger_condition": "!BPLA!.properties['state'] == 'standing' and WEATHER.properties['wind_speed'] <= !BPLA!.properties['max_wind_speed']"
+    },
+    {
+      "title": "Маршрут рассчитан, начато движения",
+      "interaction_type": "moving",
+      "response_set_values": "!BPLA!.properties['state'] = 'moving'",
+      "source_object_id": "!BPLA!",
+      "trigger_condition": "!BPLA!.properties['state'] == 'standing' and len(!BPLA!.properties['geo_path']['geometry']['coordinates']) > 0 and WEATHER.properties['wind_speed'] <= !BPLA!.properties['max_wind_speed']"
+    },
+    {
+      "title": "Движение по маршруту",
+      "interaction_type": "moving",
+      "response_action": "!BPLA!.actions.move(item=!BPLA!,  path=!BPLA!.properties['geo_path'],  time_in_seconds=self.second_in_iteration)",
+      "source_object_id": "!BPLA!",
+      "trigger_condition": "len(!BPLA!.properties['geo_path']['geometry']['coordinates']) > 0 and !BPLA!.properties['state'] in ['moving', 'attacking']"
+    },
+    {
+      "title": "Расчет маршрута для зоны разведки",
+      "interaction_type": "moving",
+      "response_set_values": "!BPLA!.properties['geo_path']['geometry']['coordinates'] = Model_00.actions.get_bpla_search_path(input_vector=self.features['!BPLA_ZONE!'].coordinates, roll_angle=!BPLA!.properties['roll_angle'], speed=!BPLA!.properties['speed']); !BPLA!.properties['state'] = 'moving'; !BPLA!.properties['segment_index'] = 0; ",
+      "source_object_id": "!BPLA!",
+      "trigger_condition": "!BPLA!.properties['state'] == 'finished'"
+    },
+    {
+      "title": "",
+      "interaction_type": "detect_enemy",
+      "response_set_values": "!BPLA!.properties['target'] = ''",
+      "source_object_id": "!BPLA!",
+      "trigger_condition": "!BPLA!.properties['target'] != ''"
+    },
+    {
+      "title": "Противник обнаружен",
+      "interaction_type": "detect_enemy",
+      "response_set_values": "!BPLA!.properties['target'] = !BPLA!.actions.target_in_zone_oes(objects=self.objects, bpla=!BPLA!, sensor_width_px=!BPLA!.properties['oes_res_width'], sensor_height_px=!BPLA!.properties['oes_res_height'], f_mm=!BPLA!.properties['oes_fov'], bearing=!BPLA!.properties['course']) ",
+      "source_object_id": "!BPLA!",
+      "trigger_condition": "!BPLA!.actions.target_in_zone_oes(objects=self.objects, bpla=!BPLA!, sensor_width_px=!BPLA!.properties['oes_res_width'], sensor_height_px=!BPLA!.properties['oes_res_height'], f_mm=!BPLA!.properties['oes_fov'], bearing=!BPLA!.properties['course']) != '' "
+    },
+    {
+      "title": "Канал связи установлен",
+      "interaction_type": "detect_enemy",
+      "response_set_values": "CommunicationModel.properties['connection_list'] = CommunicationModel.actions.get_line_list() ",
+      "source_object_id": "!BPLA!",
+      "trigger_condition": "CommunicationModel.actions.update_link_status(id_t=!BPLA!, id_r=!SHIP!, rain_intensive=WEATHER.properties['rain_intensive'],watt_t=!BPLA!.properties['watt_t'],gt_lin=!BPLA!.properties['gt_lin'],gr_lin=!SHIP!.properties['gr_lin'],freq_khz=!BPLA!.properties['freq_khz'],bandwidth_khz=!SHIP!.properties['bandwidth_khz'],noise_figure_db=!SHIP!.properties['noise_figure_db'],dt_model_s=self.second_in_iteration,dt_message_s=0.014) == True"
+    },
+    {
+      "title": "Отправка сообщения - противник обнаружен",
+      "interaction_type": "detect_enemy",
+      "response_action": "CommunicationModel.actions.send_message(sender_id=!BPLA!.id, receiver_id=!SHIP!.id, data=!BPLA!.properties['target'], current_time=self.iteration_time)",
+      "source_object_id": "!BPLA!",
+      "trigger_condition": "!BPLA!.properties['target'] != '' and CommunicationModel.actions.update_link_status(id_t=!BPLA!, id_r=!SHIP!, rain_intensive=WEATHER.properties['rain_intensive'],watt_t=!BPLA!.properties['watt_t'],gt_lin=!BPLA!.properties['gt_lin'],gr_lin=!SHIP!.properties['gr_lin'],freq_khz=!BPLA!.properties['freq_khz'],bandwidth_khz=!SHIP!.properties['bandwidth_khz'],noise_figure_db=!SHIP!.properties['noise_figure_db'],dt_model_s=self.second_in_iteration,dt_message_s=0.014) == True "
+    },
+    {
+      "id": "отрисовка линии связи",
+      "interaction_type": "detect_enemy",
+      "response_action": "CommunicationModel.actions.draw_line(sender=!BPLA!, receiver=!SHIP!, feature_type='LINK_LINE', features=self.features, link_status=CommunicationModel.actions.link_status(sender_id=!BPLA!.id, receiver_id=!SHIP!.id))",
+      "response_set_values": "",
+      "source_object_id": "!BPLA!",
+      "trigger_condition": "True == True "
+    }
+  ]
+}

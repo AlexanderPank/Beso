@@ -1,0 +1,8 @@
+{
+  "title": "Без модели поведения",
+  "type_object": "*",
+  "object_list": [
+    {"name": "OBJECT", "description": "Идентификатор объекта"}
+  ],
+  "interaction_list": []
+}

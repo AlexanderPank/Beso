@@ -1,0 +1,17 @@
+{
+  "title": "Проверка уничтожения камикадзе/цели",
+  "object_list": [
+    {"name": "ATTACKER", "description": "Идентификатор объекта камикадзе "},
+    {"name": "TARGET", "description": "Идентификатор цели"}
+  ],
+  "interaction_list": [
+    {
+      "title": "Проверка уничтожения камикадзе/цели",
+      "source_object_id": "!ATTACKER!",
+      "interaction_type": "check_destroyed",
+      "trigger_condition": "!ATTACKER!.properties['state'] == 'attacking'",
+      "response_set_values": "",
+      "response_action": "!ATTACKER!.actions.check_destroyed(attacker=!ATTACKER!, target=!TARGET!, min_distance=10, probability=0.65)"
+    }
+  ]
+}

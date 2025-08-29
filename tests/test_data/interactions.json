@@ -1,0 +1,7 @@
+{
+  "source_object_id": "Model_00",
+  "interaction_type": "detection",
+  "trigger_condition": "Model_00.actions.all_objects_in_position(objects=self.objects)",
+  "response_set_values" : "A_00.properties['hull_damage'] = A_00.properties['hull_damage']  + PKR_01.properties['damage']",
+  "response_action" : "Model_00.actions.launch_all_rocket(objects=self.objects, destination=A_00, create_object_func=self.create_object)"
+}

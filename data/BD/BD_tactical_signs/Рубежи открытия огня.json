@@ -1,0 +1,27 @@
+{
+  "class_code": "111025000325",
+  "color": "base",
+  "coordinates": [],
+  "description": "Наносится 2-мя точками. Двойной клик для завершения нанесения.",
+  "geometry_type": 4,
+  "group": "Надводные корабли",
+  "icon": "tactical_signs/white_opening_fire.png",
+  "id": "AK_ZONE",
+  "is_own": 1,
+  "line_width": 0.5,
+  "parent_object_id": "",
+  "properties": [
+    {
+      "name": "radius",
+      "title": "радиус",
+      "type": "int",
+      "value": 2000
+    }
+  ],
+  "scale": 100,
+  "scheme": "tactical_signs/white_opening_fire.png",
+  "short_name": "Руб. откр. огня",
+  "spline": true,
+  "title": "Рубеж открытия огня",
+  "type": "AK_ZONE"
+}

@@ -1,0 +1,19 @@
+{
+        "id":"RESTRICTED_AREA",
+        "title": "Запрещенный район",
+        "description": "Наносится несколькими точками.",
+        "type": "RESTRICTED_AREA",
+        "parent_object_id": "no",
+        "is_own": 3,
+        "class_code": "131405000123",
+        "line_width": 0.5,
+        "scale": 100,
+        "spline": false,
+        "color": "black",
+        "coordinates": [],
+        "geometry_type": 3,
+        "icon": ":/icons/images/tacticals/restricted_area.png",
+        "scheme": ":/icons/images/tacticals/restricted_area_scheme.png",
+        "short_name": "Зап. р-н",
+        "group": "*"
+}

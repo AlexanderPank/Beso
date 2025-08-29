@@ -1,0 +1,1 @@
+{"description":"Проверка наличия связи между двумя объектами","function":"CommunicationModel.link_status","id":"ald_id_link_status","input_parameters":[{"sender_id":"str","title":""},{"receiver_id":"str","title":""}],"output_parameters":[{"is_active":"bool","title":"наличие связи"}],"output_splitter":" ","subType":"Связь","title":"Проверка наличия связи","type":"inner"}

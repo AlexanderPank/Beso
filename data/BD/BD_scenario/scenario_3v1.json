@@ -1,0 +1,520 @@
+{
+    "scenario_id": "scenario_multi_v03",
+    "objects": [
+        {
+            "id": "A_00",
+            "title": "Корабль",
+            "properties": {
+                "lat": 43.07498694323934, "lon": 39.088308439207765, "alt": 0,
+                "course": 10.40,
+                "speed": 9.6,
+                "hull_damage": 0,
+                "image": "ship-blue.png",
+                "state": "moving"
+            },
+            "actions": [
+                {
+                    "name": "движение",
+                    "type": "move",
+                    "algorithm_id": "alg_id_9",
+                    "output_mapping": {
+                        "lat": "new_lat",
+                        "lon": "new_lon",
+                        "course": "new_course"
+                    }
+                },
+                {
+                    "name": "обнаружение",
+                    "type": "detection",
+                    "algorithm_id": "alg_id_1",
+                    "output_mapping": {}
+                }
+            ]
+        },
+
+        {
+            "id": "B_01",
+            "title": "БЭК 1",
+            "properties": {
+                "lat": 43.70455659984211,"lon": 39.54307426549977,  "alt": 0,
+                "course": 246.8,
+                "speed": 30.0,
+                "distance_of_defeat": 7408,
+                "detection_distance": 20000,
+                "rocket_count": 2,
+                "image": "бэк-red.png",
+                "state": "waiting"
+            },
+            "actions": [
+                {
+                    "name": "движение",
+                    "type": "move",
+                    "algorithm_id": "alg_id_0",
+                    "output_mapping": {
+                        "lat": "new_lat",
+                        "lon": "new_lon"
+                    }
+                },
+                {
+                    "name": "обнаружение",
+                    "type": "detection",
+                    "algorithm_id": "alg_id_2",
+                    "output_mapping": {}
+                },
+                {
+                    "name": "маневрирование",
+                    "type": "maneuver",
+                    "algorithm_id": "alg_id_3",
+                    "output_mapping": {
+                        "course": "new_course"
+                    }
+                },
+                {
+                    "name": "пуск ракеты",
+                    "type": "launch",
+                    "algorithm_id": "alg_id_12",
+                    "output_mapping": {
+                    }
+                }
+            ]
+        },
+
+        {
+            "id": "B_02",
+            "title": "БЭК 2",
+            "properties": {
+                "lat": 43.754928927949805, "lon": 39.48611688539822, "alt": 0,
+                "course": 246.8,
+                "speed": 30.0,
+                "distance_of_defeat": 7408,
+                "detection_distance": 20000,
+                "rocket_count": 2,
+                "image": "бэк-red.png",
+                "state": "waiting"
+            },
+            "actions": [
+                {
+                    "name": "движение",
+                    "type": "move",
+                    "algorithm_id": "alg_id_0",
+                    "output_mapping": {
+                        "lat": "new_lat",
+                        "lon": "new_lon"
+                    }
+                },
+                {
+                    "name": "обнаружение",
+                    "type": "detection",
+                    "algorithm_id": "alg_id_2",
+                    "output_mapping": {}
+                },
+                {
+                    "name": "маневрирование",
+                    "type": "maneuver",
+                    "algorithm_id": "alg_id_3",
+                    "output_mapping": {
+                        "course": "new_course"
+                    }
+                },
+                {
+                    "name": "пуск ракеты",
+                    "type": "launch",
+                    "algorithm_id": "alg_id_12",
+                    "output_mapping": {
+                    }
+                }
+            ]
+        },
+
+        {
+            "id": "B_03",
+            "title": "БЭК 3",
+            "properties": {
+                "lat": 43.72626694370308, "lon": 39.480166114342126, "alt": 0,
+                "course": 246.8,
+                "speed": 30.0,
+                "distance_of_defeat": 7408,
+                "detection_distance": 20000,
+                "rocket_count": 2,
+                "image": "бэк-red.png",
+                "state": "waiting"
+            },
+            "actions": [
+                {
+                    "name": "движение",
+                    "type": "move",
+                    "algorithm_id": "alg_id_0",
+                    "output_mapping": {
+                        "lat": "new_lat",
+                        "lon": "new_lon"
+                    }
+                },
+                {
+                    "name": "обнаружение",
+                    "type": "detection",
+                    "algorithm_id": "alg_id_2",
+                    "output_mapping": {}
+                },
+                {
+                    "name": "маневрирование",
+                    "type": "maneuver",
+                    "algorithm_id": "alg_id_3",
+                    "output_mapping": {
+                        "course": "new_course"
+                    }
+                },
+                {
+                    "name": "пуск ракеты",
+                    "type": "launch",
+                    "algorithm_id": "alg_id_12",
+                    "output_mapping": {
+                    }
+                }
+            ]
+        },
+
+        {
+            "id": "Model_00",
+            "title": "свойства и методы доступные из самой модели модели",
+            "properties": {
+                "current_iteration": 0,
+                "elapsed_time_in_sec": 0,
+                "time_per_sec": 1
+            },
+            "actions": [
+                {
+                    "name": "дистанция между объектами",
+                    "type": "distance",
+                    "algorithm_id": "alg_id_7",
+                    "output_mapping": {}
+                },
+                {
+                    "name": "определение объекта в зоне обнаружения",
+                    "type": "in_zone",
+                    "algorithm_id": "alg_id_19",
+                    "output_mapping": {}
+                },
+                {
+                    "name": "Расчет рубежа атаки",
+                    "type": "create_line_of_attack",
+                    "algorithm_id": "alg_id_21",
+                    "output_mapping": {}
+                },
+                {
+                    "name": "Проверка что все объекты на рубеже поражения",
+                    "type": "all_objects_in_position",
+                    "algorithm_id": "alg_id_22",
+                    "output_mapping": {}
+                },
+                {
+                    "name": "Запуск всех ракет по цели",
+                    "type": "launch_all_rocket",
+                    "algorithm_id": "alg_id_23",
+                    "output_mapping": {}
+                },
+                {
+                    "name": "Алгоритм определения что хоть один бэк видит цель",
+                    "type": "any_bak_detection_ship",
+                    "algorithm_id": "alg_id_24",
+                    "output_mapping": {}
+                }
+            ]
+        }
+
+    ],
+    "classes": [
+        {
+            "id": "PKR_01",
+            "title": "ПКР",
+            "properties": {
+                "lat": 43.82, "lon": 37.9, "alt": 0,
+                "course": 66.8,
+                "speed": 60.0,
+                "damage": 0.17,
+                "detection_distance": 2000000,
+                "image": "pkr-red.png",
+                "state": "moving"
+            },
+            "actions": [
+                {
+                    "name": "движение",
+                    "type": "move",
+                    "algorithm_id": "alg_id_0",
+                    "output_mapping": {
+                        "lat": "new_lat",
+                        "lon": "new_lon"
+                    }
+                },
+                {
+                    "name": "обнаружение",
+                    "type": "detection",
+                    "algorithm_id": "alg_id_2",
+                    "output_mapping": {}
+                },
+                {
+                    "name": "маневрирование",
+                    "type": "maneuver",
+                    "algorithm_id": "alg_id_3",
+                    "output_mapping": {
+                        "course": "new_course"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "LN_01",
+            "title": "Рубеж атаки (для отображения на карте)",
+            "properties": {
+                "lat": 43.82, "lon": 37.9, "alt": 0,
+                "course": 66.8,
+                "speed": 0.0,
+                "image": "line-of-attack.png",
+                "state": "standing"
+            },
+            "actions": []
+        }
+    ],
+    "interactions": [
+        {
+            "source_object_id": "Model_00",
+            "interaction_type": "in_zone",
+            "trigger_condition": "Model_00.actions.in_zone(item=A_00, zone=self.FILES['GEO_JSON']['features'][1]) == True and self.objects.get('LN_01') == None",
+            "response_action": "Model_00.actions.create_line_of_attack(objects=self.objects, create_object_func=self.create_object)"
+        },
+
+        {
+            "source_object_id": "Model_00",
+            "interaction_type": "detection",
+            "trigger_condition": "Model_00.actions.any_bak_detection_ship(objects=self.objects, target=A_00) == True",
+            "response_action": "Model_00.actions.create_line_of_attack(objects=self.objects, create_object_func=self.create_object)"
+        },
+
+        {
+            "source_object_id": "A_00",
+            "interaction_type": "moving",
+            "trigger_condition": "A_00.properties['state'] =='moving'",
+            "response_action": "A_00.actions.move(item=A_00, path=self.FILES['GEO_JSON']['features'][0], time_in_seconds=self.second_in_iteration)"
+        },
+
+        {
+            "source_object_id": "B_01",
+            "interaction_type": "moving",
+            "trigger_condition": "B_01.properties['state'] =='moving'",
+            "response_action": "B_01.actions.move(item=B_01, time_in_seconds=self.second_in_iteration) and B_01.actions.move(item=B_01, time_in_seconds=self.second_in_iteration)"
+        },
+        {
+            "source_object_id": "B_02",
+            "interaction_type": "moving",
+            "trigger_condition": "B_02.properties['state'] =='moving'",
+            "response_action": "B_02.actions.move(item=B_02, time_in_seconds=self.second_in_iteration)"
+        },
+        {
+            "source_object_id": "B_03",
+            "interaction_type": "moving",
+            "trigger_condition": "B_03.properties['state'] =='moving'",
+            "response_action": "B_03.actions.move(item=B_03, time_in_seconds=self.second_in_iteration)"
+        },
+
+        {
+            "source_object_id": "PKR_01",
+            "interaction_type": "detection",
+            "trigger_condition": "PKR_01.actions.detection(object_1=PKR_01, object_2=A_00, detection_range=PKR_01.properties['detection_distance'])",
+            "response_action":   "PKR_01.actions.maneuver(object_1=PKR_01, object_2=A_00)"
+        },
+        {
+            "source_object_id": "PKR_01",
+            "interaction_type": "distance",
+            "trigger_condition": "Model_00.actions.distance(item1=PKR_01,item2=A_00) < 100",
+            "response_set_values" : "A_00.properties['hull_damage'] = A_00.properties['hull_damage']  + PKR_01.properties['damage']",
+            "response_action":   "self.remove_object(PKR_01)"
+        },
+        {
+            "source_object_id": "PKR_01",
+            "interaction_type": "move",
+            "trigger_condition": "PKR_01.properties['state'] == 'moving'",
+            "response_action":   "PKR_01.actions.move(item=PKR_01,  time_in_seconds=self.second_in_iteration)"
+        },
+
+        {
+            "source_object_id": "Model_00",
+            "interaction_type": "detection",
+            "trigger_condition": "Model_00.actions.all_objects_in_position(objects=self.objects)",
+            "response_action" : "Model_00.actions.launch_all_rocket(objects=self.objects, destination=A_00, create_object_func=self.create_object)"
+        }
+    ],
+    "algorithms" : [
+        {
+            "id":"alg_id_0",
+            "title": "Алгоритм движения объекта",
+            "description": "Простой встроенный алгоритм в модель движения объекта из точки 1 в точку 2 используя координаты курс и скорость",
+            "type": "inner",
+            "function": "ModelTasks.move_object",
+            "input_parameters": {},
+            "output_parameters": {
+                "new_lat": "float",
+                "new_lon": "float"
+            }
+        },
+		{
+            "id":"alg_id_9",
+            "title": "Алгоритм движения объекта по заданному маршруту",
+            "description": "Простой алгоритм движения объекта по заданному маршруту",
+            "type": "inner",
+            "function": "ModelTasks.move_object_by_path",
+            "input_parameters": {},
+            "output_parameters": {
+                "new_lat": "float",
+                "new_lon": "float",
+                "new_course": "float"
+            }
+        },
+        {
+            "id":"alg_id_7",
+            "title": "Алгоритм определения дистанции между  объектами в двумерном пространстве",
+            "description": "Простой встроенный алгоритм определения дистанции между 2-мя объектами в двумерном пространстве",
+            "type": "inner",
+            "function": "ModelTasks.distance",
+            "input_parameters": {},
+            "output_parameters": {
+                "distance": "float"
+            }
+        },
+        {
+            "id":"alg_id_1",
+            "title": "Алгоритм обнаружения ПКР",
+            "description": "Используется передаваемый файл pkr_object.py",
+            "type": "python_file",
+            "function": "pkr_object.pkr_detect",
+            "input_parameters": {},
+            "output_parameters": {
+                "is_find": "bool"
+            }
+        },
+        {
+            "id":"alg_id_2",
+            "title": "Алгоритм обнаружения корабля",
+            "description": "Используется передаваемый файл pkr_object.py",
+            "type": "python_file",
+            "function": "pkr_object.pkr_detect",
+            "input_parameters": {},
+            "output_parameters": {
+                "is_find": "bool"
+            }
+        },
+        {
+            "id":"alg_id_3",
+            "title": "Алгоритм маневрирования ПКР",
+            "description": "Используется передаваемый файл pkr_object.py",
+            "type": "python_file",
+            "function": "pkr_object.pkr_maneuver",
+            "input_parameters": {},
+            "output_parameters": {
+                "new_course": "float"
+            }
+        },
+        {
+            "id":"alg_id_4",
+            "title": "Алгоритм обнаружения ПКР ЗУРом",
+            "description": "Используется передаваемый файл zur_object",
+            "type": "binary_file",
+            "function": "zur_exe_source.exe --type detect",
+            "input_parameters": {},
+            "output_parameters": {
+                "is_find": "bool"
+            }
+        },
+        {
+            "id":"alg_id_5",
+            "title": "Алгоритм маневрирования ЗУР",
+            "description": "Используется передаваемый файл zur_object",
+            "type": "binary_file",
+            "function": "zur_exe_source.exe --type maneuver",
+            "input_parameters": {},
+            "output_parameters": {
+                "new_course": "float"
+            }
+        },
+        {
+            "id":"alg_id_12",
+            "title": "Алгоритм пуска ракеты БЭКом",
+            "description": "используется внутренний алгоритм",
+            "type": "inner",
+            "function": "ModelTasks.rocket_launch",
+            "input_parameters": {},
+            "output_parameters": {}
+        },
+        {
+            "id":"alg_id_19",
+            "title": "Алгоритм определения нахождения объекта в зоне",
+            "description": "используется внутренний алгоритм",
+            "type": "inner",
+            "function": "ModelTasks.object_in_zone",
+            "input_parameters": {},
+            "output_parameters": {
+            }
+        },
+        {
+            "id":"alg_id_21",
+            "title": "Алгоритм расчета рубежа атаки, задания начальных координат, курса и пуска БЭК",
+            "description": "используется внутренний алгоритм",
+            "type": "inner",
+            "function": "ModelTasks.create_line_of_attack",
+            "input_parameters": {},
+            "output_parameters": {
+            }
+        },
+        {
+            "id":"alg_id_22",
+            "title": "Алгоритм проверки что все БЭКи вышли на рубеж атаки",
+            "description": "используется внутренний алгоритм",
+            "type": "inner",
+            "function": "ModelTasks.all_objects_in_position",
+            "input_parameters": {},
+            "output_parameters": {
+            }
+        },
+        {
+            "id":"alg_id_23",
+            "title": "Алгоритм запуска ракет по цели",
+            "description": "используется внутренний алгоритм",
+            "type": "inner",
+            "function": "ModelTasks.launch_all_rocket",
+            "input_parameters": {},
+            "output_parameters": { }
+        },
+        {
+            "id":"alg_id_24",
+            "title": "Алгоритм определения что хоть один БЭК видит цель",
+            "description": "используется внутренний алгоритм",
+            "type": "inner",
+            "function": "ModelTasks.any_bak_detection_ship",
+            "input_parameters": {},
+            "output_parameters": { }
+        }
+    ],
+    "files": [
+        {
+            "id": "DETECT_PKR",
+            "file_name": "detect_pkr.py",
+			"type":"python",
+            "md5_hash": "698d51a19d8a121ce581499d7b701668"
+        },
+        {
+            "id": "ZUR_OBJECT",
+            "file_name": "zur_object.exe",
+			"type":"binary",
+            "md5_hash": "8ef0418d58070161131ed4960391e169"
+        },
+        {
+            "id": "GEO_JSON",
+            "file_name": "ship.route.json",
+			"type":"geojson",
+            "md5_hash": "8ef0418d58070161131ed4960391e170"
+        }
+    ],
+    "simulation_parameters": {
+        "time_step": 1,
+        "end_condition": "A_00.properties['hull_damage'] > 0.8",
+        "max_iterations": 100000
+    }
+}

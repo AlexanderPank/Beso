@@ -1,0 +1,31 @@
+{
+  "id": "RABBIT_00",
+  "title": "Корабль",
+  "properties":[
+    {"name": "class_code", "value":"131472600009", "type": "str"},
+    {"name": "is_own", "value":0, "type": "bool"},
+    {"name": "lat", "value":43.41686, "type": "double"},
+    {"name": "lon", "value":39.47805, "type": "double"},
+    {"name": "alt", "value":0, "type": "double"},
+    {"name": "course", "value":10, "type": "double"},
+    {"name": "speed", "value":9.6, "type": "double"},
+    {"name": "state", "value":"moving", "type": "str"},
+    {"name": "segment_index", "value":0, "type": "int"},
+    {"name": "geo_path",  "type": "feature", "value": {"type": "Feature","properties": {"id": "RABBIT_00_path", "class_code": "131405000210000000"}, "geometry": {"coordinates": [  [ 43.41699, 39.47942 ], [ 43.42927881464768, 39.50769442251476 ], [ 43.45037639091632, 39.47733008303743 ], [ 43.46472913242675, 39.52209007992888 ], [ 43.44125915666543, 39.59646694701849 ], [ 43.53046765068351, 39.63733607804841 ]],"type": "LineString"}} }
+  ]
+,
+  "actions": [
+    {
+      "name": "движение",
+      "type": "move",
+      "algorithm_id": "alg_id_9",
+      "output_mapping":
+      [
+        {"lat": "new_lat"},
+        {"lon": "new_lon"},
+        {"course": "new_course"},
+        {"segment_index": "new_segment_index"}
+      ]
+    }
+  ]
+}

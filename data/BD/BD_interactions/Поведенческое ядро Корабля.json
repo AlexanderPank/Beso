@@ -1,0 +1,69 @@
+{
+  "title": "Модель поведения Корабля",
+  "type_object": "Надводные корабли:*",
+  "object_list": [
+    {"name": "SHIP", "description": "Идентификатор Корабля"},
+    {"name": "CIRCLE_4", "description": "Зона разведки БПЛА (15км)"},
+    {"name": "CIRCLE_5", "description": "Зона полета БПЛА камикадзе (10км)"},
+    {"name": "CIRCLE_6", "description": "РЛС т. «Фуркэ» зона обнаружения (5км)"},
+    {"name": "CIRCLE_7", "description": "Зона поражения АУ АК-190 (2км)"}
+  ],
+  "interaction_list": [
+
+    {
+      "title": "Движение по маршруту",
+      "source_object_id": "!SHIP!",
+      "interaction_type": "moving",
+      "trigger_condition": "len(!SHIP!.properties['geo_path']['geometry']['coordinates']) > 0 and !SHIP!.properties['state'] in ['moving', 'attacking']",
+      "response_action": "!SHIP!.actions.move(item=!SHIP!,  path=!SHIP!.properties['geo_path'],  time_in_seconds=self.second_in_iteration)"
+    },
+    {
+      "interaction_type": "moving",
+      "response_action": "",
+      "response_set_values": "self.features['!CIRCLE_4!'].coordinates[0] = [!SHIP!.properties['lat'],  !SHIP!.properties['lon']]; self.features['!CIRCLE_5!'].coordinates[0] = [!SHIP!.properties['lat'],  !SHIP!.properties['lon']]; self.features['!CIRCLE_6!'].coordinates[0] = [!SHIP!.properties['lat'],  !SHIP!.properties['lon']]; self.features['!CIRCLE_7!'].coordinates[0] = [!SHIP!.properties['lat'],  !SHIP!.properties['lon']]",
+      "source_object_id": "!SHIP!",
+      "title": "пересчет зон обнаружения/поражения",
+      "trigger_condition": "!SHIP!.properties['state'] == 'moving'"
+    },
+    {
+      "interaction_type": "detect_enemy",
+      "response_action": "",
+      "response_set_values": "!SHIP!.properties['target'] = !SHIP!.actions.detect_enemy(item1=!SHIP!, objects=self.objects, rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], max_distance=!SHIP!.properties['ak_distance']) ",
+      "source_object_id": "!SHIP!",
+      "title": "Захват цели",
+      "trigger_condition": "!SHIP!.properties['target'] == '' and !SHIP!.actions.detect_enemy(item1=!SHIP!, objects=self.objects, rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], max_distance=!SHIP!.properties['ak_distance']) != '' "
+    },
+    {
+      "interaction_type": "ak_attack",
+      "source_object_id": "!SHIP!",
+      "response_action": "",
+      "response_set_values": " !SHIP!.properties['ak_bullet_count'] -= !SHIP!.properties['ak_bullet_per_second'];  ",
+      "title": "Выстрел из АК-190",
+      "trigger_condition": "!SHIP!.properties['target'] != '' and !SHIP!.properties['ak_bullet_count'] > 0  "
+    },
+    {
+      "interaction_type": "ak_attack",
+      "source_object_id": "!SHIP!",
+      "response_action": "Model_00.actions.inc_object_prop(item=!SHIP!.properties['target'], prop='hit_count', objects=self.objects, value=Model_00.properties['tmp_int'])",
+      "response_set_values": "Model_00.properties['tmp_int'] = Model_00.actions.shoot_in_object(shooter=!SHIP!, target=Model_00.actions.get_object_by_id(object_id=!SHIP!.properties['target'], objects=self.objects), spread_horizontal=!SHIP!.properties['ak_spread_horizontal'], spread_vertical=!SHIP!.properties['ak_spread_vertical'], bullet_count=!SHIP!.properties['ak_bullet_per_second'], max_distance=!SHIP!.properties['ak_distance'])",
+      "title": "Оценка эффективности стрельбы АК-190",
+      "trigger_condition": "!SHIP!.properties['target'] != '' and !SHIP!.properties['ak_bullet_count'] >= 0  "
+    },
+    {
+      "interaction_type": "detect_enemy",
+      "response_action": "",
+      "response_set_values": "!SHIP!.properties['target'] = ''",
+      "source_object_id": "!SHIP!",
+      "title": "Цель уничтожена",
+      "trigger_condition": "Model_00.actions.get_object_prop(item=!SHIP!.properties['target'], prop='state', objects=self.objects, type_value='str') in ['destroyed', 'destroyed_bek'] "
+    },
+    {
+      "interaction_type": "evasive_maneuver",
+      "response_action": "",
+      "response_set_values": "!SHIP!.properties['speed'] = !SHIP!.properties['speed_maneuver']",
+      "source_object_id": "!SHIP!",
+      "title": "Маневр уклонения",
+      "trigger_condition": "!SHIP!.actions.evasive_maneuver(item=!SHIP!, objects=self.objects, type_danger=['БЭК'], min_distance=!SHIP!.properties['danger_distance'], rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], time_in_seconds=300, restricted_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\")) "
+    }
+  ]
+}

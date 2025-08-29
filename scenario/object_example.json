@@ -1,0 +1,37 @@
+{
+  "id": "SHIP_01",
+  "title": "Корабль",
+  "properties":[
+    {"name": "class_code", "value": "131472600009", "type": "str", "title":  "класскод знака"},
+    {"name": "is_own", "value": 0, "type": "int", "title":  "признак свой/чужой/нейтрал"},
+    {"name": "lat", "value": 43.41686, "type": "float", "title":  "координаты"},
+    {"name": "lon", "value": 39.47805, "type": "float", "title":  "координаты"},
+    {"name": "alt", "value": 0, "type": "float", "title":  "координаты"},
+    {"name": "course", "value": 10.40, "type": "float", "title":  "курс объекта в градусах"},
+    {"name": "speed", "value": 9.6, "type": "float", "title":  "скорость объекта в/м"},
+    {"name": "hull_damage", "value": 0, "type": "int", "title":  "степень повреждения объекта"},
+    {"name": "state", "value": "standing", "type": "str", "title":  "состояние объекта - стоит/движется"},
+    {"name": "segment_index", "value": 0, "type": "int", "title":  "индекс текущего сегмента на маршруте"},
+    {"name": "geo_path", "type": "feature", "title":  "маршрут движения объекта", "value": {"type": "Feature","properties": {"id": "RABBIT_00_path", "class_code": "131405000210000000"}, "geometry": {"coordinates": [  [ 43.41699, 39.47942, 0 ], [ 43.42927881464768, 39.50769442251476, 0], [ 43.45037639091632, 39.47733008303743, 0 ], [ 43.46472913242675, 39.52209007992888, 0 ], [ 43.44125915666543, 39.59646694701849, 0 ], [ 43.53046765068351, 39.63733607804841, 0 ]],"type": "LineString"}} }
+  ],
+  "actions": [
+    {
+      "algorithm_id": "alg_id_9",
+      "name": "движение",
+      "type": "move",
+      "output_mapping":
+      [
+        {"course": "new_course"},
+        {"lat": "new_lat"},
+        {"lon": "new_lon"},
+        {"segment_index": "new_segment_index"}
+      ]
+    },
+    {
+      "algorithm_id": "alg_smooth_route",
+      "name": "расчет маршрута с учетом циркуляции ",
+      "type": "smooth_route",
+      "output_mapping":[]
+    }
+  ]
+}

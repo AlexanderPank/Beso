@@ -1,0 +1,231 @@
+[
+             {
+                "children": [
+                    {
+                        "children": [
+                        ],
+                        "name": "id",
+                        "text": "B_01"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "title",
+                        "text": "БЭК"
+                    },
+                    {
+                        "children": [
+                            {
+                                "children": [
+                                ],
+                                "name": "course",
+                                "text": "212.351341"
+                            },
+                            {
+                                "children": [
+                                ],
+                                "name": "speed",
+                                "text": "20"
+                            },
+                            {
+                                "children": [
+                                ],
+                                "name": "distance_of_defeat",
+                                "text": "20000"
+                            },
+                            {
+                                "children": [
+                                ],
+                                "name": "state",
+                                "text": "waiting"
+                            },
+                            {
+                                "children": [
+                                ],
+                                "name": "lat",
+                                "text": "43.7253033"
+                            },
+                            {
+                                "children": [
+                                ],
+                                "name": "lon",
+                                "text": "39.4599851"
+                            },
+                            {
+                                "children": [
+                                ],
+                                "name": "alt",
+                                "text": "0"
+                            },
+                            {
+                                "children": [
+                                ],
+                                "name": "image",
+                                "text": "бэк-red.png"
+                            },
+                            {
+                                "children": [
+                                ],
+                                "name": "detection_distance",
+                                "text": "25000"
+                            },
+                            {
+                                "children": [
+                                ],
+                                "name": "rocket_count",
+                                "text": "6"
+                            }
+                        ],
+                        "name": "properties",
+                        "text": ""
+                    },
+                    {
+                        "children": [
+                            {
+                                "children": [
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "type",
+                                        "text": "move"
+                                    },
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "algorithm_id",
+                                        "text": "alg_id_0"
+                                    },
+                                    {
+                                        "children": [
+                                            {
+                                                "children": [
+                                                ],
+                                                "name": "lat",
+                                                "text": "new_lat"
+                                            },
+                                            {
+                                                "children": [
+                                                ],
+                                                "name": "lon",
+                                                "text": "new_lon"
+                                            }
+                                        ],
+                                        "name": "output_mapping",
+                                        "text": ""
+                                    },
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "name",
+                                        "text": "движение"
+                                    }
+                                ],
+                                "name": "1",
+                                "text": "-"
+                            },
+                            {
+                                "children": [
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "type",
+                                        "text": "detection"
+                                    },
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "algorithm_id",
+                                        "text": "alg_id_2"
+                                    },
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "output_mapping",
+                                        "text": "{}"
+                                    },
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "name",
+                                        "text": "обнаружение"
+                                    }
+                                ],
+                                "name": "2",
+                                "text": "-"
+                            },
+                            {
+                                "children": [
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "type",
+                                        "text": "maneuver"
+                                    },
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "algorithm_id",
+                                        "text": "alg_id_3"
+                                    },
+                                    {
+                                        "children": [
+                                            {
+                                                "children": [
+                                                ],
+                                                "name": "course",
+                                                "text": "new_course"
+                                            }
+                                        ],
+                                        "name": "output_mapping",
+                                        "text": ""
+                                    },
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "name",
+                                        "text": "Маневрирование"
+                                    }
+                                ],
+                                "name": "3",
+                                "text": "-"
+                            },
+                            {
+                                "children": [
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "type",
+                                        "text": "launch"
+                                    },
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "algorithm_id",
+                                        "text": "alg_id_12"
+                                    },
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "output_mapping",
+                                        "text": "{}"
+                                    },
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "name",
+                                        "text": "Пуск ПКР"
+                                    }
+                                ],
+                                "name": "4",
+                                "text": "-"
+                            }
+                        ],
+                        "name": "actions",
+                        "text": "+"
+                    }
+                ],
+                "name": "БЭК",
+                "text": "БЭК.json"
+            }
+]
+

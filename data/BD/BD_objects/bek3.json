@@ -1,0 +1,132 @@
+{
+  "actions": [
+    {
+      "algorithm_id": "alg_id_path",
+      "name": "Движения по маршруту",
+      "output_mapping": [ { "course": "new_course" }, { "lat": "new_lat" }, { "lon": "new_lon" }, { "segment_index": "new_segment_index" } , { "state": "new_state" }],
+      "type": "move"
+    },
+    {
+      "algorithm_id": "alg_id_calculate_path",
+      "name": "Расчет маршрута по графу видимости",
+      "output_mapping": [{ "geo_path.geometry.coordinates": "new_geo_path"}],
+      "type": "find_path"
+    },
+    {
+      "algorithm_id": "alg_id_detect_thermal_imager",
+      "name": "Алгоритм обнаружения объектов противника на заданном радиусе",
+      "output_mapping": [],
+      "type": "search"
+    }
+  ],
+  "id": "BEK_VIZIR",
+  "properties": [
+    {
+      "name": "alt",
+      "title": "",
+      "type": "float",
+      "value": 0
+    },
+    {
+      "name": "class_code",
+      "title": "",
+      "type": "str",
+      "value": "10213"
+    },
+    {
+      "name": "course",
+      "title": "",
+      "type": "float",
+      "value": 0
+    },
+    {
+      "name": "detection_distance",
+      "title": "",
+      "type": "int",
+      "value": 20000
+    },
+    {
+      "name": "distance_of_defeat",
+      "title": "",
+      "type": "int",
+      "value": 7408
+    },
+    {
+      "name": "geo_path",
+      "title": "",
+      "type": "feature",
+      "value": {
+        "geometry": {
+          "coordinates": [],
+          "type": "LineString"
+        },
+        "properties": {
+          "class_code": "131405000210000000",
+          "id": "SHIP_01_path"
+        },
+        "type": "Feature"
+      }
+    },
+    {
+      "name": "image",
+      "title": "",
+      "type": "str",
+      "value": "бэк-red.png"
+    },
+    {
+      "name": "is_own",
+      "title": "",
+      "type": "int",
+      "value": 1
+    },
+    {
+      "name": "lat",
+      "title": "",
+      "type": "float",
+      "value": 0
+    },
+    {
+      "name": "lon",
+      "title": "",
+      "type": "float",
+      "value": 0
+    },
+    {
+      "name": "rocket_count",
+      "title": "",
+      "type": "int",
+      "value": 2
+    },
+    {
+      "name": "segment_index",
+      "title": "",
+      "type": "int",
+      "value": 0
+    },
+    {
+      "name": "speed",
+      "title": "",
+      "type": "float",
+      "value": 30
+    },
+    {
+      "name": "state",
+      "title": "",
+      "type": "str",
+      "value": "standing"
+    },
+    {
+      "name": "subType",
+      "title": "",
+      "type": "str",
+      "value": "Разведывательный"
+    },
+    {
+      "name": "type",
+      "title": "",
+      "type": "str",
+      "value": "БЭК"
+    }
+  ],
+  "title": "БЭК «Визир»"
+}

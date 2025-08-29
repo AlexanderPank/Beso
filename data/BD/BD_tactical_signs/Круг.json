@@ -1,0 +1,20 @@
+{
+  "class_code": "31261500011300000001",
+  "color": "red",
+  "coordinates": [],
+  "description": "Наносится 2-мя точками. Двойной клик для завершения нанесения.",
+  "geometry_type": 4,
+  "group": "*",
+  "icon": ":/icons/images/tacticals/circle.png",
+  "id": "CIRCLE",
+  "is_own": 2,
+  "line_width": 0.6,
+  "parent_object_id": "no",
+  "properties": [],
+  "scale": 100,
+  "scheme": ":/icons/images/tacticals/circle_scheme.png",
+  "short_name": "Круг",
+  "spline": false,
+  "title": "Круг - графический примитив",
+  "type": "CIRCLE"
+}

@@ -1,0 +1,25 @@
+{
+  "description": "Простой алгоритм движения объекта по заданному маршруту",
+  "function": "ModelTasks.move_object_by_path",
+  "id": "alg_id_path",
+  "input_parameters": [],
+  "output_parameters": [
+    {
+      "new_course": "float"
+    },
+    {
+      "new_lat": "float"
+    },
+    {
+      "new_lon": "float"
+    },
+    {
+      "new_segment_index": "int"
+    },
+    { "new_state": "str" }
+  ],
+  "output_splitter": " ",
+  "subType": "Движение",
+  "title": "Движения по маршруту",
+  "type": "inner"
+}

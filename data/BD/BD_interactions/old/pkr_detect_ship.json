@@ -1,0 +1,32 @@
+[
+    {
+        "children": [
+            {
+                    "children": [
+                        ],
+                        "name": "source_object_id",
+                        "text": "B_00"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "interaction_type",
+                        "text": "detection"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "trigger_condition",
+                        "text": "B_00.actions.detection(object_1=B_00, object_2=A_00, detection_range=21000.0) == True "
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "response_action",
+                        "text": "B_00.actions.maneuver(object_1=B_00, object_2=A_00)"
+                    }
+                ],
+                "name": "Обнаружение БЭК ГСН ПКР",
+                "text": "pkr_detect_ship.json"
+            }
+]

@@ -1,0 +1,62 @@
+[
+    {
+        "children": [
+            {
+                        "children": [
+                        ],
+                        "name": "id",
+                        "text": "alg_id_0"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "title",
+                        "text": "Алгоритм движения объекта"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "description",
+                        "text": "Простой встроенный алгоритм в модель движения объекта из точки 1 в точку 2 используя координаты курс и скорость"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "type",
+                        "text": "inner"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "function",
+                        "text": "ModelTasks.move_object"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "input_parameters",
+                        "text": ""
+                    },
+                    {
+                        "children": [
+                            {
+                                "children": [
+                                ],
+                                "name": "new_lat",
+                                "text": "float"
+                            },
+                            {
+                                "children": [
+                                ],
+                                "name": "new_lon",
+                                "text": "float"
+                            }
+                        ],
+                        "name": "output_parameters",
+                        "text": ""
+                    }
+                ],
+                "name": "Движения объекта",
+                "text": "moving_object.json"
+            }
+ ]

@@ -1,0 +1,1 @@
+{"description":"Использует с++ функцию из либины","function":"LIBCPP06.calcObjectDistributionJSON","id":"alg_id_targeting_cpp","input_parameters":[],"output_parameters":[{"list":"int"},{"length":"int"}],"output_splitter":" ","subType":"","title":"Алгоритм целераспределения","type":"libcpp"}

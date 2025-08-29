@@ -1,0 +1,38 @@
+[
+    {
+        "children": [
+            {
+                        "children": [
+                        ],
+                        "name": "source_object_id",
+                        "text": "A_00"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "interaction_type",
+                        "text": "detection"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "trigger_condition",
+                        "text": "A_00.actions.detection(object_1=B_00, object_2=A_00, detection_range=23000.0) == True and C_00.properties['state'] != 'moving'"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "response_set_values",
+                        "text": "C_00.properties['lat'] = A_00.properties['lat']; C_00.properties['lon'] = A_00.properties['lon']; C_00.properties['state'] = 'moving'"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "response_action",
+                        "text": ""
+                    }
+                ],
+                "name": "Обнаружение ПРК средствами БЭК",
+                "text": "ship_detect_pkr.json"
+            }
+]

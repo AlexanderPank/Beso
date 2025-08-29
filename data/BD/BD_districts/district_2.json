@@ -1,0 +1,25 @@
+{
+    "algorithms": [
+    ],
+    "classes": [
+    ],
+    "features": [
+    ],
+    "files": [
+    ],
+    "interactions": [
+    ],
+    "objects": [
+    ],
+    "title": "Район №2 - Сочи тактическая карта",
+    "id": "district_2",
+    "scenario_id": "",
+    "map_path": "maps/Sochi2/K3704.map",
+    "simulation_parameters": {
+        "end_condition": "0 == -1",
+        "map_center": "43.60444, 39.55487",
+        "map_zoom": 6,
+        "max_iterations": 100000,
+        "time_step": 1
+    }
+}

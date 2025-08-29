@@ -1,0 +1,14 @@
+{
+    "title": "Движение дочернего объекта на объекте носителе (БПЛА на корабле)",
+    "count_objects": 1,
+    "object_list": [
+        {"name": "PARENT", "description": "Объект носитель (на котором дочерние объекты)"},
+        {"name": "CHILD", "description": "Дочерний объект который будет двигаться вместе  с объектом PARENT"}
+    ],
+	"description": "движение объекта !PARENT!",
+    "interaction_type": "moving",
+    "response_action": "",
+    "response_set_values": "!CHILD!.properties['lat'] = !PARENT!.properties['lat']; !CHILD!.properties['lon'] = !PARENT!.properties['lon']",
+    "source_object_id": "!CHILD!",
+    "trigger_condition": "!PARENT!.properties['state'] == 'moving' and !CHILD!.properties['state'] == 'standing'"
+}

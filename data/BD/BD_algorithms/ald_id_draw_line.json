@@ -1,0 +1,32 @@
+{
+  "description": "Функция отображает мигающую линию связи",
+  "function": "CommunicationModel.draw_line",
+  "id": "ald_id_draw_line",
+  "input_parameters": [
+    {
+      "sender": "any",
+      "title": "объект, инициатор связи"
+    },
+    {
+      "receiver": "any",
+      "title": "объект, приемник"
+    },
+    {
+      "feature_type": "str",
+      "title": "тип линии связи из БД СиСР"
+    },
+    {
+      "features": "list",
+      "title": "общий список тактических знаков"
+    },
+    {
+      "link_status": "bool",
+      "title": "Состояние связи"
+    }
+  ],
+  "output_parameters": [],
+  "output_splitter": " ",
+  "subType": "Связь",
+  "title": "Отображение линии связи",
+  "type": "inner"
+}

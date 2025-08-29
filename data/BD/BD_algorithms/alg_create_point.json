@@ -1,0 +1,1 @@
+{"description":"Простой встроенный алгоритм в модель ","function":"ModelTasks.create_point","id":"alg_create_point","input_parameters":[{"":"int","title":""}],"output_parameters":[{"title":"wert","wert":"int"},{"title":"wedrft","werdftg":"int"},{"":"int","title":""}],"output_splitter":" ","subType":"Позиционирование","title":"Создание точки перехвата","type":"inner"}

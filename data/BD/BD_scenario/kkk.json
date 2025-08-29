@@ -1,0 +1,38 @@
+{
+"Корабль": 
+	{
+	"id":"A_00",
+	"title":"корабль",
+	"properties": 
+		{
+		"course":"90",
+		"speed":"10",
+		"hull_damage":"0",
+		"state":"moving",
+		"lat":"0",
+		"lon":"0",
+		"alt":"0",
+		"image":"ship_blue.png"
+		},
+	"actions:": 
+		[
+			{
+			"type":"move",
+			"algorithm_id":"alg_id_0",
+			"output_mapping": 
+				{
+				"lat":"new_lat",
+				"lon":"new_lon",
+				"course":"new_course"
+				},
+			"name":"движение"
+			},
+			{
+			"type":"detection",
+			"algorithm_id":"alg_id_1",
+			"output_mapping": {},
+			"name":"обнаружение"
+			}
+		 ]
+	 }
+}

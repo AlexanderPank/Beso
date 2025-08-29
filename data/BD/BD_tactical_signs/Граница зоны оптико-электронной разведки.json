@@ -1,0 +1,21 @@
+{
+
+  "class_code": "312615000316",
+  "color": "base",
+  "coordinates": [],
+  "description": "Наносится 2-мя точками.",
+  "geometry_type": 3,
+  "group": "Надводные корабли",
+  "id": "ZONE_OER",
+  "is_own": 1,
+  "line_width": 0.3,
+  "parent_object_id": "",
+  "properties": [],
+  "scale": 100,
+  "icon": "tactical_signs/white_zone_boundary_oer.png",
+  "scheme": "tactical_signs/white_zone_boundary_oer.png",
+  "short_name": "Зона ОЭР",
+  "spline": false,
+  "title": "Граница зоны оптико-электронной разведки",
+  "type": "ZONE_OER"
+}

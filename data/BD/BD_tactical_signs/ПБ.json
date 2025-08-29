@@ -1,0 +1,19 @@
+{
+    "id": "VMB",
+    "title": "Пункт Базирования",
+    "description": "Наносится 2-мя точками.",
+    "type": "VMB",
+    "parent_object_id": "no",
+    "is_own": 1,
+    "class_code": "P0000003634",
+    "line_width": 0.5,
+    "scale": 100,
+    "spline": false,
+    "color": "base",
+    "coordinates": [],
+    "geometry_type": 1,
+    "icon": "tactical_signs/white_basing_point.png",
+    "scheme": "tactical_signs/white_basing_point.png",
+    "short_name": "ПБ",
+    "group": "*"
+}

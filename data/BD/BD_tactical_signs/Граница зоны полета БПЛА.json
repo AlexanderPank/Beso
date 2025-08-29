@@ -1,0 +1,28 @@
+{
+  "group": "БПЛА",
+  "class_code": "C121055000334",
+  "color": "base",
+  "coordinates": [ ],
+  "description": "Наносится 2-мя точками. Двойной клик для завершения нанесения.",
+  "geometry_type": 4,
+  "icon": "tactical_signs/white_surface_target_detection_zones.png",
+  "id": "SURFACE_TARGET_DETECTION_ZONE",
+  "is_own": 2,
+  "line_width": 0.5,
+  "parent_object_id": "",
+  "properties": [
+    {
+      "name": "radius",
+      "title": "Радиус зоны обнаружения надводных целей БПЛА, м",
+      "type": "int",
+      "value": 10000
+    }
+  ],
+
+  "scale": 100,
+  "scheme": "tactical_signs/white_surface_target_detection_zones.png",
+  "short_name": "Зона БПЛА-К",
+  "spline": true,
+  "title": "Граница зоны полета БПЛА камикадзе",
+  "type": "SURFACE_TARGET_DETECTION_ZONE"
+}

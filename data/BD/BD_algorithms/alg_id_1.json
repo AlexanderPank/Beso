@@ -1,0 +1,1 @@
+{"description":"Простой встроенный алгоритм в модель движения объекта из точки 1 в точку 2 используя координаты курс и скорость","function":"LIBCPP01.move_object","id":"alg_id_1","input_parameters":[],"output_parameters":[{"new_lat":"float","title":""},{"new_lon":"float","title":""}],"output_splitter":" ","subType":"тестовые","title":"Движение по прямой","type":"libcpp"}

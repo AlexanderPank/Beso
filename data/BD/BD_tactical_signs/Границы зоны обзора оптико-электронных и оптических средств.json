@@ -1,0 +1,21 @@
+{
+
+  "class_code": "222215005301",
+  "color": "16755200",
+  "coordinates": [],
+  "description": "Наносится 4-мя точками.",
+  "geometry_type": 3,
+  "group": "БПЛА",
+  "id": "ZONE_OES",
+  "is_own": 1,
+  "line_width": 0.3,
+  "parent_object_id": "",
+  "properties": [],
+  "scale": 100,
+  "icon": "tactical_signs/white_zone_boundary_oes.png",
+  "scheme": "tactical_signs/white_zone_boundary_oes.png",
+  "short_name": "Зона ОЭC",
+  "spline": false,
+  "title": "Границы зоны обзора оптико-электронных и оптических средств",
+  "type": "ZONE_OES"
+}

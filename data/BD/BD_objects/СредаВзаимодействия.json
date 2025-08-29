@@ -1,0 +1,151 @@
+{
+  "actions": [
+    {
+      "algorithm_id": "alg_id_filter",
+      "name": "Алгоритм фильтра по типу объектов",
+      "output_mapping": [],
+      "type": "filter_by_type"
+    },
+    {
+      "algorithm_id": "alg_id_fox_rabbit",
+      "name": "Алгоритма расчета точки встречи",
+      "output_mapping": [
+        {
+          "alt": "_alt",
+          "title": ""
+        },
+        {
+          "is_caught": "_is_caught",
+          "title": ""
+        },
+        {
+          "lat": "_lat",
+          "title": ""
+        },
+        {
+          "lon": "_lon",
+          "title": ""
+        }
+      ],
+      "type": "fox_rabbit"
+    },
+    {
+      "algorithm_id": "alg_id_object_in_rog",
+      "name": "Находится  ли объект в РОЖ",
+      "output_mapping": [],
+      "type": "object_in_rog"
+    },
+    {
+      "algorithm_id": "alg_id_get_waiting_time",
+      "name": "Получение времени ожидания в РОЖ",
+      "output_mapping": [],
+      "type": "get_waiting_time"
+    },
+    {
+      "algorithm_id": "alg_id_get_object_prop",
+      "name": "Получение свойства объекта",
+      "output_mapping": [],
+      "type": "get_object_prop"
+    },
+    {
+      "algorithm_id": "alg_id_set_object_prop",
+      "name": "Установить значение объекта",
+      "output_mapping": [],
+      "type": "set_object_prop"
+    },
+    {
+      "algorithm_id": "alg_id_get_object_by_id",
+      "name": "Получение объекта по его ID",
+      "output_mapping": [],
+      "type": "get_object_by_id"
+    },
+    {
+      "algorithm_id": "alg_id_inc_object_prop",
+      "name": "Инкремент свойства объекта",
+      "output_mapping": [],
+      "type": "inc_object_prop"
+    },
+    {
+      "algorithm_id": "alg_id_shoot_in_object",
+      "name": "Расчет кол-ва поподаний по целе",
+      "output_mapping": [],
+      "type": "shoot_in_object"
+    },
+    {
+      "algorithm_id": "alg_get_bpla_search_path",
+      "name": "Расчет маршрута для БПЛА в районе поиска (зоне разведки)",
+      "output_mapping": [],
+      "type": "get_bpla_search_path"
+    }
+  ],
+  "id": "Model_00",
+  "properties": [
+    {
+      "name": "alt",
+      "title": "",
+      "type": "float",
+      "value": 0
+    },
+    {
+      "name": "current_iteration",
+      "title": "",
+      "type": "int",
+      "value": 0
+    },
+    {
+      "name": "elapsed_time_in_sec",
+      "title": "",
+      "type": "int",
+      "value": 0
+    },
+    {
+      "name": "is_caught",
+      "title": "",
+      "type": "int",
+      "value": -1
+    },
+    {
+      "name": "lat",
+      "title": "",
+      "type": "float",
+      "value": 0
+    },
+    {
+      "name": "lon",
+      "title": "",
+      "type": "float",
+      "value": 37.504
+    },
+    {
+      "name": "point_exists",
+      "title": "",
+      "type": "int",
+      "value": 0
+    },
+    {
+      "name": "time_per_sec",
+      "title": "",
+      "type": "int",
+      "value": 1
+    },
+    {
+      "name": "tmp_bool",
+      "title": "",
+      "type": "bool",
+      "value": false
+    },
+    {
+      "name": "tmp_float",
+      "title": "",
+      "type": "float",
+      "value": 0
+    },
+    {
+      "name": "tmp_int",
+      "title": "",
+      "type": "int",
+      "value": 0
+    }
+  ],
+  "title": "Среда взаимодействия"
+}

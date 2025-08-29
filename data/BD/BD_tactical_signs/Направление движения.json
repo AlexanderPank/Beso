@@ -1,0 +1,19 @@
+{
+    "id":"DIRECTION_OF_MOVEMENT",
+    "title": "Направление движения",
+    "description": "Наностится n-точками.",
+    "type": "DIRECTION_OF_MOVEMENT",
+    "parent_object_id": "",
+    "is_own": 1,
+    "class_code": "111025000321",
+    "line_width": 0.3,
+    "scale": 100,
+    "spline": false,
+    "color": "base",
+    "coordinates": [],
+    "geometry_type": 2,
+    "icon": "tactical_signs/white_destination_point.png",
+    "scheme": "tactical_signs/white_destination_point.png",
+    "short_name": "Напр. движения",
+    "group": "БПЛА|БЭК|Надводные корабли"
+}

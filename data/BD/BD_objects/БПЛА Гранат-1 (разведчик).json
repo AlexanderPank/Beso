@@ -1,0 +1,285 @@
+{
+  "actions": [
+    {
+      "algorithm_id": "alg_id_targeting",
+      "name": "Алгоритм целераспределения",
+      "output_mapping": [],
+      "type": "targeting"
+    },
+    {
+      "algorithm_id": "alg_id_path",
+      "name": "Движения по маршруту",
+      "output_mapping": [
+        {
+          "course": "new_course",
+          "title": ""
+        },
+        {
+          "lat": "new_lat",
+          "title": ""
+        },
+        {
+          "lon": "new_lon",
+          "title": ""
+        },
+        {
+          "segment_index": "new_segment_index",
+          "title": ""
+        },
+        {
+          "state": "new_state",
+          "title": ""
+        }
+      ],
+      "type": "move"
+    },
+    {
+      "algorithm_id": "alg_id_calculate_path",
+      "name": "Расчет маршрута по графу видимости",
+      "output_mapping": [],
+      "type": "find_path"
+    },
+    {
+      "algorithm_id": "alg_id_overflying_area",
+      "name": "Алгоритм расчета мрашрута для разведки БПЛА в заданном районе",
+      "output_mapping": [],
+      "type": "calculate"
+    },
+    {
+      "algorithm_id": "alg_get_bpla_search_path",
+      "name": "Расчет маршрута для БПЛА в районе поиска (зоне разведки)",
+      "output_mapping": [],
+      "type": "calculate_search_path"
+    },
+    {
+      "algorithm_id": "alg_id_calculate_monitoring_radius",
+      "name": "Расчет радиуса обнаружения ОЭС ",
+      "output_mapping": [],
+      "type": "calculate_monitoring_radius"
+    },
+    {
+      "algorithm_id": "alg_id_detect_enemy",
+      "name": "Получение id вражеского объекта в радиусе определенной дистанции.",
+      "output_mapping": [],
+      "type": "detect_enemy"
+    },
+    {
+      "algorithm_id": "ald_id_target_in_zone_oes",
+      "name": "Определяет есть ли объект в зоне ОЭС",
+      "output_mapping": [],
+      "type": "target_in_zone_oes"
+    }
+  ],
+  "features": [
+    {
+      "class_code": "222215005301",
+      "color": "16755200",
+      "coordinates": [],
+      "description": "Наносится 4-мя точками.",
+      "geometry_type": 3,
+      "icon": "tactical_signs/white_zone_boundary_oes.png",
+      "id": "ZONE_OES",
+      "is_own": 1,
+      "line_width": 0.30000001192092896,
+      "parent_object_id": "",
+      "properties": [],
+      "scale": 100,
+      "scheme": "tactical_signs/white_zone_boundary_oes.png",
+      "short_name": "Зона ОЭC",
+      "spline": false,
+      "title": "Границы зоны обзора оптико-электронных и оптических средств",
+      "type": "ZONE_OES"
+    },
+    {
+      "class_code": "312635000302",
+      "color": "0",
+      "coordinates": [],
+      "description": "Знак наносится несколькими точками.",
+      "geometry_type": 1,
+      "group": "*",
+      "icon": "tactical_signs/white_link_line.png",
+      "id": "LINK_LINE",
+      "is_own": 3,
+      "line_width": 0.2,
+      "parent_object_id": "yes",
+      "properties": [],
+      "scale": 50,
+      "scheme": ":/icons/images/tacticals/destination_point_scheme.png",
+      "short_name": "Линия св.",
+      "spline": false,
+      "title": "Служебный знак связи",
+      "type": "LINK_LINE",
+      "position": 1
+    }
+  ],
+  "id": "BPLA",
+  "properties": [
+    {
+      "name": "",
+      "title": "",
+      "type": "int",
+      "value": 0
+    },
+    {
+      "name": "alt",
+      "title": "координаты - высота над уровнем моря, м",
+      "type": "float",
+      "value": 2500
+    },
+    {
+      "name": "class_code",
+      "title": "класскод",
+      "type": "str",
+      "value": "10185"
+    },
+    {
+      "name": "course",
+      "title": "курс",
+      "type": "float",
+      "value": 0
+    },
+    {
+      "name": "freq_khz",
+      "title": "Передатчик - частота передачи, кГц",
+      "type": "int",
+      "value": 5800000
+    },
+    {
+      "name": "geo_path",
+      "title": "маршрут",
+      "type": "feature",
+      "value": {
+        "geometry": {
+          "coordinates": [],
+          "type": "LineString"
+        },
+        "properties": {
+          "class_code": "131405000210000000",
+          "id": "SHIP_01_path"
+        },
+        "type": "Feature"
+      }
+    },
+    {
+      "name": "gt_lin",
+      "title": "Передатчик - усиление",
+      "type": "float",
+      "value": 1.5
+    },
+    {
+      "name": "hull_damage",
+      "title": "текущее повреждений корпуса",
+      "type": "int",
+      "value": 0
+    },
+    {
+      "name": "image",
+      "title": "иконка",
+      "type": "str",
+      "value": "ship-blue.png"
+    },
+    {
+      "name": "is_own",
+      "title": "синий/красный",
+      "type": "int",
+      "value": 1
+    },
+    {
+      "name": "lat",
+      "title": "координаты - широта",
+      "type": "float",
+      "value": 0
+    },
+    {
+      "name": "lon",
+      "title": "координаты - долгота",
+      "type": "float",
+      "value": 0
+    },
+    {
+      "name": "max_wind_speed",
+      "title": "Допустимая скорость ветра",
+      "type": "float",
+      "value": 15
+    },
+    {
+      "name": "oes_fov",
+      "title": "ОЭС - фокусное расстояние",
+      "type": "float",
+      "value": 5
+    },
+    {
+      "name": "oes_radius",
+      "title": "ОЭС - рассчетный радиус эфективного обнаружения",
+      "type": "float",
+      "value": 300
+    },
+    {
+      "name": "oes_res_height",
+      "title": "ОЭС - разрешение по высоте, пиксели",
+      "type": "int",
+      "value": 6000
+    },
+    {
+      "name": "oes_res_required",
+      "title": "ОЭС - эфективное разрешение (м/пиксель)",
+      "type": "float",
+      "value": 0.5
+    },
+    {
+      "name": "oes_res_width",
+      "title": "ОЭС - разрешение по ширине, пиксели",
+      "type": "int",
+      "value": 8000
+    },
+    {
+      "name": "roll_angle",
+      "title": "допустимый угол крена",
+      "type": "float",
+      "value": 30
+    },
+    {
+      "name": "segment_index",
+      "title": "индекс сегмента маршрута",
+      "type": "int",
+      "value": 0
+    },
+    {
+      "name": "speed",
+      "title": "крейсерская скоростьб м/с",
+      "type": "float",
+      "value": 16.67
+    },
+    {
+      "name": "state",
+      "title": "состояние",
+      "type": "str",
+      "value": "standing"
+    },
+    {
+      "name": "subType",
+      "title": "подтип",
+      "type": "str",
+      "value": "Разведывательный"
+    },
+    {
+      "name": "target",
+      "title": "список обнаруженных целей",
+      "type": "str",
+      "value": ""
+    },
+    {
+      "name": "type",
+      "title": "тип",
+      "type": "str",
+      "value": "БПЛА"
+    },
+    {
+      "name": "watt_t",
+      "title": "Передатчик - мощность, Вт",
+      "type": "float",
+      "value": 1.2
+    }
+  ],
+  "title": "БПЛА «Гранат-1»"
+}

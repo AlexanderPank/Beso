@@ -1,0 +1,82 @@
+{
+  "title": "Модель поведения Корабля + связи + целераспределением БПЛА камикадзе ",
+  "type_object": "Надводные корабли:*",
+  "object_list": [
+    {"name": "SHIP", "description": "Идентификатор Корабля"}
+  ],
+  "interaction_list": [
+    {
+      "title": "",
+      "interaction_type": "moving",
+      "response_set_values": "!SHIP!.properties['target_list'] =  []",
+      "source_object_id": "!SHIP!",
+      "trigger_condition": "CommunicationModel.actions.has_messages(receiver_id=!SHIP!.id, current_time=self.iteration_time) != True"
+    },
+    {
+      "title": "Получено сообщение от БПЛА - цель обнаружена ",
+      "interaction_type": "moving",
+      "response_set_values": "!SHIP!.properties['target_list'] = CommunicationModel.actions.process_messages(receiver_id=!SHIP!.id, current_time=self.iteration_time)",
+      "source_object_id": "!SHIP!",
+      "trigger_condition": "CommunicationModel.actions.has_messages(receiver_id=!SHIP!.id, current_time=self.iteration_time) == True and !SHIP!.properties['state'] != 'destroyed'"
+    },
+    {
+      "interaction_type": "moving",
+      "response_action": "!SHIP!.actions.targeting(target_list=!SHIP!.properties['target_list'], all_items=self.objects, ship=!SHIP!, func_name='', library_name='')",
+      "source_object_id": "!SHIP!",
+      "title": "Целераспределение",
+      "trigger_condition": "!SHIP!.properties['target_list'] != []"
+    },
+    {
+      "id": "",
+      "interaction_type": "find_path",
+      "response_action": "",
+      "response_set_values": "!SHIP!.properties['damage_state'] = ''",
+      "source_object_id": "!SHIP!",
+      "title": "Попадание в носовую часть, снижение прочности корпуса",
+      "trigger_condition": "!SHIP!.properties['damage_state'] == 'bow_flash'"
+    },
+    {
+      "id": "",
+      "interaction_type": "find_path",
+      "response_action": "",
+      "response_set_values": "!SHIP!.properties['damage_state']='';!SHIP!.properties['state'] = 'destroyed'",
+      "source_object_id": "!SHIP!",
+      "title": "Попадание в центральную часть, критическое повреждение корпуса",
+      "trigger_condition": "!SHIP!.properties['damage_state'] == 'center_flash'"
+    },
+    {
+      "id": "",
+      "interaction_type": "find_path",
+      "response_action": "",
+      "response_set_values": "!SHIP!.properties['damage_state'] = ''",
+      "source_object_id": "!SHIP!",
+      "title": "Попадание в кормовую часть, снижение скорости",
+      "trigger_condition": "!SHIP!.properties['damage_state'] == 'stern_flash'"
+    },
+    {
+      "id": "",
+      "interaction_type": "find_path",
+      "response_action": "",
+      "response_set_values": "!SHIP!.properties['state'] = 'destroyed'",
+      "source_object_id": "!SHIP!",
+      "title": "",
+      "trigger_condition": "!SHIP!.properties['hull_damage'] >= 1"
+    },
+    {
+      "id": "",
+      "interaction_type": "moving",
+      "response_action": "",
+      "response_set_values": "!SHIP!.properties['damage_state']='destroyed'",
+      "source_object_id": "!BEK!",
+      "title": "Объект уничтожен",
+      "trigger_condition": "!SHIP!.properties['state'] == 'destroyed' and !SHIP!.properties['damage_state'] != 'destroyed'"
+    },
+    {
+      "title": "Движение объекта",
+      "interaction_type": "moving",
+      "response_action": "!SHIP!.actions.move(item=!SHIP!,  path=!SHIP!.properties['geo_path'],  time_in_seconds=self.second_in_iteration)",
+      "source_object_id": "!SHIP!",
+      "trigger_condition": "!SHIP!.properties['state'] == 'moving'"
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+{"description":"Новый","function":"ModelTasks.check_destroyed","id":"alg_id_check_destroyed","input_parameters":[],"output_parameters":[{"is_look":"bool"}],"output_splitter":" ","subType":"Обнаружение","title":"Провека уничтожения объекта","type":"inner"}

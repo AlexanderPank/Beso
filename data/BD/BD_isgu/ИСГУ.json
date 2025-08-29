@@ -1,0 +1,171 @@
+[
+            {
+                "children": [
+                    {
+                        "children": [
+                        ],
+                        "name": "id",
+                        "text": "Model_00"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "title",
+                        "text": "Описание алгоритмов принятия решений"
+                    },
+                    {
+                        "children": [
+                            {
+                                "children": [
+                                ],
+                                "name": "current_iteration",
+                                "text": "0"
+                            },
+                            {
+                                "children": [
+                                ],
+                                "name": "elapsed_time_in_sec",
+                                "text": "0"
+                            },
+                            {
+                                "children": [
+                                ],
+                                "name": "time_per_sec",
+                                "text": "1"
+                            }
+                        ],
+                        "name": "properties",
+                        "text": ""
+                    },
+                    {
+                        "children": [
+                            {
+                                "children": [
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "type",
+                                        "text": "distance"
+                                    },
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "algorithm_id",
+                                        "text": "alg_id_7"
+                                    },
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "output_mapping",
+                                        "text": "{}"
+                                    },
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "name",
+                                        "text": "определение дистанциии между объектами"
+                                    }
+                                ],
+                                "name": "1",
+                                "text": "-"
+                            },
+                            {
+                                "children": [
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "type",
+                                        "text": "all_objects_in_position"
+                                    },
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "algorithm_id",
+                                        "text": "alg_id_22"
+                                    },
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "output_mapping",
+                                        "text": "{}"
+                                    },
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "name",
+                                        "text": "Проверка выхода всех объектов на рубеж атаки"
+                                    }
+                                ],
+                                "name": "2",
+                                "text": "-"
+                            },
+                            {
+                                "children": [
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "type",
+                                        "text": "launch_all_rocket"
+                                    },
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "algorithm_id",
+                                        "text": "alg_id_23"
+                                    },
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "output_mapping",
+                                        "text": "{}"
+                                    },
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "name",
+                                        "text": "Запуск всех ПКР по цели "
+                                    }
+                                ],
+                                "name": "3",
+                                "text": "-"
+                            },
+                            {
+                                "children": [
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "type",
+                                        "text": "any_bak_detection_ship"
+                                    },
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "algorithm_id",
+                                        "text": "alg_id_24"
+                                    },
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "output_mapping",
+                                        "text": "{}"
+                                    },
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "name",
+                                        "text": "Обнаружение цели хотя бы одним БЭК"
+                                    }
+                                ],
+                                "name": "4",
+                                "text": "-"
+                            }
+                        ],
+                        "name": "actions",
+                        "text": "+"
+                    }
+                ],
+                "name": "ИСГУ",
+                "text": "ИСГУ.json"
+            }
+]
+

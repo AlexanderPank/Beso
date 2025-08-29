@@ -1,0 +1,1715 @@
+{
+    "algorithms": [
+        {
+            "description": "Алгоритм фильтра по типу объектов",
+            "function": "ModelTasks.filter_by_type",
+            "id": "alg_id_filter",
+            "input_parameters": [
+            ],
+            "output_parameters": [
+                {
+                    "objects": "list",
+                    "title": ""
+                }
+            ],
+            "output_splitter": " ",
+            "subType": "Общие алгоритмы",
+            "title": "Алгоритм фильтра по типу объектов",
+            "type": "inner"
+        },
+        {
+            "description": "алгоритма расчета точки встречи С++ ",
+            "function": "LIBCPP01.calc_point_single",
+            "id": "alg_id_fox_rabbit",
+            "input_parameters": [
+                {
+                    "lat1": "float",
+                    "title": ""
+                },
+                {
+                    "lon1": "float",
+                    "title": ""
+                },
+                {
+                    "alt1": "float",
+                    "title": ""
+                },
+                {
+                    "speed1": "float",
+                    "title": ""
+                },
+                {
+                    "lat2": "float",
+                    "title": ""
+                },
+                {
+                    "lon2": "float",
+                    "title": ""
+                },
+                {
+                    "alt2": "float",
+                    "title": ""
+                },
+                {
+                    "speed2": "float",
+                    "title": ""
+                },
+                {
+                    "course2": "float",
+                    "title": ""
+                },
+                {
+                    "dt": "float",
+                    "title": ""
+                }
+            ],
+            "output_parameters": [
+                {
+                    "_lat": "float",
+                    "title": ""
+                },
+                {
+                    "_lon": "float",
+                    "title": ""
+                },
+                {
+                    "_alt": "float",
+                    "title": ""
+                },
+                {
+                    "_is_caught": "bool",
+                    "title": ""
+                }
+            ],
+            "output_splitter": " ",
+            "subType": "Поиск маршрута",
+            "title": "Алгоритма расчета точки встречи",
+            "type": "libcpp"
+        },
+        {
+            "description": "Проверка нахождения объекта в районе ожидания",
+            "function": "ModelTasks.object_in_rog",
+            "id": "alg_id_object_in_rog",
+            "input_parameters": [
+            ],
+            "output_parameters": [
+                {
+                    "rog_name": "str",
+                    "title": ""
+                }
+            ],
+            "output_splitter": " ",
+            "subType": "Общие алгоритмы",
+            "title": "Находится  ли объект в РОЖ",
+            "type": "inner"
+        },
+        {
+            "description": "Новый",
+            "function": "ModelTasks.get_waiting_time",
+            "id": "alg_id_get_waiting_time",
+            "input_parameters": [
+            ],
+            "output_parameters": [
+                {
+                    "time": "float",
+                    "title": "время ожидания в секундах"
+                }
+            ],
+            "output_splitter": " ",
+            "subType": "Общие алгоритмы",
+            "title": "Получение времени ожидания в РОЖ",
+            "type": "inner"
+        },
+        {
+            "description": "Получение свойства объекта по его id и имени проперти",
+            "function": "ModelTasks.get_object_prop",
+            "id": "alg_id_get_object_prop",
+            "input_parameters": [
+            ],
+            "output_parameters": [
+                {
+                    "result": "any",
+                    "title": "Результат"
+                }
+            ],
+            "output_splitter": " ",
+            "subType": "Общие алгоритмы",
+            "title": "Получение свойства объекта",
+            "type": "inner"
+        },
+        {
+            "description": "Установка значения параметра объекта",
+            "function": "ModelTasks.set_object_prop",
+            "id": "alg_id_set_object_prop",
+            "input_parameters": [
+            ],
+            "output_parameters": [
+                {
+                    "result": "bool",
+                    "title": "результат выполнения операции"
+                }
+            ],
+            "output_splitter": " ",
+            "subType": "Общие алгоритмы",
+            "title": "Установить значение объекта",
+            "type": "inner"
+        },
+        {
+            "description": "Новый",
+            "function": "ModelTasks.get_object_by_id",
+            "id": "alg_id_get_object_by_id",
+            "input_parameters": [
+            ],
+            "output_parameters": [
+                {
+                    "result": "any",
+                    "title": "Объект или None"
+                }
+            ],
+            "output_splitter": " ",
+            "subType": "Общие алгоритмы",
+            "title": "Получение объекта по его ID",
+            "type": "inner"
+        },
+        {
+            "description": "Новый",
+            "function": "ModelTasks.inc_object_prop",
+            "id": "alg_id_inc_object_prop",
+            "input_parameters": [
+            ],
+            "output_parameters": [
+            ],
+            "output_splitter": " ",
+            "subType": "Общие алгоритмы",
+            "title": "Инкремент свойства объекта",
+            "type": "inner"
+        },
+        {
+            "description": "Расчет количество попаданий из АК",
+            "function": "ModelTasks.shoot_in_object",
+            "id": "alg_id_shoot_in_object",
+            "input_parameters": [
+            ],
+            "output_parameters": [
+                {
+                    "count": "int",
+                    "title": "Кол-во попаданий"
+                }
+            ],
+            "output_splitter": " ",
+            "subType": "Общие алгоритмы",
+            "title": "Расчет кол-ва поподаний по целе",
+            "type": "inner"
+        },
+        {
+            "description": "На основе линейного маршрута получаем маршрут с петлями разворота на концах",
+            "function": "ModelTasks.get_bpla_search_path",
+            "id": "alg_get_bpla_search_path",
+            "input_parameters": [
+                {
+                    "input_vector": "list",
+                    "title": "список координаты зоны разведки"
+                },
+                {
+                    "input_vector": "float",
+                    "title": "угол крена БПЛА"
+                },
+                {
+                    "input_vector": "float",
+                    "title": "скорость БПЛА"
+                }
+            ],
+            "output_parameters": [
+                {
+                    "new_geo_path": "list",
+                    "title": "Маршрут"
+                }
+            ],
+            "output_splitter": " ",
+            "subType": "Расчет маршрута",
+            "title": "Расчет маршрута для БПЛА в районе поиска (зоне разведки)",
+            "type": "inner"
+        },
+        {
+            "description": "Простой алгоритм движения объекта по заданному маршруту",
+            "function": "ModelTasks.move_object_by_path",
+            "id": "alg_id_path",
+            "input_parameters": [
+            ],
+            "output_parameters": [
+                {
+                    "new_course": "float",
+                    "title": ""
+                },
+                {
+                    "new_lat": "float",
+                    "title": ""
+                },
+                {
+                    "new_lon": "float",
+                    "title": ""
+                },
+                {
+                    "new_segment_index": "int",
+                    "title": ""
+                },
+                {
+                    "new_state": "str",
+                    "title": ""
+                }
+            ],
+            "output_splitter": " ",
+            "subType": "Движение",
+            "title": "Движения по маршруту",
+            "type": "inner"
+        },
+        {
+            "description": "Используется встроенный алгоритм",
+            "function": "ModelTasks.find_shortest_path",
+            "id": "alg_id_calculate_path",
+            "input_parameters": [
+                {
+                    "ship_lat": "float",
+                    "title": ""
+                },
+                {
+                    "ship_lon": "float",
+                    "title": ""
+                },
+                {
+                    "target_lat": "float",
+                    "title": ""
+                },
+                {
+                    "target_lon": "float",
+                    "title": ""
+                },
+                {
+                    "geo_area": "dict",
+                    "title": ""
+                },
+                {
+                    "cGeoJsonCloseArea": "str",
+                    "title": ""
+                },
+                {
+                    "sPathToDepthMap": "str",
+                    "title": ""
+                },
+                {
+                    "distance": "double",
+                    "title": ""
+                }
+            ],
+            "output_parameters": [
+                {
+                    "new_geo_path": "list",
+                    "title": ""
+                }
+            ],
+            "output_splitter": " ",
+            "subType": "Поиск маршрута",
+            "title": "Расчет маршрута по графу видимости",
+            "type": "inner"
+        },
+        {
+            "description": "Новый",
+            "function": "ModelTasks.look_detection",
+            "id": "alg_id_look_detection",
+            "input_parameters": [
+            ],
+            "output_parameters": [
+                {
+                    "is_look": "bool",
+                    "title": ""
+                }
+            ],
+            "output_splitter": " ",
+            "subType": "Обнаружение",
+            "title": "Алгоритм обнаружения объектов противника",
+            "type": "inner"
+        },
+        {
+            "description": "Новый",
+            "function": "ModelTasks.check_destroyed",
+            "id": "alg_id_check_destroyed",
+            "input_parameters": [
+            ],
+            "output_parameters": [
+                {
+                    "is_look": "bool",
+                    "title": ""
+                }
+            ],
+            "output_splitter": " ",
+            "subType": "Обнаружение",
+            "title": "Провека уничтожения объекта",
+            "type": "inner"
+        },
+        {
+            "description": "Маневр уклонения - сделать разворот по курсу угрозы чтобы не попасть под удар",
+            "function": "ModelTasks.evasive_maneuver",
+            "id": "alg_id_evasive_maneuver",
+            "input_parameters": [
+            ],
+            "output_parameters": [
+            ],
+            "output_splitter": " ",
+            "subType": "Маневр",
+            "title": "Маневр уклонения - бегство",
+            "type": "inner"
+        },
+        {
+            "description": "Построение маршрута с переменным курсом",
+            "function": "ModelTasks.get_variable_path",
+            "id": "alg_get_variable_path",
+            "input_parameters": [
+                {
+                    "coordinates": "list",
+                    "title": ""
+                }
+            ],
+            "output_parameters": [
+                {
+                    "coordinates": "list",
+                    "title": ""
+                }
+            ],
+            "output_splitter": " ",
+            "subType": "Поиск маршрута",
+            "title": "Построение маршрута с переменным курсом",
+            "type": "inner"
+        },
+        {
+            "description": "Использует простой алгоритм расчета расстояния между объектами и сравнивает с дальностью обнаружения",
+            "function": "LIBCPP04.ifInfraredVisibility",
+            "id": "alg_id_detect_thermal_imager",
+            "input_parameters": [
+                {
+                    "dX": "float",
+                    "title": ""
+                },
+                {
+                    "dY": "float",
+                    "title": ""
+                },
+                {
+                    "dZ": "float",
+                    "title": ""
+                },
+                {
+                    "dAlfa": "float",
+                    "title": ""
+                },
+                {
+                    "dBetta": "float",
+                    "title": ""
+                },
+                {
+                    "dAx": "float",
+                    "title": ""
+                },
+                {
+                    "dAy": "float",
+                    "title": ""
+                },
+                {
+                    "dAz": "float",
+                    "title": ""
+                },
+                {
+                    "iType": "int",
+                    "title": ""
+                },
+                {
+                    "dDeltaTmin": "float",
+                    "title": ""
+                },
+                {
+                    "df": "float",
+                    "title": ""
+                },
+                {
+                    "dsp": "float",
+                    "title": ""
+                },
+                {
+                    "iNMx": "int",
+                    "title": ""
+                },
+                {
+                    "iNMy": "int",
+                    "title": ""
+                },
+                {
+                    "dLmax": "float",
+                    "title": ""
+                },
+                {
+                    "iLight": "int",
+                    "title": ""
+                },
+                {
+                    "iFrog": "int",
+                    "title": ""
+                },
+                {
+                    "dXt": "float",
+                    "title": ""
+                },
+                {
+                    "dYt": "float",
+                    "title": ""
+                },
+                {
+                    "dZt": "float",
+                    "title": ""
+                },
+                {
+                    "dTf": "float",
+                    "title": ""
+                },
+                {
+                    "dL": "float",
+                    "title": ""
+                },
+                {
+                    "dTc": "float",
+                    "title": ""
+                },
+                {
+                    "dW": "float",
+                    "title": ""
+                },
+                {
+                    "dH": "float",
+                    "title": ""
+                }
+            ],
+            "output_parameters": [
+                {
+                    "state": "int",
+                    "title": ""
+                }
+            ],
+            "output_splitter": " ",
+            "subType": "Обнаружение",
+            "title": "Алгоритм обнаружения объектов противника на заданном радиусе",
+            "type": "libcpp"
+        },
+        {
+            "description": "Детектит вражеский объект в радиусе определенной дистанции.",
+            "function": "ModelTasks.detect_enemy",
+            "id": "alg_id_detect_enemy",
+            "input_parameters": [
+            ],
+            "output_parameters": [
+                {
+                    "result": "any",
+                    "title": ""
+                }
+            ],
+            "output_splitter": " ",
+            "subType": "Общие алгоритмы",
+            "title": "Получение id вражеского объекта в радиусе определенной дистанции.",
+            "type": "inner"
+        },
+        {
+            "description": "Расчет эффективности поражения пулемётом/АК воздушной/надводной цели",
+            "function": "LIBCPP04.GetHitCount",
+            "id": "alg_id_calc_effect_air",
+            "input_parameters": [
+                {
+                    "title": "",
+                    "weapon_latitude": "float"
+                },
+                {
+                    "title": "",
+                    "weapon_longitude": "float"
+                },
+                {
+                    "title": "",
+                    "weapon_altitude": "float"
+                },
+                {
+                    "target_latitude": "float",
+                    "title": ""
+                },
+                {
+                    "target_longitude": "float",
+                    "title": ""
+                },
+                {
+                    "target_altitude": "float",
+                    "title": ""
+                },
+                {
+                    "spread_horizontal": "float",
+                    "title": ""
+                },
+                {
+                    "spread_vertical": "float",
+                    "title": ""
+                },
+                {
+                    "target_width": "float",
+                    "title": ""
+                },
+                {
+                    "target_height": "float",
+                    "title": ""
+                },
+                {
+                    "bullet_count": "int",
+                    "title": ""
+                }
+            ],
+            "output_parameters": [
+                {
+                    "count": "int",
+                    "title": ""
+                }
+            ],
+            "output_splitter": " ",
+            "subType": "Поражения",
+            "title": "Алгоритм Расчета эффективности поражения (пулеметом или АК)",
+            "type": "libcpp"
+        }
+    ],
+    "classes": [
+    ],
+    "features": [
+        {
+            "class_code": "131405000123",
+            "color": "black",
+            "coordinates": [
+                [
+                    43.377958917331746,
+                    39.992695254028874,
+                    0
+                ],
+                [
+                    43.41384524718639,
+                    39.922845361722196,
+                    0
+                ],
+                [
+                    43.46760440686304,
+                    39.888413686575646,
+                    0
+                ],
+                [
+                    43.50085277912756,
+                    39.877144907965686,
+                    0
+                ],
+                [
+                    43.550837966152976,
+                    39.76903489286217,
+                    0
+                ],
+                [
+                    43.57911942922676,
+                    39.69582335632307,
+                    0
+                ],
+                [
+                    43.62626298490822,
+                    39.68311373279832,
+                    0
+                ],
+                [
+                    43.65003383755491,
+                    39.64213462328505,
+                    0
+                ],
+                [
+                    43.66417883232622,
+                    39.598080194576404,
+                    0
+                ],
+                [
+                    43.692050432584125,
+                    39.58656359468992,
+                    0
+                ],
+                [
+                    43.771693257326575,
+                    39.48253516261823,
+                    0
+                ],
+                [
+                    43.81574935796578,
+                    39.43266395808689,
+                    0
+                ],
+                [
+                    43.863021891587294,
+                    39.373869798114114,
+                    0
+                ],
+                [
+                    43.90277255042458,
+                    39.31642260413605,
+                    0
+                ],
+                [
+                    43.94135369914127,
+                    39.28850073564468,
+                    0
+                ],
+                [
+                    43.98108167615653,
+                    39.22055209917248,
+                    0
+                ],
+                [
+                    44.00146528223494,
+                    39.18654545638489,
+                    0
+                ],
+                [
+                    44.00149337762279,
+                    40.003033816165654,
+                    0
+                ],
+                [
+                    43.37458310902385,
+                    40.011704248526364,
+                    0
+                ]
+            ],
+            "description": "Наносится несколькими точками.",
+            "geometry_type": 3,
+            "icon": ":/icons/images/tacticals/restricted_area.png",
+            "id": "RESTRICTED_AREA_1",
+            "is_own": 3,
+            "line_width": 0.5,
+            "parent_object_id": "no",
+            "properties": [
+            ],
+            "scale": 100,
+            "scheme": ":/icons/images/tacticals/restricted_area_scheme.png",
+            "short_name": "Район суши",
+            "spline": false,
+            "title": "Запрещенный район",
+            "type": "RESTRICTED_AREA"
+        },
+        {
+            "class_code": "111025000321",
+            "color": "base",
+            "coordinates": [
+                [
+                    43.51950437498778,
+                    39.75001190546832,
+                    0
+                ],
+                [
+                    43.51839835771774,
+                    39.7473524945458,
+                    0
+                ],
+                [
+                    43.51730642686171,
+                    39.74248848292309,
+                    0
+                ]
+            ],
+            "description": "Наностится n-точками.",
+            "geometry_type": 2,
+            "icon": ":/icons/images/tacticals/destination_point.png",
+            "id": "DIRECTION_OF_MOVEMENT_1",
+            "is_own": 1,
+            "line_width": 0.30000001192092896,
+            "parent_object_id": "BEK_MIKOLA_1",
+            "properties": [
+            ],
+            "scale": 100,
+            "scheme": ":/icons/images/tacticals/destination_point_scheme.png",
+            "short_name": "Напр. движения",
+            "spline": false,
+            "title": "Направление движения",
+            "type": "DIRECTION_OF_MOVEMENT"
+        },
+        {
+            "class_code": "111025000321",
+            "color": "base",
+            "coordinates": [
+                [
+                    43.56064219651194,
+                    39.61625131135633,
+                    0
+                ],
+                [
+                    43.5085628946273,
+                    39.5390020530805,
+                    0
+                ]
+            ],
+            "description": "Наностится n-точками.",
+            "geometry_type": 2,
+            "icon": ":/icons/images/tacticals/destination_point.png",
+            "id": "DIRECTION_OF_MOVEMENT_2",
+            "is_own": 0,
+            "line_width": 0.30000001192092896,
+            "parent_object_id": "SHIP_ROGOV_1",
+            "properties": [
+            ],
+            "scale": 100,
+            "scheme": ":/icons/images/tacticals/destination_point_scheme.png",
+            "short_name": "Напр. движения",
+            "spline": false,
+            "title": "Направление движения",
+            "type": "DIRECTION_OF_MOVEMENT"
+        }
+    ],
+    "files": [
+        {
+            "file_name": "fox-rabbit.so",
+            "id": "LIBCPP01",
+            "md5_hash": "698d51a19d8a121ce581499d7b701668",
+            "type": "libcpp"
+        },
+        {
+            "file_name": "libcalcsea.so.1.0.1",
+            "id": "LIBCPP04",
+            "md5_hash": "698d51a19d8a121ce581499d7b701668",
+            "type": "libcpp"
+        }
+    ],
+    "interactions": [
+        {
+            "title": "Инициализация",
+            "interaction_type": "moving",
+            "response_action": "",
+            "response_set_values": "BEK_MIKOLA_1.properties['trigger_time'] = 0;",
+            "source_object_id": "BEK_MIKOLA_1",
+            "trigger_condition": "'trigger_time' not in BEK_MIKOLA_1.properties"
+        },
+        {
+            "id": "",
+            "interaction_type": "find_path",
+            "response_action": "BEK_MIKOLA_1.properties['geo_path']['geometry']['coordinates'] = BEK_MIKOLA_1.actions.find_path(ship_lat=BEK_MIKOLA_1.properties['lat'], ship_lon=BEK_MIKOLA_1.properties['lon'], target_lat=self.features['DIRECTION_OF_MOVEMENT_1'].coordinates[2][0], target_lon=self.features['DIRECTION_OF_MOVEMENT_1'].coordinates[2][1], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"))",
+            "response_set_values": "BEK_MIKOLA_1.properties['state'] = 'moving';",
+            "source_object_id": "BEK_MIKOLA_1",
+            "title": "Поиск маршрута",
+            "trigger_condition": "BEK_MIKOLA_1.properties['state'] == 'standing'"
+        },
+        {
+            "id": "",
+            "interaction_type": "moving",
+            "response_action": "",
+            "response_set_values": "",
+            "source_object_id": "BEK_MIKOLA_1",
+            "title": "Недопустимые метеоусловия для плаванья",
+            "trigger_condition": "WEATHER.properties['storm_state'] > BEK_MIKOLA_1.properties['max_excitement']"
+        },
+        {
+            "id": "",
+            "interaction_type": "moving",
+            "response_action": "BEK_MIKOLA_1.actions.move(item=BEK_MIKOLA_1,  path=BEK_MIKOLA_1.properties['geo_path'],  time_in_seconds=self.second_in_iteration)",
+            "response_set_values": "",
+            "source_object_id": "BEK_MIKOLA_1",
+            "title": "Движение объекта",
+            "trigger_condition": "BEK_MIKOLA_1.properties['state'] in ['moving', 'attacking']"
+        },
+        {
+            "id": "",
+            "interaction_type": "moving",
+            "response_action": "",
+            "response_set_values": "BEK_MIKOLA_1.properties['state'] = 'destroyed'; BEK_MIKOLA_1.properties['target'] = ''; BEK_MIKOLA_1.properties['geo_path']['geometry']['coordinates'] = []",
+            "source_object_id": "BEK_MIKOLA_1",
+            "title": "Обнаружено критическое повреждение от АК",
+            "trigger_condition": "BEK_MIKOLA_1.properties['hit_count'] >= BEK_MIKOLA_1.properties['max_hit_count'] and BEK_MIKOLA_1.properties['state'] in ['moving','standing','waiting','finished', 'attacking']"
+        },
+        {
+            "id": "",
+            "interaction_type": "moving",
+            "response_action": "",
+            "response_set_values": "BEK_MIKOLA_1.properties['state'] = 'waiting'; BEK_MIKOLA_1.properties['segment_index'] = -1; BEK_MIKOLA_1.properties['geo_path']['geometry']['coordinates'] = []; BEK_MIKOLA_1.properties['waiting_time'] = Model_00.actions.get_waiting_time(item=BEK_MIKOLA_1, geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"WAITING_REGION\")); ",
+            "source_object_id": "BEK_MIKOLA_1",
+            "title": "Прибытие в РОЖ",
+            "trigger_condition": "BEK_MIKOLA_1.properties['state'] in ['finished'] and BEK_MIKOLA_1.properties['target'] == '' and Model_00.actions.object_in_rog(item=BEK_MIKOLA_1, geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"WAITING_REGION\")) != '' "
+        },
+        {
+            "id": "",
+            "interaction_type": "waiting",
+            "response_action": "",
+            "response_set_values": "",
+            "source_object_id": "BEK_MIKOLA_1",
+            "title": "Ожидание в РОЖ",
+            "trigger_condition": "BEK_MIKOLA_1.properties['state'] == 'waiting' and self.iteration_time < BEK_MIKOLA_1.properties['waiting_time']"
+        },
+        {
+            "id": "",
+            "interaction_type": "search",
+            "response_action": "Model_00.actions.fox_rabbit(lat1=BEK_MIKOLA_1.properties['lat'], lon1=BEK_MIKOLA_1.properties['lon'], alt1=BEK_MIKOLA_1.properties['alt'], speed1=BEK_MIKOLA_1.properties['attack_speed'], lat2=SHIP_ROGOV_1.properties['lat'], lon2=SHIP_ROGOV_1.properties['lon'], alt2=SHIP_ROGOV_1.properties['alt'], speed2=SHIP_ROGOV_1.properties['speed'], course2=SHIP_ROGOV_1.properties['course'], dt=100.0) and BEK_MIKOLA_1.properties['geo_path']['geometry']['coordinates'] = BEK_MIKOLA_1.actions.find_path(ship_lat=BEK_MIKOLA_1.properties['lat'], ship_lon=BEK_MIKOLA_1.properties['lon'], target_lat=Model_00.properties['lat'], target_lon=Model_00.properties['lon'], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"))",
+            "response_set_values": "BEK_MIKOLA_1.properties['state'] = 'attacking'; BEK_MIKOLA_1.properties['target'] = 'SHIP_ROGOV_1';",
+            "source_object_id": "BEK_MIKOLA_1",
+            "title": "Цель обнаружена, расчет точки встречи и вычисление маршрута",
+            "trigger_condition": "BEK_MIKOLA_1.properties['state'] in ['waiting', 'standing', 'finished'] and BEK_MIKOLA_1.properties['target'] == ''  and self.iteration_time >=BEK_MIKOLA_1.properties['waiting_time'] and BEK_MIKOLA_1.actions.look_detection(item1=BEK_MIKOLA_1, item2=SHIP_ROGOV_1,  rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], max_distance=BEK_MIKOLA_1.properties['detection_distance'])"
+        },
+        {
+            "id": "",
+            "interaction_type": "check_destroyed",
+            "response_action": "",
+            "response_set_values": "BEK_MIKOLA_1.properties['state'] = 'destroyed'",
+            "source_object_id": "BEK_MIKOLA_1",
+            "title": "Цель уничтожена",
+            "trigger_condition": "BEK_MIKOLA_1.properties['state'] == 'attacking'  and  BEK_MIKOLA_1.properties['target'] != '' and BEK_MIKOLA_1.actions.check_destroyed(objects=self.objects,  attacker=BEK_MIKOLA_1, target=BEK_MIKOLA_1.properties['target'], min_distance=BEK_MIKOLA_1.properties['distance_of_defeat'], probability=BEK_MIKOLA_1.properties['probability']) and SHIP_ROGOV_1.properties['state'] in ['destroyed']"
+        },
+        {
+            "id": "",
+            "interaction_type": "check_destroyed",
+            "response_action": "",
+            "response_set_values": "BEK_MIKOLA_1.properties['state'] = 'destroyed_bek'",
+            "source_object_id": "BEK_MIKOLA_1",
+            "title": "БЭК уничтожен",
+            "trigger_condition": "BEK_MIKOLA_1.properties['state'] in ['destroyed']"
+        },
+        {
+            "id": "",
+            "interaction_type": "search",
+            "response_action": "Model_00.actions.fox_rabbit(lat1=BEK_MIKOLA_1.properties['lat'], lon1=BEK_MIKOLA_1.properties['lon'], alt1=BEK_MIKOLA_1.properties['alt'], speed1=BEK_MIKOLA_1.properties['attack_speed'], lat2=SHIP_ROGOV_1.properties['lat'], lon2=SHIP_ROGOV_1.properties['lon'], alt2=SHIP_ROGOV_1.properties['alt'], speed2=SHIP_ROGOV_1.properties['speed'], course2=SHIP_ROGOV_1.properties['course'], dt=100.0) and BEK_MIKOLA_1.properties['geo_path']['geometry']['coordinates'] = BEK_MIKOLA_1.actions.find_path(ship_lat=BEK_MIKOLA_1.properties['lat'], ship_lon=BEK_MIKOLA_1.properties['lon'], target_lat=Model_00.properties['lat'], target_lon=Model_00.properties['lon'], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"));",
+            "response_set_values": "",
+            "source_object_id": "BEK_MIKOLA_1",
+            "title": "Цель обнаружена, расчет точки встречи и вычисление маршрута",
+            "trigger_condition": "BEK_MIKOLA_1.properties['state'] in ['finished', 'attacking'] and BEK_MIKOLA_1.properties['target'] != '' and self.iteration_time > BEK_MIKOLA_1.properties['trigger_time']  and BEK_MIKOLA_1.actions.look_detection(item1=BEK_MIKOLA_1, item2=SHIP_ROGOV_1,  rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], max_distance=BEK_MIKOLA_1.properties['detection_distance'])"
+        },
+        {
+            "id": "",
+            "interaction_type": "search",
+            "response_action": " ",
+            "response_set_values": "BEK_MIKOLA_1.properties['trigger_time'] = self.iteration_time + 10; BEK_MIKOLA_1.properties['state'] = 'attacking'; BEK_MIKOLA_1.properties['target'] = 'SHIP_ROGOV_1'; BEK_MIKOLA_1.properties['segment_index'] = 0; BEK_MIKOLA_1.properties['speed'] = BEK_MIKOLA_1.properties['attack_speed'];BEK_MIKOLA_1.properties['geo_path']['geometry']['coordinates'] = BEK_MIKOLA_1.actions.get_variable_path(coordinates=BEK_MIKOLA_1.properties['geo_path']['geometry']['coordinates']); ",
+            "source_object_id": "BEK_MIKOLA_1",
+            "title": "Построение маршрута с переменным курсом ",
+            "trigger_condition": "BEK_MIKOLA_1.properties['state'] in ['finished', 'attacking'] and BEK_MIKOLA_1.properties['target'] != '' and self.iteration_time > BEK_MIKOLA_1.properties['trigger_time']  and BEK_MIKOLA_1.actions.look_detection(item1=BEK_MIKOLA_1, item2=SHIP_ROGOV_1,  rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], max_distance=BEK_MIKOLA_1.properties['detection_distance'])"
+        },
+
+        {
+            "id": "",
+            "interaction_type": "find_path",
+            "response_action": "SHIP_ROGOV_1.properties['geo_path']['geometry']['coordinates'] = SHIP_ROGOV_1.actions.find_path(ship_lat=SHIP_ROGOV_1.properties['lat'], ship_lon=SHIP_ROGOV_1.properties['lon'], target_lat=self.features['DIRECTION_OF_MOVEMENT_2'].coordinates[1][0], target_lon=self.features['DIRECTION_OF_MOVEMENT_2'].coordinates[1][1], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"))",
+            "response_set_values": "SHIP_ROGOV_1.properties['state'] = 'moving'",
+            "source_object_id": "SHIP_ROGOV_1",
+            "title": "Поиск маршрута",
+            "trigger_condition": "SHIP_ROGOV_1.properties['state'] == 'standing'"
+        },
+        {
+            "id": "",
+            "interaction_type": "moving",
+            "response_action": "SHIP_ROGOV_1.actions.move(item=SHIP_ROGOV_1,  path=SHIP_ROGOV_1.properties['geo_path'],  time_in_seconds=self.second_in_iteration)",
+            "response_set_values": "",
+            "source_object_id": "SHIP_ROGOV_1",
+            "title": "Движение объекта",
+            "trigger_condition": "SHIP_ROGOV_1.properties['state'] =='moving'"
+        }
+    ],
+    "objects": [
+        {
+            "actions": [
+            ],
+            "id": "WEATHER",
+            "properties": [
+                {
+                    "name": "air_temperature",
+                    "title": "температура окружающей среды ",
+                    "type": "float",
+                    "value": 24
+                },
+                {
+                    "name": "area",
+                    "title": "список координат области",
+                    "type": "list",
+                    "value": [
+                        {
+                            "alt": 0,
+                            "lat": 43.80196,
+                            "lon": 39.25091
+                        },
+                        {
+                            "alt": 0,
+                            "lat": 43.77723,
+                            "lon": 39.85313
+                        },
+                        {
+                            "alt": 0,
+                            "lat": 43.34567,
+                            "lon": 39.9907
+                        },
+                        {
+                            "alt": 0,
+                            "lat": 43.35877,
+                            "lon": 39.19864
+                        }
+                    ]
+                },
+                {
+                    "name": "current_direction",
+                    "title": "направление течения в градусах (0-360) относительно севера",
+                    "type": "float",
+                    "value": 90
+                },
+                {
+                    "name": "current_speed",
+                    "title": "скорость течения, м/с",
+                    "type": "float",
+                    "value": 5
+                },
+                {
+                    "name": "dew_point",
+                    "title": "точка росы, градусы цельсия",
+                    "type": "float",
+                    "value": 5
+                },
+                {
+                    "name": "frog_intensive",
+                    "title": "Интенсивность тумана от 0 до 1",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "humidity",
+                    "title": "относительная влажность, в процентах",
+                    "type": "float",
+                    "value": 20
+                },
+                {
+                    "name": "is_day",
+                    "title": "интенсивность естественного/искусственного освещения от 0 до 1",
+                    "type": "int",
+                    "value": 1
+                },
+                {
+                    "name": "pressure",
+                    "title": "давление, миллиметры ртутного столба",
+                    "type": "float",
+                    "value": 760
+                },
+                {
+                    "name": "rain_intensive",
+                    "title": "Интенсивность осадков от 0 до 1",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "sonic_speed_tbl_id",
+                    "title": "идентификатор таблицы распределения скорости звука в воде, м/с",
+                    "type": "float",
+                    "value": 3
+                },
+                {
+                    "name": "storm_state",
+                    "title": "Волнение моря",
+                    "type": "float",
+                    "value": 3
+                },
+                {
+                    "name": "type_object",
+                    "title": "",
+                    "type": "str",
+                    "value": "meteo"
+                },
+                {
+                    "name": "water_temperature",
+                    "title": "температура воды, градусы цельсия",
+                    "type": "float",
+                    "value": 15
+                },
+                {
+                    "name": "wave_direction",
+                    "title": "направление волны в градусах (0-360) относительно севера",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "wave_height",
+                    "title": "высота волны, в метрах",
+                    "type": "float",
+                    "value": 1
+                },
+                {
+                    "name": "wave_period",
+                    "title": "период волнения, в секундах",
+                    "type": "float",
+                    "value": 5
+                },
+                {
+                    "name": "wind_direction",
+                    "title": "направление ветра в градусах (0-360) относительно севера",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "wind_speed",
+                    "title": "Cкорость ветра м/с",
+                    "type": "float",
+                    "value": 16
+                }
+            ],
+            "title": "Гидрометеорологическая обстановка"
+        },
+        {
+            "actions": [
+                {
+                    "algorithm_id": "alg_id_filter",
+                    "name": "Алгоритм фильтра по типу объектов",
+                    "output_mapping": [
+                    ],
+                    "type": "filter_by_type"
+                },
+                {
+                    "algorithm_id": "alg_id_fox_rabbit",
+                    "name": "Алгоритма расчета точки встречи",
+                    "output_mapping": [
+                        {
+                            "alt": "_alt",
+                            "title": ""
+                        },
+                        {
+                            "is_caught": "_is_caught",
+                            "title": ""
+                        },
+                        {
+                            "lat": "_lat",
+                            "title": ""
+                        },
+                        {
+                            "lon": "_lon",
+                            "title": ""
+                        }
+                    ],
+                    "type": "fox_rabbit"
+                },
+                {
+                    "algorithm_id": "alg_id_object_in_rog",
+                    "name": "Находится  ли объект в РОЖ",
+                    "output_mapping": [
+                    ],
+                    "type": "object_in_rog"
+                },
+                {
+                    "algorithm_id": "alg_id_get_waiting_time",
+                    "name": "Получение времени ожидания в РОЖ",
+                    "output_mapping": [
+                    ],
+                    "type": "get_waiting_time"
+                },
+                {
+                    "algorithm_id": "alg_id_get_object_prop",
+                    "name": "Получение свойства объекта",
+                    "output_mapping": [
+                    ],
+                    "type": "get_object_prop"
+                },
+                {
+                    "algorithm_id": "alg_id_set_object_prop",
+                    "name": "Установить значение объекта",
+                    "output_mapping": [
+                    ],
+                    "type": "set_object_prop"
+                },
+                {
+                    "algorithm_id": "alg_id_get_object_by_id",
+                    "name": "Получение объекта по его ID",
+                    "output_mapping": [
+                    ],
+                    "type": "get_object_by_id"
+                },
+                {
+                    "algorithm_id": "alg_id_inc_object_prop",
+                    "name": "Инкремент свойства объекта",
+                    "output_mapping": [
+                    ],
+                    "type": "inc_object_prop"
+                },
+                {
+                    "algorithm_id": "alg_id_shoot_in_object",
+                    "name": "Расчет кол-ва поподаний по целе",
+                    "output_mapping": [
+                    ],
+                    "type": "shoot_in_object"
+                },
+                {
+                    "algorithm_id": "alg_get_bpla_search_path",
+                    "name": "Расчет маршрута для БПЛА в районе поиска (зоне разведки)",
+                    "output_mapping": [
+                    ],
+                    "type": "get_bpla_search_path"
+                }
+            ],
+            "id": "Model_00",
+            "properties": [
+                {
+                    "name": "alt",
+                    "title": "",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "current_iteration",
+                    "title": "",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "elapsed_time_in_sec",
+                    "title": "",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "is_caught",
+                    "title": "",
+                    "type": "int",
+                    "value": -1
+                },
+                {
+                    "name": "lat",
+                    "title": "",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "lon",
+                    "title": "",
+                    "type": "float",
+                    "value": 37.504
+                },
+                {
+                    "name": "point_exists",
+                    "title": "",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "time_per_sec",
+                    "title": "",
+                    "type": "int",
+                    "value": 1
+                },
+                {
+                    "name": "tmp_bool",
+                    "title": "",
+                    "type": "bool",
+                    "value": false
+                },
+                {
+                    "name": "tmp_float",
+                    "title": "",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "tmp_int",
+                    "title": "",
+                    "type": "int",
+                    "value": 0
+                }
+            ],
+            "title": "Среда взаимодействия"
+        },
+        {
+            "actions": [
+                {
+                    "algorithm_id": "alg_id_path",
+                    "name": "Движения по маршруту",
+                    "output_mapping": [
+                        {
+                            "course": "new_course",
+                            "title": ""
+                        },
+                        {
+                            "lat": "new_lat",
+                            "title": ""
+                        },
+                        {
+                            "lon": "new_lon",
+                            "title": ""
+                        },
+                        {
+                            "segment_index": "new_segment_index",
+                            "title": ""
+                        },
+                        {
+                            "state": "new_state",
+                            "title": ""
+                        }
+                    ],
+                    "type": "move"
+                },
+                {
+                    "algorithm_id": "alg_id_calculate_path",
+                    "name": "Расчет маршрута по графу видимости",
+                    "output_mapping": [
+                        {
+                            "geo_path.geometry.coordinates": "new_geo_path",
+                            "title": ""
+                        }
+                    ],
+                    "type": "find_path"
+                },
+                {
+                    "algorithm_id": "alg_id_look_detection",
+                    "name": "Алгоритм обнаружения объектов противника",
+                    "output_mapping": [
+                    ],
+                    "type": "look_detection"
+                },
+                {
+                    "algorithm_id": "alg_id_check_destroyed",
+                    "name": "Провека уничтожения объекта",
+                    "output_mapping": [
+                    ],
+                    "type": "check_destroyed"
+                },
+                {
+                    "algorithm_id": "alg_id_evasive_maneuver",
+                    "name": "Маневр уклонения - бегство",
+                    "output_mapping": [
+                    ],
+                    "type": "evrasive_maneuvr"
+                },
+                {
+                    "algorithm_id": "alg_get_variable_path",
+                    "name": "Построение маршрута с переменным курсом",
+                    "output_mapping": [
+                    ],
+                    "type": "get_variable_path"
+                }
+            ],
+            "id": "BEK_MIKOLA_1",
+            "properties": [
+                {
+                    "name": "alt",
+                    "title": "координаты - высота над уровнем моря, м",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "angle_view",
+                    "title": "угол обзора ОЭС, градусы",
+                    "type": "int",
+                    "value": 360
+                },
+                {
+                    "name": "attack_speed",
+                    "title": "скорость развиваемая при атаке, м/с",
+                    "type": "int",
+                    "value": 23
+                },
+                {
+                    "name": "class_code",
+                    "title": "класскод",
+                    "type": "str",
+                    "value": "P0040062"
+                },
+                {
+                    "name": "connect_dist",
+                    "title": "удаление от пункта управления, м",
+                    "type": "int",
+                    "value": 400000
+                },
+                {
+                    "name": "course",
+                    "title": "курс",
+                    "type": "float",
+                    "value": 276.7968956025685
+                },
+                {
+                    "name": "detection_distance",
+                    "title": "дистанция обнаружения",
+                    "type": "int",
+                    "value": 40000
+                },
+                {
+                    "name": "distance_of_defeat",
+                    "title": "дистанция поражения",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "geo_path",
+                    "title": "маршрут",
+                    "type": "feature",
+                    "value": {
+                        "geometry": {
+                            "coordinates": [
+                            ],
+                            "type": "LineString"
+                        },
+                        "properties": {
+                            "class_code": "131405000210000000",
+                            "id": "BEK_MIKOLA_1_path"
+                        },
+                        "type": "Feature"
+                    }
+                },
+                {
+                    "name": "height",
+                    "title": "высота, м",
+                    "type": "float",
+                    "value": 1.2
+                },
+                {
+                    "name": "hit_count",
+                    "title": "текущее количество попаданий по корпусу",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "hull_damage",
+                    "title": "текущее повреждений корпуса",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "image",
+                    "title": "иконка",
+                    "type": "str",
+                    "value": "бэк-red.png"
+                },
+                {
+                    "name": "is_own",
+                    "title": "синий/красный",
+                    "type": "int",
+                    "value": 1
+                },
+                {
+                    "name": "lat",
+                    "title": "координаты - широта",
+                    "type": "float",
+                    "value": 43.51846018462309
+                },
+                {
+                    "name": "length",
+                    "title": "длина, м",
+                    "type": "float",
+                    "value": 3.5
+                },
+                {
+                    "name": "lon",
+                    "title": "координаты - долгота",
+                    "type": "float",
+                    "value": 39.747676646419634
+                },
+                {
+                    "name": "mass",
+                    "title": "вес взрывчатого вещества, кг",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "max_excitement",
+                    "title": "Допустимое волнение, баллы",
+                    "type": "float",
+                    "value": 5
+                },
+                {
+                    "name": "max_hit_count",
+                    "title": "критическое кол-во попаданий по корпусу, до выхода из строя",
+                    "type": "int",
+                    "value": 5
+                },
+                {
+                    "name": "probability",
+                    "title": "вероятность попадания в противника",
+                    "type": "float",
+                    "value": 0.33
+                },
+                {
+                    "name": "restriction",
+                    "title": "ограничения мореходности, Б",
+                    "type": "int",
+                    "value": 3
+                },
+                {
+                    "name": "rocket_count",
+                    "title": "кол-во крылатых ракет",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "segment_index",
+                    "title": "индекс сегмента маршрута",
+                    "type": "int",
+                    "value": -1
+                },
+                {
+                    "name": "speed",
+                    "title": "крейсерская скорость, м/с",
+                    "type": "float",
+                    "value": 18
+                },
+                {
+                    "name": "state",
+                    "title": "состояние",
+                    "type": "str",
+                    "value": "standing"
+                },
+                {
+                    "name": "subType",
+                    "title": "подтип",
+                    "type": "str",
+                    "value": "Камикадзе"
+                },
+                {
+                    "name": "target",
+                    "title": "идентификатор цели",
+                    "type": "str",
+                    "value": ""
+                },
+                {
+                    "name": "type",
+                    "title": "тип",
+                    "type": "str",
+                    "value": "БЭК"
+                },
+                {
+                    "name": "type_connect",
+                    "title": "связь",
+                    "type": "str",
+                    "value": "Starlink"
+                },
+                {
+                    "name": "waiting_time",
+                    "title": "время ожидания в РОЖ",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "width",
+                    "title": "ширина, м",
+                    "type": "float",
+                    "value": 0.9
+                }
+            ],
+            "title": "БЭК «Микола» №1"
+        },
+        {
+            "actions": [
+                {
+                    "algorithm_id": "alg_id_path",
+                    "name": "Движения по маршруту",
+                    "output_mapping": [
+                        {
+                            "course": "new_course",
+                            "title": ""
+                        },
+                        {
+                            "lat": "new_lat",
+                            "title": ""
+                        },
+                        {
+                            "lon": "new_lon",
+                            "title": ""
+                        },
+                        {
+                            "segment_index": "new_segment_index",
+                            "title": ""
+                        },
+                        {
+                            "state": "new_state",
+                            "title": ""
+                        }
+                    ],
+                    "type": "move"
+                },
+                {
+                    "algorithm_id": "alg_id_calculate_path",
+                    "name": "Расчет маршрута по графу видимости",
+                    "output_mapping": [
+                        {
+                            "geo_path.geometry.coordinates": "new_geo_path",
+                            "title": ""
+                        }
+                    ],
+                    "type": "find_path"
+                },
+                {
+                    "algorithm_id": "alg_id_detect_thermal_imager",
+                    "name": "Алгоритм обнаружения объектов противника на заданном радиусе",
+                    "output_mapping": [
+                    ],
+                    "type": "search"
+                },
+                {
+                    "algorithm_id": "alg_id_detect_enemy",
+                    "name": "Получение id вражеского объекта в радиусе определенной дистанции.",
+                    "output_mapping": [
+                    ],
+                    "type": "detect_enemy"
+                },
+                {
+                    "algorithm_id": "alg_id_calc_effect_air",
+                    "name": "Алгоритм Расчета эффективности поражения (пулеметом или АК)",
+                    "output_mapping": [
+                    ],
+                    "type": "ak_attack"
+                },
+                {
+                    "algorithm_id": "alg_id_evasive_maneuver",
+                    "name": "Маневр уклонения - бегство",
+                    "output_mapping": [
+                    ],
+                    "type": "evasive_maneuver"
+                }
+            ],
+            "id": "SHIP_ROGOV_1",
+            "properties": [
+                {
+                    "name": "ak_bullet_count",
+                    "title": "боезапас патронов в АК",
+                    "type": "int",
+                    "value": 10000
+                },
+                {
+                    "name": "ak_bullet_per_second",
+                    "title": "расход патронов в АК в секунду",
+                    "type": "int",
+                    "value": 100
+                },
+                {
+                    "name": "ak_distance",
+                    "title": "эффективная дистанция поражения, м ",
+                    "type": "int",
+                    "value": 2000
+                },
+                {
+                    "name": "ak_spread_horizontal",
+                    "title": "разброс по горизонтали на 100м",
+                    "type": "float",
+                    "value": 0.37
+                },
+                {
+                    "name": "ak_spread_vertical",
+                    "title": "разброс по вертикали на 100м",
+                    "type": "float",
+                    "value": 0.57
+                },
+                {
+                    "name": "alt",
+                    "title": "координаты - высота над уровнем моря, м",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "class_code",
+                    "title": "класскод",
+                    "type": "str",
+                    "value": "131472600009"
+                },
+                {
+                    "name": "course",
+                    "title": "курс",
+                    "type": "float",
+                    "value": 225.32347911577057
+                },
+                {
+                    "name": "danger_distance",
+                    "title": "мин дистанция при которой начинается маневр уклонения",
+                    "type": "int",
+                    "value": 20000
+                },
+                {
+                    "name": "geo_path",
+                    "title": "маршрут",
+                    "type": "feature",
+                    "value": {
+                        "geometry": {
+                            "coordinates": [
+                            ],
+                            "type": "LineString"
+                        },
+                        "properties": {
+                            "class_code": "131405000210000000",
+                            "id": "SHIP_ROGOV_1_path"
+                        },
+                        "type": "Feature"
+                    }
+                },
+                {
+                    "name": "hull_damage",
+                    "title": "текущее повреждений корпуса",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "image",
+                    "title": "иконка",
+                    "type": "str",
+                    "value": "ship-blue.png"
+                },
+                {
+                    "name": "is_own",
+                    "title": "синий/красный",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "lat",
+                    "title": "координаты - широта",
+                    "type": "float",
+                    "value": 43.56064219651194
+                },
+                {
+                    "name": "lon",
+                    "title": "координаты - долгота",
+                    "type": "float",
+                    "value": 39.61625131135633
+                },
+                {
+                    "name": "segment_index",
+                    "title": "индекс сегмента маршрута",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "speed",
+                    "title": "крейсерская скорость",
+                    "type": "float",
+                    "value": 9.6
+                },
+                {
+                    "name": "speed_maneuver",
+                    "title": "скорость при выполнении маневра",
+                    "type": "float",
+                    "value": 13
+                },
+                {
+                    "name": "state",
+                    "title": "состояние",
+                    "type": "str",
+                    "value": "standing"
+                },
+                {
+                    "name": "subType",
+                    "title": "подтип объекта",
+                    "type": "str",
+                    "value": "УДК"
+                },
+                {
+                    "name": "target",
+                    "title": "идентификатор цели АК",
+                    "type": "str",
+                    "value": ""
+                },
+                {
+                    "name": "type",
+                    "title": "тип",
+                    "type": "str",
+                    "value": "Надводные корабли"
+                }
+            ],
+            "title": "«Иван Рогов» пр 23900 №1"
+        }
+    ],
+    "scenario_id": "Отладка маршрута движения БПЛА",
+    "simulation_parameters": {
+        "end_condition": "0 == -1",
+        "map_center": "43.49609, 39.62522",
+        "map_zoom": 6,
+        "max_iterations": 100000,
+        "time_step": 1
+    }
+}

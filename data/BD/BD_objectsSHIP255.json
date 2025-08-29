@@ -1,0 +1,122 @@
+{
+  "actions": [
+    {
+      "algorithm_id": "alg_id_9",
+      "name": "движение",
+      "output_mapping": [
+        {
+          "course": "new_course"
+        },
+        {
+          "lat": "new_lat"
+        },
+        {
+          "lon": "new_lon"
+        },
+        {
+          "segment_index": "new_segment_index"
+        }, { "state": "new_state" }
+      ],
+      "type": "move"
+    }
+  ],
+  "id": "SHIP255",
+  "properties": [
+    {
+      "name": "class_code",
+      "type": "str",
+      "value": "131472600009"
+    },
+    {
+      "name": "is_own",
+      "type": "int",
+      "value": 0
+    },
+    {
+      "name": "lat",
+      "type": "float",
+      "value": 0
+    },
+    {
+      "name": "lon",
+      "type": "float",
+      "value": 0
+    },
+    {
+      "name": "alt",
+      "type": "int",
+      "value": 0
+    },
+    {
+      "name": "course",
+      "type": "float",
+      "value": 0
+    },
+    {
+      "name": "speed",
+      "type": "float",
+      "value": 9.6
+    },
+    {
+      "name": "hull_damage",
+      "type": "int",
+      "value": 0
+    },
+    {
+      "name": "image",
+      "type": "str",
+      "value": "ship-blue.png"
+    },
+    {
+      "name": "state",
+      "type": "str",
+      "value": "moving"
+    },
+    {
+      "name": "segment_index",
+      "type": "int",
+      "value": 0
+    },
+    {
+      "name": "geo_path",
+      "type": "feature",
+      "value": {
+        "geometry": {
+          "coordinates": [
+            [
+              43.41699,
+              39.47942
+            ],
+            [
+              43.42927881464768,
+              39.50769442251476
+            ],
+            [
+              43.45037639091632,
+              39.47733008303743
+            ],
+            [
+              43.46472913242675,
+              39.52209007992888
+            ],
+            [
+              43.44125915666543,
+              39.59646694701849
+            ],
+            [
+              43.53046765068351,
+              39.63733607804841
+            ]
+          ],
+          "type": "LineString"
+        },
+        "properties": {
+          "class_code": "131405000210000000",
+          "id": "RABBIT_00_path"
+        },
+        "type": "Feature"
+      }
+    }
+  ],
+  "title": "Корабль233333333555"
+}

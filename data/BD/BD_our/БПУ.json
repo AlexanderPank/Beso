@@ -1,0 +1,159 @@
+[
+    {
+          "children": [
+                    {
+                        "children": [
+                        ],
+                        "name": "id",
+                        "text": "V_01"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "title",
+                        "text": "ВМБ"
+                    },
+                    {
+                        "children": [
+                            {
+                                "children": [
+                                ],
+                                "name": "lat",
+                                "text": "43.7112759"
+                            },
+                            {
+                                "children": [
+                                ],
+                                "name": "lon",
+                                "text": "39.5911162"
+                            },
+                            {
+                                "children": [
+                                ],
+                                "name": "alt",
+                                "text": "0"
+                            },
+                            {
+                                "children": [
+                                ],
+                                "name": "image",
+                                "text": "vmb-red.png"
+                            },
+                            {
+                                "children": [
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "type",
+                                        "text": "Feature"
+                                    },
+                                    {
+                                        "children": [
+                                            {
+                                                "children": [
+                                                ],
+                                                "name": "id",
+                                                "text": "V_001"
+                                            }
+                                        ],
+                                        "name": "properties",
+                                        "text": ""
+                                    },
+                                    {
+                                        "children": [
+                                            {
+                                                "children": [
+                                                ],
+                                                "name": "coordinates",
+                                                "text": "[[[39.05879 , 43.59479] , [39.36418 , 43.72404] , [39.58323 , 43.57285] , [39.3452 , 43.39609] , [39.05879 , 43.59479]]]"
+                                            },
+                                            {
+                                                "children": [
+                                                ],
+                                                "name": "type",
+                                                "text": "Polygon"
+                                            }
+                                        ],
+                                        "name": "geometry",
+                                        "text": ""
+                                    }
+                                ],
+                                "name": "geo_area",
+                                "text": ""
+                            }
+                        ],
+                        "name": "properties",
+                        "text": ""
+                    },
+                    {
+                        "children": [
+                            {
+                                "children": [
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "type",
+                                        "text": "in_zone"
+                                    },
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "algorithm_id",
+                                        "text": "alg_id_19"
+                                    },
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "output_mapping",
+                                        "text": "{}"
+                                    },
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "name",
+                                        "text": "обнаружение объекта в зоне ответственности"
+                                    }
+                                ],
+                                "name": "1",
+                                "text": "-"
+                            },
+                            {
+                                "children": [
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "type",
+                                        "text": "create_line_of_attack"
+                                    },
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "algorithm_id",
+                                        "text": "alg_id_21"
+                                    },
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "output_mapping",
+                                        "text": "{}"
+                                    },
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "name",
+                                        "text": "Расчет рубежа атаки"
+                                    }
+                                ],
+                                "name": "2",
+                                "text": "-"
+                            }
+                        ],
+                        "name": "actions",
+                        "text": "+"
+                    }
+                ],
+                "name": "БПУ",
+                "text": "БПУ.json"
+            }
+]
+

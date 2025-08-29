@@ -1,0 +1,28 @@
+{
+  "class_code": "L0000003641u",
+  "color": "0",
+  "coordinates": [],
+  "description": "Наносится 2-мя точками. Двойной клик для завершения нанесения.",
+  "geometry_type": 4,
+  "group": "Надводные корабли",
+
+  "id": "RLS_ZONE",
+  "is_own": 1,
+  "line_width": 0.5,
+  "parent_object_id": "",
+  "properties": [
+    {
+      "name": "radius",
+      "title": "Радиус зоны обнаружения надводных целей РЛС, м",
+      "type": "int",
+      "value": 5000
+    }
+  ],
+  "scale": 100,
+  "icon": "tactical_signs/white_rls_zone.png",
+  "scheme": "tactical_signs/white_rls_zone.png",
+  "short_name": "Зона РЛС",
+  "spline": true,
+  "title": "Граница зоны обнаружения надводных целей РЛС",
+  "type": "RECONNAISSANCE_RLS_ZONE"
+}

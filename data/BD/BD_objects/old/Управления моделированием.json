@@ -1,0 +1,134 @@
+[
+    {
+        "children": [
+            {
+                "children": [
+                ],
+                "name": "id",
+                "text": "Model_00"
+            },
+            {
+                "children": [
+                ],
+                "name": "title",
+                "text": "свойства и методы доступные из самой модели модели"
+            },
+            {
+                "children": [
+                    {
+                        "children": [
+                        ],
+                        "name": "current_iteration",
+                        "text": "0"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "elapsed_time_in_sec",
+                        "text": "0"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "targets",
+                        "text": "{}"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "our_objects",
+                        "text": "{}"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "enemy_objects",
+                        "text": "{}"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "enemy_weapons",
+                        "text": "{}"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "our_weapons",
+                        "text": "{}"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "damage_objects",
+                        "text": "{}"
+                    }
+                ],
+                "name": "properties",
+                "text": ""
+            },
+            {
+                "children": [
+                    {
+                        "children": [
+                        ],
+                        "name": "name",
+                        "text": "дистанция между объектами"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "type",
+                        "text": "distance"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "algorithm_id",
+                        "text": "alg_id_7"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "output_mapping",
+                        "text": ""
+                    }
+                ],
+                "name": "actions",
+                "text": ""
+            },
+            {
+                "children": [
+                    {
+                        "children": [
+                        ],
+                        "name": "Определение списка обнаруженных объектов",
+                        "text": ""
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "Решение задачи целераспределения ",
+                        "text": ""
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "Опеделение поражения объектов",
+                        "text": ""
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "Определение группового маневра",
+                        "text": ""
+                    }
+                ],
+                "name": "Алгоритмы",
+                "text": ""
+            }
+        ],
+        "name": "Управления моделированием ",
+        "text": ""
+    }
+]

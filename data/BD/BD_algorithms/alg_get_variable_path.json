@@ -1,0 +1,1 @@
+{"description":"Построение маршрута с переменным курсом","function":"ModelTasks.get_variable_path","id":"alg_get_variable_path","input_parameters":[{"coordinates":"list","title":""}],"output_parameters":[{"coordinates":"list","title":""}],"output_splitter":" ","subType":"Поиск маршрута","title":"Построение маршрута с переменным курсом","type":"inner"}

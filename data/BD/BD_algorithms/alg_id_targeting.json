@@ -1,0 +1,9 @@
+{
+      "id":"alg_id_targeting",
+      "title": "Алгоритм целераспределения",
+      "description": "Использует питоновску обертку и вызывает с++ функцию из либины",
+      "type": "inner",
+      "function": "ModelTasks.targeting",
+      "input_parameters": [],
+      "output_parameters": []
+    }

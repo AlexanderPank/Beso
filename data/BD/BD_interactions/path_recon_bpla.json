@@ -1,0 +1,17 @@
+{
+    "title": "Определение маршрута облета БПЛА зоны разведки",
+    "id": "path_recon_bpla",
+	"object_list": [
+        {"name": "TARGET", "description": "БПЛА для которого расчитываем маршрут"}
+    ],
+    "interaction_list": [
+        {
+            "Title": "Определение маршрута облета БПЛА зоны разведки",
+            "source_object_id": "!TARGET!",
+            "interaction_type": "calculate",
+            "trigger_condition": "!TARGET!.properties['state'] == 'standing'",
+            "response_set_values": "!TARGET!.properties['state'] = 'moving'",
+            "response_action": "!TARGET!.properties['geo_path']['geometry']['coordinates'] = !TARGET!.actions.calculate(points=!TARGET!.properties['geo_area']['geometry']['coordinates'][0], h=!TARGET!.properties['alt'], angle=!TARGET!.properties['angle'])"
+        }
+    ]
+}

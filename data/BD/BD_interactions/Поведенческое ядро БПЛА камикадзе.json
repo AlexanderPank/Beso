@@ -1,0 +1,55 @@
+{
+  "title": "Модель поведения БПЛА камикадзе",
+  "type_object": "БПЛА:Камикадзе",
+  "object_list": [
+    {"name": "BPLA", "description": "Идентификатор БПЛА"},
+    {"name": "SHIP", "description": "Корабль носитель"}
+  ],
+  "interaction_list": [
+    {
+      "title": "",
+      "interaction_type": "moving",
+      "response_set_values": "!BPLA!.properties['lat'] = !SHIP!.properties['lat']; !BPLA!.properties['lon'] = !SHIP!.properties['lon']",
+      "source_object_id": "!BPLA!",
+      "trigger_condition": "!SHIP!.properties['state'] == 'moving' and !BPLA!.properties['state'] == 'standing'"
+    },
+    {
+      "title": "",
+      "interaction_type": "moving",
+      "response_set_values": "!BPLA!.properties['parent_id'] = '!SHIP!'",
+      "response_action": "",
+      "source_object_id": "!BPLA!",
+      "trigger_condition": "!BPLA!.properties['state'] == 'standing'"
+    },
+    {
+      "title": "Движение по маршруту",
+      "interaction_type": "moving",
+      "response_action": "!BPLA!.actions.move(item=!BPLA!,  path=!BPLA!.properties['geo_path'],  time_in_seconds=self.second_in_iteration)",
+      "source_object_id": "!BPLA!",
+      "trigger_condition": "len(!BPLA!.properties['geo_path']['geometry']['coordinates']) > 0 and !BPLA!.properties['state'] in ['moving', 'attacking']"
+    },
+    {
+      "title": "Цель уничтожена",
+      "interaction_type": "check_destroyed",
+      "response_set_values": "!BPLA!.properties['target'] = ''; ",
+      "source_object_id": "!BPLA!",
+      "trigger_condition": "!BPLA!.properties['state'] == 'moving'  and  !BPLA!.properties['target'] != '' and !BPLA!.actions.check_destroyed(objects=self.objects,  attacker=!BPLA!, target=!BPLA!.properties['target'], min_distance=!BPLA!.properties['distance_of_defeat'], probability=!BPLA!.properties['probability']) "
+    },
+    {
+      "title": "Цель обнаружена, расчет точки встречи и вычисление маршрута",
+      "interaction_type": "search",
+      "response_action": "Model_00.actions.fox_rabbit(lat1=!BPLA!.properties['lat'], lon1=!BPLA!.properties['lon'], alt1=!BPLA!.properties['alt'], speed1=!BPLA!.properties['speed'], lat2=Model_00.actions.get_object_prop(item=!BPLA!.properties['target'], prop='lat', objects=self.objects), lon2=Model_00.actions.get_object_prop(item=!BPLA!.properties['target'], prop='lon', objects=self.objects), alt2=Model_00.actions.get_object_prop(item=!BPLA!.properties['target'], prop='alt', objects=self.objects), speed2=Model_00.actions.get_object_prop(item=!BPLA!.properties['target'], prop='speed', objects=self.objects), course2=Model_00.actions.get_object_prop(item=!BPLA!.properties['target'], prop='course', objects=self.objects), dt=100.0) and !BPLA!.properties['geo_path']['geometry']['coordinates'] = !BPLA!.actions.find_path(ship_lat=!BPLA!.properties['lat'], ship_lon=!BPLA!.properties['lon'], target_lat=Model_00.properties['lat'], target_lon=Model_00.properties['lon'], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"))",
+      "response_set_values": "!BPLA!.properties['state'] = 'moving'; !BPLA!.properties['segment_index'] = 0; ",
+      "source_object_id": "!BPLA!",
+      "trigger_condition": "!BPLA!.properties['state'] in ['finished', 'moving'] and !BPLA!.properties['target'] != '' and self.iteration_time % 10 == 0 and !BPLA!.actions.detect_enemy(item1=!BPLA!, objects=self.objects, rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], max_distance=!BPLA!.properties['detection_distance'])"
+    },
+    {
+      "title": "Расчет точки встречи и вычисление маршрута",
+      "interaction_type": "search",
+      "response_action": "Model_00.actions.fox_rabbit(lat1=!BPLA!.properties['lat'], lon1=!BPLA!.properties['lon'], alt1=!BPLA!.properties['alt'], speed1=!BPLA!.properties['speed'], lat2=Model_00.actions.get_object_prop(item=!BPLA!.properties['target'], prop='lat', objects=self.objects), lon2=Model_00.actions.get_object_prop(item=!BPLA!.properties['target'], prop='lon', objects=self.objects), alt2=Model_00.actions.get_object_prop(item=!BPLA!.properties['target'], prop='alt', objects=self.objects), speed2=Model_00.actions.get_object_prop(item=!BPLA!.properties['target'], prop='speed', objects=self.objects), course2=Model_00.actions.get_object_prop(item=!BPLA!.properties['target'], prop='course', objects=self.objects), dt=100.0) and !BPLA!.properties['geo_path']['geometry']['coordinates'] = !BPLA!.actions.find_path(ship_lat=!BPLA!.properties['lat'], ship_lon=!BPLA!.properties['lon'], target_lat=Model_00.properties['lat'], target_lon=Model_00.properties['lon'], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"))",
+      "response_set_values": "!BPLA!.properties['state'] = 'moving'; !BPLA!.properties['segment_index'] = 0; ",
+      "source_object_id": "!BPLA!",
+      "trigger_condition": "!BPLA!.properties['state'] not in ['finished', 'moving'] and !BPLA!.properties['target'] != ''"
+    }
+  ]
+}

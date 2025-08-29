@@ -1,0 +1,1 @@
+{"description":"Новый","function":"ModelTasks.look_detection","id":"alg_id_look_detection","input_parameters":[],"output_parameters":[{"is_look":"bool"}],"output_splitter":" ","subType":"Обнаружение","title":"Алгоритм обнаружения объектов противника","type":"inner"}

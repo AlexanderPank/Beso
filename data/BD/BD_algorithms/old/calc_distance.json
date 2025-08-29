@@ -1,0 +1,56 @@
+[
+    {
+        "children": [
+            {
+                        "children": [
+                        ],
+                        "name": "id",
+                        "text": "alg_id_7"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "title",
+                        "text": "Алгоритм определения дистанции между  объектами в двумерном пространстве"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "description",
+                        "text": "Простой встроенный алгоритм определения дистанции между 2-мя объектами в двумерном пространстве"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "type",
+                        "text": "inner"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "function",
+                        "text": "ModelTasks.distance"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "input_parameters",
+                        "text": ""
+                    },
+                    {
+                        "children": [
+                            {
+                                "children": [
+                                ],
+                                "name": "distance",
+                                "text": "float"
+                            }
+                        ],
+                        "name": "output_parameters",
+                        "text": ""
+                    }
+                ],
+                "name": "Определения дистанции между объектами",
+                "text": "calc_distance.json"
+            }
+ ]

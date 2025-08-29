@@ -1,0 +1,1 @@
+{"description":"Детектит вражеский объект в радиусе определенной дистанции.","function":"ModelTasks.detect_enemy","id":"alg_id_detect_enemy","input_parameters":[],"output_parameters":[{"result":"any"}],"output_splitter":" ","subType":"Общие алгоритмы","title":"Получение id вражеского объекта в радиусе определенной дистанции.","type":"inner"}

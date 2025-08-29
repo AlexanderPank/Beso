@@ -1,0 +1,158 @@
+[
+    {
+        "children": [
+            {
+                "children": [
+                ],
+                "name": "id",
+                "text": "A_00"
+            },
+            {
+                "children": [
+                ],
+                "name": "title",
+                "text": "корабль"
+            },
+            {
+                "children": [
+                    {
+                        "children": [
+                        ],
+                        "name": "course",
+                        "text": "90"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "speed",
+                        "text": "10"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "hull_damage",
+                        "text": "0"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "state",
+                        "text": "moving"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "lat",
+                        "text": "0"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "lon",
+                        "text": "0"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "alt",
+                        "text": "0"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "image",
+                        "text": "ship_blue.png"
+                    }
+                ],
+                "name": "properties",
+                "text": ""
+            },
+            {
+                "children": [
+                    {
+                        "children": [
+                            {
+                                "children": [
+                                ],
+                                "name": "type",
+                                "text": "move"
+                            },
+                            {
+                                "children": [
+                                ],
+                                "name": "algorithm_id",
+                                "text": "alg_id_0"
+                            },
+                            {
+                                "children": [
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "lat",
+                                        "text": "new_lat"
+                                    },
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "lon",
+                                        "text": "new_lon"
+                                    },
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "course",
+                                        "text": "new_course"
+                                    }
+                                ],
+                                "name": "output_mapping",
+                                "text": ""
+                            },
+                            {
+                                "children": [
+                                ],
+                                "name": "name",
+                                "text": "движение"
+                            }
+                        ],
+                        "name": "1",
+                        "text": "-"
+                    },
+                    {
+                        "children": [
+                            {
+                                "children": [
+                                ],
+                                "name": "type",
+                                "text": "detection"
+                            },
+                            {
+                                "children": [
+                                ],
+                                "name": "algorithm_id",
+                                "text": "alg_id_1"
+                            },
+                            {
+                                "children": [
+                                ],
+                                "name": "output_mapping",
+                                "text": "{}"
+                            },
+                            {
+                                "children": [
+                                ],
+                                "name": "name",
+                                "text": "обнаружение"
+                            }
+                        ],
+                        "name": "2",
+                        "text": "обнаружение"
+                    }
+                ],
+                "name": "actions:",
+                "text": "+"
+            }
+        ],
+        "name": "Корабль",
+        "text": "Корабль.json"
+    }
+]

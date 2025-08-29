@@ -1,0 +1,20 @@
+{
+  "id":"alg_id_calculate_path",
+  "title": "Расчет маршрута по графу видимости",
+  "description": "Используется встроенный алгоритм",
+  "type": "inner",
+  "function": "ModelTasks.find_shortest_path",
+  "input_parameters": [
+    {"ship_lat": "float"},
+    {"ship_lon": "float"},
+    {"target_lat": "float"},
+    {"target_lon": "float"},
+    {"geo_area": "dict"},
+    {"cGeoJsonCloseArea": "str"},
+    {"sPathToDepthMap": "str"},
+    {"distance": "double"}
+  ],
+  "output_parameters": [
+    { "new_geo_path": "list" }
+  ],"subType":"Поиск маршрута"
+}

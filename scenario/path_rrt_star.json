@@ -1,0 +1,149 @@
+{
+  "scenario_id":"Отладка RRT*",
+
+  "objects":
+	[
+      {
+        "id": "SHIP_00",
+        "title": "Катер",
+        "properties":
+        [
+          {"name": "class_code", "value": "10213", "type": "str"},
+          {"name": "is_own", "value": 1, "type": "int"},
+          {"name": "lat", "value": 43.4216, "type": "float"},
+          {"name": "lon", "value": 39.8644, "type": "float"},
+          {"name": "alt", "value": 0, "type": "int"},
+          {"name": "course", "value": 291.894, "type": "float"},
+          {"name": "speed", "value": 25.6, "type": "float"},
+          {"name": "segment_index", "value": 0, "type": "int"},
+          {"name": "state", "value": "standing", "type": "str"},
+          {"name": "geo_path", "type": "feature", "value": {"type": "Feature","properties": {"id": "SHIP_00_path", "class_code": "131405000210000000"}, "geometry": {"coordinates": [],"type": "LineString"}} },
+          {"name": "geo_area", "type": "feature", "value": {"geometry":{"coordinates":[[[43.61998,39.39877],[43.65142,39.63704],[43.40304,39.91848],[43.39975,39.39967]]],"type":"Polygon"},"properties":{"class_code":"312655004106000000000000","id":"SHIP_00_area"},"type":"Feature"} }
+       ],
+
+        "actions": [
+          {
+            "name": "движение",
+            "type": "move",
+            "algorithm_id": "alg_id_9",
+            "output_mapping": [
+              {"course": "new_course"},
+              {"lat": "new_lat"},
+              {"lon": "new_lon"},
+              {"segment_index": "new_segment_index"}
+            ]
+          },
+          {
+            "name": "расчет маршрута",
+            "type": "calculate",
+            "algorithm_id": "alg_id_path",
+            "output_mapping": [
+                { "geo_path.geometry.coordinates": "new_geo_path" }
+              ]
+          }
+        ]
+      },
+      {
+        "id": "TARGET_00",
+        "title": "Пункт назначения",
+        "properties":
+        [
+          {"name": "class_code", "value": "7132250034230000000", "type": "str"},
+          {"name": "is_own", "value": 0, "type": "int"},
+          {"name": "lat", "value": 43.54311, "type": "float"},
+          {"name": "lon", "value": 39.50541, "type": "float"},
+          {"name": "alt", "value": 0, "type": "float"},
+          {"name": "course", "value": 198.155, "type": "float"},
+          {"name": "speed", "value": 0, "type": "float"},
+          {"name": "segment_index", "value": 0, "type": "int"},
+          {"name": "state", "value": "standing", "type": "str"},
+          {"name": "geo_area", "type": "feature", "value": {"type": "Feature","properties": {"id": "TARGET_00_area", "class_code": "31261500011300000000"}, "geometry": {"coordinates": [ [[43.52014, 39.69603],[43.49567, 39.77490],[43.45513, 39.73679],[43.44746, 39.63725]]],"type": "Polygon"}} }
+        ],
+        "actions": [ ]
+      },
+		{
+			"id":"Model_00",
+			"title":"Среда взаимодействия",
+			"properties": [
+              {"name": "current_iteration", "value": 0, "type": "int"},
+              {"name": "elapsed_time_in_sec", "value": 0, "type": "int"},
+              {"name": "time_per_sec", "value": 1, "type": "int"},
+              {"name": "lon", "value": 37.504, "type": "float"},
+              {"name": "lat", "value": 42.915, "type": "float"},
+              {"name": "alt", "value": 0.0, "type": "float"},
+              {"name": "is_caught", "value": -1, "type": "int"},
+              {"name": "point_exists", "value": 0, "type": "int"}
+            ],
+			"actions":[]
+		}
+	],
+    "classes": [],
+
+    "interactions": [
+      {
+        "source_object_id": "SHIP_00",
+        "interaction_type": "calculate",
+        "trigger_condition": "SHIP_00.properties['state'] == 'standing'",
+        "response_set_values": "SHIP_00.properties['state'] = 'moving'",
+        "response_action": "SHIP_00.properties['geo_path']['geometry']['coordinates'] = SHIP_00.actions.calculate(area=SHIP_00.properties['geo_area']['geometry']['coordinates'][0], start=SHIP_00.properties, goal=TARGET_00.properties,Rcirc=10,minDepth=1,cGeoJsonCloseArea=TARGET_00.properties['geo_area'],sPathToDepthMap='', distance=5000)"
+      },
+      {
+        "source_object_id": "SHIP_00",
+        "interaction_type": "moving",
+        "trigger_condition": "SHIP_00.properties['state'] == 'moving'",
+        "response_action": "SHIP_00.actions.move(item=SHIP_00, path=SHIP_00.properties['geo_path'], time_in_seconds=self.second_in_iteration)"
+      }
+    ],
+    "algorithms" : [
+      {
+        "id":"alg_id_path",
+        "title": "Алгоритм поиска маршрута RRT*",
+        "description": "Используется библиотека на C++",
+        "type": "libcpp",
+        "function": "LIBCPP03.buildPath",
+        "input_parameters": [
+          {"area": "OUTPUT_STRUCT_POINTS"},
+          {"start": "OUTPUT_STRUCT_POINT"},
+          {"goal": "OUTPUT_STRUCT_POINT"},
+          {"Rcirc": "double"},
+          {"minDepth": "double"},
+          {"cGeoJsonCloseArea": "str"},
+          {"sPathToDepthMap": "str"},
+          {"distance": "double"}
+        ],
+        "output_parameters": [
+              { "new_geo_path": "OUTPUT_STRUCT_POINTS" }
+          ]
+      },
+      {
+        "id":"alg_id_9",
+        "title": "Алгоритм движения объекта по заданному маршруту",
+        "description": "Простой алгоритм движения объекта по заданному маршруту",
+        "type": "inner",
+        "function": "ModelTasks.move_object_by_path",
+        "input_parameters": [],
+        "output_parameters": [
+          {"new_course": "float"},
+          {"new_lat": "float"},
+          {"new_lon": "float"},
+          {"new_segment_index": "int"}
+        ]
+      }
+
+    ],
+    "files": [
+        {
+            "id": "LIBCPP03",
+            "file_name": "libpathservice.so.1.0.3",
+			"type":"libcpp",
+            "md5_hash": "698d51a19d8a121ce581499d7b701668"
+        }
+    ],
+    "simulation_parameters": {
+        "time_step": 1,
+        "end_condition": "True == False",
+        "max_iterations": 100000,
+      "map_center": "43.49387,39.59992",
+      "map_zoom": 6
+    }
+}

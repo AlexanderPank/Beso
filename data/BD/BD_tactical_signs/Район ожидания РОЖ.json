@@ -1,0 +1,27 @@
+{
+  "class_code": "111015000101",
+  "color": "base",
+  "coordinates": [],
+  "description": "Наностится 4 точками.",
+  "geometry_type": 3,
+  "group": "БПЛА|БЭК|Надводные корабли",
+  "icon": ":/icons/images/tacticals/roz.png",
+  "id": "WAITING_REGION",
+  "is_own": 1,
+  "line_width": 0.5,
+  "parent_object_id": "no",
+  "properties": [
+    {
+      "name": "waiting_time",
+      "title": "Время ожидания в районе до T+ в секундах",
+      "type": "int",
+      "value": 100
+    }
+  ],
+  "scale": 100,
+  "scheme": ":/icons/images/tacticals/roz_scheme.png",
+  "short_name": "РОЖ",
+  "spline": false,
+  "title": "Район ожидания",
+  "type": "WAITING_REGION"
+}

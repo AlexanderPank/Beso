@@ -1,0 +1,7 @@
+{
+  "time_step": 1,
+  "end_condition": "Model_00.properties['is_caught'] == -1",
+  "max_iterations": 100000,
+  "map_center": "43.49387,39.59992",
+  "map_zoom": 6
+}

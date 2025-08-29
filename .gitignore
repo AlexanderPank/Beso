@@ -1,0 +1,10 @@
+*.pro.user*
+build/*
+cmake-build-debug/*
+!build/.gitkeep
+task*_log.txt
+$$PWD
+.env
+.qmake.stash
+tests/build/*
+tests/cmake-build-debug/*

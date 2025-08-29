@@ -1,0 +1,1 @@
+{"description":"Новый","function":"ModelTasks.get_object_by_id","id":"alg_id_get_object_by_id","input_parameters":[],"output_parameters":[{"result":"any","title":"Объект или None"}],"output_splitter":" ","subType":"Общие алгоритмы","title":"Получение объекта по его ID","type":"inner"}

@@ -1,0 +1,1 @@
+{"description":"Использует с++ функцию из либины новой","function":"TEST.calcObjectDistributionJSON","id":"alg_id_targeting_cpp_new","input_parameters":[],"output_parameters":[{"list":"int"},{"length":"int"}],"output_splitter":" ","subType":"","title":"Алгоритм целераспределения новый","type":"inner"}

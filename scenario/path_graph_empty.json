@@ -1,0 +1,283 @@
+{
+  "scenario_id":"Отладка Граф-видимости",
+
+
+  "objects":
+  [
+
+    {
+      "actions": [
+
+        {
+          "name": "движение",
+          "type": "move",
+          "algorithm_id": "alg_id_9",
+          "output_mapping": [
+            {"course": "new_course"},
+            {"lat": "new_lat"},
+            {"lon": "new_lon"},
+            {"segment_index": "new_segment_index"}
+          ]
+        },
+        {
+          "name": "расчет маршрута",
+          "type": "find_path",
+          "algorithm_id": "alg_id_path",
+          "output_mapping": [
+            { "geo_path.geometry.coordinates": "new_geo_path" }
+          ]
+        }
+      ],
+      "id": "SHIP_00",
+      "properties": [
+        {
+          "name": "alt",
+          "title": "",
+          "type": "int",
+          "value": 0
+        },
+        {
+          "name": "class_code",
+          "title": "",
+          "type": "str",
+          "value": "131472600009"
+        },
+        {
+          "name": "course",
+          "title": "",
+          "type": "float",
+          "value": 0
+        },
+        {
+          "name": "geo_path",
+          "title": "",
+          "type": "str",
+          "value": ""
+        },
+        {
+          "name": "hull_damage",
+          "title": "",
+          "type": "int",
+          "value": 0
+        },
+        {
+          "name": "image",
+          "title": "",
+          "type": "str",
+          "value": "ship-blue.png"
+        },
+        {
+          "name": "is_own",
+          "title": "",
+          "type": "int",
+          "value": 1
+        },
+        {
+          "name": "lat",
+          "title": "",
+          "type": "float",
+          "value": 0
+        },
+        {
+          "name": "lon",
+          "title": "",
+          "type": "float",
+          "value": 0
+        },
+        {
+          "name": "segment_index",
+          "title": "",
+          "type": "int",
+          "value": 0
+        },
+        {
+          "name": "speed",
+          "title": "",
+          "type": "float",
+          "value": 9.6
+        },
+        {
+          "name": "state",
+          "title": "",
+          "type": "str",
+          "value": "standing"
+        },
+        {
+          "name": "subType",
+          "title": "",
+          "type": "str",
+          "value": "Надводные корабли"
+        },
+        {
+          "name": "type",
+          "title": "",
+          "type": "str",
+          "value": "Судно"
+        },
+        {
+          "name": "geo_path",
+          "title": "",
+          "type": "feature",
+          "value": {
+            "geometry": {
+              "coordinates": [],
+              "type": "LineString"
+            },
+            "properties": {
+              "class_code": "131405000210000000",
+              "id": "SHIP_01_path"
+            },
+            "type": "Feature"
+          }
+        }
+      ],
+      "title": "Грузовое судно"
+    },
+    {
+      "id":"Model_00",
+      "title":"Среда взаимодействия",
+      "properties": [
+        {"name": "current_iteration", "value": 0, "type": "int"},
+        {"name": "elapsed_time_in_sec", "value": 0, "type": "int"},
+        {"name": "time_per_sec", "value": 1, "type": "int"},
+        {"name": "lon", "value": 37.504, "type": "float"},
+        {"name": "lat", "value": 42.915, "type": "float"},
+        {"name": "alt", "value": 0.0, "type": "float"},
+        {"name": "is_caught", "value": -1, "type": "int"},
+        {"name": "point_exists", "value": 0, "type": "int"}
+      ],
+      "actions":[
+        {
+          "name": "фильтр по типу объектов",
+          "type": "filter_by_type",
+          "algorithm_id": "alg_id_filter",
+          "output_mapping": [ ]
+        }
+      ]
+    }
+  ],
+  "classes": [],
+
+  "features": [
+
+    {
+      "id":"WAITING_REGION_00",
+      "title": "Район ожидания",
+      "description": "Район ожидания",
+      "type": "WAITING_REGION",
+      "global": true,
+      "parent_object_id": "no",
+      "is_own": 1,
+      "class_code": "111015000101",
+      "line_width": 0.5,
+      "scale": 100,
+      "spline": false,
+      "color": "black",
+      "coordinates": [[43.50428, 39.36430,0], [43.49077, 39.29996,0], [43.50973, 39.24440,0], [43.58895, 39.27926,0], [43.61356, 39.43720,0], [43.56128, 39.38033,0]],
+      "geometry_type": 3,
+      "icon": ":/icons/images/tacticals/destination_point.png",
+      "scheme": ":/icons/images/tacticals/destination_point_scheme.png",
+      "short_name": "Напр. движения"
+    },
+    {
+
+      "id":"RESTRICTED_AREA_00",
+      "title": "Запрещенный район",
+      "description": "Наносится несколькими точками.",
+      "type": "RESTRICTED_AREA",
+      "is_own": 3,
+      "parent_object_id": "no",
+      "class_code": "131405000123",
+      "line_width": 0.5,
+      "scale": 100,
+      "spline": false,
+      "color": "black",
+      "coordinates": [[43.52014,39.69603,0],[43.49567,39.7749,0],[43.45513,39.73679,0],[43.44746,39.63725,0]],
+      "geometry_type": 3,
+      "icon": ":/icons/images/tacticals/roz.png",
+      "scheme": ":/icons/images/tacticals/roz_scheme.png",
+      "short_name": "Зап. р-н"
+    },
+    {
+      "id":"RESTRICTED_AREA_01",
+      "title": "Запрещенный район",
+      "type": "RESTRICTED_AREA",
+      "parent_object_id": "",
+      "class_code": "131405000123",
+      "line_width": 0.5,
+      "is_own": 3,
+      "scale": 100,
+      "spline": false,
+      "color": "black",
+      "coordinates": [[43.523100676618974,39.514164796927744,0],[43.48441009809061,39.490330438825765,0],[43.46637891535444,39.43457010778001,0],[43.51622135472452,39.37613149910211,0],[43.560102810905704,39.39052568030355,0],[43.5409783402454,39.46961338710943,0],[43.531139894924564,39.5024709717487,0]],
+      "geometry_type": 3
+    }
+  ],
+
+  "interactions": [
+
+  ],
+  "algorithms" : [
+    {
+      "id":"alg_id_path",
+      "title": "Алгоритм поиска маршрута по графу видимости",
+      "description": "Используется встроенный алгоритм",
+      "type": "inner",
+      "function": "ModelTasks.find_shortest_path",
+      "input_parameters": [
+        {"ship_lat": "float"},
+        {"ship_lon": "float"},
+        {"target_lat": "float"},
+        {"target_lon": "float"},
+        {"geo_area": "dict"},
+        {"cGeoJsonCloseArea": "str"},
+        {"sPathToDepthMap": "str"},
+        {"distance": "double"}
+      ],
+      "output_parameters": [
+        { "new_geo_path": "list" }
+      ]
+    },
+    {
+      "id":"alg_id_9",
+      "title": "Алгоритм движения объекта по заданному маршруту",
+      "description": "Простой алгоритм движения объекта по заданному маршруту",
+      "type": "inner",
+      "function": "ModelTasks.move_object_by_path",
+      "input_parameters": [],
+      "output_parameters": [
+        {"new_course": "float"},
+        {"new_lat": "float"},
+        {"new_lon": "float"},
+        {"new_segment_index": "int"}
+      ]
+    },
+    {
+      "id":"alg_id_filter",
+      "title": "Алгоритм фильтра по типу объектов",
+      "description": "Простой алгоритм ",
+      "type": "inner",
+      "function": "ModelTasks.filter_by_type",
+      "input_parameters": [],
+      "output_parameters": [
+        {"objects": "list"}
+      ]
+    }
+
+  ],
+  "files": [
+    {
+      "id": "LIBCPP03",
+      "file_name": "libpathservice.so.1.0.3",
+      "type":"libcpp",
+      "md5_hash": "698d51a19d8a121ce581499d7b701668"
+    }
+  ],
+  "simulation_parameters": {
+    "time_step": 1,
+    "end_condition": "True == False",
+    "max_iterations": 100000,
+    "map_center": "43.49387,39.59992",
+    "map_zoom": 6
+  }
+}

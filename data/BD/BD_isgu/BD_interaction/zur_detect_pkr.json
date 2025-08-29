@@ -1,0 +1,32 @@
+[
+    {
+        "children": [
+                     {
+                        "children": [
+                        ],
+                        "name": "source_object_id",
+                        "text": "C_00"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "interaction_type",
+                        "text": "detection"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "trigger_condition",
+                        "text": "C_00.actions.detection(lon1=C_00.properties['lon'], lat1=C_00.properties['lat'], lon2=B_00.properties['lon'], lat2=B_00.properties['lat'], detection_range=23000.0) == True "
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "response_action",
+                        "text": "C_00.actions.maneuver(lon1=C_00.properties['lon'], lat1=C_00.properties['lat'], lon2=B_00.properties['lon'], lat2=B_00.properties['lat'])"
+                    }
+                ],
+                "name": "Обнаружение ПКР ГСН зур",
+                "text": "zur_detect_pkr.json"
+            }
+]

@@ -1,0 +1,16 @@
+{
+  "title": "Расчет точки перехвата цели",
+  "object_list": [
+    {"name": "FOX_01", "description": "Идентификатор объекта камикадзе "},
+    {"name": "RABBIT_00", "description": "Идентификатор цели"}
+  ],
+  "interaction_list": [
+    {
+      "source_object_id": "Model_00",
+      "interaction_type": "fox_rabbit",
+      "trigger_condition": "",
+      "response_action": "Model_00.actions.fox_rabbit(lat1=!FOX_01!.properties['lat'], lon1=!FOX_01!.properties['lon'], alt1=!FOX_01!.properties['alt'], speed1=!FOX_01!.properties['speed'], lat2=!RABBIT_00!.properties['lat'], lon2=!RABBIT_00!.properties['lon'], alt2=!RABBIT_00!.properties['alt'], speed2=!RABBIT_00!.properties['speed'], course2=!RABBIT_00!.properties['course'], dt=100.0)"
+    }
+  ]
+}
+

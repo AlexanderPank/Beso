@@ -1,0 +1,56 @@
+[
+    {
+        "children": [
+            {
+                        "children": [
+                        ],
+                        "name": "id",
+                        "text": "alg_id_4"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "title",
+                        "text": "Алгоритм обнаружения ПКР ЗУРом"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "description",
+                        "text": "Используется передаваемый файл zur_object"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "type",
+                        "text": "binary_file"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "function",
+                        "text": "zur_exe_source.exe --type detect"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "input_parameters",
+                        "text": ""
+                    },
+                    {
+                        "children": [
+                            {
+                                "children": [
+                                ],
+                                "name": "is_find",
+                                "text": "bool"
+                            }
+                        ],
+                        "name": "output_parameters",
+                        "text": ""
+                    }
+                ],
+                "name": "Обнаружение ПКР ГСН ЗУР ",
+                "text": "detction_zur_pkr.json"
+            }
+]

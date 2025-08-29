@@ -1,0 +1,25 @@
+{
+  "description": "Проверка наличия новых сообщений у объекта",
+  "function": "CommunicationModel.process_messages",
+  "id": "ald_id_process_messages",
+  "input_parameters": [
+    {
+      "receiver_id": "str",
+      "title": "Получатель сообщения"
+    },
+    {
+      "current_time": "int",
+      "title": "Текущее время моделирования"
+    }
+  ],
+  "output_parameters": [
+    {
+      "list": "list",
+      "title": "список сообщений"
+    }
+  ],
+  "output_splitter": " ",
+  "subType": "Связь",
+  "title": "Прием сообщения",
+  "type": "inner"
+}

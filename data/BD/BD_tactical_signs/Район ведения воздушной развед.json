@@ -1,0 +1,28 @@
+{
+  "class_code": "121065000107",
+  "color": "base",
+  "coordinates": [],
+  "description": "Наносится 2-мя точками.",
+  "geometry_type": 2,
+  "group": "*",
+
+  "id": "AIR_SEARCH_REGION",
+  "is_own": 1,
+  "line_width": 0.5,
+  "parent_object_id": "no",
+  "properties": [
+    {
+      "name": "waiting_time",
+      "title": "Время патрулирования в районе",
+      "type": "int",
+      "value": 100
+    }
+  ],
+  "scale": 100,
+  "icon": "tactical_signs/white_reconnaissance_area.png",
+  "scheme": "tactical_signs/white_reconnaissance_area.png",
+  "short_name": "Р-н возд. разв.",
+  "spline": true,
+  "title": "Район ведения воздушной разведки",
+  "type": "AIR_SEARCH_REGION"
+}

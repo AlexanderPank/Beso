@@ -1,0 +1,142 @@
+{
+"scenario_id":"scen_bpla_path",
+  "map_center": "43.49387,39.59992",
+  "map_zoom": 6,
+  "objects":
+	[
+      {
+        "id": "BPLA_00",
+        "title": "БПЛА",
+        "properties": {
+          "class_code": "10185",
+          "is_own": 0,
+          "lat": 43.5149,
+          "lon": 39.729,
+          "alt": 500,
+          "course": 198.155,
+          "angle": 90.40,
+          "speed": 25.6,
+          "segment_index": 0,
+          "image": "ship-blue.png",
+          "geo_path": {"type": "Feature","properties": {"id": "BPLA_00_path", "class_code": "131405000210000000"}, "geometry": {"coordinates": [],"type": "LineString"}},
+          "geo_area": {"type": "Feature","properties": {"id": "BPLA_00_area", "class_code": "31261500011300000000"}, "geometry": {"coordinates": [ [[43.41474, 39.70685, 0], [43.44868, 39.64734, 0], [43.51196, 39.72768, 0], [43.47731, 39.79014, 0]]],"type": "Polygon"}},
+          "state": "standing"
+        },
+        "actions": [
+          {
+            "name": "движение",
+            "type": "move",
+            "algorithm_id": "alg_id_9",
+            "output_mapping": { "lat": "new_lat", "lon": "new_lon", "course": "new_course",
+              "segment_index": "new_segment_index"
+            }
+          },
+          {
+            "name": "расчет маршрута",
+            "type": "calculate",
+            "algorithm_id": "alg_id_66",
+            "output_mapping": { "geo_path.geometry.coordinates": "new_geo_path" }
+          }
+        ]
+      },
+		{
+			"id":"Model_00",
+			"title":"Среда взаимодействия",
+			"properties": {
+					"current_iteration":0,
+					"elapsed_time_in_sec":0,
+					"time_per_sec":1,
+					"lon": 37.504,
+					"lat": 42.915,
+					"alt": 0.0, 
+					"is_caught": -1,
+                    "point_exists": 0
+            },
+			"actions":[]
+		}
+	],
+    "classes": [],
+
+    "interactions": [
+      {
+        "source_object_id": "BPLA_00",
+        "interaction_type": "calculate",
+        "trigger_condition": "BPLA_00.properties['state'] == 'standing'",
+        "response_set_values": "BPLA_00.properties['state'] = 'moving'",
+        "response_action": "BPLA_00.properties['geo_path']['geometry']['coordinates'] = BPLA_00.actions.calculate(points=BPLA_00.properties['geo_area']['geometry']['coordinates'][0], h=BPLA_00.properties['alt'], angle=BPLA_00.properties['angle'])"
+      },
+      {
+        "source_object_id": "BPLA_00",
+        "interaction_type": "moving",
+        "trigger_condition": "BPLA_00.properties['state'] == 'moving'",
+        "response_action": "BPLA_00.actions.move(item=BPLA_00, path=BPLA_00.properties['geo_path'], time_in_seconds=self.second_in_iteration)"
+      }
+    ],
+    "algorithms" : [
+      {
+        "id":"alg_id_66",
+        "title": "Алгоритм расчета мрашрута для разведки БПЛА в заданном районе",
+        "description": "Используется передаваемый файл pkr_object.py",
+        "type": "libcpp",
+        "function": "LIBCPP02.buildPathExternC_2",
+        "input_parameters": [
+          {"points": "OUTPUT_STRUCT_POINTS"},
+          {"h": "double"},
+          {"angle": "double"}
+        ],
+        "output_parameters": {
+          "new_geo_path": "OUTPUT_STRUCT_POINTS"
+        }
+      },
+      {
+        "id":"alg_id_0",
+        "title": "Алгоритм движения объекта",
+        "description": "Простой встроенный алгоритм в модель движения объекта из точки 1 в точку 2 используя координаты курс и скорость",
+        "type": "inner",
+        "function": "ModelTasks.move_object",
+        "input_parameters": {},
+        "output_parameters": {
+          "new_lat": "float",
+          "new_lon": "float"
+        }
+      },
+        {
+            "id":"alg_create_point",
+            "title": "Алгоритм позиционирования точки перехвата на карте",
+            "description": "Простой встроенный алгоритм в модель ",
+            "type": "inner",
+            "function": "ModelTasks.create_point",
+            "input_parameters": {},
+            "output_parameters": {}
+        },
+
+      {
+        "id":"alg_id_9",
+        "title": "Алгоритм движения объекта по заданному маршруту",
+        "description": "Простой алгоритм движения объекта по заданному маршруту",
+        "type": "inner",
+        "function": "ModelTasks.move_object_by_path",
+        "input_parameters": {},
+        "output_parameters": {
+          "new_lat": "float",
+          "new_lon": "float",
+          "new_course": "float",
+          "new_segment_index": "int"
+        }
+      }
+
+    ],
+    "files": [
+        {
+            "id": "LIBCPP02",
+            "file_name": "libbplatemplate.so",
+			"type":"libcpp",
+            "md5_hash": "698d51a19d8a121ce581499d7b701668"
+        }
+    ],
+    "simulation_parameters": {
+        "time_step": 1,
+        "end_condition": "True == False",
+        "max_iterations": 100000
+    }
+}

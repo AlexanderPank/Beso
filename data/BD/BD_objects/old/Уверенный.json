@@ -1,0 +1,140 @@
+[
+    {
+        "children": [
+            {
+                "children": [
+                ],
+                "name": "id",
+                "text": "A_00"
+            },
+            {
+                "children": [
+                ],
+                "name": "title",
+                "text": "Уверенный"
+            },
+            {
+                "children": [
+                    {
+                        "children": [
+                            {
+                                "children": [
+                                ],
+                                "name": "lat",
+                                "text": "56.4567"
+                            },
+                            {
+                                "children": [
+                                ],
+                                "name": "lon",
+                                "text": "4.1827"
+                            },
+                            {
+                                "children": [
+                                ],
+                                "name": "alt",
+                                "text": "0"
+                            }
+                        ],
+                        "name": "position",
+                        "text": ""
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "course",
+                        "text": "90"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "speed",
+                        "text": "10"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "detection_range",
+                        "text": "100"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "state",
+                        "text": "moving"
+                    }
+                ],
+                "name": "properties",
+                "text": ""
+            },
+            {
+                "children": [
+                    {
+                        "children": [
+                            {
+                                "children": [
+                                ],
+                                "name": "type",
+                                "text": "move"
+                            },
+                            {
+                                "children": [
+                                ],
+                                "name": "algorithm_id",
+                                "text": "alg_id_0"
+                            },
+                            {
+                                "children": [
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "properties.position.lat",
+                                        "text": "new_lat"
+                                    },
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "properties.position.lon",
+                                        "text": "new_lon"
+                                    }
+                                ],
+                                "name": "output_mapping",
+                                "text": ""
+                            }
+                        ],
+                        "name": "name",
+                        "text": "движение"
+                    },
+                    {
+                        "children": [
+                            {
+                                "children": [
+                                ],
+                                "name": "type",
+                                "text": "detection"
+                            },
+                            {
+                                "children": [
+                                ],
+                                "name": "algorithm_id",
+                                "text": "alg_id_1"
+                            },
+                            {
+                                "children": [
+                                ],
+                                "name": "output_mapping",
+                                "text": ""
+                            }
+                        ],
+                        "name": "name",
+                        "text": "обнаружение"
+                    }
+                ],
+                "name": "actions:",
+                "text": ""
+            }
+        ],
+        "name": "РК Уверенный",
+        "text": "Уверенный.json"
+    }
+]

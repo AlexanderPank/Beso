@@ -1,0 +1,1 @@
+{"description":"Получение идентификатора ближайшего объекта на заданном расстоянии","function":"ModelTasks.get_first_object","id":"alg_id_get_first_object","input_parameters":[],"output_parameters":[{"target_id":"str","title":"Идентификатор объекта"}],"output_splitter":" ","subType":"Общие алгоритмы","title":"Получение ближайшего объекта на заданном расстоянии","type":"inner"}

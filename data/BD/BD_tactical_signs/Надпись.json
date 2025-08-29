@@ -1,0 +1,20 @@
+{
+  "class_code": "915300000000",
+  "color": "0",
+  "coordinates": [],
+  "description": "Наносится 2-мя точками. ",
+  "geometry_type": 6,
+  "group": "*",
+  "icon": ":/icons/images/tacticals/text.png",
+  "id": "TEXT",
+  "is_own": 2,
+  "line_width": 0.5,
+  "parent_object_id": "no",
+  "properties": [],
+  "scale": 100,
+  "scheme": ":/icons/images/tacticals/text_scheme.png",
+  "short_name": "Подпись",
+  "spline": false,
+  "title": "Надпись",
+  "type": "TEXT"
+}

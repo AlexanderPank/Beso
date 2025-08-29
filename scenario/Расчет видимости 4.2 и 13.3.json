@@ -1,0 +1,286 @@
+{
+  "scenario_id":"Видимость ИК-Диапазон",
+
+  "objects":
+  [
+    {
+      "id": "SHIP_00",
+      "title": "Корабль",
+      "properties":[
+        {"name": "class_code", "value": "131472600009", "type": "str"},
+        {"name": "is_own", "value": 1, "type": "int"},
+        {"name": "lat", "value": 43.53174, "type": "float"},
+        {"name": "lon", "value": 39.46268, "type": "float"},
+        {"name": "alt", "value": 0, "type": "int"},
+        {"name": "course", "value": 10.40, "type": "float"},
+        {"name": "speed", "value": 9.6, "type": "float"},
+        {"name": "hull_damage", "value": 0, "type": "int"},
+        {"name": "image", "value": "ship-blue.png", "type": "str"},
+        {"name": "state", "value": "standing", "type": "str"}
+      ],
+      "actions": [
+        {
+          "name": "Целераспределение",
+          "type": "targeting",
+          "algorithm_id": "alg_id_targeting",
+          "output_mapping":[]
+        }
+      ]
+    },
+    {
+      "id": "WEATHER",
+      "title": "Гидрометеорологическая обстановка",
+      "properties": [
+        {"name": "is_day", "value":  0, "type": "int", "title":"наличие или отсутствие естественного или искусственного освещения цели"},
+        {"name": "is_frog", "value":  0, "type": "int", "title":"наличие или отсутствие тумана/дыма"},
+        {"name": "is_rain", "value":  0, "type": "int", "title":"наличие или отсутствие дождя/снега"},
+        {"name": "intensive", "value":  0, "type": "int", "title":"интенсивность дождя/снега"},
+        {"name": "air_temperature", "value":  24, "type": "float", "title":"температура окружающией среды "}
+      ],
+      "actions": []
+    },
+    {
+      "id": "DETECT_00",
+      "title": "Средство ОЭС",
+      "properties":[
+        {"name": "class_code", "value": "31261500011300000002", "type": "str"},
+        {"name": "is_own", "value": 1, "type": "int"},
+        {"name": "lat", "value": 43.53174, "type": "float"},
+        {"name": "lon", "value": 39.46268, "type": "float"},
+        {"name": "alt", "value": 0, "type": "int"},
+        {"name": "look_lat", "value": 43.61779, "type": "float"},
+        {"name": "look_lon", "value": 39.50192, "type": "float"},
+        {"name": "look_alt", "value": 0, "type": "float"},
+        {"name": "dAlfa", "value":  30, "type": "float", "title":"угол обзора по горизонтали"},
+        {"name": "dBetta", "value":  30, "type": "float", "title":"угол обзора по вертикали"},
+        {"name": "iType", "value":  2, "type": "int", "title":"Long Wave Infrared, длинноволновый спектральный диапазон 8-14 мкм"},
+        {"name": "dDeltaTmin", "value":  0.05, "type": "float", "title":"температурное разрешение, т.е. чувствительность"},
+        {"name": "df", "value":  360, "type": "float", "title":"фокусное расстояние в мм (по умолчанию 360)"},
+        {"name": "dsp", "value":  4.8, "type": "float", "title":" размер пиксела матрицы в мкм (по умолчанию 4.8)"},
+        {"name": "iNMx", "value":  640, "type": "float", "title":" разрешение матрицы, соответственно, по горизонтали в пикселах "},
+        {"name": "iNMy", "value":  480, "type": "float", "title":" разрешение матрицы, соответственно, по вертикали в пикселах "},
+        {"name": "detection_radius", "value":  10000, "type": "float", "title":"dLmax максимальная дальность обнаружения в идеальных условиях в км  "},
+        {"name": "dL", "value":  0, "type": "float", "title":"дальность до цели в км (по умолчанию 8) вроде как удаляем параметр"},
+        {"name": "dTc", "value":  23, "type": "float", "title":"средняя температура корпуса цели в оС (по умолчанию 23)"},
+
+        {"name": "state", "value": "scanning", "type": "str"}
+      ],
+      "actions": [
+        {
+          "name": "обнаружение",
+          "type": "detect",
+          "algorithm_id": "alg_id_detect_OES",
+          "output_mapping": []
+        }
+      ]
+    },
+    {
+      "id": "BEK_01",
+      "title": "БЭК 1",
+      "properties":
+      [
+        {"name": "class_code", "value": "10213", "type": "str"},
+        {"name": "is_own", "value": 0, "type": "int"},
+        {"name": "lat", "value": 43.626470178732255, "type": "float"},
+        {"name": "lon", "value": 39.48991308634684, "type": "float"},
+        {"name": "alt", "value": 0.0, "type": "float"},
+        {"name": "course", "value": 145.19, "type": "float"},
+        {"name": "speed", "value": 20.0, "type": "float"},
+        {"name": "distance_of_defeat", "value": 7408, "type": "int"},
+        {"name": "detection_distance", "value": 20000, "type": "int"},
+        {"name": "rocket_count", "value": 2, "type": "int"},
+        {"name": "width", "value":  5.0, "type": "float", "title":"размеры цели по горизонтали "},
+        {"name": "height", "value":  1.5, "type": "float", "title":"размеры цели по вертикали "},
+        {"name": "case_temperature", "value":  25, "type": "float", "title":"температура корпуса"},
+        {"name": "is_detected", "value":  0, "type": "float", "title":"обнаружен ли объект"},
+        {"name": "state", "value": "moving", "type": "str"}
+      ],
+      "actions": [
+        {
+          "name": "движение",
+          "type": "move",
+          "algorithm_id": "alg_id_0",
+          "output_mapping":  [ {"lat": "new_lat"}, {"lon":  "new_lon"} ]
+        },
+        {
+          "name": "маневрирование",
+          "type": "maneuver",
+          "algorithm_id": "alg_id_3",
+          "output_mapping": [ { "course": "new_course"} ]
+        }
+      ]
+    },
+
+    {
+      "id": "BEK_02",
+      "title": "БЭК 2",
+      "properties":
+      [
+        {"name": "class_code", "value": "10213", "type": "str"},
+        {"name": "is_own", "value": 0, "type": "int"},
+        {"name": "lat", "value": 43.610292063473096, "type": "float"},
+        {"name": "lon", "value": 39.53649212169146, "type": "float"},
+        {"name": "alt", "value": 0.0, "type": "float"},
+        {"name": "course", "value": 269.68, "type": "float"},
+        {"name": "speed", "value": 20.0, "type": "float"},
+        {"name": "distance_of_defeat", "value": 7408, "type": "int"},
+        {"name": "detection_distance", "value": 20000, "type": "int"},
+        {"name": "rocket_count", "value": 2, "type": "int"},
+        {"name": "width", "value":  5.0, "type": "float", "title":"размеры цели по горизонтали "},
+        {"name": "height", "value":  1.5, "type": "float", "title":"размеры цели по вертикали "},
+        {"name": "case_temperature", "value":  10, "type": "float", "title":"температура корпуса"},
+        {"name": "is_detected", "value":  0, "type": "float", "title":"обнаружен ли объект"},
+        {"name": "state", "value": "moving", "type": "str"}
+      ],
+      "actions": [
+        {
+          "name": "движение",
+          "type": "move",
+          "algorithm_id": "alg_id_0",
+          "output_mapping":  [ {"lat": "new_lat"}, {"lon":  "new_lon"} ]
+        },
+        {
+          "name": "маневрирование",
+          "type": "maneuver",
+          "algorithm_id": "alg_id_3",
+          "output_mapping": [ { "course": "new_course"} ]
+        }
+      ]
+    },
+    {
+      "id": "PNT_01",
+      "title": "Точка перехвата объекта",
+      "properties": [
+        {"name": "class_code", "value": "7132250034230000000", "type": "str"},
+        {"name": "is_own", "value": 1, "type": "int"},
+        {"name": "lat", "value": 43.61779,  "type": "float"},
+        {"name": "lon", "value": 39.50192, "type": "float"},
+        {"name": "alt", "value": 0, "type": "int"},
+        {"name": "course", "value": 66.8, "type": "float"},
+        {"name": "speed", "value": 0.0, "type": "float"},
+        {"name": "image", "value": "cross.png", "type": "str"},
+        {"name": "state", "value": "standing", "type": "str"}
+      ],
+      "actions": []
+    },
+    {
+      "id":"Model_00",
+      "title":"Среда взаимодействия",
+      "properties":
+      [
+        {"name": "current_iteration", "value": 0, "type": "int"},
+        {"name": "elapsed_time_in_sec", "value": 0, "type": "int"},
+        {"name": "time_per_sec", "value": 1, "type": "int"}
+
+      ],
+      "actions":[]
+    }
+
+  ],
+  "classes": [],
+
+  "interactions": [
+    {
+      "source_object_id": "DETECT_00",
+      "interaction_type": "detect",
+      "trigger_condition": "DETECT_00.properties['state'] =='scanning'",
+      "response_set_values": "BEK_01.properties['is_detected'] = DETECT_00.actions.detect(weapon_latitude=DETECT_00.properties['lat'], weapon_longitude=DETECT_00.properties['lon'], weapon_altitude=DETECT_00.properties['alt'],dAlfa=DETECT_00.properties['dAlfa'], dBetta=DETECT_00.properties['dBetta'],observations_latitude=DETECT_00.properties['look_lat'], observations_longitude=DETECT_00.properties['look_lon'], observations_altitude=DETECT_00.properties['look_alt'],df=DETECT_00.properties['df'],dsp=DETECT_00.properties['dsp'],iNMx=DETECT_00.properties['iNMx'], iNMy=DETECT_00.properties['iNMy'],dLmax=DETECT_00.properties['detection_radius'],target_latitude=BEK_01.properties['lat'], target_longitude=BEK_01.properties['lon'], target_altitude=BEK_01.properties['alt'],dW=BEK_01.properties['width'], dH=BEK_01.properties['height'],iLight=WEATHER.properties['is_day'],iFrog=WEATHER.properties['is_frog'],isRainYes=WEATHER.properties['is_rain'], iIntensiv=WEATHER.properties['intensive'])"
+
+    },
+    {
+      "source_object_id": "DETECT_00",
+      "interaction_type": "detect",
+      "trigger_condition": "DETECT_00.properties['state'] =='scanning'",
+      "response_set_values": "BEK_02.properties['is_detected'] = DETECT_00.actions.detect(weapon_latitude=DETECT_00.properties['lat'], weapon_longitude=DETECT_00.properties['lon'], weapon_altitude=DETECT_00.properties['alt'],dAlfa=DETECT_00.properties['dAlfa'], dBetta=DETECT_00.properties['dBetta'],observations_latitude=DETECT_00.properties['look_lat'], observations_longitude=DETECT_00.properties['look_lon'], observations_altitude=DETECT_00.properties['look_alt'],df=DETECT_00.properties['df'],dsp=DETECT_00.properties['dsp'],iNMx=DETECT_00.properties['iNMx'], iNMy=DETECT_00.properties['iNMy'],dLmax=DETECT_00.properties['detection_radius'],target_latitude=BEK_01.properties['lat'], target_longitude=BEK_01.properties['lon'], target_altitude=BEK_01.properties['alt'],dW=BEK_01.properties['width'], dH=BEK_01.properties['height'],iLight=WEATHER.properties['is_day'],iFrog=WEATHER.properties['is_frog'],isRainYes=WEATHER.properties['is_rain'], iIntensiv=WEATHER.properties['intensive'])"
+
+    },
+    {
+      "source_object_id": "BEK_01",
+      "interaction_type": "moving",
+      "trigger_condition": "BEK_01.properties['state'] =='moving'",
+      "response_action": "BEK_01.actions.move(item=BEK_01, time_in_seconds=self.second_in_iteration)"
+    },
+    {
+      "source_object_id": "BEK_02",
+      "interaction_type": "moving",
+      "trigger_condition": "BEK_02.properties['state'] =='moving'",
+      "response_action": "BEK_02.actions.move(item=BEK_02, time_in_seconds=self.second_in_iteration)"
+    }
+  ],
+  "algorithms" : [
+    {
+      "id":"alg_id_0",
+      "title": "Алгоритм движения объекта",
+      "description": "Простой встроенный алгоритм в модель движения объекта из точки 1 в точку 2 используя координаты курс и скорость",
+      "type": "inner",
+      "function": "ModelTasks.move_object",
+      "input_parameters": [],
+      "output_parameters": [
+        {"new_lat": "float"},
+        {"new_lon": "float"}
+      ]
+    },
+    {
+      "id":"alg_id_detect_OES",
+      "title": "Функция Расчет видимости одного объекта другим средствами ОЭС(модель 2 ОЭ)",
+      "description": "Использует простой алгоритм Расчет видимости ",
+      "type": "libcpp",
+      "function": "LIBCPP04.GetVisibilityOEObj1Obj2",
+      "input_parameters": [
+        {"weapon_latitude": "float", "title": "широта объекта1 (ОЭС)"},
+        {"weapon_longitude": "float", "title": "долгота объекта1 (ОЭС)"},
+        {"weapon_altitude": "float", "title": "высота размещения ОЭС (м)"},
+        {"dAlfa": "float", "title": "угол обзора по горизонту (град)"},
+        {"dBetta": "float", "title": "угол обзора по вертикали (град)"},
+        {"observations_latitude": "float", "title": "широта направления обзора"},
+        {"observations_longitude": "float", "title": "долгота направления обзора"},
+        {"observations_altitude": "float", "title": "высота направления обзора (м)"},
+        {"df": "float", "title": "фокусное расстояние (мм)"},
+        {"dsp": "float", "title": "размер пикселя матрицы (мкм)"},
+        {"iNMx": "int", "title": "разрешение матрицы по горизонтали (пикс)"},
+        {"iNMy": "int", "title": "разрешение матрицы по вертикали (пикс)"},
+        {"dLmax": "float", "title": "максимальная дальность обнаружения (м)"},
+        {"target_latitude": "float", "title": "широта объекта2 (цели)"},
+        {"target_longitude": "float", "title": "долгота объекта2 (цели)"},
+        {"target_altitude": "float", "title": "высота объекта2 (цели) (м)"},
+        {"dW": "float", "title": "ширина цели (м)"},
+        {"dH": "float", "title": "высота цели (м)"},
+        {"iLight": "int", "title": "освещение (0-нет, 1-есть)"},
+        {"iFrog": "int", "title": "туман/дым (0-нет, 1-есть)"},
+        {"isRainYes": "int", "title": "тип осадков (1-дождь, иначе-снег)"},
+        {"iIntensiv": "int", "title": "интенсивность осадков (0-100)"}
+      ],
+      "output_parameters": [ {"state":  "int"}]
+    }
+
+
+  ],
+  "files": [
+    {
+      "id": "LIBCPP01",
+      "file_name": "fox-rabbit.so",
+      "type":"libcpp",
+      "md5_hash": "698d51a19d8a121ce581499d7b701668"
+    },{
+      "id": "LIBCPP06",
+      "file_name": "libtask3_1_1.so.1.0.0",
+      "type":"libcpp",
+      "md5_hash": "698d51a19d8a121ce581499d7b701669"
+    },
+    {
+      "id": "LIBCPP04",
+      "file_name": "libcalcsea.so.1.0.4",
+      "type":"libcpp",
+      "md5_hash": "698d51a19d8a121ce581499d7b701668"
+    }
+  ],
+  "simulation_parameters": {
+    "time_step": 1,
+    "end_condition": "0 == -1",
+    "max_iterations": 100000,
+    "map_center": "43.54957, 39.49488",
+    "map_zoom": 6
+  }
+}
+
+

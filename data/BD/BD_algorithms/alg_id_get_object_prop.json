@@ -1,0 +1,1 @@
+{"description":"Получение свойства объекта по его id и имени проперти","function":"ModelTasks.get_object_prop","id":"alg_id_get_object_prop","input_parameters":[],"output_parameters":[{"result":"any","title":"Результат"}],"output_splitter":" ","subType":"Общие алгоритмы","title":"Получение свойства объекта","type":"inner"}

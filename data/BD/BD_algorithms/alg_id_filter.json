@@ -1,0 +1,1 @@
+{"description":"Алгоритм фильтра по типу объектов","function":"ModelTasks.filter_by_type","id":"alg_id_filter","input_parameters":[],"output_parameters":[{"objects":"list","title":""}],"output_splitter":" ","subType":"Общие алгоритмы","title":"Алгоритм фильтра по типу объектов","type":"inner"}

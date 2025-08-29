@@ -1,0 +1,56 @@
+[
+    {
+        "children": [
+            {
+                        "children": [
+                        ],
+                        "name": "id",
+                        "text": "alg_id_3"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "title",
+                        "text": "Алгоритм маневрирования ПКР"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "description",
+                        "text": "Используется передаваемый файл pkr_object.py"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "type",
+                        "text": "python_file"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "function",
+                        "text": "pkr_object.pkr_maneuver"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "input_parameters",
+                        "text": ""
+                    },
+                    {
+                        "children": [
+                            {
+                                "children": [
+                                ],
+                                "name": "new_course",
+                                "text": "float"
+                            }
+                        ],
+                        "name": "output_parameters",
+                        "text": ""
+                    }
+                ],
+                "name": "Маневрирования ПКР",
+                "text": "manevr_pkr.json"
+            }
+]

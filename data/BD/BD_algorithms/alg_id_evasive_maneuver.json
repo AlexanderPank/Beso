@@ -1,0 +1,11 @@
+{
+  "description": "Маневр уклонения - сделать разворот по курсу угрозы чтобы не попасть под удар",
+  "function": "ModelTasks.evasive_maneuver",
+  "id": "alg_id_evasive_maneuver",
+  "input_parameters": [],
+  "output_parameters": [],
+  "output_splitter": " ",
+  "subType": "Маневр",
+  "title": "Маневр уклонения - бегство",
+  "type": "inner"
+}

@@ -1,0 +1,25 @@
+{
+  "id":"alg_id_fox_rabbit",
+  "title": "алгоритма расчета точки встречи",
+  "description": "алгоритма расчета точки встречи С++ ",
+  "type": "libcpp",
+  "function": "LIBCPP01.calc_point_single",
+  "input_parameters": [
+    {"lat1": "float"},
+    {"lon1": "float"},
+    {"alt1": "float"},
+    {"speed1": "float"},
+    {"lat2": "float"},
+    {"lon2": "float"},
+    {"alt2": "float"},
+    {"speed2": "float"},
+    {"course2": "float"},
+    {"dt": "float"}
+  ],
+  "output_parameters": [
+    {"_lat": "float"},
+    {"_lon": "float"},
+    {	"_alt": "float"},
+    {	"_is_caught": "bool"}
+  ]
+}

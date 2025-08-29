@@ -1,0 +1,18 @@
+{
+  "title": "Облет зоны разведки",
+  "object_list": [
+    {"name": "TARGET", "description": "Идентификатор БПЛА который осуществляет облет зоны разведки"},
+    {"name": "FEATURE", "description": "Идентификатор геообласти зоны разведки"}
+  ],
+  "interaction_list": [
+    {
+      "title": "Облет зоны разведки",
+      "source_object_id": "!TARGET!",
+      "interaction_type": "calculate",
+      "trigger_condition": "!TARGET!.properties['state'] == 'finished'",
+      "response_set_values": "!TARGET!.properties['state'] = 'moving'; !TARGET!.properties['segment_index'] = 0",
+      "response_action": "!TARGET!.properties['geo_path']['geometry']['coordinates'] = !TARGET!.actions.calculate(points=self.['!FEATURE!']['coordinates'], h=!TARGET!.properties['alt'], angle=!TARGET!.properties['angle'])"
+    }
+  ]
+}
+

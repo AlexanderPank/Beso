@@ -1,0 +1,17 @@
+{
+  "title": "Привязка геобъекта к объекту моделирования",
+  "object_list": [
+    {"name": "TARGET", "description": "Идентификатор объекта моделирования "},
+    {"name": "FEATURE", "description": "Идентификатор геообъекта, который следует за целью"}
+  ],
+  "interaction_list": [
+    {
+      "title": "Привязка геобъекта к объекту моделирования",
+      "source_object_id": "!TARGET!",
+      "interaction_type": "moving",
+      "trigger_condition": "!TARGET!.properties['state'] == 'moving'",
+      "response_set_values": "self.['!FEATURE!']['coordinates'][0] = [!TARGET!.properties['lat'],  !TARGET!.properties['lat']]",
+      "response_action": ""
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+[
+    {
+        "children": [
+            {
+                "children": [
+                        ],
+                        "name": "id",
+                        "text": "alg_id_5"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "title",
+                        "text": "Алгоритм маневрирования ЗУР"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "description",
+                        "text": "Используется передаваемый файл zur_object"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "type",
+                        "text": "binary_file"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "function",
+                        "text": "zur_exe_source.exe --type maneuver"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "input_parameters",
+                        "text": ""
+                    },
+                    {
+                        "children": [
+                            {
+                                "children": [
+                                ],
+                                "name": "new_course",
+                                "text": "float"
+                            }
+                        ],
+                        "name": "output_parameters",
+                        "text": ""
+                    }
+                ],
+                "name": "Маневрирования ЗУР",
+                "text": "manevr_zur.json"
+            }
+]

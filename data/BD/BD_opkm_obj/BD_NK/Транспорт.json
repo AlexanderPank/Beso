@@ -1,0 +1,116 @@
+[
+    {
+        "children": [
+            {
+                "children": [
+                ],
+                "name": "id",
+                "text": "B_00"
+            },
+            {
+                "children": [
+                ],
+                "name": "title",
+                "text": "Транспортное судно"
+            },
+            {
+                "children": [
+                    {
+                        "children": [
+                        ],
+                        "name": "course",
+                        "text": "0"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "speed",
+                        "text": "0"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "state",
+                        "text": "moving"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "lat",
+                        "text": "0"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "lon",
+                        "text": "0"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "image",
+                        "text": "tr-blue.png"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "path",
+                        "text": ""
+                    }
+                ],
+                "name": "properties",
+                "text": ""
+            },
+            {
+                "children": [
+                    {
+                        "children": [
+                            {
+                                "children": [
+                                ],
+                                "name": "type",
+                                "text": "move"
+                            },
+                            {
+                                "children": [
+                                ],
+                                "name": "algorithm_id",
+                                "text": "alg_id_9"
+                            },
+                            {
+                                "children": [
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "lat",
+                                        "text": "new_lat"
+                                    },
+                                    {
+                                        "children": [
+                                        ],
+                                        "name": "lon",
+                                        "text": "new_lon"
+                                    }
+                                ],
+                                "name": "output_mapping",
+                                "text": ""
+                            },
+                            {
+                                "children": [
+                                ],
+                                "name": "name",
+                                "text": "Расчет перемещения по заданному маршруту без учета циркуляции и внешних условий"
+                            }
+                        ],
+                        "name": "движение",
+                        "text": "-"
+                    }
+                ],
+                "name": "actions",
+                "text": "+"
+            }
+        ],
+        "name": "Транспортное судно",
+        "text": "Транспорт.json"
+    }
+]

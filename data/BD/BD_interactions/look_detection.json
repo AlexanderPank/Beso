@@ -1,0 +1,18 @@
+{
+  "title": "Простой алгоритм обнаружения объекта по видимости и атаки камикадзе",
+  "object_list": [
+    {"name": "TARGET", "description": "Идентификатор объекта моделирования "},
+    {"name": "DESTINATION", "description": "Идентификатор геообъекта, который следует за целью"},
+    {"name": "WEATHER", "description": "Идентификатор геообъекта, который следует за целью"}
+  ],
+  "interaction_list": [
+    {
+      "title": "Алгоритм обнаружения объекта по видимости и атаки камикадзе",
+      "source_object_id": "!TARGET!",
+      "interaction_type": "look_detection",
+      "trigger_condition": "!TARGET!.actions.look_detection(item1=!TARGET!, item2=!DESTINATION!,  rain=!WEATHER!.properties['rain_intensive'], frog=!WEATHER!.properties['frog_intensive'], max_distance=!TARGET!.properties['detection_distance'])",
+      "response_set_values": "!TARGET!.properties['segment_index'] = -1",
+      "response_action": "Model_00.actions.fox_rabbit(lat1=!TARGET!.properties['lat'], lon1=!TARGET!.properties['lon'], alt1=!TARGET!.properties['alt'], speed1=!TARGET!.properties['speed'], lat2=!DESTINATION!.properties['lat'], lon2=!DESTINATION!.properties['lon'], alt2=!DESTINATION!.properties['alt'], speed2=!DESTINATION!.properties['speed'], course2=!DESTINATION!.properties['course'], dt=100.0) and !TARGET!.properties['geo_path']['geometry']['coordinates'] = !TARGET!.actions.find_path(ship_lat=!TARGET!.properties['lat'], ship_lon=!TARGET!.properties['lon'], target_lat=Model_00.properties['lat'], target_lon=Model_00.properties['lon'], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"))"
+    }
+  ]
+}

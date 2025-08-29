@@ -1,0 +1,68 @@
+[
+    {
+        "children": [
+            {
+                "children": [
+                ],
+                "name": "id",
+                "text": "\"\""
+            },
+            {
+                "children": [
+                ],
+                "name": "title",
+                "text": "шаблон ОПКМ"
+            },
+            {
+                "children": [
+                    {
+                        "children": [
+                        ],
+                        "name": "course",
+                        "text": "0"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "speed",
+                        "text": "0"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "state",
+                        "text": "waiting"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "lat",
+                        "text": "0"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "lon",
+                        "text": "0"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "image",
+                        "text": " "
+                    }
+                ],
+                "name": "properties",
+                "text": ""
+            },
+            {
+                "children": [
+                ],
+                "name": "actions",
+                "text": "+"
+            }
+        ],
+        "name": "Наименование ОПКМ",
+        "text": "новый.json"
+    }
+]

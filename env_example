@@ -1,0 +1,11 @@
+# API Configuration
+API_ENDPOINT=http://192.168.169.128:9009/modeling/api/v1
+WS_ENDPOINT=ws://192.168.169.128:9009/ws/simulation
+
+LOCAL_STORAGE=1
+PATH_LOCAL_STORAGE=/home/qq/CLionProjects/ScenarioClient/data/BD
+PATH_TMP=./temp
+# Other configuration parameters
+# DEBUG_MODE=true
+# LOG_LEVEL=info
+# TIMEOUT_MS=5000

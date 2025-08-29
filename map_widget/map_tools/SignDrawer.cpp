@@ -1,0 +1,162 @@
+// signdrawer.cpp
+#include "SignDrawer.h"
+#include "CoordCtx.h"
+#include "../../core/QLogStream.h"
+#include <QPainter>
+#include <QDebug>
+
+SignDrawer* SignDrawer::m_instance = nullptr;
+
+SignDrawer::SignDrawer(HMAP hMap, QObject *parent)
+        : QObject(parent), m_hMap(hMap), m_state(Idle)
+{
+    m_instance = this;
+}
+
+SignDrawer::~SignDrawer()
+{
+    if (m_instance == this)
+        m_instance = nullptr;
+}
+
+
+SignDrawer* SignDrawer::instance()
+{
+    if (!m_instance) {
+        qCritical() << "SignDrawer инстанс не создан !";
+    }
+    return m_instance;
+}
+
+void SignDrawer::startDrawing(SignBase *sign)
+{
+    if (!sign) return;
+    if (m_state != Idle) {
+        qWarning() << "Already drawing a sign";
+        return;
+    }
+    m_drawing_sign = sign;
+    m_signType = sign->getGeometryType();
+    m_state = DrawingFirstPoint;
+    m_points.clear();
+    m_currentMousePos = QPointF();
+}
+
+void SignDrawer::startDrawing(SignBase::SignType signType)
+{
+    if (m_state != Idle) {
+        qWarning() << "Already drawing a sign";
+        return;
+    }
+
+    m_signType = signType;
+    m_state = DrawingFirstPoint;
+    m_points.clear();
+    m_currentMousePos = QPointF();
+}
+
+void SignDrawer::cancelDrawing()
+{
+    if (m_state != Idle) {
+        clear();
+        emit drawingCanceled();
+    }
+}
+
+void SignDrawer::handleMouseClick(QPointF coordsPic)
+{
+    if (m_state == Idle) return;
+    m_points.append(coordsPic);
+    if (m_2PointSigns.contains(m_signType) && m_points.size() >= 2) completeDrawing();
+}
+
+void SignDrawer::handleMouseMove(QPointF coordsPic)
+{
+    if (m_state == Idle || m_state == Complete) return;
+
+    m_currentMousePos = coordsPic;
+    if (m_points.size() == 0) return;
+    QVector<QPointF> pointsToSend = m_points;
+    pointsToSend.push_back(coordsPic);
+    pointsToSend = GeoUtil::convertPointsPicToRadian(m_hMap, pointsToSend);
+    emit signDrawing(pointsToSend, GeoUtil::distance(pointsToSend));
+
+}
+
+void SignDrawer::handleMouseDoubleClick()
+{
+    // Проверяем минимальное количество точек
+    if (((m_signType == SignBase::LOCAL_LINE) && m_points.size() >= 2) ||
+        (m_signType == SignBase::LOCAL_POLYGON && m_points.size() >= 3)) {
+        completeDrawing();
+    } else {
+        qWarning() << "Not enough points for this sign type";
+    }
+}
+
+void SignDrawer::handlePaint(QPainter *p, int cx, int cy, int cw, int ch)
+{
+    if (m_state == Idle) return;
+
+    p->save();
+    p->setRenderHint(QPainter::Antialiasing, true);
+    // Рисуем линии  и точки фигуры
+    for (int i = 0; i < m_points.size(); ++i) {
+        // Рисуем линии между добавленными точками
+        if (i>0 ) {
+            p->setPen(QPen(Qt::black, 1, Qt::SolidLine));
+            p->drawLine(m_points[i-1] - QPoint(cx, cy), m_points[i] - QPoint(cx, cy));
+        }
+        p->setPen(QPen(Qt::gray, 1));
+        p->setBrush(Qt::white);
+        p->drawEllipse(m_points[i] - QPoint(cx, cy), 5, 5);
+    }
+
+    // дорисовываем линию для слежения за курсором
+    if (m_points.size() > 0 && m_state != Complete) {
+        // qLog() << m_currentMousePos.x() << " " << m_currentMousePos.y();
+        p->setPen(QPen(Qt::green, 2, Qt::DotLine));
+        p->drawLine(m_points.last() - QPoint(cx, cy), m_currentMousePos - QPoint(cx, cy));
+    }
+    p->restore();
+}
+
+QVector<QPoint> SignDrawer::toPixPoints(const QVector<QPointF>& geoPoints, int cx, int cy) const
+{
+    QVector<QPoint> points;
+    for (const QPointF& geoPt : geoPoints) {
+        CoordCtx ctx(m_hMap, GEO, geoPt);
+        points.append(ctx.pic() - QPoint(cx, cy));
+    }
+    return points;
+}
+
+void SignDrawer::completeDrawing()
+{
+    if (m_state == Idle) return;
+    if (m_points.isEmpty()) {
+        qWarning() << "No points to complete drawing";
+        return;
+    }
+    // Для точечного знака гарантируем 2 точки
+    if ( m_2PointSigns.contains(m_signType) &&   m_points.size() == 1) {
+        m_points.append(m_points[0] + QPointF(1, 1));
+    }
+    if (m_state != Complete) {
+        auto points = GeoUtil::convertPointsPicToRadian(m_hMap, m_points);
+        if (m_drawing_sign) {
+            m_drawing_sign->setCoordinatesInRadians(points.toList());
+            emit signDrawEnd();
+        }
+        else
+            emit signDrawn(m_signType, points);
+    }
+    clear();
+}
+
+void SignDrawer::clear()
+{
+    m_state = Idle;
+    m_points.clear();
+    m_currentMousePos = QPointF();
+}

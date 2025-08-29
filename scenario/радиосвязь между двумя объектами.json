@@ -1,0 +1,246 @@
+{
+  "scenario_id":"Видимость ИК-Диапазон",
+
+  "objects":
+  [
+    {
+      "id": "SHIP_00",
+      "title": "Корабль",
+      "properties":[
+        {"name": "class_code", "value": "131472600009", "type": "str"},
+        {"name": "is_own", "value": 1, "type": "int"},
+        {"name": "lat", "value": 43.53174, "type": "float"},
+        {"name": "lon", "value": 39.46268, "type": "float"},
+        {"name": "alt", "value": 0, "type": "int"},
+        {"name": "course", "value": 10.40, "type": "float"},
+        {"name": "speed", "value": 9.6, "type": "float"},
+        {"name": "hull_damage", "value": 0, "type": "int"},
+        {"name": "image", "value": "ship-blue.png", "type": "str"},
+        {"name": "antena_height", "value":  4, "type": "float", "title":" высота антенны "},
+        {"name": "wave_length", "value":  10, "type": "float", "title":"длина волны излучения"},
+        {"name": "power", "value":  1, "type": "float", "title":"мощьность передатчика"},
+        {"name": "state", "value": "standing", "type": "str"}
+      ],
+      "actions": [
+        {
+          "name": "Целераспределение",
+          "type": "targeting",
+          "algorithm_id": "alg_id_targeting",
+          "output_mapping":[]
+        }
+      ]
+    },
+    {
+      "id": "WEATHER",
+      "title": "Гидрометеорологическая обстановка",
+      "properties": [
+        {"name": "is_day", "value":  0, "type": "int", "title":"наличие или отсутствие естественного или искусственного освещения цели"},
+        {"name": "is_frog", "value":  0, "type": "int", "title":"наличие или отсутствие тумана/дыма"},
+        {"name": "air_temperature", "value":  24, "type": "float", "title":"температура окружающией среды "}
+      ],
+      "actions": []
+    },
+
+    {
+      "id": "BEK_01",
+      "title": "БЭК 1",
+      "properties":
+      [
+        {"name": "class_code", "value": "10213", "type": "str"},
+        {"name": "is_own", "value": 1, "type": "int"},
+        {"name": "lat", "value": 43.626470178732255, "type": "float"},
+        {"name": "lon", "value": 39.48991308634684, "type": "float"},
+        {"name": "alt", "value": 0.0, "type": "float"},
+        {"name": "course", "value": 184.19, "type": "float"},
+        {"name": "speed", "value": 20.0, "type": "float"},
+        {"name": "distance_of_defeat", "value": 7408, "type": "int"},
+        {"name": "detection_distance", "value": 20000, "type": "int"},
+        {"name": "rocket_count", "value": 2, "type": "int"},
+        {"name": "width", "value":  5.0, "type": "float", "title":"размеры цели по горизонтали "},
+        {"name": "height", "value":  1.5, "type": "float", "title":"размеры цели по вертикали "},
+        {"name": "case_temperature", "value":  25, "type": "float", "title":"температура корпуса"},
+        {"name": "is_detected", "value":  0, "type": "float", "title":"обнаружен ли объект"},
+        {"name": "state", "value": "moving", "type": "str"},
+        {"name": "antena_height", "value": 1, "type": "float", "title":"высота антенны"},
+        {"name": "radio_link", "value": "неизвестно", "type": "str", "title":"есть ли радиосвязь с кораблем"},
+        {"name": "intenferences", "value": 0, "type": "float", "title":"напряженность помех у объекта2"}
+      ],
+      "actions": [
+        {
+          "name": "движение",
+          "type": "move",
+          "algorithm_id": "alg_id_0",
+          "output_mapping":  [ {"lat": "new_lat"}, {"lon":  "new_lon"} ]
+        },
+        {
+          "name": "маневрирование",
+          "type": "maneuver",
+          "algorithm_id": "alg_id_3",
+          "output_mapping": [ { "course": "new_course"} ]
+        },
+        {
+          "name": "радиосвязь",
+          "type": "radio_link",
+          "algorithm_id": "alg_id_has_radio_link",
+          "output_mapping": [  ]
+        }
+      ]
+    },
+
+    {
+      "id": "BEK_02",
+      "title": "БПЛА 1",
+      "properties":
+      [
+        {"name": "class_code", "value": "10185", "type": "str"},
+        {"name": "is_own", "value": 1, "type": "int"},
+        {"name": "lat", "value": 43.60134, "type": "float"},
+        {"name": "lon", "value": 39.34133, "type": "float"},
+        {"name": "alt", "value": 0.0, "type": "float"},
+        {"name": "course", "value": 269.68, "type": "float"},
+        {"name": "speed", "value": 20.0, "type": "float"},
+        {"name": "distance_of_defeat", "value": 7408, "type": "int"},
+        {"name": "detection_distance", "value": 20000, "type": "int"},
+        {"name": "rocket_count", "value": 2, "type": "int"},
+        {"name": "width", "value":  5.0, "type": "float", "title":"размеры цели по горизонтали "},
+        {"name": "height", "value":  1.5, "type": "float", "title":"размеры цели по вертикали "},
+        {"name": "case_temperature", "value":  10, "type": "float", "title":"температура корпуса"},
+        {"name": "is_detected", "value":  0, "type": "float", "title":"обнаружен ли объект"},
+        {"name": "state", "value": "moving", "type": "str"},
+        {"name": "antena_height", "value": 1, "type": "float", "title":"высота антенны"},
+        {"name": "radio_link", "value": "неизвестно", "type": "str", "title":"есть ли радиосвязь с кораблем"},
+        {"name": "intenferences", "value": 1, "type": "float", "title":"напряженность помех у объекта2"}
+      ],
+      "actions": [
+        {
+          "name": "движение",
+          "type": "move",
+          "algorithm_id": "alg_id_0",
+          "output_mapping":  [ {"lat": "new_lat"}, {"lon":  "new_lon"} ]
+        },
+        {
+          "name": "маневрирование",
+          "type": "maneuver",
+          "algorithm_id": "alg_id_3",
+          "output_mapping": [ { "course": "new_course"} ]
+        },
+        {
+          "name": "радиосвязь",
+          "type": "radio_link",
+          "algorithm_id": "alg_id_has_radio_link",
+          "output_mapping": [  ]
+        }
+      ]
+    },
+
+    {
+      "id":"Model_00",
+      "title":"Среда взаимодействия",
+      "properties":
+      [
+        {"name": "current_iteration", "value": 0, "type": "int"},
+        {"name": "elapsed_time_in_sec", "value": 0, "type": "int"},
+        {"name": "time_per_sec", "value": 1, "type": "int"}
+
+      ],
+      "actions":[]
+    }
+
+  ],
+  "classes": [],
+
+  "interactions": [
+    {
+      "source_object_id": "BEK_01",
+      "interaction_type": "radio_link",
+      "trigger_condition": "1 == BEK_01.actions.radio_link(weapon_latitude=SHIP_00.properties['lat'],  weapon_longitude=SHIP_00.properties['lon'],  weapon_altitude=SHIP_00.properties['alt'],  dWeaponAntenaHeightlfa=SHIP_00.properties['antena_height'],  dWaveLenght=SHIP_00.properties['wave_length'],  dPower=SHIP_00.properties['power'],  target_latitude=BEK_01.properties['lat'],  target_longitude=BEK_01.properties['lon'],  target_altitude=BEK_01.properties['alt'],  dTargetWeaponAntenaHeightlfa=BEK_01.properties['antena_height'],  dIntenferences=BEK_01.properties['intenferences'],  dCriteria=3)",
+      "response_set_values": "BEK_01.properties['radio_link'] = 'связь есть' "
+
+    },
+    {
+      "source_object_id": "BEK_01",
+      "interaction_type": "radio_link",
+      "trigger_condition": "0 == BEK_01.actions.radio_link( weapon_latitude=SHIP_00.properties['lat'],  weapon_longitude=SHIP_00.properties['lon'],  weapon_altitude=SHIP_00.properties['alt'],  dWeaponAntenaHeightlfa=SHIP_00.properties['antena_height'],  dWaveLenght=SHIP_00.properties['wave_length'],  dPower=SHIP_00.properties['power'],  target_latitude=BEK_01.properties['lat'],  target_longitude=BEK_01.properties['lat'],  target_altitude=BEK_01.properties['lat'],  dTargetWeaponAntenaHeightlfa=BEK_01.properties['antena_height'],  dIntenferences=BEK_01.properties['intenferences'],  dCriteria=3)",
+      "response_set_values": "BEK_01.properties['radio_link'] = 'связи нет' "
+    },
+    {
+      "source_object_id": "BEK_02",
+      "interaction_type": "radio_link",
+      "trigger_condition": "1 == BEK_02.actions.radio_link(weapon_latitude=SHIP_00.properties['lat'],  weapon_longitude=SHIP_00.properties['lon'],  weapon_altitude=SHIP_00.properties['alt'],  dWeaponAntenaHeightlfa=SHIP_00.properties['antena_height'],  dWaveLenght=SHIP_00.properties['wave_length'],  dPower=SHIP_00.properties['power'],  target_latitude=BEK_02.properties['lat'],  target_longitude=BEK_02.properties['lon'],  target_altitude=BEK_02.properties['alt'],  dTargetWeaponAntenaHeightlfa=BEK_02.properties['antena_height'],  dIntenferences=BEK_02.properties['intenferences'],  dCriteria=3)",
+      "response_set_values": "BEK_02.properties['radio_link'] = 'связь есть' "
+
+    },
+    {
+      "source_object_id": "BEK_02",
+      "interaction_type": "radio_link",
+      "trigger_condition": "0 == BEK_02.actions.radio_link( weapon_latitude=SHIP_00.properties['lat'],  weapon_longitude=SHIP_00.properties['lon'],  weapon_altitude=SHIP_00.properties['alt'],  dWeaponAntenaHeightlfa=SHIP_00.properties['antena_height'],  dWaveLenght=SHIP_00.properties['wave_length'],  dPower=SHIP_00.properties['power'],  target_latitude=BEK_02.properties['lat'],  target_longitude=BEK_02.properties['lat'],  target_altitude=BEK_02.properties['lat'],  dTargetWeaponAntenaHeightlfa=BEK_02.properties['antena_height'],  dIntenferences=BEK_02.properties['intenferences'],  dCriteria=3)",
+      "response_set_values": "BEK_02.properties['radio_link'] = 'связи нет' "
+    }
+  ],
+  "algorithms" : [
+    {
+      "id":"alg_id_0",
+      "title": "Алгоритм движения объекта",
+      "description": "Простой встроенный алгоритм в модель движения объекта из точки 1 в точку 2 используя координаты курс и скорость",
+      "type": "inner",
+      "function": "ModelTasks.move_object",
+      "input_parameters": [],
+      "output_parameters": [
+        {"new_lat": "float"},
+        {"new_lon": "float"}
+      ]
+    },
+    {
+      "id":"alg_id_has_radio_link",
+      "title": "Алгоритм Расчет наличия радиосвязи одного объекта другим (модель 3)",
+      "description": "Расчет наличия радиосвязи одного объекта другим (модель 3)",
+      "type": "libcpp",
+      "function": "LIBCPP04.GetRadioLinkObj1Obj2",
+      "input_parameters": [
+          {"weapon_latitude": "float", "title": "широта объекта1"},
+          {"weapon_longitude": "float", "title": "долгота объекта1"},
+          {"weapon_altitude": "float", "title": "высота объекта1"},
+          {"dWeaponAntenaHeightlfa": "float", "title": "высота антенны объекта1 (м)"},
+          {"dWaveLenght": "float", "title": "длина волны (м)"},
+          {"dPower": "float", "title": "мощность передатчика (Вт)"},
+          {"target_latitude": "float", "title": "широта объекта2"},
+          {"target_longitude": "float", "title": "долгота объекта2"},
+          {"target_altitude": "float", "title": "высота объекта2"},
+          {"dTargetWeaponAntenaHeightlfa": "float", "title": "высота антенны объекта2"},
+          {"dIntenferences": "float", "title": "напряженность помех у объекта2"},
+          {"dCriteria": "float", "title": "критериальное отношение помеха/сигнал"}
+      ],
+      "output_parameters": [ {"state":  "int"}]
+    }
+
+
+  ],
+  "files": [
+    {
+      "id": "LIBCPP01",
+      "file_name": "fox-rabbit.so",
+      "type":"libcpp",
+      "md5_hash": "698d51a19d8a121ce581499d7b701668"
+    },{
+      "id": "LIBCPP06",
+      "file_name": "libtask3_1_1.so.1.0.0",
+      "type":"libcpp",
+      "md5_hash": "698d51a19d8a121ce581499d7b701669"
+    },
+    {
+      "id": "LIBCPP04",
+      "file_name": "libcalcsea.so.1.0.4",
+      "type":"libcpp",
+      "md5_hash": "698d51a19d8a121ce581499d7b701668"
+    }
+  ],
+  "simulation_parameters": {
+    "time_step": 1,
+    "end_condition": "0 == -1",
+    "max_iterations": 100000,
+    "map_center": "43.54957, 39.49488",
+    "map_zoom": 6
+  }
+}
+
+

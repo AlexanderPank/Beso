@@ -1,0 +1,66 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>images/pause.png</file>
+        <file>images/play.png</file>
+        <file>images/resume.png</file>
+        <file>images/stop.png</file>
+        <file>images/open.png</file>
+        <file>images/roulet.jpg</file>
+        <file>images/sign_add_points.jpg</file>
+        <file>images/sign_change.jpg</file>
+        <file>images/sign_properties.jpg</file>
+        <file>images/sign_remove.jpg</file>
+        <file>images/sign_remove_points.jpg</file>
+        <file>images/sign_rotate.jpg</file>
+        <file>images/sign_multy_select.png</file>
+        <file>images/dropdown_arrow.png</file>
+        <file>images/roulette_active.jpg</file>
+        <file>images/sign_change_active.jpg</file>
+        <file>images/sign_properties_active.jpg</file>
+        <file>images/sign_rotate_active.jpg</file>
+        <file>images/reload.png</file>
+        <file>images/reload_white.png</file>
+        <file>images/appicon.png</file>
+        <file>images/appicon2.png</file>
+        <file alias="ADD_TO_MAP_ICON">images/add_location.png</file>
+        <file alias="SEARCH_ON_MAP">images/search.png</file>
+        <file alias="EDIT_ICON">images/edit.png</file>
+        <file>images/3d.png</file>
+        <file>images/map_add.png</file>
+        <file>images/map_find.png</file>
+        <file>images/tacticals/destination_point.png</file>
+        <file>images/tacticals/frontier_attack.png</file>
+        <file>images/tacticals/roz.png</file>
+        <file>images/tacticals/zonerecon.png</file>
+        <file>images/tacticals/destination_point_scheme.png</file>
+        <file>images/tacticals/roz_scheme.png</file>
+        <file>images/tacticals/zonerecon_scheme.png</file>
+        <file>images/tacticals/restricted_area.png</file>
+        <file>images/tacticals/restricted_area_scheme.png</file>
+        <file>images/tacticals/circle.png</file>
+        <file>images/tacticals/circle_scheme.png</file>
+        <file>images/tacticals/text.png</file>
+        <file>images/tacticals/text_scheme.png</file>
+        <file>images/dropdown_arrow 28x28 black.png</file>
+    </qresource>
+    <qresource prefix="/styles">
+        <file>dark_theme.qss</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>images_diag/background1.png</file>
+        <file>images_diag/background2.png</file>
+        <file>images_diag/background3.png</file>
+        <file>images_diag/background4.png</file>
+        <file>images_diag/bold.png</file>
+        <file>images_diag/bringtofront.png</file>
+        <file>images_diag/delete.png</file>
+        <file>images_diag/floodfill.png</file>
+        <file>images_diag/italic.png</file>
+        <file>images_diag/linecolor.png</file>
+        <file>images_diag/linepointer.png</file>
+        <file>images_diag/pointer.png</file>
+        <file>images_diag/sendtoback.png</file>
+        <file>images_diag/textpointer.png</file>
+        <file>images_diag/underline.png</file>
+    </qresource>
+</RCC>

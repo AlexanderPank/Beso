@@ -1,0 +1,56 @@
+[
+    {
+        "children": [
+                     {
+                        "children": [
+                        ],
+                        "name": "id",
+                        "text": "alg_id_2"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "title",
+                        "text": "Алгоритм обнаружения корабля"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "description",
+                        "text": "Используется передаваемый файл pkr_object.py"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "type",
+                        "text": "python_file"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "function",
+                        "text": "pkr_object.pkr_detect"
+                    },
+                    {
+                        "children": [
+                        ],
+                        "name": "input_parameters",
+                        "text": ""
+                    },
+                    {
+                        "children": [
+                            {
+                                "children": [
+                                ],
+                                "name": "is_find",
+                                "text": "bool"
+                            }
+                        ],
+                        "name": "output_parameters",
+                        "text": ""
+                    }
+                ],
+                "name": "Обнаружения корабля ГСН ПКР",
+                "text": "detection_ship.json"
+            }
+]

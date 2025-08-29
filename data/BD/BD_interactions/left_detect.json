@@ -1,0 +1,18 @@
+{
+    "title": "Обнаружение объекта слева",
+    "id": "left_detect",
+	"object_list": [
+		{"name": "TARGET", "description": "Идентификатор объекта который обнаруживаем"},
+		{"name": "DETECT", "description": "Идентификатор системы обнаружения"},
+		{"name": "WEATHER", "description": "Идентификатор объекта погодные условия"}
+	],
+	"interaction_list": [
+		{
+			"title": "Обнаружения объекта слева системой обнаружения",
+			"source_object_id": "!DETECT!",
+			"interaction_type": "detect",
+			"trigger_condition": "!DETECT!.properties['state'] =='scanning'",
+			"response_set_values": "!TARGET!.properties['is_detected'] = !DETECT!.actions.detect(dX=!DETECT!.properties['lat'], dY=!DETECT!.properties['lon'], dZ=!DETECT!.properties['alt'], dAlfa=!DETECT!.properties['dAlfa'], dBetta=!DETECT!.properties['dBetta'], dAx=!DETECT!.properties['look_lat'], dAy=!DETECT!.properties['look_lon'], dAz=!DETECT!.properties['look_alt'], iType=!DETECT!.properties['iType'], dDeltaTmin=!DETECT!.properties['dDeltaTmin'], df=!DETECT!.properties['df'], dsp=!DETECT!.properties['dsp'], iNMx=!DETECT!.properties['iNMx'], iNMy=!DETECT!.properties['iNMy'], dLmax=!DETECT!.properties['detection_radius'], iLight=WEATHER.properties['is_day'], iFrog=WEATHER.properties['is_frog'], dXt=!TARGET!.properties['lat'], dYt=!TARGET!.properties['lon'], dZt=!TARGET!.properties['alt'], dTf=WEATHER.properties['air_temperature'], dL=120, dTc=!TARGET!.properties['case_temperature'], dW=!TARGET!.properties['width'], dH=!TARGET!.properties['height'])"
+		}
+	]
+}

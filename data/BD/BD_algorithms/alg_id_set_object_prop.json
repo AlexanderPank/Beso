@@ -1,0 +1,1 @@
+{"description":"Установка значения параметра объекта","function":"ModelTasks.set_object_prop","id":"alg_id_set_object_prop","input_parameters":[],"output_parameters":[{"result":"bool","title":"результат выполнения операции"}],"output_splitter":" ","subType":"Общие алгоритмы","title":"Установить значение объекта","type":"inner"}

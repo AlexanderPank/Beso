@@ -1,0 +1,109 @@
+{
+"scenario_id":"Маршрут с радиусом циркуляции",
+
+  "objects":
+	[
+      {
+        "id": "RABBIT_00",
+        "title": "Корабль",
+        "properties":[
+          {"name": "class_code", "value": "131472600009", "type": "str"},
+          {"name": "is_own", "value": 0, "type": "int"},
+          {"name": "lat", "value": 43.41686, "type": "float"},
+          {"name": "lon", "value": 39.47805, "type": "float"},
+          {"name": "alt", "value": 0, "type": "int"},
+          {"name": "course", "value": 10.40, "type": "float"},
+          {"name": "speed", "value": 9.6, "type": "float"},
+          {"name": "hull_damage", "value": 0, "type": "int"},
+          {"name": "image", "value": "ship-blue.png", "type": "str"},
+          {"name": "state", "value": "standing", "type": "str"},
+          {"name": "segment_index", "value": 0, "type": "int"},
+          {"name": "radius_meters", "value": 130.0, "type": "float"},
+          {"name": "geo_path", "type": "feature", "value": {"type": "Feature","properties": {"id": "RABBIT_00_path", "class_code": "131405000210000000"}, "geometry": {"coordinates": [  [ 43.41699, 39.47942, 0 ], [ 43.42927881464768, 39.50769442251476, 0], [ 43.45037639091632, 39.47733008303743, 0 ], [ 43.46472913242675, 39.52209007992888, 0 ], [ 43.44125915666543, 39.59646694701849, 0 ], [ 43.53046765068351, 39.63733607804841, 0 ]],"type": "LineString"}} }
+        ],
+        "actions": [
+          {
+
+            "algorithm_id": "alg_id_9",
+            "name": "движение",
+            "type": "move",
+            "output_mapping":
+            [
+              {"course": "new_course"},
+              {"lat": "new_lat"},
+              {"lon": "new_lon"},
+              {"segment_index": "new_segment_index"}
+            ]
+          },
+          {
+
+            "algorithm_id": "alg_smooth_route",
+            "name": "расчет маршрута с учетом циркуляции ",
+            "type": "smooth_route",
+            "output_mapping":[]
+          }
+        ]
+      },
+		{
+			"id":"Model_00",
+			"title":"Среда взаимодействия",
+			"properties": [],
+			"actions": []
+		}
+
+	],
+    "classes": [],
+
+    "interactions": [
+      {
+        "source_object_id": "Model_00",
+        "interaction_type": "in_zone",
+        "trigger_condition": "RABBIT_00.properties['state'] =='standing'",
+        "response_set_values": "RABBIT_00.properties['state'] = 'moving'",
+        "response_action": "RABBIT_00.actions.smooth_route(item=RABBIT_00, radius_m=RABBIT_00.properties['radius_meters'], property_name=\"geo_path\")"
+      },
+      {
+        "source_object_id": "RABBIT_00",
+        "interaction_type": "moving",
+        "trigger_condition": "RABBIT_00.properties['state'] == 'moving'",
+        "response_action": "RABBIT_00.actions.move(item=RABBIT_00, path=RABBIT_00.properties['geo_path'], time_in_seconds=self.second_in_iteration)"
+      }
+
+    ],
+    "algorithms" : [
+
+        {
+            "id":"alg_smooth_route",
+            "title": "Алгоритм расчета маршрута с учетом радиуса циркуляции",
+            "description": "Простой встроенный алгоритм в модель ",
+            "type": "inner",
+            "function": "ModelTasks.smooth_route",
+            "input_parameters": [],
+            "output_parameters": []
+        },
+      {
+        "id":"alg_id_9",
+        "title": "Алгоритм движения объекта по заданному маршруту",
+        "description": "Простой алгоритм движения объекта по заданному маршруту",
+        "type": "inner",
+        "function": "ModelTasks.move_object_by_path",
+        "input_parameters": [],
+        "output_parameters": [
+
+          {"new_course": "float"},
+          {"new_lat": "float"},
+          {"new_lon": "float"},
+          {"new_segment_index": "int"}
+        ]
+      }
+    ],
+    "files": [],
+    "simulation_parameters": {
+        "time_step": 1,
+        "end_condition": "0 == -1",
+        "max_iterations": 100000,
+        "map_center": "43.49387,39.59992",
+        "map_zoom": 6
+    }
+}
+
