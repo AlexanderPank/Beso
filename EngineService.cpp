@@ -34,9 +34,8 @@ QJsonDocument EngineService::stopEngine() {return  sendPostRequest("/engine/stop
 QJsonDocument EngineService::setSpeed(int speed) {
     QJsonObject json;
     json["speed"] = speed;
-    QString ss = QJsonDocument(json).toJson();
-    ss = ss.replace("\n", "").replace(" ", "");
-    return sendPostRequest("/engine/speed", ss.toUtf8());
+    QByteArray payload = QJsonDocument(json).toJson(QJsonDocument::Compact);
+    return sendPostRequest("/engine/speed", payload);
 }
 
 QJsonDocument EngineService::pauseEngine() { return sendPostRequest("/engine/pause", {}); }
