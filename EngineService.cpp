@@ -20,7 +20,13 @@ QJsonDocument EngineService::startEngine() {return sendPostRequest("/engine/star
 QJsonDocument EngineService::loadEngine(QString filePath) {
     QHttpMultiPart *multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
     QFile *file = new QFile(filePath);
-    file->open(QIODevice::ReadOnly);
+    if (!file->open(QIODevice::ReadOnly)) {
+        qWarning() << "Failed to open file" << filePath << file->errorString();
+        delete file;
+        delete multiPart;
+        return {};
+    }
+    file->setParent(multiPart);
 
     QHttpPart filePart;
     filePart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"json_file\"; filename=\"" + file->fileName() + "\""));
