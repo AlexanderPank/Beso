@@ -33,6 +33,7 @@ add_executable(ScenarioClient
     signs/GeoUtil.cpp
     signs/SignBase.cpp
     signs/SignController.cpp
+    signs/SignAnimator.cpp
     signs/SignShip.cpp
     WebsocketService.cpp
     db_service/modelobjectsform.h
@@ -54,6 +55,7 @@ add_executable(ScenarioClient
     signs/GeoUtil.h
     signs/SignBase.h
     signs/SignController.h
+    signs/SignAnimator.h
     signs/sign_enums.h
     signs/SignShip.h
     WebsocketService.h
