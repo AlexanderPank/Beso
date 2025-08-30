@@ -8,6 +8,8 @@
 #include <QRectF>
 #include <QtMath>
 #include <QRectF>
+#include <QFontMetrics>
+#include <QList>
 
 // Helper to compute a point outside of the sign's bounding box.
 static QPointF outsideAnchor(const SignBase* sign)
@@ -161,6 +163,10 @@ void SignDrawer::drawNameLabels(QPainter *p, int cx, int cy)
 
     auto signs = controller->allSigns();
     p->save();
+
+    QList<QRect> placedRects;             // Track placed label rectangles
+    QFontMetrics fm(p->font());
+
     for (auto it = signs.begin(); it != signs.end(); ++it) {
         SignBase *sign = it.value();
         if (!sign || !sign->getVisibility())
@@ -196,7 +202,45 @@ void SignDrawer::drawNameLabels(QPainter *p, int cx, int cy)
 
         CoordCtx ctx(m_hMap, GEO, anchorGeo);
         QPoint anchor = ctx.pic() - QPoint(cx, cy);
-        QPoint textPos = anchor + QPoint(10, -10);
+
+        const QString name = sign->getName();
+        double radius = 14.0;                         // approximate offset length
+        double angle = qDegreesToRadians(-45.0);      // start from 10,-10 offset
+
+        auto calcPoint = [&](double ang) {
+            return anchor + QPoint(qRound(radius * qCos(ang)),
+                                    qRound(radius * qSin(ang)));
+        };
+
+        QPoint textPoint = calcPoint(angle);
+
+        auto calcRect = [&](const QPoint &pt) {
+            QPoint topLeft = pt + QPoint(2, -2) - QPoint(0, fm.ascent());
+            return QRect(topLeft, fm.size(Qt::TextSingleLine, name));
+        };
+
+        QRect textRect = calcRect(textPoint);
+
+        // Check intersections and rotate around anchor if needed
+        int iter = 0;
+        while (iter < 36) {
+            bool intersect = false;
+            for (const QRect &r : placedRects) {
+                if (r.intersects(textRect)) {
+                    intersect = true;
+                    break;
+                }
+            }
+            if (!intersect)
+                break;
+
+            angle -= qDegreesToRadians(10.0); // clockwise
+            textPoint = calcPoint(angle);
+            textRect = calcRect(textPoint);
+            ++iter;
+        }
+
+        placedRects.append(textRect);
 
         double angle = qRadiansToDegrees(
                 qAtan2(textPos.y() - anchor.y(), textPos.x() - anchor.x()));
@@ -221,6 +265,8 @@ void SignDrawer::drawNameLabels(QPainter *p, int cx, int cy)
         p->setPen(QPen(Qt::black, 1));
         p->drawLine(anchor, lineEnd);
         p->drawText(textRect.bottomLeft(), sign->getName());
+        // p->drawLine(anchor, textPoint);
+        p->drawText(textPoint + QPoint(2, -2), name);
     }
     p->restore();
 }
