@@ -58,6 +58,7 @@ private:
 
     QVector<QPoint> toPixPoints(const QVector<QPointF>& geoPoints, int cx, int cy) const;
     void completeDrawing();
+    QPointF calloutAnchor(const SignBase* sign) const;
 
     // Единственный экземпляр класса
     static SignDrawer* m_instance;
