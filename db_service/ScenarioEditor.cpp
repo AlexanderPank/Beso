@@ -5,6 +5,7 @@
 #include "../signs/SignShip.h"
 #include "services/DataStorageServiceFactory.h"
 #include "../core/EnvConfig.h"
+#include "../ui/DObjectProperties.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QFileDialog>
@@ -98,9 +99,7 @@ void ScenarioEditor::setupUi()
 
 
     // Подключаемся к моменту завершения редактирования
-    connect(ui->treeWidget, &QTreeWidget::itemDoubleClicked, this, [this](QTreeWidgetItem *item, int column) {
-        m_treeItemEditMode = column == 1;
-    });
+    connect(ui->treeWidget, &QTreeWidget::itemDoubleClicked, this, &ScenarioEditor::itemDoubleClicked);
 
     ui->treeWidget->setEditTriggers(QTreeWidget::DoubleClicked | QTreeWidget::EditKeyPressed);
     connect(ui->treeWidget, &QTreeWidget::itemChanged, this, [=](QTreeWidgetItem *item,int column){
@@ -117,6 +116,27 @@ void ScenarioEditor::setupUi()
         }
     });
 
+}
+
+void ScenarioEditor::itemDoubleClicked(QTreeWidgetItem *item, int column)
+{
+    auto objectModel = item->data(0, Qt::UserRole).value<ObjectScenarioModel*>();
+    if (objectModel) {
+        showPropertiesDialog(objectModel->getTitle(), objectModel->properties());
+        return;
+    }
+    auto featureModel = item->data(0, Qt::UserRole).value<FeatureModel*>();
+    if (featureModel) {
+        showPropertiesDialog(featureModel->getTitle(), featureModel->properties());
+        return;
+    }
+    m_treeItemEditMode = column == 1;
+}
+
+void ScenarioEditor::showPropertiesDialog(const QString &title, const QMap<QString, PropertyModel *> &props)
+{
+    DObjectProperties dlg(title, props, this);
+    dlg.exec();
 }
 
 void ScenarioEditor::saveScenario(bool saveAs){
