@@ -6,7 +6,9 @@
 #include <QLineEdit>
 #include <QSpinBox>
 #include <QDoubleSpinBox>
-#include <QCheckBox>
+#include <QCheckBox> 
+#include <QHeaderView>
+ 
 #include <limits>
 
 #include "../models/PropertyModel.h"
@@ -19,7 +21,9 @@ DObjectProperties::DObjectProperties(const QString &title,
       m_properties(properties)
 {
     ui->setupUi(this);
-    setWindowTitle(title);
+    setWindowTitle(title); 
+    resize(600, 800);
+ 
 
     buildTable();
 }
@@ -30,18 +34,29 @@ DObjectProperties::~DObjectProperties()
 }
 
 void DObjectProperties::buildTable()
-{
-    ui->tableWidget->setColumnCount(2);
-    QStringList headers{"Name", "Value"};
+{ 
+    ui->tableWidget->setColumnCount(3);
+    QStringList headers{"Title", "Parameter", "Value"};
     ui->tableWidget->setHorizontalHeaderLabels(headers);
-    ui->tableWidget->horizontalHeader()->setStretchLastSection(true);
+    ui->tableWidget->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
+    ui->tableWidget->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Interactive);
+    ui->tableWidget->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Interactive);
+    ui->tableWidget->setColumnWidth(1, 100);
+    ui->tableWidget->setColumnWidth(2, 100);
+ 
 
     int row = 0;
     for (auto prop : m_properties) {
         ui->tableWidget->insertRow(row);
-        auto nameItem = new QTableWidgetItem(prop->title().isEmpty() ? prop->name() : prop->title());
+ 
+        auto titleItem = new QTableWidgetItem(prop->title().isEmpty() ? prop->name() : prop->title());
+        titleItem->setFlags(titleItem->flags() & ~Qt::ItemIsEditable);
+        ui->tableWidget->setItem(row, 0, titleItem);
+
+        auto nameItem = new QTableWidgetItem(prop->name());
         nameItem->setFlags(nameItem->flags() & ~Qt::ItemIsEditable);
-        ui->tableWidget->setItem(row, 0, nameItem);
+        ui->tableWidget->setItem(row, 1, nameItem);
+ 
 
         QWidget *editor = nullptr;
         QString type = prop->type();
@@ -64,10 +79,14 @@ void DObjectProperties::buildTable()
             QLineEdit *le = new QLineEdit(prop->stringValue(), ui->tableWidget);
             editor = le;
         }
-        ui->tableWidget->setCellWidget(row, 1, editor);
+ 
+        ui->tableWidget->setCellWidget(row, 2, editor);
         m_editors.insert(prop, editor);
         row++;
     }
+
+    ui->tableWidget->setColumnHidden(1, true);
+ 
 }
 
 void DObjectProperties::accept()
@@ -88,3 +107,11 @@ void DObjectProperties::accept()
     QDialog::accept();
 }
 
+ 
+void DObjectProperties::on_btnToggleParam_clicked()
+{
+    bool hidden = ui->tableWidget->isColumnHidden(1);
+    ui->tableWidget->setColumnHidden(1, !hidden);
+    ui->btnToggleParam->setText(hidden ? tr("Скрыть параметр") : tr("Показать параметр"));
+}
+ 
