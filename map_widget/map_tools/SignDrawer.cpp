@@ -4,6 +4,37 @@
 #include "../../core/QLogStream.h"
 #include <QPainter>
 #include <QDebug>
+#include <QRectF>
+#include <QtMath>
+#include <QRectF>
+
+// Helper to compute a point outside of the sign's bounding box.
+static QPointF outsideAnchor(const SignBase* sign)
+{
+    if (!sign)
+        return {};
+
+    auto coords = sign->getCoordinatesInRadians();
+    if (coords.isEmpty())
+        return {};
+
+    // Calculate bounding box of the sign geometry
+    QRectF bounds(coords.first(), QSizeF(0, 0));
+    for (const QPointF &pt : coords) {
+        if (pt.x() < bounds.left())
+            bounds.setLeft(pt.x());
+        if (pt.x() > bounds.right())
+            bounds.setRight(pt.x());
+        if (pt.y() < bounds.top())
+            bounds.setTop(pt.y());
+        if (pt.y() > bounds.bottom())
+            bounds.setBottom(pt.y());
+    }
+
+    QPointF center = bounds.center();
+    double offset = qMax(bounds.width(), bounds.height()) * 0.1; // simple outward offset
+    return {bounds.right() + offset, center.y()};
+}
 
 SignDrawer* SignDrawer::m_instance = nullptr;
 
@@ -144,6 +175,16 @@ void SignDrawer::completeDrawing()
     }
     if (m_state != Complete) {
         auto points = GeoUtil::convertPointsPicToRadian(m_hMap, m_points);
+        if (m_signType == SignBase::LOCAL_TITLE && m_drawing_sign) {
+            // Adjust anchor for callout labels so that the text stays outside
+            QPointF anchor = calloutAnchor(m_drawing_sign);
+            if (!points.isEmpty()) {
+                if (points.size() == 1)
+                    points.prepend(anchor);
+                else
+                    points[0] = anchor;
+            }
+        }
         if (m_drawing_sign) {
             m_drawing_sign->setCoordinatesInRadians(points.toList());
             emit signDrawEnd();
@@ -159,4 +200,25 @@ void SignDrawer::clear()
     m_state = Idle;
     m_points.clear();
     m_currentMousePos = QPointF();
+}
+
+QPointF SignDrawer::calloutAnchor(const SignBase* sign) const
+{
+    if (!sign)
+        return {};
+
+    switch (sign->getGeometryType()) {
+    case SignBase::LOCAL_POLYGON:
+    case SignBase::LOCAL_CIRCLE:
+    case SignBase::LOCAL_RECTANGLE:
+    case SignBase::LOCAL_SQUARE:
+        return outsideAnchor(sign);
+    default:
+        {
+            auto coords = sign->getCoordinatesInRadians();
+            if (coords.isEmpty())
+                return {};
+            return coords.first();
+        }
+    }
 }
