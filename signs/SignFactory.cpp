@@ -104,7 +104,7 @@ SignBase* SignFactory::createSign(const QString& classcode,
 
     // Если класс не найден, создаем базовый объект
     auto *sign = new SignBase(classcode, name, QUuid::createUuid(), nullptr);
-
+    sign->setName(name);
     sign->setCoordinatesInRadians(coordinatesInRadian);
     sign->setObjectName(name);
     if (is_own) sign->setOwn(); else sign->setEnemy();
@@ -129,6 +129,7 @@ SignBase* SignFactory::createSignFromFeature(FeatureModel* feature){
     if (feature->getClassCode() == "222215005301")  sign = new SignBorderOES(coordinatesInRadian, feature->getTitle());
     else {
         sign = new SignBase(feature->getClassCode(), feature->getTitle(), QUuid::createUuid(), nullptr);
+        sign->setName(feature->getTitle());
         sign->setCoordinatesInRadians(coordinatesInRadian);
     }
 

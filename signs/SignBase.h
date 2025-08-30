@@ -48,6 +48,12 @@ public:
     QString getName() { return _name; }
 
     /**
+     * @brief Установить имя знака.
+     * @param name Новое имя знака.
+     */
+    void setName(const QString& name);
+
+    /**
      * @brief Получить код класса знака.
      * @return Код класса знака.
      */
