@@ -97,7 +97,7 @@ private:
 
     MapToolPanel *toolPanel = nullptr;
     MapInformer *mapInformer = nullptr;
-    bool m_showSignLabels = false;
+    bool m_showSignLabels = true;
     bool m_showFeatureLabels = false;
 
     bool mousePressed = false;

@@ -165,6 +165,9 @@ void SignDrawer::drawNameLabels(QPainter *p, int cx, int cy)
     p->save();
 
     QList<QRect> placedRects;             // Track placed label rectangles
+    QFont font = p->font();
+    font.setPixelSize(12);
+    p->setFont(font);
     QFontMetrics fm(p->font());
 
     for (auto it = signs.begin(); it != signs.end(); ++it) {
@@ -215,7 +218,7 @@ void SignDrawer::drawNameLabels(QPainter *p, int cx, int cy)
         QPoint textPoint = calcPoint(angle);
 
         auto calcRect = [&](const QPoint &pt) {
-            QPoint topLeft = pt + QPoint(2, -2) - QPoint(0, fm.ascent());
+            QPoint topLeft = pt + QPoint(3, -3) - QPoint(0, fm.ascent());
             return QRect(topLeft, fm.size(Qt::TextSingleLine, name));
         };
 
@@ -223,7 +226,7 @@ void SignDrawer::drawNameLabels(QPainter *p, int cx, int cy)
 
         // Check intersections and rotate around anchor if needed
         int iter = 0;
-        while (iter < 36) {
+        while (iter < 360) {
             bool intersect = false;
             for (const QRect &r : placedRects) {
                 if (r.intersects(textRect)) {
@@ -234,7 +237,7 @@ void SignDrawer::drawNameLabels(QPainter *p, int cx, int cy)
             if (!intersect)
                 break;
 
-            angle -= qDegreesToRadians(10.0); // clockwise
+            angle -= qDegreesToRadians(1.0); // clockwise
             textPoint = calcPoint(angle);
             textRect = calcRect(textPoint);
             ++iter;
@@ -242,31 +245,34 @@ void SignDrawer::drawNameLabels(QPainter *p, int cx, int cy)
 
         placedRects.append(textRect);
 
-        double angle = qRadiansToDegrees(
-                qAtan2(textPos.y() - anchor.y(), textPos.x() - anchor.x()));
+        // angle = qRadiansToDegrees( qAtan2(textPoint.y() - anchor.y(), textPoint.x() - anchor.x()));
         if (angle < 0)
             angle += 360.0;
 
-        QFontMetrics fm = p->fontMetrics();
-        QRect textRect = fm.boundingRect(sign->getName());
-        textRect.moveBottomLeft(textPos);
+//        QFontMetrics fm = p->fontMetrics();
+//        textRect = fm.boundingRect(sign->getName());
+//        textRect.moveBottomLeft(textPoint);
 
         QPoint lineEnd;
         if (qFuzzyIsNull(angle)) {
             lineEnd = QPoint(textRect.center().x(), textRect.bottom());
         } else if (qAbs(angle - 180.0) < 0.0001) {
             lineEnd = QPoint(textRect.center().x(), textRect.top());
-        } else if (angle > 0 && angle < 180) {
-            lineEnd = QPoint(textRect.left(), textRect.center().y());
+        } else if (angle > 0 && angle <= 90){
+            lineEnd = QPoint(textRect.right(), textRect.bottom());
+        } else if (angle > 90 && angle < 180){
+            lineEnd = QPoint(textRect.right(), textRect.top());
+        } else if (angle > 180 && angle < 270){
+            lineEnd = QPoint(textRect.left(), textRect.top());
         } else {
-            lineEnd = QPoint(textRect.right(), textRect.center().y());
+            lineEnd = QPoint( textRect.left(), textRect.bottom());
         }
 
         p->setPen(QPen(Qt::black, 1));
-        p->drawLine(anchor, lineEnd);
-        p->drawText(textRect.bottomLeft(), sign->getName());
+        p->drawLine(anchor + QPoint(2, -2) , lineEnd);
+        p->drawText(lineEnd + QPoint(2, -2), sign->getName());
         // p->drawLine(anchor, textPoint);
-        p->drawText(textPoint + QPoint(2, -2), name);
+       // p->drawText(textPoint + QPoint(2, -2), name);
     }
     p->restore();
 }
