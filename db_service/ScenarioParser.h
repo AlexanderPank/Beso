@@ -136,8 +136,10 @@ private:
     QTreeWidgetItem* filesItem          = nullptr;
     QTreeWidgetItem* interactionItems   = nullptr;
     QTreeWidgetItem* featuresItem      = nullptr;
+    QList<QTreeWidgetItem*>             m_topLevelObjects;
 
     QString getTreeItemObjectNameByType(const TypeView &typeView);
+    void moveObjectItemsToRoot(bool toRoot);
 
 
 };
