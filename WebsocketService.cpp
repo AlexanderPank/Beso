@@ -20,13 +20,11 @@ WebSocketService::WebSocketService(QString wsUrl, QObject *parent)
 }
 
 WebSocketService::~WebSocketService() {
-    if (socket->state() == QAbstractSocket::ConnectedState) {
-        socket->close();  // Инициируем закрытие (асинхронное)
-    }
-
-    // Удаляем сокет (безопасно, даже если close() ещё не завершился)
     if (socket) {
-        socket->close();  // Закрываем соединение
+        if (socket->state() == QAbstractSocket::ConnectedState) {
+            socket->close();  // Закрываем соединение
+        }
+        reconnectTimer->stop();
         socket->deleteLater();  // Безопасное удаление
     }
 }
