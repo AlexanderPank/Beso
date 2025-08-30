@@ -7,8 +7,9 @@
 #include <QDebug>
 #include <QRectF>
 #include <QtMath>
-#include <QFontMetrics>
+#include <QFontMetrics> 
 #include <QLineF>
+ 
 
 // Helper to compute a point outside of the sign's bounding box.
 static QPointF outsideAnchor(const SignBase* sign)
@@ -239,13 +240,14 @@ void SignDrawer::drawNameLabels(QPainter *p, int cx, int cy)
         }
 
         placedRects.append(textRect);
-        p->setPen(QPen(Qt::black, 1));
+        p->setPen(QPen(Qt::black, 1)); 
 
         QPointF labelStart = textRect.topLeft();
         QLineF leader(anchor, labelStart);
         QPointF start = leader.pointAt(lineOffset / leader.length());
         p->drawLine(start, labelStart);
 
+ 
         p->drawText(textRect, Qt::AlignLeft | Qt::AlignTop, text);
     }
 
