@@ -9,17 +9,20 @@
 #include <QtMath>
 #include <QRectF>
 
-// Helper to compute a point outside of the sign's bounding box.
+// Вспомогательная функция, вычисляющая точку вне прямоугольника, описывающего знак.
+// Используется для смещения подписи за пределы фигуры, чтобы она не перекрывала геометрию.
 static QPointF outsideAnchor(const SignBase* sign)
 {
+    // Если знак отсутствует – смещать нечего
     if (!sign)
         return {};
 
+    // Получаем координаты фигуры в радианах
     auto coords = sign->getCoordinatesInRadians();
     if (coords.isEmpty())
         return {};
 
-    // Calculate bounding box of the sign geometry
+    // Определяем минимальный прямоугольник, охватывающий все точки знака
     QRectF bounds(coords.first(), QSizeF(0, 0));
     for (const QPointF &pt : coords) {
         if (pt.x() < bounds.left())
@@ -32,8 +35,9 @@ static QPointF outsideAnchor(const SignBase* sign)
             bounds.setBottom(pt.y());
     }
 
+    // Смещаем подпись вправо от фигуры на 10% её размера
     QPointF center = bounds.center();
-    double offset = qMax(bounds.width(), bounds.height()) * 0.1; // simple outward offset
+    double offset = qMax(bounds.width(), bounds.height()) * 0.1;
     return {bounds.right() + offset, center.y()};
 }
 
@@ -60,20 +64,23 @@ SignDrawer* SignDrawer::instance()
     return m_instance;
 }
 
+// Запуск рисования существующего знака.
+// Подготавливает внутреннее состояние к вводу новой геометрии.
 void SignDrawer::startDrawing(SignBase *sign)
 {
-    if (!sign) return;
-    if (m_state != Idle) {
+    if (!sign) return;                        // Без исходного объекта работать нечему
+    if (m_state != Idle) {                     // Не допускаем параллельного рисования
         qWarning() << "Already drawing a sign";
         return;
     }
-    m_drawing_sign = sign;
-    m_signType = sign->getGeometryType();
-    m_state = DrawingFirstPoint;
-    m_points.clear();
-    m_currentMousePos = QPointF();
+    m_drawing_sign = sign;                     // Запоминаем редактируемый знак
+    m_signType = sign->getGeometryType();      // Тип геометрии определяет правила ввода
+    m_state = DrawingFirstPoint;               // Переходим в состояние ожидания первой точки
+    m_points.clear();                          // Очищаем ранее введённые координаты
+    m_currentMousePos = QPointF();             // Сбрасываем позицию курсора
 }
 
+// Запуск рисования нового знака по его типу.
 void SignDrawer::startDrawing(SignBase::SignType signType)
 {
     if (m_state != Idle) {
@@ -81,8 +88,8 @@ void SignDrawer::startDrawing(SignBase::SignType signType)
         return;
     }
 
-    m_signType = signType;
-    m_state = DrawingFirstPoint;
+    m_signType = signType;                     // Сохраняем выбранный тип
+    m_state = DrawingFirstPoint;               // Ожидаем ввод первой точки
     m_points.clear();
     m_currentMousePos = QPointF();
 }
@@ -153,6 +160,9 @@ void SignDrawer::handlePaint(QPainter *p, int cx, int cy, int cw, int ch)
     p->restore();
 }
 
+// Отрисовывает подписи для всех видимых знаков на карте.
+// Алгоритм: для каждого знака выбирается опорная точка и подпись смещается
+// относительно неё, после чего между точкой и текстом рисуется соединительная линия.
 void SignDrawer::drawNameLabels(QPainter *p, int cx, int cy)
 {
     auto controller = SignController::getInstance();
@@ -169,12 +179,14 @@ void SignDrawer::drawNameLabels(QPainter *p, int cx, int cy)
         if (pts.isEmpty())
             continue;
 
+        // Определяем географическую точку, около которой будет размещена подпись
         QPointF anchorGeo;
         switch (sign->getGeometryType()) {
         case SignBase::LOCAL_POINT:
             anchorGeo = pts.first();
             break;
         case SignBase::LOCAL_LINE:
+            // Для линии выбираем конец или середину в зависимости от количества точек
             if (pts.size() == 2)
                 anchorGeo = pts.last();
             else
@@ -189,15 +201,17 @@ void SignDrawer::drawNameLabels(QPainter *p, int cx, int cy)
             anchorGeo = pts.first();
             break;
         case SignBase::LOCAL_TITLE:
-            continue;
+            continue; // Заголовок сам является подписью
         default:
             anchorGeo = pts.first();
         }
 
+        // Переводим географическую точку в координаты окна и смещаем текст
         CoordCtx ctx(m_hMap, GEO, anchorGeo);
         QPoint anchor = ctx.pic() - QPoint(cx, cy);
-        QPoint textPos = anchor + QPoint(10, -10);
+        QPoint textPos = anchor + QPoint(10, -10); // Смещение подписи от точки
 
+        // Соединяем точку и текст и выводим название знака
         p->setPen(QPen(Qt::black, 1));
         p->drawLine(anchor, textPos);
         p->drawText(textPos + QPoint(2, -2), sign->getName());
@@ -228,14 +242,16 @@ void SignDrawer::completeDrawing()
     }
     if (m_state != Complete) {
         auto points = GeoUtil::convertPointsPicToRadian(m_hMap, m_points);
+        // Для подписи типа LOCAL_TITLE первая точка хранит позицию текста,
+        // поэтому вычисляем дополнительный якорь вне фигуры, чтобы линия
+        // указывала изнутри наружу
         if (m_signType == SignBase::LOCAL_TITLE && m_drawing_sign) {
-            // Adjust anchor for callout labels so that the text stays outside
             QPointF anchor = calloutAnchor(m_drawing_sign);
             if (!points.isEmpty()) {
                 if (points.size() == 1)
-                    points.prepend(anchor);
+                    points.prepend(anchor); // Если была одна точка, добавляем якорь
                 else
-                    points[0] = anchor;
+                    points[0] = anchor;      // Иначе заменяем существующий
             }
         }
         if (m_drawing_sign) {
@@ -255,6 +271,8 @@ void SignDrawer::clear()
     m_currentMousePos = QPointF();
 }
 
+// Возвращает точку, из которой будет выходить линия подписи (якорь).
+// Для сложных фигур якорь смещается наружу, для остальных используется первая точка.
 QPointF SignDrawer::calloutAnchor(const SignBase* sign) const
 {
     if (!sign)
@@ -265,13 +283,13 @@ QPointF SignDrawer::calloutAnchor(const SignBase* sign) const
     case SignBase::LOCAL_CIRCLE:
     case SignBase::LOCAL_RECTANGLE:
     case SignBase::LOCAL_SQUARE:
-        return outsideAnchor(sign);
+        return outsideAnchor(sign);            // смещение подписи за пределы фигуры
     default:
         {
             auto coords = sign->getCoordinatesInRadians();
             if (coords.isEmpty())
                 return {};
-            return coords.first();
+            return coords.first();             // для простых знаков используем первую точку
         }
     }
 }
