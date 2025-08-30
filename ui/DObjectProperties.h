@@ -23,6 +23,8 @@ public:
 
 private slots:
     void on_btnToggleParam_clicked();
+    void on_lineFilter_textChanged(const QString &text);
+
 
 private:
     Ui::DObjectProperties *ui;

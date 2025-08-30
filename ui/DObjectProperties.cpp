@@ -146,3 +146,21 @@ void DObjectProperties::on_btnToggleParam_clicked()
     ui->tableWidget->setColumnHidden(1, !hidden);
     ui->btnToggleParam->setText(hidden ? tr("Скрыть параметр") : tr("Показать параметр"));
 }
+
+void DObjectProperties::on_lineFilter_textChanged(const QString &text)
+{
+    const QString filter = text.trimmed();
+    for (int row = 0; row < ui->tableWidget->rowCount(); ++row) {
+        bool match = filter.isEmpty();
+        if (!match) {
+            for (int col = 0; col < 2; ++col) {
+                QTableWidgetItem *item = ui->tableWidget->item(row, col);
+                if (item && item->text().contains(filter, Qt::CaseInsensitive)) {
+                    match = true;
+                    break;
+                }
+            }
+        }
+        ui->tableWidget->setRowHidden(row, !match);
+    }
+}

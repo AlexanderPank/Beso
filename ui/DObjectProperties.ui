@@ -10,10 +10,17 @@
     <height>800</height>
   </rect>
  </property>
- <property name="windowTitle">
+  <property name="windowTitle">
    <string>Properties</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+ <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLineEdit" name="lineFilter">
+     <property name="placeholderText">
+      <string>Поиск</string>
+     </property>
+    </widget>
+   </item>
    <item>
     <widget class="QTableWidget" name="tableWidget">
      <column>
