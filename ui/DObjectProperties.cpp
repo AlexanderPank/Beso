@@ -5,16 +5,15 @@
 #include <QDialogButtonBox>
 #include <QLineEdit>
 #include <QSpinBox>
-#include <QDoubleSpinBox> 
+#include <QDoubleSpinBox>
 #include <QCheckBox>
 #include <QHeaderView>
 #include <QLocale>
 #include <QHBoxLayout>
- 
 #include <limits>
 
 #include "../models/PropertyModel.h"
- 
+
 class TrimDoubleSpinBox : public QDoubleSpinBox
 {
 public:
@@ -41,7 +40,6 @@ protected:
     }
 };
 
- 
 DObjectProperties::DObjectProperties(const QString &title,
                                      const QMap<QString, PropertyModel*> &properties,
                                      QWidget *parent)
@@ -49,10 +47,9 @@ DObjectProperties::DObjectProperties(const QString &title,
       ui(new Ui::DObjectProperties),
       m_properties(properties)
 {
-    ui->setupUi(this); 
+    ui->setupUi(this);
     setWindowTitle(title);
     resize(1000, 800);
- 
 
     buildTable();
 }
@@ -62,9 +59,8 @@ DObjectProperties::~DObjectProperties()
     delete ui;
 }
 
-void DObjectProperties::buildTable() 
+void DObjectProperties::buildTable()
 {
- 
     ui->tableWidget->setColumnCount(3);
     QStringList headers{"Title", "Parameter", "Value"};
     ui->tableWidget->setHorizontalHeaderLabels(headers);
@@ -72,13 +68,12 @@ void DObjectProperties::buildTable()
     ui->tableWidget->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Interactive);
     ui->tableWidget->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Interactive);
     ui->tableWidget->setColumnWidth(1, 100);
-    ui->tableWidget->setColumnWidth(2, 100);
- 
+    ui->tableWidget->setColumnWidth(2, 180);
+    ui->tableWidget->verticalHeader()->setVisible(false);
 
     int row = 0;
     for (auto prop : m_properties) {
         ui->tableWidget->insertRow(row);
- 
         auto titleItem = new QTableWidgetItem(prop->title().isEmpty() ? prop->name() : prop->title());
         titleItem->setFlags(titleItem->flags() & ~Qt::ItemIsEditable);
         ui->tableWidget->setItem(row, 0, titleItem);
@@ -86,11 +81,11 @@ void DObjectProperties::buildTable()
         auto nameItem = new QTableWidgetItem(prop->name());
         nameItem->setFlags(nameItem->flags() & ~Qt::ItemIsEditable);
         ui->tableWidget->setItem(row, 1, nameItem);
- 
+
         QString type = prop->type();
         if (type == PropertyModel::ValueType::BOOL) {
             QCheckBox *cb = new QCheckBox(ui->tableWidget);
-            cb->setChecked(prop->value().toBool()); 
+            cb->setChecked(prop->value().toBool());
             auto container = new QWidget(ui->tableWidget);
             auto layout = new QHBoxLayout(container);
             layout->setContentsMargins(0, 0, 0, 0);
@@ -98,12 +93,10 @@ void DObjectProperties::buildTable()
             layout->addWidget(cb);
             ui->tableWidget->setCellWidget(row, 2, container);
             m_editors.insert(prop, cb);
- 
         } else if (type == PropertyModel::ValueType::INT) {
             QSpinBox *sb = new QSpinBox(ui->tableWidget);
             sb->setRange(std::numeric_limits<int>::min(), std::numeric_limits<int>::max());
             sb->setValue(prop->value().toInt());
- 
             sb->setAlignment(Qt::AlignRight);
             ui->tableWidget->setCellWidget(row, 2, sb);
             m_editors.insert(prop, sb);
@@ -121,12 +114,12 @@ void DObjectProperties::buildTable()
             ui->tableWidget->setCellWidget(row, 2, le);
             m_editors.insert(prop, le);
         }
- 
         row++;
     }
 
     ui->tableWidget->setColumnHidden(1, true);
- 
+    ui->tableWidget->setSortingEnabled(true);
+    ui->tableWidget->sortByColumn(0, Qt::AscendingOrder);
 }
 
 void DObjectProperties::accept()
@@ -147,7 +140,6 @@ void DObjectProperties::accept()
     QDialog::accept();
 }
 
- 
 void DObjectProperties::on_btnToggleParam_clicked()
 {
     bool hidden = ui->tableWidget->isColumnHidden(1);
