@@ -32,6 +32,16 @@ MapWidget::MapWidget(QWidget *parent, QString mapFileName, QString rscPath) :
 
     toolPanel = new MapToolPanel(this);
 
+    connect(toolPanel, &MapToolPanel::signLabelsToggled, [=](bool checked) {
+        m_showSignLabels = checked;
+        getMapView()->Repaint();
+    });
+
+    connect(toolPanel, &MapToolPanel::featureLabelsToggled, [=](bool checked) {
+        m_showFeatureLabels = checked;
+        getMapView()->Repaint();
+    });
+
 //    connect(toolPanel, &MapToolPanel::propertySignClicked, this, &MapWidget::multiSelectStart);
 //    connect(toolPanel, &MapToolPanel::addPointClicked, this, &MapWidget::multiSelectStart);
 //    connect(toolPanel, &MapToolPanel::removePointClicked, this, &MapWidget::multiSelectStart);
@@ -391,7 +401,11 @@ void MapWidget::onPainted(QPainter *p, int cx, int cy, int cw, int ch) {
     if (m_signDrawer->isDrawing()) {
         m_signDrawer->handlePaint(p, cx, cy, cw, ch);
     }
-    m_signDrawer->drawNameLabels(p, cx, cy);
+    if (m_showSignLabels)
+        m_signDrawer->drawNameLabels(p, cx, cy);
+    if (m_showFeatureLabels) {
+        // feature label rendering will be added when feature drawing is available
+    }
 }
 
 void MapWidget::onSetMapCenter(float lat, float lon, int zoom) {
