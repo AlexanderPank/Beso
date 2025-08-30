@@ -27,13 +27,16 @@ public:
     explicit SignDrawer(HMAP hMap, QObject *parent = nullptr);
     ~SignDrawer();
 
+    // Начало рисования нового знака указанного типа
     void startDrawing(SignBase::SignType signType);
+    // Рисование существующего знака с перезаписью его геометрии
     void startDrawing(SignBase* sign);
     void cancelDrawing();
     void handleMouseClick(QPointF coordsPic);
     void handleMouseMove(QPointF coordsPic); // Добавлен обработчик движения мыши
     void handleMouseDoubleClick();
     void handlePaint(QPainter *p, int cx, int cy, int cw, int ch);
+    // Отрисовка подписей для всех видимых знаков
     void drawNameLabels(QPainter *p, int cx, int cy);
 
     bool isDrawing() const { return m_state != Idle; }
