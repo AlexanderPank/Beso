@@ -146,4 +146,3 @@ void DObjectProperties::on_btnToggleParam_clicked()
     ui->tableWidget->setColumnHidden(1, !hidden);
     ui->btnToggleParam->setText(hidden ? tr("Скрыть параметр") : tr("Показать параметр"));
 }
-
