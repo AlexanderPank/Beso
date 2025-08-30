@@ -24,7 +24,7 @@ WebSocketService::~WebSocketService() {
         socket->close();  // Инициируем закрытие (асинхронное)
     }
 
-// Удаляем сокет (безопасно, даже если close() ещё не завершился)
+    // Удаляем сокет (безопасно, даже если close() ещё не завершился)
     if (socket) {
         socket->close();  // Закрываем соединение
         socket->deleteLater();  // Безопасное удаление
@@ -47,7 +47,7 @@ void WebSocketService::onDisconnected() {
 
 void WebSocketService::onError(QAbstractSocket::SocketError ) {
   //  qLog() << "WebSocket error occurred:" << socket->errorString();
-    socket->close();  // Close the socket and attempt reconnection
+    if (socket) socket->close();  // Close the socket and attempt reconnection
     reconnectTimer->start();
 }
 

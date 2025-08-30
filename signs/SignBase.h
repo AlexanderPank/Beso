@@ -96,14 +96,14 @@ public:
      * @brief Получить координаты знака.
      * @return Список координат (QList<QPointF>).
      */
-    QList<QPointF> getCoordinatesInRadians() { return _coordinates; }
-    QList<QPointF> getCoordinatesInDegrees() { return GeoUtil::toDegrees(_coordinates);}
+    QList<QPointF> getCoordinatesInRadians() const { return _coordinates; }
+    QList<QPointF> getCoordinatesInDegrees() const  { return GeoUtil::toDegrees(_coordinates);}
 
     /**
      * @brief Использует ли знак сплайн?
      * @return true, если используется сплайн, иначе false.
      */
-    bool useSpline() { return _spline; }
+    bool useSpline() const { return _spline; }
     void setSpline(bool v) { _spline=v; }
 
     /**
@@ -343,7 +343,7 @@ public:
      * @brief Получить характеристику "геометрия объекта".
      * @return Значение характеристики .
      */
-    SignType getGeometryType(){ return  _geometryType; }
+    SignType getGeometryType() const { return  _geometryType; }
 
     void setHighlight(bool value);
     bool getHighlight() const {return _is_highlighted;};
