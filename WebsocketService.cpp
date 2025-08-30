@@ -45,8 +45,9 @@ void WebSocketService::onDisconnected() {
     reconnectTimer->start();
 }
 
-void WebSocketService::onError(QAbstractSocket::SocketError ) {
-  //  qLog() << "WebSocket error occurred:" << socket->errorString();
+void WebSocketService::onError(QAbstractSocket::SocketError error) {
+    qLog() << "WebSocket error occurred:" << socket->errorString()
+           << "(code:" << static_cast<int>(error) << ')';
     if (socket) socket->close();  // Close the socket and attempt reconnection
     reconnectTimer->start();
 }
