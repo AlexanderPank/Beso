@@ -8,6 +8,8 @@
 #include <QRectF>
 #include <QtMath>
 #include <QRectF>
+#include <QFontMetrics>
+#include <QList>
 
 // Вспомогательная функция, вычисляющая точку вне прямоугольника, описывающего знак.
 // Используется для смещения подписи за пределы фигуры, чтобы она не перекрывала геометрию.
@@ -171,6 +173,10 @@ void SignDrawer::drawNameLabels(QPainter *p, int cx, int cy)
 
     auto signs = controller->allSigns();
     p->save();
+
+    QList<QRect> placedRects;             // Track placed label rectangles
+    QFontMetrics fm(p->font());
+
     for (auto it = signs.begin(); it != signs.end(); ++it) {
         SignBase *sign = it.value();
         if (!sign || !sign->getVisibility())
@@ -209,12 +215,72 @@ void SignDrawer::drawNameLabels(QPainter *p, int cx, int cy)
         // Переводим географическую точку в координаты окна и смещаем текст
         CoordCtx ctx(m_hMap, GEO, anchorGeo);
         QPoint anchor = ctx.pic() - QPoint(cx, cy);
-        QPoint textPos = anchor + QPoint(10, -10); // Смещение подписи от точки
+ 
+        const QString name = sign->getName();
+        double radius = 14.0;                         // approximate offset length
+        double angle = qDegreesToRadians(-45.0);      // start from 10,-10 offset
 
+        auto calcPoint = [&](double ang) {
+            return anchor + QPoint(qRound(radius * qCos(ang)),
+                                    qRound(radius * qSin(ang)));
+        };
+
+        QPoint textPoint = calcPoint(angle);
+
+        auto calcRect = [&](const QPoint &pt) {
+            QPoint topLeft = pt + QPoint(2, -2) - QPoint(0, fm.ascent());
+            return QRect(topLeft, fm.size(Qt::TextSingleLine, name));
+        };
+
+        QRect textRect = calcRect(textPoint);
+
+        // Check intersections and rotate around anchor if needed
+        int iter = 0;
+        while (iter < 36) {
+            bool intersect = false;
+            for (const QRect &r : placedRects) {
+                if (r.intersects(textRect)) {
+                    intersect = true;
+                    break;
+                }
+            }
+            if (!intersect)
+                break;
+
+            angle -= qDegreesToRadians(10.0); // clockwise
+            textPoint = calcPoint(angle);
+            textRect = calcRect(textPoint);
+            ++iter;
+        }
+
+        placedRects.append(textRect);
+
+        double angle = qRadiansToDegrees(
+                qAtan2(textPos.y() - anchor.y(), textPos.x() - anchor.x()));
+        if (angle < 0)
+            angle += 360.0;
+
+        QFontMetrics fm = p->fontMetrics();
+        QRect textRect = fm.boundingRect(sign->getName());
+        textRect.moveBottomLeft(textPos);
+
+        QPoint lineEnd;
+        if (qFuzzyIsNull(angle)) {
+            lineEnd = QPoint(textRect.center().x(), textRect.bottom());
+        } else if (qAbs(angle - 180.0) < 0.0001) {
+            lineEnd = QPoint(textRect.center().x(), textRect.top());
+        } else if (angle > 0 && angle < 180) {
+            lineEnd = QPoint(textRect.left(), textRect.center().y());
+        } else {
+            lineEnd = QPoint(textRect.right(), textRect.center().y());
+        }
+ 
         // Соединяем точку и текст и выводим название знака
         p->setPen(QPen(Qt::black, 1));
-        p->drawLine(anchor, textPos);
-        p->drawText(textPos + QPoint(2, -2), sign->getName());
+        p->drawLine(anchor, lineEnd);
+        p->drawText(textRect.bottomLeft(), sign->getName());
+        // p->drawLine(anchor, textPoint);
+        p->drawText(textPoint + QPoint(2, -2), name);
     }
     p->restore();
 }
