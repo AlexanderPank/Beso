@@ -7,7 +7,7 @@
 #include <QDebug>
 #include <QRectF>
 #include <QtMath>
-#include <QRectF>
+#include <QFontMetrics>
 
 // Helper to compute a point outside of the sign's bounding box.
 static QPointF outsideAnchor(const SignBase* sign)
@@ -161,10 +161,14 @@ void SignDrawer::drawNameLabels(QPainter *p, int cx, int cy)
 
     auto signs = controller->allSigns();
     p->save();
+    QVector<QRect> placedRects; // to track occupied label areas
+    QFontMetrics fm(p->font());
+
     for (auto it = signs.begin(); it != signs.end(); ++it) {
         SignBase *sign = it.value();
         if (!sign || !sign->getVisibility())
             continue;
+
         auto pts = sign->getCoordinatesInRadians();
         if (pts.isEmpty())
             continue;
@@ -196,12 +200,48 @@ void SignDrawer::drawNameLabels(QPainter *p, int cx, int cy)
 
         CoordCtx ctx(m_hMap, GEO, anchorGeo);
         QPoint anchor = ctx.pic() - QPoint(cx, cy);
-        QPoint textPos = anchor + QPoint(10, -10);
 
+        QString text = sign->getName();
+        if (text.isEmpty())
+            continue;
+
+        QRect textRect = fm.boundingRect(text).adjusted(-2, -2, 2, 2); // add margin
+
+        // Attempt to place label without overlapping previous ones
+        const int radius = 20;          // distance from anchor
+        const int stepDeg = 15;         // rotation step
+        double angle = -45.0;           // start top-right
+        QPoint labelCenter;
+
+        for (int attempt = 0; attempt < 360 / stepDeg; ++attempt) {
+            double rad = qDegreesToRadians(angle);
+            labelCenter = anchor + QPoint(int(radius * std::cos(rad)), int(radius * std::sin(rad)));
+
+            QRect candidate = textRect;
+            candidate.moveCenter(labelCenter);
+
+            bool overlap = false;
+            for (const QRect &r : placedRects) {
+                if (r.intersects(candidate)) {
+                    overlap = true;
+                    break;
+                }
+            }
+
+            if (!overlap) {
+                textRect = candidate;
+                break;
+            }
+
+            angle -= stepDeg; // move clockwise
+        }
+
+        placedRects.append(textRect);
         p->setPen(QPen(Qt::black, 1));
-        p->drawLine(anchor, textPos);
-        p->drawText(textPos + QPoint(2, -2), sign->getName());
+        p->drawLine(anchor, textRect.center());
+        p->drawText(textRect, Qt::AlignLeft | Qt::AlignTop, text);
     }
+
     p->restore();
 }
 
