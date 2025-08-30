@@ -283,34 +283,26 @@ void ScenarioParser::filterTreeByTypeView(const TypeView &typeView) {
         return;
     rootItem->setHidden(typeView!=TypeView::tvAll);
 
-    if(typeView == TypeView::tvEnemy || typeView == TypeView::tvOur){
-        moveObjectItemsToRoot(true);
+    if(typeView == TypeView::tvGeo ) {
         objectsItem->setHidden(true);
+        featuresItem->setHidden(false);
+        featuresItem->setExpanded(true);
+//        return;
     } else {
-        moveObjectItemsToRoot(false);
-        if(typeView == TypeView::tvGeo ) {
-            objectsItem->setHidden(true);
-            featuresItem->setExpanded(true);
-        } else if(typeView == TypeView::tvInteraction) {
-            objectsItem->setHidden(true);
-            interactionItems->setExpanded(true);
-        } else {
-            objectsItem->setHidden(false);
-            objectsItem->setText(0, getTreeItemObjectNameByType(typeView));
-        }
+        objectsItem->setHidden(false);
+        objectsItem->setText(0, getTreeItemObjectNameByType(typeView));
     }
 
-    QList<QTreeWidgetItem*> items;
-    if(!m_topLevelObjects.isEmpty()){
-        items = m_topLevelObjects;
-    } else {
-        for(int i = 0; i < objectsItem->childCount(); i++){
-            items.append(objectsItem->child(i));
-        }
+    if(typeView == TypeView::tvInteraction) {
+        objectsItem->setHidden(true);
+        featuresItem->setHidden(true);
+        interactionItems->setHidden(false);
+        interactionItems->setExpanded(true);
     }
 
-    for(QTreeWidgetItem* child : items){
-        ObjectScenarioModel* model = child->data(0, Qt::UserRole).value<ObjectScenarioModel*>();
+    for(int i = 0; i < objectsItem->childCount(); i++){
+        QTreeWidgetItem* child = objectsItem->child(i);
+        ObjectScenarioModel* model = (ObjectScenarioModel*)child->data(0, Qt::UserRole).value<ObjectScenarioModel*>();
         bool isHidden = true;
         switch (typeView) {
             case TypeView::tvEnemy:
@@ -346,28 +338,6 @@ void ScenarioParser::filterTreeByTypeView(const TypeView &typeView) {
     interactionItems->setHidden(typeView!=TypeView::tvAll&&typeView!=TypeView::tvInteraction);
     m_simulation_parameters->filterTreeItem(typeView!=TypeView::tvAll);
     featuresItem->setHidden(typeView!=TypeView::tvAll&&typeView!=TypeView::tvGeo);
-}
-
-void ScenarioParser::moveObjectItemsToRoot(bool toRoot){
-    if(objectsItem == nullptr)
-        return;
-    QTreeWidget* tree = objectsItem->treeWidget();
-    if(toRoot){
-        if(m_topLevelObjects.isEmpty()){
-            while(objectsItem->childCount() > 0){
-                QTreeWidgetItem* child = objectsItem->takeChild(0);
-                tree->addTopLevelItem(child);
-                m_topLevelObjects.append(child);
-            }
-        }
-    } else {
-        if(!m_topLevelObjects.isEmpty()){
-            while(!m_topLevelObjects.isEmpty()){
-                QTreeWidgetItem* child = m_topLevelObjects.takeFirst();
-                objectsItem->addChild(child);
-            }
-        }
-    }
 }
 
 void ScenarioParser::updateObjectById(const QString& id, QJsonObject json){
@@ -456,7 +426,7 @@ InteractionModel *ScenarioParser::addInteractionModel(ObjectScenarioModel *objec
     interactionModelPath->setTriggerCondition(QString("%1.properties['state'] == 'standing'").arg(objectScenarioModel->getId()));
     interactionModelPath->setResponseSetValues(QString("%1.properties['state'] = 'moving'").arg(objectScenarioModel->getId()));
     interactionModelPath->setResponseAction(QString("%1.properties['geo_path']['geometry']['coordinates'] = %1.actions.find_path(ship_lat=%1.properties['lat'], ship_lon=%1.properties['lon'], target_lat=self.features['%2'].coordinates[%3][0], target_lon=self.features['%2'].coordinates[%3][1], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"))")
-        .arg(objectScenarioModel->getId(), featureModel->getId(), QString::number(featureModel->getCoordinates().size()-1)));
+                                                    .arg(objectScenarioModel->getId(), featureModel->getId(), QString::number(featureModel->getCoordinates().size()-1)));
     m_interactions.append(interactionModelPath);
     interactionModelPath->getTreeWidgetItem(interactionItems);
     ParametersChecker::getParametersFromString(objectScenarioModel->getId(), interactionModelPath->getResponseAction(), mapParameters);
@@ -472,17 +442,6 @@ InteractionModel *ScenarioParser::addInteractionModel(ObjectScenarioModel *objec
     if(!listErrorParameters.isEmpty())
         ParametersChecker::showMessage(listErrorParameters.join("\n"));
 
-
-//    auto *interactionModelState = new InteractionModel();
-//    interactionModelState->setSourceObjectId(objectScenarioModel->getId());
-//    interactionModelState->setInteractionType("moving");
-//    interactionModelState->setTriggerCondition(QString("%1.properties['state'] == 'moving'").arg(objectScenarioModel->getId()));
-//    interactionModelState->setResponseSetValues("");
-//    interactionModelState->setResponseAction(QString("%1.actions.move(item=%1, path=%1.properties['geo_path'], time_in_seconds=self.second_in_iteration)")
-//                                                    .arg(objectScenarioModel->getId()));
-//
-//     m_interactions.append(interactionModelState);
-//    interactionModelState->getTreeWidgetItem(interactionItems);
 
     return interactionModelPath;
 }

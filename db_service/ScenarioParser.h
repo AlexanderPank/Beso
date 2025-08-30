@@ -139,7 +139,7 @@ private:
     QList<QTreeWidgetItem*>             m_topLevelObjects;
 
     QString getTreeItemObjectNameByType(const TypeView &typeView);
-    void moveObjectItemsToRoot(bool toRoot);
+    void moveObjectItemsToRoot(QTreeWidgetItem* tree, bool toRoot);
 
 
 };
