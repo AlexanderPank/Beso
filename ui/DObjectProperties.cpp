@@ -50,6 +50,23 @@ DObjectProperties::DObjectProperties(const QString &title,
     ui->setupUi(this);
     setWindowTitle(title);
     resize(1000, 800);
+    ui->lineFilter->setStyleSheet("QLineEdit#lineFilter {padding-left: 3px;}");
+    ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->tableWidget->horizontalHeader()->setHighlightSections(false);
+    ui->tableWidget->verticalHeader()->setHighlightSections(false);
+    ui->tableWidget->setStyleSheet(
+            "QTableView { border: 1px solid #444; gridline-color: #444;  }"
+            "QTableView:hover { border: 1px solid #444;  }"
+            "QTableView QLineEdit { background: transparent; border: none; }"
+            "QTableView QSpinBox { background: transparent; border: none; }"
+            "QTableView QDoubleSpinBox { background: transparent; border: none; }"
+            "QTableView QHeaderView::section {"
+            "  background-color: #2a2a2a;"
+            "  color: #aaa;"
+            "  padding: 4px 6px;"
+            "}"
+    );
+    ui->tableWidget->setShowGrid(true);
 
     buildTable();
 }
@@ -62,19 +79,19 @@ DObjectProperties::~DObjectProperties()
 void DObjectProperties::buildTable()
 {
     ui->tableWidget->setColumnCount(3);
-    QStringList headers{"Title", "Parameter", "Value"};
+    QStringList headers{"Наименование свойства объекта", "Параметр дл МП", "Значение"};
     ui->tableWidget->setHorizontalHeaderLabels(headers);
     ui->tableWidget->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
     ui->tableWidget->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Interactive);
     ui->tableWidget->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Interactive);
-    ui->tableWidget->setColumnWidth(1, 100);
+    ui->tableWidget->setColumnWidth(1, 180);
     ui->tableWidget->setColumnWidth(2, 180);
     ui->tableWidget->verticalHeader()->setVisible(false);
 
     int row = 0;
     for (auto prop : m_properties) {
         ui->tableWidget->insertRow(row);
-        auto titleItem = new QTableWidgetItem(prop->title().isEmpty() ? prop->name() : prop->title());
+        auto titleItem = new QTableWidgetItem(" " + (prop->title().isEmpty() ? prop->name() : prop->title()));
         titleItem->setFlags(titleItem->flags() & ~Qt::ItemIsEditable);
         ui->tableWidget->setItem(row, 0, titleItem);
 
@@ -98,6 +115,7 @@ void DObjectProperties::buildTable()
             sb->setRange(std::numeric_limits<int>::min(), std::numeric_limits<int>::max());
             sb->setValue(prop->value().toInt());
             sb->setAlignment(Qt::AlignRight);
+            sb->setFocusPolicy(Qt::ClickFocus);
             ui->tableWidget->setCellWidget(row, 2, sb);
             m_editors.insert(prop, sb);
         } else if (type == PropertyModel::ValueType::FLOAT || type == PropertyModel::ValueType::DOUBLE) {
@@ -106,17 +124,22 @@ void DObjectProperties::buildTable()
             dsb->setDecimals(6);
             dsb->setValue(prop->value().toDouble());
             dsb->setAlignment(Qt::AlignRight);
+            dsb->setFocusPolicy(Qt::ClickFocus);
             ui->tableWidget->setCellWidget(row, 2, dsb);
             m_editors.insert(prop, dsb);
         } else {
             QLineEdit *le = new QLineEdit(prop->stringValue(), ui->tableWidget);
             le->setAlignment(Qt::AlignRight);
+            le->setFocusPolicy(Qt::ClickFocus);
             ui->tableWidget->setCellWidget(row, 2, le);
             m_editors.insert(prop, le);
         }
         row++;
     }
-
+    ui->tableWidget->setEditTriggers(
+            QAbstractItemView::NoEditTriggers
+    );
+    ui->tableWidget->viewport()->setMouseTracking(false);
     ui->tableWidget->setColumnHidden(1, true);
     ui->tableWidget->setSortingEnabled(true);
     ui->tableWidget->sortByColumn(0, Qt::AscendingOrder);

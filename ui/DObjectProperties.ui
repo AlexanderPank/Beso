@@ -8,14 +8,20 @@
     <y>0</y>
     <width>1000</width>
     <height>800</height>
-  </rect>
- </property>
+   </rect>
+  </property>
   <property name="windowTitle">
    <string>Properties</string>
   </property>
- <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QLineEdit" name="lineFilter">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>30</height>
+      </size>
+     </property>
      <property name="placeholderText">
       <string>Поиск</string>
      </property>
@@ -42,8 +48,14 @@
    </item>
    <item>
     <widget class="QPushButton" name="btnToggleParam">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>40</height>
+      </size>
+     </property>
      <property name="text">
-      <string>Показать параметр</string>
+      <string>Показать параметр для модели поведения</string>
      </property>
     </widget>
    </item>

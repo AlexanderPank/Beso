@@ -122,12 +122,12 @@ void ScenarioEditor::itemDoubleClicked(QTreeWidgetItem *item, int column)
 {
     auto objectModel = item->data(0, Qt::UserRole).value<ObjectScenarioModel*>();
     if (objectModel) {
-        showPropertiesDialog(objectModel->getTitle(), objectModel->properties());
+        showPropertiesDialog(" Редактирование параметров " + objectModel->getTitle(), objectModel->properties());
         return;
     }
     auto featureModel = item->data(0, Qt::UserRole).value<FeatureModel*>();
     if (featureModel) {
-        showPropertiesDialog(featureModel->getTitle(), featureModel->properties());
+        showPropertiesDialog(" Редактирование параметров " + featureModel->getTitle(), featureModel->properties());
         return;
     }
     m_treeItemEditMode = column == 1;
