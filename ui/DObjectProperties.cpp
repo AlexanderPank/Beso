@@ -5,14 +5,43 @@
 #include <QDialogButtonBox>
 #include <QLineEdit>
 #include <QSpinBox>
-#include <QDoubleSpinBox>
-#include <QCheckBox> 
+#include <QDoubleSpinBox> 
+#include <QCheckBox>
 #include <QHeaderView>
+#include <QLocale>
+#include <QHBoxLayout>
  
 #include <limits>
 
 #include "../models/PropertyModel.h"
+ 
+class TrimDoubleSpinBox : public QDoubleSpinBox
+{
+public:
+    using QDoubleSpinBox::QDoubleSpinBox;
 
+protected:
+    QString textFromValue(double value) const override
+    {
+        QLocale loc = locale();
+        QString text = loc.toString(value, 'f', decimals());
+        QChar dec = loc.decimalPoint();
+        int idx = text.indexOf(dec);
+        if (idx != -1) {
+            int end = text.length() - 1;
+            while (end > idx && text.at(end) == '0') {
+                --end;
+            }
+            if (end == idx) {
+                --end;
+            }
+            text.truncate(end + 1);
+        }
+        return text;
+    }
+};
+
+ 
 DObjectProperties::DObjectProperties(const QString &title,
                                      const QMap<QString, PropertyModel*> &properties,
                                      QWidget *parent)
@@ -20,9 +49,9 @@ DObjectProperties::DObjectProperties(const QString &title,
       ui(new Ui::DObjectProperties),
       m_properties(properties)
 {
-    ui->setupUi(this);
-    setWindowTitle(title); 
-    resize(600, 800);
+    ui->setupUi(this); 
+    setWindowTitle(title);
+    resize(1000, 800);
  
 
     buildTable();
@@ -33,8 +62,9 @@ DObjectProperties::~DObjectProperties()
     delete ui;
 }
 
-void DObjectProperties::buildTable()
-{ 
+void DObjectProperties::buildTable() 
+{
+ 
     ui->tableWidget->setColumnCount(3);
     QStringList headers{"Title", "Parameter", "Value"};
     ui->tableWidget->setHorizontalHeaderLabels(headers);
@@ -57,31 +87,41 @@ void DObjectProperties::buildTable()
         nameItem->setFlags(nameItem->flags() & ~Qt::ItemIsEditable);
         ui->tableWidget->setItem(row, 1, nameItem);
  
-
-        QWidget *editor = nullptr;
         QString type = prop->type();
         if (type == PropertyModel::ValueType::BOOL) {
             QCheckBox *cb = new QCheckBox(ui->tableWidget);
-            cb->setChecked(prop->value().toBool());
-            editor = cb;
+            cb->setChecked(prop->value().toBool()); 
+            auto container = new QWidget(ui->tableWidget);
+            auto layout = new QHBoxLayout(container);
+            layout->setContentsMargins(0, 0, 0, 0);
+            layout->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+            layout->addWidget(cb);
+            ui->tableWidget->setCellWidget(row, 2, container);
+            m_editors.insert(prop, cb);
+ 
         } else if (type == PropertyModel::ValueType::INT) {
             QSpinBox *sb = new QSpinBox(ui->tableWidget);
             sb->setRange(std::numeric_limits<int>::min(), std::numeric_limits<int>::max());
             sb->setValue(prop->value().toInt());
-            editor = sb;
+ 
+            sb->setAlignment(Qt::AlignRight);
+            ui->tableWidget->setCellWidget(row, 2, sb);
+            m_editors.insert(prop, sb);
         } else if (type == PropertyModel::ValueType::FLOAT || type == PropertyModel::ValueType::DOUBLE) {
-            QDoubleSpinBox *dsb = new QDoubleSpinBox(ui->tableWidget);
+            TrimDoubleSpinBox *dsb = new TrimDoubleSpinBox(ui->tableWidget);
             dsb->setRange(-1e9, 1e9);
             dsb->setDecimals(6);
             dsb->setValue(prop->value().toDouble());
-            editor = dsb;
+            dsb->setAlignment(Qt::AlignRight);
+            ui->tableWidget->setCellWidget(row, 2, dsb);
+            m_editors.insert(prop, dsb);
         } else {
             QLineEdit *le = new QLineEdit(prop->stringValue(), ui->tableWidget);
-            editor = le;
+            le->setAlignment(Qt::AlignRight);
+            ui->tableWidget->setCellWidget(row, 2, le);
+            m_editors.insert(prop, le);
         }
  
-        ui->tableWidget->setCellWidget(row, 2, editor);
-        m_editors.insert(prop, editor);
         row++;
     }
 
@@ -114,4 +154,3 @@ void DObjectProperties::on_btnToggleParam_clicked()
     ui->tableWidget->setColumnHidden(1, !hidden);
     ui->btnToggleParam->setText(hidden ? tr("Скрыть параметр") : tr("Показать параметр"));
 }
- 
