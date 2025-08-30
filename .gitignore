@@ -8,3 +8,4 @@ $$PWD
 .qmake.stash
 tests/build/*
 tests/cmake-build-debug/*
+.idea
