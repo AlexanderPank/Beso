@@ -283,52 +283,60 @@ void ScenarioParser::filterTreeByTypeView(const TypeView &typeView) {
         return;
     rootItem->setHidden(typeView!=TypeView::tvAll);
 
-    if(typeView == TypeView::tvGeo ) {
+    if(typeView == TypeView::tvEnemy || typeView == TypeView::tvOur){
+        moveObjectItemsToRoot(true);
         objectsItem->setHidden(true);
-        featuresItem->setHidden(false);
-        featuresItem->setExpanded(true);
-//        return;
     } else {
-        objectsItem->setHidden(false);
-        objectsItem->setText(0, getTreeItemObjectNameByType(typeView));
+        moveObjectItemsToRoot(false);
+        if(typeView == TypeView::tvGeo ) {
+            objectsItem->setHidden(true);
+            featuresItem->setExpanded(true);
+        } else if(typeView == TypeView::tvInteraction) {
+            objectsItem->setHidden(true);
+            interactionItems->setExpanded(true);
+        } else {
+            objectsItem->setHidden(false);
+            objectsItem->setText(0, getTreeItemObjectNameByType(typeView));
+        }
     }
 
-    if(typeView == TypeView::tvInteraction) {
-        objectsItem->setHidden(true);
-        featuresItem->setHidden(true);
-        interactionItems->setHidden(false);
-        interactionItems->setExpanded(true);
+    QList<QTreeWidgetItem*> items;
+    if(!m_topLevelObjects.isEmpty()){
+        items = m_topLevelObjects;
+    } else {
+        for(int i = 0; i < objectsItem->childCount(); i++){
+            items.append(objectsItem->child(i));
+        }
     }
 
-    for(int i = 0; i < objectsItem->childCount(); i++){
-        QTreeWidgetItem* child = objectsItem->child(i);
-        ObjectScenarioModel* model = (ObjectScenarioModel*)child->data(0, Qt::UserRole).value<ObjectScenarioModel*>();
+    for(QTreeWidgetItem* child : items){
+        ObjectScenarioModel* model = child->data(0, Qt::UserRole).value<ObjectScenarioModel*>();
         bool isHidden = true;
-            switch (typeView) {
-                case TypeView::tvEnemy:
-                case TypeView::tvOur:
-                    if(!model->properties().isEmpty() && model->properties().contains("is_own")) {
-                        bool isOk = true;
-                        int is_own = model->getPropertyInt("is_own", isOk);
-                        if (isOk) {
-                            if ((is_own == 1 && typeView == TypeView::tvOur) ||
-                                (is_own == 0 && typeView == TypeView::tvEnemy)) {
-                                isHidden = false;
-                            }
-                        }
-                    }
-                    break;
-                case TypeView::tvMeteo:
-                    if(!model->properties().isEmpty() && model->properties().contains("type_object")) {
-                        if (model->getPropertyString("type_object") == "meteo") {
+        switch (typeView) {
+            case TypeView::tvEnemy:
+            case TypeView::tvOur:
+                if(!model->properties().isEmpty() && model->properties().contains("is_own")) {
+                    bool isOk = true;
+                    int is_own = model->getPropertyInt("is_own", isOk);
+                    if (isOk) {
+                        if ((is_own == 1 && typeView == TypeView::tvOur) ||
+                            (is_own == 0 && typeView == TypeView::tvEnemy)) {
                             isHidden = false;
                         }
                     }
-                    break;
-                default:
-                    isHidden = false;
-                    break;
-            }
+                }
+                break;
+            case TypeView::tvMeteo:
+                if(!model->properties().isEmpty() && model->properties().contains("type_object")) {
+                    if (model->getPropertyString("type_object") == "meteo") {
+                        isHidden = false;
+                    }
+                }
+                break;
+            default:
+                isHidden = false;
+                break;
+        }
         child->setHidden(isHidden);
     }
     objectsItem->setExpanded(typeView!=TypeView::tvAll);
@@ -338,6 +346,28 @@ void ScenarioParser::filterTreeByTypeView(const TypeView &typeView) {
     interactionItems->setHidden(typeView!=TypeView::tvAll&&typeView!=TypeView::tvInteraction);
     m_simulation_parameters->filterTreeItem(typeView!=TypeView::tvAll);
     featuresItem->setHidden(typeView!=TypeView::tvAll&&typeView!=TypeView::tvGeo);
+}
+
+void ScenarioParser::moveObjectItemsToRoot(bool toRoot){
+    if(objectsItem == nullptr)
+        return;
+    QTreeWidget* tree = objectsItem->treeWidget();
+    if(toRoot){
+        if(m_topLevelObjects.isEmpty()){
+            while(objectsItem->childCount() > 0){
+                QTreeWidgetItem* child = objectsItem->takeChild(0);
+                tree->addTopLevelItem(child);
+                m_topLevelObjects.append(child);
+            }
+        }
+    } else {
+        if(!m_topLevelObjects.isEmpty()){
+            while(!m_topLevelObjects.isEmpty()){
+                QTreeWidgetItem* child = m_topLevelObjects.takeFirst();
+                objectsItem->addChild(child);
+            }
+        }
+    }
 }
 
 void ScenarioParser::updateObjectById(const QString& id, QJsonObject json){
