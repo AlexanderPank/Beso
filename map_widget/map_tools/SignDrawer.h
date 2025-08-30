@@ -34,6 +34,7 @@ public:
     void handleMouseMove(QPointF coordsPic); // Добавлен обработчик движения мыши
     void handleMouseDoubleClick();
     void handlePaint(QPainter *p, int cx, int cy, int cw, int ch);
+    void drawNameLabels(QPainter *p, int cx, int cy);
 
     bool isDrawing() const { return m_state != Idle; }
     SignBase::SignType currentSignType() const { return m_signType; }
