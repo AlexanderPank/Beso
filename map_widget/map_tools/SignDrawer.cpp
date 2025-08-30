@@ -198,9 +198,29 @@ void SignDrawer::drawNameLabels(QPainter *p, int cx, int cy)
         QPoint anchor = ctx.pic() - QPoint(cx, cy);
         QPoint textPos = anchor + QPoint(10, -10);
 
+        double angle = qRadiansToDegrees(
+                qAtan2(textPos.y() - anchor.y(), textPos.x() - anchor.x()));
+        if (angle < 0)
+            angle += 360.0;
+
+        QFontMetrics fm = p->fontMetrics();
+        QRect textRect = fm.boundingRect(sign->getName());
+        textRect.moveBottomLeft(textPos);
+
+        QPoint lineEnd;
+        if (qFuzzyIsNull(angle)) {
+            lineEnd = QPoint(textRect.center().x(), textRect.bottom());
+        } else if (qAbs(angle - 180.0) < 0.0001) {
+            lineEnd = QPoint(textRect.center().x(), textRect.top());
+        } else if (angle > 0 && angle < 180) {
+            lineEnd = QPoint(textRect.left(), textRect.center().y());
+        } else {
+            lineEnd = QPoint(textRect.right(), textRect.center().y());
+        }
+
         p->setPen(QPen(Qt::black, 1));
-        p->drawLine(anchor, textPos);
-        p->drawText(textPos + QPoint(2, -2), sign->getName());
+        p->drawLine(anchor, lineEnd);
+        p->drawText(textRect.bottomLeft(), sign->getName());
     }
     p->restore();
 }
