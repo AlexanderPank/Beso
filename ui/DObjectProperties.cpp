@@ -164,4 +164,3 @@ void DObjectProperties::on_lineFilter_textChanged(const QString &text)
         ui->tableWidget->setRowHidden(row, !match);
     }
 }
-
