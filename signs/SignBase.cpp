@@ -14,12 +14,17 @@ SignBase::SignBase( QString classcode, QString title, QUuid uuid, QObject *paren
        _uuid(uuid), _title(title), _classCode(classcode), _name(""), _spline(false)
 {}
 
+void SignBase::setName(const QString& name) {
+    _name = name;
+}
+
 // Метод для сериализации объекта в JSON
 QJsonObject SignBase::serialize() const {
     QJsonObject json;
     json["uuid"] = _uuid.toString(); // Преобразуем QUuid в строку
     json["class_code"] = _classCode;
     json["title"] = _title;
+    json["name"] = _name;
     json["base_color"] = _base_color;
 
     // Сериализуем QMap<int, QString> в QJsonObject
@@ -38,11 +43,13 @@ SignBase *SignBase::deserialize(const QJsonObject& obj) {
     QString uuidStr = obj["uuid"].toString();
     QString classcode = obj["class_code"].toString();
     QString title = obj["title"].toString();
+    QString name = obj["name"].toString();
     QString base_color = obj["base_color"].toString();
 
     // Создаем объект SignBase
     auto *sign = new SignBase(classcode, title, QUuid(uuidStr), nullptr);
     sign->setBaseColor(base_color);
+    sign->setName(name);
 
     // Десериализуем характеристики из QJsonObject в QMap<int, QString>
     QJsonObject characteristicsJson = obj["characteristics"].toObject();
@@ -177,6 +184,7 @@ QJsonObject SignBase::getJsonFeature(QString objID) {
     // Заполняем properties
     properties["id"] = objID;
     properties["class_code"] = _classCode;
+    properties["name"] = _name;
 
     // Определяем тип геометрии
     geometry["type"] = (_geometryType == SignType::LOCAL_LINE) ? "LineString" : "Polygon";

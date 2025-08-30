@@ -6,7 +6,7 @@
 SignShip::SignShip(QList<QPointF> coord, QString name):
     SignBase("131472600009", "Транспортное судно") // 131492002001
 {
-    this->_name = name;
+    setName(name);
     this->setCoordinatesInRadians(coord);
     this->setParamColorSign(QString("%1").arg(EParamSignColorStates::RED) );
     this->setLineWidth("0.5");
@@ -26,7 +26,7 @@ SignShipEnemy::SignShipEnemy(QList<QPointF> coord, QString name):SignShip(coord,
 SignRegion::SignRegion(QList<QPointF> coord, QString name):
         SignBase("312655004106000000000000", "Район")
 {
-    this->_name = name;
+    setName(name);
     this->setCoordinatesInRadians(coord);
 
     this->setLineWidth("0.75");
@@ -39,7 +39,7 @@ SignRegion::SignRegion(QList<QPointF> coord, QString name):
 SignWay::SignWay(QList<QPointF> coord, QString name):
         SignBase("131405000210000000", "Движение в пункт назначения")
 {
-    this->_name = name;
+    setName(name);
     this->setCoordinatesInRadians(coord);
     this->setOwn();
     this->setLineWidth("0.5");
@@ -58,7 +58,7 @@ SignWayEnemy::SignWayEnemy(const QList<QPointF> coord,const QString name):SignWa
 SignIntelligencePlane::SignIntelligencePlane(QList<QPointF> coord, QString name):
         SignBase("10185", "Разведывательный самолет срд нб")
 {
-    this->_name = name;
+    setName(name);
     this->setCoordinatesInRadians(coord);
     this->setOwn();
     this->setLineWidth("0.03");
@@ -69,7 +69,7 @@ SignIntelligencePlane::SignIntelligencePlane(QList<QPointF> coord, QString name)
 SignAntiBoatPlane::SignAntiBoatPlane(QList<QPointF> coord, QString name, bool is_own):
         SignBase("10188", "Противолодочный самолет")
 {
-    this->_name = name;
+    setName(name);
     this->setCoordinatesInRadians(coord);
     if (is_own) this->setOwn();
     else
@@ -83,7 +83,7 @@ SignAntiBoatPlane::SignAntiBoatPlane(QList<QPointF> coord, QString name, bool is
 SignAntiSubmarineBoat::SignAntiSubmarineBoat(QList<QPointF> coord, QString name):
         SignBase("10213", "Противолодочный катер")
 {
-    this->_name = name;
+    setName(name);
     this->setCoordinatesInRadians(coord);
     this->setOwn();
     this->setLineWidth("1");
@@ -101,7 +101,7 @@ SignAntiSubmarineBoatEnemy::SignAntiSubmarineBoatEnemy(QList<QPointF> coord, QSt
 SignNavalBase::SignNavalBase(QList<QPointF> coord, QString name):
         SignBase("131417004001000000000005", "Военно-морская база")
 {
-    this->_name = name;
+    setName(name);
     this->setCoordinatesInRadians(coord);
     this->setOwn();
     this->setLineWidth("1");
@@ -113,7 +113,7 @@ SignNavalBase::SignNavalBase(QList<QPointF> coord, QString name):
 SignNavalBaseEnemy::SignNavalBaseEnemy(QList<QPointF> coord, QString name):
         SignBase("131417004001000000000005", "Военно-морская база противника")
 {
-    this->_name = name;
+    setName(name);
     this->setCoordinatesInRadians(coord);
     this->setOwn();
     this->setLineWidth("1");
@@ -124,7 +124,7 @@ SignNavalBaseEnemy::SignNavalBaseEnemy(QList<QPointF> coord, QString name):
 SignInterceptPoint::SignInterceptPoint(QList<QPointF> coord, QString name):
         SignBase("7132250034230000000", "Точка перехвата невоенного судна")
 {
-    this->_name = name;
+    setName(name);
     this->setCoordinatesInRadians(coord);
     this->setLineWidth("1");
     this->setScale("50");
@@ -134,7 +134,7 @@ SignInterceptPoint::SignInterceptPoint(QList<QPointF> coord, QString name):
 SignWingsRocket::SignWingsRocket(QList<QPointF> coord, QString name):
         SignBase("1314120020040000000000", "Крылатая ракета")
 {
-    this->_name = name;
+    setName(name);
     this->setCoordinatesInRadians(coord);
     this->setOwn();
     this->setLineWidth("1");
@@ -150,7 +150,7 @@ SignWingsRocketEnemy::SignWingsRocketEnemy(QList<QPointF> coord, QString name):S
 SignRocketLaunchLine::SignRocketLaunchLine(QList<QPointF> coord, QString name):
         SignBase("1314050003300000", "Рубеж пуска ракет - нанесения удара")
 {
-    this->_name = name;
+    setName(name);
     this->setCoordinatesInRadians(coord);
     this->setOwn();
     this->setLineWidth("1");
@@ -162,7 +162,7 @@ SignRocketLaunchLine::SignRocketLaunchLine(QList<QPointF> coord, QString name):
 SignRegionSearch::SignRegionSearch(QList<QPointF> coord, QString name):
         SignBase("31261500011300000000", "Район воздушной разведки")
 {
-    this->_name = name;
+    setName(name);
     this->setCoordinatesInRadians(coord);
     this->setOwn();
     this->setLineWidth("1");
@@ -174,7 +174,7 @@ SignRegionSearch::SignRegionSearch(QList<QPointF> coord, QString name):
 SignRegionRound::SignRegionRound(QList<QPointF> coord, QString name):
         SignBase("312615000113", "Район круглый")
 {
-    this->_name = name;
+    setName(name);
     this->setCoordinatesInRadians(coord);
     this->setOwn();
     this->setLineWidth("1");
@@ -191,7 +191,7 @@ SignCircle::SignCircle(QList<QPointF> _coordinates, QString _name, double radius
 {
     radius = abs(radius);
 
-    this->_name = _name;
+    setName(_name);
     this->m_radius = radius;
     this->_classCode = classCode;
     this->setOwn();
@@ -217,7 +217,7 @@ void SignCircle::setCoordinatesInDegrees(QList<QPointF> coord, double radius, bo
 SignSector::SignSector(QList<QPointF> coordRad, QString name,  QPointF targetRad, double angleWidth,double distance):
         SignBase("31261500011300000002", "Сектор обнаружения")
 {
-    this->_name = name;
+    setName(name);
     this->_classCode = "31261500011300000000";
     this->setOwn();
     this->setLineWidth("0.5");
@@ -232,7 +232,7 @@ SignSector::SignSector(QList<QPointF> coordRad, QString name,  QPointF targetRad
 SignWaitingRegion::SignWaitingRegion(QList<QPointF> coordRad, QString name,  bool isOwn):
         SignBase("111015000101", "Район расположения, исходный район, район ожидания")
 {
-    this->_name = name;
+    setName(name);
     if (isOwn)  this->setOwn(); else this->setEnemy();
     this->setLineWidth("0.5");
     this->setScale("50");
@@ -244,7 +244,7 @@ SignWaitingRegion::SignWaitingRegion(QList<QPointF> coordRad, QString name,  boo
 SignDirectionAction::SignDirectionAction(QList<QPointF> coordRad, QString name,  bool isOwn):
         SignBase("111015000523", "Направление действий (движение)")
 {
-    this->_name = name;
+    setName(name);
     if (isOwn)  this->setOwn(); else this->setEnemy();
     this->setLineWidth("0.5");
     this->setScale("50");
@@ -257,7 +257,7 @@ SignDirectionAction::SignDirectionAction(QList<QPointF> coordRad, QString name, 
 SignRestrictedArea::SignRestrictedArea(QList<QPointF> coordRad, QString name):
         SignBase("131405000123", "Районы, закрытые для плав, РЭС")
 {
-    this->_name = name;
+    setName(name);
    // this->setOwn();
     this->setLineWidth("0.5");
     this->setScale("50");
@@ -270,7 +270,7 @@ SignRestrictedArea::SignRestrictedArea(QList<QPointF> coordRad, QString name):
 SignTitle::SignTitle(QList<QPointF> coordRad, QString name, QString text, float fontSize):
         SignBase("915300000000", "Подпись")
 {
-    this->_name = name;
+    setName(name);
 
     this->setLineWidth("1");
     this->setScale("50");
@@ -312,6 +312,7 @@ void SignTitle::setFontSize(const float size){
 
 SignBorderOES::SignBorderOES(QList<QPointF> coordRad, QString name):
         SignBase("222215005301", "Граница зоный ОЭС"){
+    setName(name);
     this->setBaseColor("16755200");
     this->setSpline(false);
     this->setGeometryType(SignType::LOCAL_POLYGON);
