@@ -184,6 +184,10 @@ void SignDrawer::drawNameLabels(QPainter *p, int cx, int cy)
         SignBase *sign = it.value();
         if (!sign || !sign->getVisibility())
             continue;
+
+        if (!m_featureLabelVisibility && sign->isFeature())
+            continue;
+
         auto pts = sign->getCoordinatesInRadians();
         if (pts.isEmpty())
             continue;

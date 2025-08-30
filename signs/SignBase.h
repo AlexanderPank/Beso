@@ -105,6 +105,12 @@ public:
      */
     bool useSpline() const { return _spline; }
     void setSpline(bool v) { _spline=v; }
+    /**
+     * @brief Использует ли знак сплайн?
+     * @return true, если используется сплайн, иначе false.
+     */
+    bool isFeature() const { return m_is_feature; }
+    void setFeature(bool v) { m_is_feature=v; }
 
     /**
      * @brief Вывод информации о знаке в консоль.
@@ -390,6 +396,7 @@ private:
     int _gis_id = -1; //< идентификатор объекта в гис системе на карте, для быстрого поиска
     QMap<QString, SignBase*> m_children;
     bool m_visibility = true;
+    bool m_is_feature = false;
 
 };
 

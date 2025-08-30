@@ -771,10 +771,12 @@ void ScenarioEditor::updateObjectStateFromModel(QJsonArray jsonObjectList, QJson
                 else
                     childSign  = sign->getChild(geo_field);
 
+
                 if (!childSign) {
                     qLog() << "Появился гео знак неизвестно откуда";
                     continue;
                 }
+                childSign->setFeature(true);
                 qDebug() << "new geometry " << props[geo_field].toObject()["geometry"].toObject();
                 auto coordinates = props[geo_field].toObject()["geometry"].toObject()["coordinates"].toArray();
                 auto geoType = props[geo_field].toObject()["geometry"].toObject()["type"].toString().toLower();

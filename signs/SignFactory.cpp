@@ -136,6 +136,7 @@ SignBase* SignFactory::createSignFromFeature(FeatureModel* feature){
     sign->setLineWidth( QString("%1").arg(feature->getLineWidth()));
     sign->setScale( QString("%1").arg(feature->getScale()));
     sign->setSpline( feature->getSpline());
+    sign->setFeature(true);
     if (feature->getColor() != "base") {
         sign->setColorRGB(feature->getColor());
         sign->setBaseColor(feature->getColor());

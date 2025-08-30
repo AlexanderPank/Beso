@@ -38,6 +38,7 @@ public:
     void handlePaint(QPainter *p, int cx, int cy, int cw, int ch);
     // Отрисовка подписей для всех видимых знаков
     void drawNameLabels(QPainter *p, int cx, int cy);
+    void setFeatureLabelVisibility(bool visible) {m_featureLabelVisibility = visible;}
 
     bool isDrawing() const { return m_state != Idle; }
     SignBase::SignType currentSignType() const { return m_signType; }
@@ -58,6 +59,7 @@ private:
     QVector<QPointF> m_points;
     QPointF m_currentMousePos; // Текущее положение мыши
     SignBase* m_drawing_sign = nullptr;
+    bool m_featureLabelVisibility = false;
 
     QVector<QPoint> toPixPoints(const QVector<QPointF>& geoPoints, int cx, int cy) const;
     void completeDrawing();

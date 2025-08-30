@@ -33,12 +33,12 @@ MapWidget::MapWidget(QWidget *parent, QString mapFileName, QString rscPath) :
     toolPanel = new MapToolPanel(this);
 
     connect(toolPanel, &MapToolPanel::signLabelsToggled, [=](bool checked) {
-        m_showSignLabels = checked;
+        m_showSignLabels = !m_showSignLabels;
         getMapView()->Repaint();
     });
 
     connect(toolPanel, &MapToolPanel::featureLabelsToggled, [=](bool checked) {
-        m_showFeatureLabels = checked;
+        m_showFeatureLabels = !m_showFeatureLabels;
         getMapView()->Repaint();
     });
 
@@ -401,11 +401,10 @@ void MapWidget::onPainted(QPainter *p, int cx, int cy, int cw, int ch) {
     if (m_signDrawer->isDrawing()) {
         m_signDrawer->handlePaint(p, cx, cy, cw, ch);
     }
+    m_signDrawer->setFeatureLabelVisibility(m_showFeatureLabels);
     if (m_showSignLabels)
         m_signDrawer->drawNameLabels(p, cx, cy);
-    if (m_showFeatureLabels) {
-        // feature label rendering will be added when feature drawing is available
-    }
+
 }
 
 void MapWidget::onSetMapCenter(float lat, float lon, int zoom) {
