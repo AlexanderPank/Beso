@@ -39,6 +39,10 @@ add_executable(ScenarioClient
     db_service/modelobjectsform.cpp
     db_service/modelobjectsform.ui
 
+    ui/DObjectProperties.cpp
+    ui/DObjectProperties.h
+    ui/DObjectProperties.ui
+
     EngineService.h
     MainWindow.h
     map_widget/map_additional/MapCoordinates.h
