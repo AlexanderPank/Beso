@@ -100,6 +100,14 @@ int SignController::redrawSignOnMap(SignBase *sign) {
     signs[signId] = {hObj, sign};
     return 1;
 }
+
+QMap<int, SignBase*> SignController::allSigns() const {
+    QMap<int, SignBase*> result;
+    for (auto it = signs.begin(); it != signs.end(); ++it) {
+        result[it.key()] = it.value().second;
+    }
+    return result;
+}
 void SignController::clearHighlight() {
     for (auto v: signs) {
         auto hObj = v.first;  // Второе значение пары (SignBase*)

@@ -2,6 +2,7 @@
 #include "SignDrawer.h"
 #include "CoordCtx.h"
 #include "../../core/QLogStream.h"
+#include "../../signs/SignController.h"
 #include <QPainter>
 #include <QDebug>
 
@@ -117,6 +118,58 @@ void SignDrawer::handlePaint(QPainter *p, int cx, int cy, int cw, int ch)
         // qLog() << m_currentMousePos.x() << " " << m_currentMousePos.y();
         p->setPen(QPen(Qt::green, 2, Qt::DotLine));
         p->drawLine(m_points.last() - QPoint(cx, cy), m_currentMousePos - QPoint(cx, cy));
+    }
+    p->restore();
+}
+
+void SignDrawer::drawNameLabels(QPainter *p, int cx, int cy)
+{
+    auto controller = SignController::getInstance();
+    if (!controller)
+        return;
+
+    auto signs = controller->allSigns();
+    p->save();
+    for (auto it = signs.begin(); it != signs.end(); ++it) {
+        SignBase *sign = it.value();
+        if (!sign || !sign->getVisibility())
+            continue;
+        auto pts = sign->getCoordinatesInRadians();
+        if (pts.isEmpty())
+            continue;
+
+        QPointF anchorGeo;
+        switch (sign->getGeometryType()) {
+        case SignBase::LOCAL_POINT:
+            anchorGeo = pts.first();
+            break;
+        case SignBase::LOCAL_LINE:
+            if (pts.size() == 2)
+                anchorGeo = pts.last();
+            else
+                anchorGeo = pts.at(pts.size() / 2);
+            break;
+        case SignBase::LOCAL_POLYGON:
+        case SignBase::LOCAL_CIRCLE:
+        case SignBase::LOCAL_RECTANGLE:
+            anchorGeo = pts.last();
+            break;
+        case SignBase::LOCAL_SQUARE:
+            anchorGeo = pts.first();
+            break;
+        case SignBase::LOCAL_TITLE:
+            continue;
+        default:
+            anchorGeo = pts.first();
+        }
+
+        CoordCtx ctx(m_hMap, GEO, anchorGeo);
+        QPoint anchor = ctx.pic() - QPoint(cx, cy);
+        QPoint textPos = anchor + QPoint(10, -10);
+
+        p->setPen(QPen(Qt::black, 1));
+        p->drawLine(anchor, textPos);
+        p->drawText(textPos + QPoint(2, -2), sign->getName());
     }
     p->restore();
 }

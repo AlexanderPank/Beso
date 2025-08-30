@@ -391,6 +391,7 @@ void MapWidget::onPainted(QPainter *p, int cx, int cy, int cw, int ch) {
     if (m_signDrawer->isDrawing()) {
         m_signDrawer->handlePaint(p, cx, cy, cw, ch);
     }
+    m_signDrawer->drawNameLabels(p, cx, cy);
 }
 
 void MapWidget::onSetMapCenter(float lat, float lon, int zoom) {

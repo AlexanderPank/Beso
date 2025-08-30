@@ -39,6 +39,8 @@ public:
     int updateSignOnMap(SignBase *);
     int redrawSignOnMap(SignBase *sign);
 
+    QMap<int, SignBase*> allSigns() const;
+
 private:
     SignController(HMAP  hMap, HSITE hSite, QObject *parent=nullptr);
 
