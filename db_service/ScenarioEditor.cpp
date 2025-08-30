@@ -812,7 +812,9 @@ void ScenarioEditor::updateObjectStateFromModel(QJsonArray jsonObjectList, QJson
     }
 
     for (auto sign: topSigns) {
-
+        // Skip signs without a name so they don't produce empty labels
+        if (sign->getName().isEmpty())
+            continue;
         m_signController->redrawSignOnMap(sign);
     }
     emit needMapRepaint();
