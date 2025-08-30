@@ -9,11 +9,9 @@
 #include <QNetworkReply>
 #include <QJsonDocument>
 #include <QJsonObject>
-#include <QFile>
 #include <QHttpMultiPart>
 #include <QUrlQuery>
 #include <QMessageBox>
-#include <QMap>
 
 /**
  * @struct ResponseStatusInfo
