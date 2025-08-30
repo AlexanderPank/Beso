@@ -6,6 +6,7 @@
 #include <QTreeWidget>
 #include <QJsonDocument>
 #include <QPushButton>
+#include <QMap>
 
 #include "ui_ScenarioEditor.h"
 
@@ -18,6 +19,8 @@
 #include "modules/daddscenariointeraction.h"
 #include "../map_widget/SimulationEventWidgetInMap.h"
 #include "../map_widget/MapWidget.h"
+
+class PropertyModel;
 
 namespace Ui {
     class ScenarioEditor;
@@ -95,6 +98,9 @@ private:
     QStringList findGeoProperties(const QJsonObject&);
 
     void handlePropertyEdit(QTreeWidgetItem *item, int column);
+
+    void itemDoubleClicked(QTreeWidgetItem *item, int column);
+    void showPropertiesDialog(const QString &title, const QMap<QString, PropertyModel*> &props);
 
     void createSignsFromObjects(QList<ObjectScenarioModel*> objects, QList<FeatureModel*> features);
     void createSignFromObject(ObjectScenarioModel* object);

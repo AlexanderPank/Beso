@@ -115,6 +115,7 @@ public:
     void setFontSize(const float &font_size) { m_font_size = font_size; }
     void setPosition(const int &position);
     void setProperties(const QMap<QString, PropertyModel*> props) { qDeleteAll(m_properties); m_properties.clear(); m_properties = props; }
+    const QMap<QString, PropertyModel*> &properties() const { return m_properties; }
     void setProperty(QString name, QVariant val);
 
 
