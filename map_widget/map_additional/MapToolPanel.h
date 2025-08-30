@@ -18,6 +18,8 @@ public:
     void updatePosition();
     bool isRouletteOn();
     void clearState();
+    bool isSignLabelsVisible() const;
+    bool isFeatureLabelsVisible() const;
 
 signals:
     void rouletteClicked();
@@ -28,6 +30,8 @@ signals:
     void rotateSignClicked();
     void removeSignClicked();
     void multySelectClicked();
+    void signLabelsToggled(bool);
+    void featureLabelsToggled(bool);
 
 private:
     Ui::MapToolPanel *ui;

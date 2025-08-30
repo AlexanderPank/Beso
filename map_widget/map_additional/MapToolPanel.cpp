@@ -50,6 +50,9 @@ MapToolPanel::MapToolPanel(QWidget *parent) :
         updateButtonView(_state == ButtonState::MULTI_SELECT ? ButtonState::NONE : ButtonState::MULTI_SELECT);
     });
 
+    connect(ui->signLabelsButton, &QPushButton::toggled, this, &MapToolPanel::signLabelsToggled);
+    connect(ui->featureLabelsButton, &QPushButton::toggled, this, &MapToolPanel::featureLabelsToggled);
+
     this->setMaximumWidth(40);
     this->setFixedWidth(40);
 
@@ -140,4 +143,12 @@ void MapToolPanel::clearState(){
 }
 bool MapToolPanel::isRouletteOn(){
     return _state == ButtonState::ROULETTE;
+}
+
+bool MapToolPanel::isSignLabelsVisible() const {
+    return ui->signLabelsButton->isChecked();
+}
+
+bool MapToolPanel::isFeatureLabelsVisible() const {
+    return ui->featureLabelsButton->isChecked();
 }
