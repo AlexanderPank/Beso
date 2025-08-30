@@ -3,6 +3,7 @@
 #include "../signs/SignFactory.h"
 #include "../delegates/PropertyItemDelegate.h"
 #include "../signs/SignShip.h"
+#include "../signs/SignAnimator.h"
 #include "services/DataStorageServiceFactory.h"
 #include "../core/EnvConfig.h"
 #include "../ui/DObjectProperties.h"
@@ -806,10 +807,13 @@ void ScenarioEditor::updateObjectStateFromModel(QJsonArray jsonObjectList, QJson
                 m_signController->updateSignOnMap(childSign);
             }
 
-            if (lon !=0 && lat !=0) {
-                sign->setCoordinatesInDegrees({QPointF(lat,lon)}, course);
-                m_signController->updateSignOnMap(sign);
-                // m_signController->updateSignOnMap(sign->getGisID(), lat, lon, course);
+            if (lon != 0 && lat != 0) {
+                auto current = sign->getCoordinatesInDegrees();
+                QPointF from;
+                if (!current.isEmpty())
+                    from = current.first();
+                SignAnimator::startAnimation(sign, from, QPointF(lat, lon),
+                                            course, 1000);
             }
             // смотрим появлись ли поля для отображения гео объектов
 

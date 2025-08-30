@@ -36,6 +36,7 @@ SOURCES += \
     signs/geoutil.cpp \
     signs/sign_base.cpp \
     signs/sign_controller.cpp \
+    signs/SignAnimator.cpp \
     signs/sign_ship.cpp \
     websocketservice.cpp
 
@@ -55,6 +56,7 @@ HEADERS += \
     signs/geoutil.h \
     signs/sign_base.h \
     signs/sign_controller.h \
+    signs/SignAnimator.h \
     signs/sign_enums.h \
     signs/sign_ship.h \
     websocketservice.h
