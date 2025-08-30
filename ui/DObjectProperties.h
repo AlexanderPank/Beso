@@ -21,10 +21,9 @@ public:
 
     void accept() override;
 
- 
 private slots:
     void on_btnToggleParam_clicked();
- 
+
 private:
     Ui::DObjectProperties *ui;
     QMap<QString, PropertyModel*> m_properties;
