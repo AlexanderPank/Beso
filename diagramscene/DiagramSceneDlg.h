@@ -101,6 +101,8 @@ private slots:
     void itemSelected(QGraphicsItem *item);
     void changeZoom(int);
     void about();
+    void singleLineButtonClicked();
+    void handleLineInserted();
 
     void itemInserted(AlgoritmItem *item);
     void openObjectSelectDialog();
@@ -138,7 +140,6 @@ private:
     QMenu *modelMenu;
     QMenu *itemMenu;
     QMenu *settingsMenu;
-    QMenu *aboutMenu;
 
     QToolBar *textToolBar;
     QToolBar *editToolBar;
@@ -164,6 +165,7 @@ private:
     QAction *textAction;
     QAction *fillAction;
     QAction *lineAction;
+    bool m_singleLineMode = false;
 };
 
 #endif // DIAGRAMSCENEDLG_H
