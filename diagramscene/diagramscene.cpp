@@ -17,7 +17,7 @@ DiagramScene::DiagramScene(QMenu *itemMenu, QObject *parent)
 {
     myItemMenu = itemMenu;
     myMode = MoveItem;
-    myItemType = AlgoritmItem::ALGORITM;
+    myItemType = AlgorithmItem::ALGORITM;
     line = nullptr;
     textItem = nullptr;
     myItemColor = Qt::white;
@@ -54,7 +54,7 @@ void DiagramScene::setItemColor(const QColor &color)
 {
     myItemColor = color;
     if (isItemChange(DiagramItem::Type)) {
-        AlgoritmItem *item = qgraphicsitem_cast<AlgoritmItem *>(selectedItems().first());
+        AlgorithmItem *item = qgraphicsitem_cast<AlgorithmItem *>(selectedItems().first());
         item->setBrush(myItemColor);
     }
 }
@@ -85,7 +85,7 @@ void DiagramScene::setMode(Mode mode)
 }
 
 // Устанавливает тип добавляемого алгоритмического элемента
-void DiagramScene::setItemType(AlgoritmItem::AlgoritmType type)
+void DiagramScene::setItemType(AlgorithmItem::AlgorithmType type)
 {
     myItemType = type;
 }
@@ -118,32 +118,32 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     if (mouseEvent->button() != Qt::LeftButton)
         return;
 
-    AlgoritmItem *item;
+    AlgorithmItem *item;
     switch (myMode) {
         case InsertItem:{
             QString title = "";
             QList<QPair<QString,QString>> in;
             QList<QPair<QString,QString>> out;
             switch (myItemType) {
-            case AlgoritmItem::ALGORITM:
+            case AlgorithmItem::ALGORITM:
                 title = "Алгоритм";
                 in = {QPair<QString,QString> ("Lat","double"),QPair<QString,QString> ("Lon","double")};
                 out = {QPair<QString,QString> ("Lat","double"),QPair<QString,QString> ("Lon","double")};
                 myItemColor = QColor("#E3E3FD");
                 break;
-            case AlgoritmItem::CONDITION:{
+            case AlgorithmItem::CONDITION:{
                     title = "Условие";
                     QPair<QString,QString> f("SeeTarget","bool");
                     in.append(f);
                     out = {QPair<QString,QString> ("Lat","double"),QPair<QString,QString> ("Lon","double")};
                     myItemColor = QColor("#FFFFE3");
                 }break;
-            case AlgoritmItem::EVENT:
+            case AlgorithmItem::EVENT:
                 title = "Событие";
                 out = {QPair<QString,QString> ("SeeTarget","bool")};
                 myItemColor = QColor("#FFF9A3");
                 break;
-            case AlgoritmItem::PARAM:
+            case AlgorithmItem::PARAM:
                 title = "Параметры";
                 in = {QPair<QString,QString> ("Lat","double"),QPair<QString,QString> ("Lon","double")};
                 myItemColor = QColor("#CFFFE5");
@@ -151,7 +151,7 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
             default:
                 break;
             }
-            item = new AlgoritmItem(myItemType, myItemMenu,title,in,out);
+            item = new AlgorithmItem(myItemType, myItemMenu,title,in,out);
             item->setBrush(myItemColor);
             addItem(item);
             item->setPos(mouseEvent->scenePos());
@@ -233,8 +233,8 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
             Arrow *arrow = new Arrow(startItem, endItem);
             arrow->setColor(myLineColor);
-            static_cast<AlgoritmItem*>(startItem->parentItem())->addArrow(arrow);
-            static_cast<AlgoritmItem*>(endItem->parentItem())->addArrow(arrow);
+            static_cast<AlgorithmItem*>(startItem->parentItem())->addArrow(arrow);
+            static_cast<AlgorithmItem*>(endItem->parentItem())->addArrow(arrow);
             addItem(arrow);
             arrow->updatePosition();
             emit lineInserted();
@@ -253,6 +253,7 @@ void DiagramScene::wheelEvent(QGraphicsSceneWheelEvent *mouseEvent)
         emit zoom(-1);
 }
 
+// Обрабатывает вход объекта при перетаскивании
 void DiagramScene::dragEnterEvent(QGraphicsSceneDragDropEvent *event)
 {
     if (event->mimeData()->hasFormat("application/x-algorithm"))
@@ -261,6 +262,7 @@ void DiagramScene::dragEnterEvent(QGraphicsSceneDragDropEvent *event)
         QGraphicsScene::dragEnterEvent(event);
 }
 
+// Обрабатывает перемещение объекта при перетаскивании
 void DiagramScene::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
 {
     if (event->mimeData()->hasFormat("application/x-algorithm"))
@@ -269,6 +271,7 @@ void DiagramScene::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
         QGraphicsScene::dragMoveEvent(event);
 }
 
+// Обрабатывает сброс объекта на сцену
 void DiagramScene::dropEvent(QGraphicsSceneDragDropEvent *event)
 {
     if (event->mimeData()->hasFormat("application/x-algorithm")) {
@@ -297,7 +300,7 @@ void DiagramScene::dropEvent(QGraphicsSceneDragDropEvent *event)
                     outParams.append({key, o.value(key).toString()});
                 }
             }
-            AlgoritmItem *item = new AlgoritmItem(AlgoritmItem::ALGORITM, myItemMenu, title, inParams, outParams);
+            AlgorithmItem *item = new AlgorithmItem(AlgorithmItem::ALGORITM, myItemMenu, title, inParams, outParams);
             item->setBrush(QColor("#E3E3FD"));
             addItem(item);
             item->setPos(event->scenePos());

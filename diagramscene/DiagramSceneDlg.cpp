@@ -8,7 +8,6 @@
 
 #include <QtWidgets>
 #include <algorithm>
-#include <QDebug>
 #include <QDir>
 #include <QFile>
 #include <QJsonDocument>
@@ -72,7 +71,7 @@ protected:
             }
         }
 
-        auto *temp = new AlgoritmItem(AlgoritmItem::ALGORITM, nullptr, title, inParams, outParams);
+        auto *temp = new AlgorithmItem(AlgorithmItem::ALGORITM, nullptr, title, inParams, outParams);
         temp->setBrush(QColor("#E3E3FD"));
         QGraphicsScene tmpScene;
         tmpScene.addItem(temp);
@@ -159,7 +158,7 @@ void DiagramSceneDlg::buttonGroupClicked(QAbstractButton *button)
     if (id == InsertTextButton) {
         scene->setMode(DiagramScene::InsertText);
     } else {
-        scene->setItemType(AlgoritmItem::AlgoritmType(id));
+        scene->setItemType(AlgorithmItem::AlgorithmType(id));
         scene->setMode(DiagramScene::InsertItem);
     }
 }
@@ -172,16 +171,16 @@ void DiagramSceneDlg::deleteItem()
         if (item->type() == Arrow::Type) {
             scene->removeItem(item);
             Arrow *arrow = qgraphicsitem_cast<Arrow *>(item);
-//            qgraphicsitem_cast<AlgoritmItem *>(arrow->_startItem()->parentItem())->removeArrow(arrow);
-//            qgraphicsitem_cast<AlgoritmItem *>(arrow->_endItem()->parentItem())->removeArrow(arrow);
+            qgraphicsitem_cast<AlgorithmItem *>(arrow->startItem()->parentItem())->removeArrow(arrow);
+            qgraphicsitem_cast<AlgorithmItem *>(arrow->endItem()->parentItem())->removeArrow(arrow);
             delete item;
         }
     }
 
     selectedItems = scene->selectedItems();
     for (QGraphicsItem *item : qAsConst(selectedItems)) {
-         if (item->type() == AlgoritmItem::Type)
-             qgraphicsitem_cast<AlgoritmItem *>(item)->removeArrows();
+         if (item->type() == AlgorithmItem::Type)
+             qgraphicsitem_cast<AlgorithmItem *>(item)->removeArrows();
          scene->removeItem(item);
          delete item;
      }
@@ -246,12 +245,13 @@ void DiagramSceneDlg::sendToBack()
 }
 
 // Обработчик добавления нового элемента алгоритма
-void DiagramSceneDlg::itemInserted(AlgoritmItem *item)
+void DiagramSceneDlg::itemInserted(AlgorithmItem *item)
 {
     pointerTypeGroup->button(int(DiagramScene::MoveItem))->setChecked(true);
     scene->setMode(DiagramScene::Mode(pointerTypeGroup->checkedId()));
 }
 
+// Открывает диалог выбора объекта и добавляет его на сцену
 void DiagramSceneDlg::openObjectSelectDialog()
 {
     ObjectSelectDialog dlg(this);
@@ -275,6 +275,7 @@ void DiagramSceneDlg::openObjectSelectDialog()
     }
 }
 
+// Настраивает фон сцены
 void DiagramSceneDlg::openBackgroundSettings()
 {
     QDialog dlg(this);

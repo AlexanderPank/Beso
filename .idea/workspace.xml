@@ -25,20 +25,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4bf0ab9c-4e55-4ffa-befb-862d7ffbe0c5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/diagramscene/DiagramSceneDlg.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/diagramscene/DiagramSceneDlg.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/diagramscene/DiagramSceneDlg.h" beforeDir="false" afterPath="$PROJECT_DIR$/diagramscene/DiagramSceneDlg.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/diagramscene/algoritmitem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/diagramscene/algoritmitem.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/diagramscene/algoritmitem.h" beforeDir="false" afterPath="$PROJECT_DIR$/diagramscene/algoritmitem.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/diagramscene/arrow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/diagramscene/arrow.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/diagramscene/arrow.h" beforeDir="false" afterPath="$PROJECT_DIR$/diagramscene/arrow.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/diagramscene/diagramitem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/diagramscene/diagramitem.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/diagramscene/algoritmitem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/diagramscene/algorithmitem.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/diagramscene/algoritmitem.h" beforeDir="false" afterPath="$PROJECT_DIR$/diagramscene/algorithmitem.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/diagramscene/diagramitem.h" beforeDir="false" afterPath="$PROJECT_DIR$/diagramscene/diagramitem.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/diagramscene/diagramscene.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/diagramscene/diagramscene.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/diagramscene/diagramscene.h" beforeDir="false" afterPath="$PROJECT_DIR$/diagramscene/diagramscene.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/diagramscene/diagramtextitem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/diagramscene/diagramtextitem.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/diagramscene/diagramtextitem.h" beforeDir="false" afterPath="$PROJECT_DIR$/diagramscene/diagramtextitem.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/diagramscene/itemtoolbox.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/diagramscene/itemtoolbox.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/diagramscene/itemtoolbox.h" beforeDir="false" afterPath="$PROJECT_DIR$/diagramscene/itemtoolbox.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,7 +116,7 @@
       <workItem from="1756563841044" duration="635000" />
       <workItem from="1756564720839" duration="1315000" />
       <workItem from="1756575896221" duration="15448000" />
-      <workItem from="1756659325514" duration="3625000" />
+      <workItem from="1756659325514" duration="4326000" />
     </task>
     <servers />
   </component>

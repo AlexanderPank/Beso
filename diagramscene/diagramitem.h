@@ -20,18 +20,28 @@ public:
     enum { Type = UserType + 15 };
     enum DiagramType { Step, Conditional, StartEnd, Io };
 
+    // Конструктор элемента диаграммы
     DiagramItem(DiagramType diagramType, QMenu *contextMenu, QGraphicsItem *parent = nullptr);
 
+    // Удаляет конкретную стрелку
     void removeArrow(Arrow *arrow);
+    // Удаляет все стрелки
     void removeArrows();
+    // Возвращает тип диаграммы
     DiagramType diagramType() const { return myDiagramType; }
+    // Возвращает текущий полигон
     QPolygonF polygon() const { return myPolygon; }
+    // Добавляет стрелку
     void addArrow(Arrow *arrow);
+    // Возвращает изображение элемента
     QPixmap image() const;
+    // Тип элемента
     int type() const override { return Type; }
 
 protected:
+    // Отображает контекстное меню
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) override;
+    // Обрабатывает изменение положения
     QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
 
 private:

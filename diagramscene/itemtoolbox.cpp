@@ -11,23 +11,26 @@
 
 #include "../db_service/services/FileDataStorageService.h"
 
+// Создает тулбокс и заполняет дерево алгоритмов
 ItemToolBox::ItemToolBox(QWidget *parent) :
     QToolBox(parent),
     ui(new Ui::ItemToolBox),
-    algoritmTree(new QTreeWidget(this))
+    algorithmTree(new QTreeWidget(this))
 {
     ui->setupUi(this);
 
-    algoritmTree->setHeaderHidden(true);
-    addItem(algoritmTree, tr("Алгоритмы"));
+    algorithmTree->setHeaderHidden(true);
+    addItem(algorithmTree, tr("Алгоритмы"));
     loadAlgorithms();
 }
 
+// Деструктор
 ItemToolBox::~ItemToolBox()
 {
     delete ui;
 }
 
+// Загружает дерево алгоритмов из директории
 void ItemToolBox::loadAlgorithms()
 {
     QDir dir(QString(MAIN_DIR_DEFAULT) + SUB_DIR_ALGORITHMS);
@@ -54,7 +57,7 @@ void ItemToolBox::loadAlgorithms()
 
         QTreeWidgetItem *typeItem = nullptr;
         if (!typeItems.contains(type)) {
-            typeItem = new QTreeWidgetItem(algoritmTree);
+            typeItem = new QTreeWidgetItem(algorithmTree);
             typeItem->setText(0, type);
             typeItem->setIcon(0, folderIcon);
             typeItems.insert(type, typeItem);
@@ -79,5 +82,5 @@ void ItemToolBox::loadAlgorithms()
         algItem->setData(0, Qt::UserRole, info.absoluteFilePath());
     }
 
-    algoritmTree->expandAll();
+    algorithmTree->expandAll();
 }

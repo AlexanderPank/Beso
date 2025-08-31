@@ -3,10 +3,9 @@
 
 #include "diagramitem.h"
 #include "diagramtextitem.h"
-#include <QDebug>
 #include <QGraphicsScene>
 #include <QGraphicsView>
-#include "algoritmitem.h"
+#include "algorithmitem.h"
 
 QT_BEGIN_NAMESPACE
 class QGraphicsSceneMouseEvent;
@@ -61,14 +60,14 @@ public slots:
     void setMode(Mode mode);
 
     // Устанавливает тип добавляемого алгоритмического элемента
-    void setItemType(AlgoritmItem::AlgoritmType type);
+    void setItemType(AlgorithmItem::AlgorithmType type);
 
     // Обрабатывает потерю фокуса текстовым редактором
     void editorLostFocus(DiagramTextItem *item);
 
 signals:
     // Сигнал о вставке нового элемента
-    void itemInserted(AlgoritmItem *item);
+    void itemInserted(AlgorithmItem *item);
     void textInserted(QGraphicsTextItem *item);
     void itemSelected(QGraphicsItem *item);
     void zoom(int i);
@@ -100,7 +99,7 @@ private:
     QPointF center;
     QPointF newCenter;
 
-    AlgoritmItem::AlgoritmType myItemType;
+    AlgorithmItem::AlgorithmType myItemType;
     QMenu *myItemMenu;
     Mode prevMode;
     Mode myMode;
