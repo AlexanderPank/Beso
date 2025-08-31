@@ -23,9 +23,9 @@ AlgorithmItem::AlgorithmItem(AlgorithmType diagramType, QMenu *contextMenu, QStr
     titleItem->setFont(font);
 
     for (auto &pair : in)
-        m_properties.append({pair.first, pair.first, pair.second, 1});
+        m_properties.append(PropertyInfo{pair.first, pair.first, pair.second, 1});
     for (auto &pair : out)
-        m_properties.append({pair.first, pair.first, pair.second, 2});
+        m_properties.append(PropertyInfo{pair.first, pair.first, pair.second, 2});
 
     polygonItem = new QGraphicsPolygonItem(this);
     polygonItem->setZValue(-10);

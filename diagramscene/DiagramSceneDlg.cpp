@@ -278,7 +278,7 @@ void DiagramSceneDlg::openObjectSelectDialog()
                     QString name = o["name"].toString();
                     QString ptitle = o["title"].toString(name);
                     QString type = o["type"].toString();
-                    props.append({ptitle, name, type, 0});
+                    props.append(AlgorithmItem::PropertyInfo{ptitle, name, type, 0});
                 }
                 break;
             }
