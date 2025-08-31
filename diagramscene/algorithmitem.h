@@ -1,5 +1,5 @@
-#ifndef ALGORITMITEM_H
-#define ALGORITMITEM_H
+#ifndef ALGORITHMITEM_H
+#define ALGORITHMITEM_H
 
 #include <QGraphicsItem>
 #include <QMap>
@@ -16,36 +16,37 @@ class QWidget;
 class Arrow;
 
 // Visual block representing an algorithm with input/output connectors
-class AlgoritmItem : public QGraphicsItem {
+class AlgorithmItem : public QGraphicsItem {
 public:
     enum { Type = UserType + 15 };
-    enum AlgoritmType { ALGORITM, CONDITION, EVENT, PARAM };
+    enum AlgorithmType { ALGORITM, CONDITION, EVENT, PARAM };
 
     // Constructs item with given type, context menu and connector lists
-    AlgoritmItem(AlgoritmType diagramType, QMenu *contextMenu, QString title = "",
-                 QList<QPair<QString,QString>> in = {},
-                 QList<QPair<QString,QString>> out = {},
-                 QGraphicsItem *parent = nullptr);
+    AlgorithmItem(AlgorithmType diagramType, QMenu *contextMenu, QString title = "",
+                  QList<QPair<QString,QString>> in = {},
+                  QList<QPair<QString,QString>> out = {},
+                  QGraphicsItem *parent = nullptr);
 
     // Removes a single arrow from this item
     void removeArrow(Arrow *arrow);
     // Deletes all arrows connected to the item
     void removeArrows();
     // Returns type of algorithm
-    AlgoritmType diagramType() const { return myDiagramType; }
+    AlgorithmType diagramType() const { return myDiagramType; }
     // Current polygon representing the item
     QPolygonF polygon() const { return myPolygon; }
     // Adds arrow to internal list
     void addArrow(Arrow *arrow);
     // Creates pixmap preview for specified type
-    QPixmap image(AlgoritmType type);
+    QPixmap image(AlgorithmType type);
     // QGraphicsItem type id
     int type() const override { return Type; }
     // Sets background brush color
     void setBrush(QColor);
 
-    // Lists of connector circles
+    // Returns output connector circles
     QList<QGraphicsEllipseItem *> getOutItems();
+    // Returns input connector circles
     QList<QGraphicsEllipseItem *> getInItems();
 
 protected:
@@ -55,7 +56,7 @@ protected:
     QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
 
 private:
-    AlgoritmType myDiagramType;
+    AlgorithmType myDiagramType;
     QPolygonF myPolygon;
     QMenu *myContextMenu{nullptr};
     QList<Arrow *> arrows;
@@ -74,4 +75,4 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 };
 
-#endif // ALGORITMITEM_H
+#endif // ALGORITHMITEM_H

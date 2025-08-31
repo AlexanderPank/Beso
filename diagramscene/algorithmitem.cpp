@@ -1,4 +1,4 @@
-#include "algoritmitem.h"
+#include "algorithmitem.h"
 
 #include "arrow.h"
 #include <QGraphicsScene>
@@ -8,16 +8,16 @@
 #include <QPen>
 
 // Creates algorithm item with connectors and title
-AlgoritmItem::AlgoritmItem(AlgoritmType diagramType, QMenu *contextMenu, QString title,
-                           QList<QPair<QString,QString>> in, QList<QPair<QString,QString>> out,
-                           QGraphicsItem *parent)
+AlgorithmItem::AlgorithmItem(AlgorithmType diagramType, QMenu *contextMenu, QString title,
+                             QList<QPair<QString,QString>> in, QList<QPair<QString,QString>> out,
+                             QGraphicsItem *parent)
     : QGraphicsItem(parent), myDiagramType(diagramType), myContextMenu(contextMenu)
 {
     QPainterPath path;
     const int spacing = 20; // vertical distance between ports
 
     titleItem = new QGraphicsTextItem(title, this);
-    QFont font = titleItem->font();
+    QFont font("Roboto", titleItem->font().pointSize());
     font.setBold(false);
     font.setUnderline(false);
     font.setPointSizeF(font.pointSizeF() * 0.8);
@@ -28,6 +28,7 @@ AlgoritmItem::AlgoritmItem(AlgoritmType diagramType, QMenu *contextMenu, QString
 
     for (auto pair : in) {
         auto inItem = new QGraphicsTextItem(pair.first + " (" + pair.second + ")", this);
+        inItem->setFont(QFont("Roboto"));
         inObjText.insert(pair, inItem);
         inTextsize = qMax(inTextsize, int(inItem->boundingRect().width()));
         auto inObj = new QGraphicsEllipseItem(0, 0, 10, 10, this);
@@ -37,6 +38,7 @@ AlgoritmItem::AlgoritmItem(AlgoritmType diagramType, QMenu *contextMenu, QString
     }
     for (auto pair : out) {
         auto outItem = new QGraphicsTextItem(pair.first + " (" + pair.second + ")", this);
+        outItem->setFont(QFont("Roboto"));
         outObjText.insert(pair, outItem);
         outTextsize = qMax(outTextsize, int(outItem->boundingRect().width()));
         auto outObj = new QGraphicsEllipseItem(0, 0, 10, 10, this);
@@ -58,7 +60,9 @@ AlgoritmItem::AlgoritmItem(AlgoritmType diagramType, QMenu *contextMenu, QString
     polygonItem = new QGraphicsPolygonItem(myPolygon, this);
     polygonItem->setZValue(-10);
     polygonItem->setPen(QPen(Qt::black, 1));
-    titleItem->setPos(-width / 2.0 + 5, -height / 2.0 + 10);
+    // Place title near the bottom with 10px offset
+    titleItem->setPos(-width / 2.0 + 5,
+                      height / 2.0 - titleItem->boundingRect().height() - 10);
 
     int i = 0;
     for (auto var : inObjCircle) {
@@ -87,28 +91,28 @@ AlgoritmItem::AlgoritmItem(AlgoritmType diagramType, QMenu *contextMenu, QString
 }
 
 // Removes arrow reference from list
-void AlgoritmItem::removeArrow(Arrow *arrow) {
+void AlgorithmItem::removeArrow(Arrow *arrow) {
     arrows.removeAll(arrow);
 }
 
 // Removes and deletes all arrows connected to this item
-void AlgoritmItem::removeArrows() {
+void AlgorithmItem::removeArrows() {
     const auto arrowsCopy = arrows;
     for (Arrow *arrow : arrowsCopy) {
-        static_cast<AlgoritmItem*>(arrow->startItem()->parentItem())->removeArrow(arrow);
-        static_cast<AlgoritmItem*>(arrow->endItem()->parentItem())->removeArrow(arrow);
+        static_cast<AlgorithmItem*>(arrow->startItem()->parentItem())->removeArrow(arrow);
+        static_cast<AlgorithmItem*>(arrow->endItem()->parentItem())->removeArrow(arrow);
         scene()->removeItem(arrow);
         delete arrow;
     }
 }
 
 // Adds arrow to internal list
-void AlgoritmItem::addArrow(Arrow *arrow) {
+void AlgorithmItem::addArrow(Arrow *arrow) {
     arrows.append(arrow);
 }
 
 // Returns pixmap representation for given type
-QPixmap AlgoritmItem::image(AlgoritmType type) {
+QPixmap AlgorithmItem::image(AlgorithmType type) {
     QPixmap pixmap(250, 250);
     switch (type) {
     case ALGORITM:
@@ -135,29 +139,29 @@ QPixmap AlgoritmItem::image(AlgoritmType type) {
 }
 
 // Sets fill brush color of polygon
-void AlgoritmItem::setBrush(QColor color) {
+void AlgorithmItem::setBrush(QColor color) {
     polygonItem->setBrush(color);
 }
 
 // Returns list of output connector circles
-QList<QGraphicsEllipseItem *> AlgoritmItem::getOutItems() {
+QList<QGraphicsEllipseItem *> AlgorithmItem::getOutItems() {
     return outObjCircle.values();
 }
 
 // Returns list of input connector circles
-QList<QGraphicsEllipseItem *> AlgoritmItem::getInItems() {
+QList<QGraphicsEllipseItem *> AlgorithmItem::getInItems() {
     return inObjCircle.values();
 }
 
 // Shows context menu for the item
-void AlgoritmItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
+void AlgorithmItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
     scene()->clearSelection();
     setSelected(true);
     myContextMenu->exec(event->screenPos());
 }
 
 // Updates arrows when item moves or selection changes
-QVariant AlgoritmItem::itemChange(GraphicsItemChange change, const QVariant &value) {
+QVariant AlgorithmItem::itemChange(GraphicsItemChange change, const QVariant &value) {
     if (change == QGraphicsItem::ItemPositionChange) {
         for (Arrow *arrow : qAsConst(arrows))
             arrow->updatePosition();
@@ -171,10 +175,10 @@ QVariant AlgoritmItem::itemChange(GraphicsItemChange change, const QVariant &val
 }
 
 // Bounding rectangle of the item
-QRectF AlgoritmItem::boundingRect() const {
+QRectF AlgorithmItem::boundingRect() const {
     return polygonItem->boundingRect();
 }
 
 // No custom painting required
-void AlgoritmItem::paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *) {
+void AlgorithmItem::paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *) {
 }
