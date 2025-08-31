@@ -285,7 +285,7 @@ void DiagramSceneDlg::openObjectSelectDialog()
         }
 
         auto *item = new AlgorithmItem(AlgorithmItem::ALGORITM, itemMenu, title, {}, {});
-        item->setBrush(QColor("#E3E3FD"));
+        item->setBrush(QColor("#D3D3D3"));
         item->setProperties(props);
         QPointF centerPoint = view->mapToScene(view->viewport()->rect().center());
         item->setPos(centerPoint - QPointF(item->boundingRect().width()/2, item->boundingRect().height()/2));
