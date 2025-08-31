@@ -38,7 +38,7 @@ private:
     QGraphicsEllipseItem *m_startItem{nullptr};
     QGraphicsEllipseItem *m_endItem{nullptr};
     QPolygonF arrowHead;
-    QColor myColor = Qt::darkGray;
+    QColor myColor = Qt::black;
 };
 
 #endif // ARROW_H

@@ -10,6 +10,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
+#include <QGraphicsEllipseItem>
 
 // Конструктор сцены диаграммы
 DiagramScene::DiagramScene(QMenu *itemMenu, QObject *parent)
@@ -22,7 +23,7 @@ DiagramScene::DiagramScene(QMenu *itemMenu, QObject *parent)
     textItem = nullptr;
     myItemColor = Qt::white;
     myTextColor = Qt::black;
-    myLineColor = Qt::darkGray;
+    myLineColor = Qt::black;
     center = sceneRect().center();
     // Устанавливаем фон "Сетка" по умолчанию
     setBackgroundBrush(QPixmap(":/images_diag/background2.png"));
@@ -109,6 +110,42 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     if (center.x()==0 && center.y()==0)
         center = sceneRect().center();
 
+    if (myMode == InsertLine && line && mouseEvent->button() == Qt::RightButton) {
+        removeItem(line);
+        delete line;
+        line = nullptr;
+        if (drawingArrow) {
+            drawingArrow = false;
+            myMode = prevMode;
+        }
+        return;
+    }
+
+    if (myMode == InsertLine && line && drawingArrow &&
+            mouseEvent->button() == Qt::LeftButton) {
+        line->setLine(QLineF(line->line().p1(), mouseEvent->scenePos()));
+        addArrowFromLine(mouseEvent->scenePos());
+        return;
+    }
+
+    if (mouseEvent->button() == Qt::LeftButton && myMode == MoveItem) {
+        const QList<QGraphicsItem *> itemsAtPos = items(mouseEvent->scenePos());
+        for (QGraphicsItem *it : itemsAtPos) {
+            if (auto ellipse = qgraphicsitem_cast<QGraphicsEllipseItem *>(it)) {
+                if (ellipse->data(Qt::UserRole).toString().contains("out")) {
+                    prevMode = myMode;
+                    myMode = InsertLine;
+                    drawingArrow = true;
+                    QPointF centerPos = ellipse->sceneBoundingRect().center();
+                    line = new QGraphicsLineItem(QLineF(centerPos, centerPos));
+                    line->setPen(QPen(myLineColor, 2));
+                    addItem(line);
+                    return;
+                }
+            }
+        }
+    }
+
     if (mouseEvent->button() == Qt::LeftButton &&
         !itemAt(mouseEvent->scenePos(), QTransform())) {
         clearSelection();
@@ -172,6 +209,7 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
                                         mouseEvent->scenePos()));
             line->setPen(QPen(myLineColor, 2));
             addItem(line);
+            drawingArrow = false;
             break;
         case InsertText:
             textItem = new DiagramTextItem();
@@ -217,40 +255,11 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
         myMode = prevMode;
         center = newCenter;
     }
-    if (line != nullptr && myMode == InsertLine) {
-        QList<QGraphicsItem *> startItems = items(line->line().p1());
-        if (startItems.count() && startItems.first() == line)
-            startItems.removeFirst();
-        QList<QGraphicsItem *> endItems = items(line->line().p2());
-        if (endItems.count() && endItems.first() == line)
-            endItems.removeFirst();
-
-        removeItem(line);
-        delete line;
-        QGraphicsEllipseItem * startItem = nullptr;
-        QGraphicsEllipseItem * endItem = nullptr;
-        for (QGraphicsItem * var : startItems) {
-            if (static_cast<QGraphicsEllipseItem *>(var)->data(Qt::UserRole).toString().contains("out"))
-                startItem = static_cast<QGraphicsEllipseItem *>(var);
-        }
-        for (QGraphicsItem * var : endItems) {
-            if (static_cast<QGraphicsEllipseItem *>(var)->data(Qt::UserRole).toString().contains("in"))
-                endItem = static_cast<QGraphicsEllipseItem *>(var);
-        }
-
-        if (startItem && startItem->parentItem()
-                && endItem && endItem->parentItem()) {
-
-            Arrow *arrow = new Arrow(startItem, endItem);
-            arrow->setColor(myLineColor);
-            static_cast<AlgorithmItem*>(startItem->parentItem())->addArrow(arrow);
-            static_cast<AlgorithmItem*>(endItem->parentItem())->addArrow(arrow);
-            addItem(arrow);
-            arrow->updatePosition();
-            emit lineInserted();
-        }
+    if (line != nullptr && myMode == InsertLine && !drawingArrow) {
+        addArrowFromLine(mouseEvent->scenePos());
     }
-    line = nullptr;
+    if (line)
+        line = nullptr;
     QGraphicsScene::mouseReleaseEvent(mouseEvent);
 }
 
@@ -325,6 +334,49 @@ void DiagramScene::dropEvent(QGraphicsSceneDragDropEvent *event)
         event->acceptProposedAction();
     } else {
         QGraphicsScene::dropEvent(event);
+    }
+}
+
+void DiagramScene::addArrowFromLine(const QPointF &endPoint)
+{
+    QList<QGraphicsItem *> startItems = items(line->line().p1());
+    if (startItems.count() && startItems.first() == line)
+        startItems.removeFirst();
+    QList<QGraphicsItem *> endItems = items(endPoint);
+    if (endItems.count() && endItems.first() == line)
+        endItems.removeFirst();
+
+    removeItem(line);
+    delete line;
+    line = nullptr;
+
+    QGraphicsEllipseItem * startItem = nullptr;
+    QGraphicsEllipseItem * endItem = nullptr;
+    for (QGraphicsItem * var : startItems) {
+        if (auto ellipse = qgraphicsitem_cast<QGraphicsEllipseItem *>(var))
+            if (ellipse->data(Qt::UserRole).toString().contains("out"))
+                startItem = ellipse;
+    }
+    for (QGraphicsItem * var : endItems) {
+        if (auto ellipse = qgraphicsitem_cast<QGraphicsEllipseItem *>(var))
+            if (ellipse->data(Qt::UserRole).toString().contains("in"))
+                endItem = ellipse;
+    }
+
+    if (startItem && startItem->parentItem()
+            && endItem && endItem->parentItem()) {
+        Arrow *arrow = new Arrow(startItem, endItem);
+        arrow->setColor(myLineColor);
+        static_cast<AlgorithmItem*>(startItem->parentItem())->addArrow(arrow);
+        static_cast<AlgorithmItem*>(endItem->parentItem())->addArrow(arrow);
+        addItem(arrow);
+        arrow->updatePosition();
+        emit lineInserted();
+    }
+
+    if (drawingArrow) {
+        myMode = prevMode;
+        drawingArrow = false;
     }
 }
 

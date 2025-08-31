@@ -32,8 +32,10 @@ QPainterPath Arrow::shape() const {
 void Arrow::updatePosition() {
     if (!m_startItem || !m_endItem)
         return;
-    QLineF newLine(mapFromItem(m_startItem, 0, 0),
-                   mapFromItem(m_endItem, 0, 0));
+    qreal sr = m_startItem->rect().width() / 2.0;
+    qreal er = m_endItem->rect().width() / 2.0;
+    QLineF newLine(mapFromItem(m_startItem, sr, sr),
+                   mapFromItem(m_endItem, er, er));
     setLine(newLine);
 }
 
@@ -49,11 +51,16 @@ void Arrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
     painter->setBrush(myColor);
 
     const qreal offset = 15.0;
-    QPointF startPoint = m_startItem->pos() + m_startItem->parentItem()->pos() + QPointF(5,5);
-    QPointF endPoint = m_endItem->pos() + m_endItem->parentItem()->pos() + QPointF(5,5);
+    qreal sr = m_startItem->rect().width() / 2.0;
+    qreal er = m_endItem->rect().width() / 2.0;
+    QPointF startCenter = m_startItem->pos() + m_startItem->parentItem()->pos() + QPointF(sr, sr);
+    QPointF endCenter = m_endItem->pos() + m_endItem->parentItem()->pos() + QPointF(er, er);
 
     qreal startDir = (m_startItem->pos().x() < 0) ? -1 : 1;
     qreal endDir = (m_endItem->pos().x() < 0) ? -1 : 1;
+
+    QPointF startPoint = startCenter + QPointF(startDir * sr, 0);
+    QPointF endPoint = endCenter + QPointF(endDir * er, 0);
 
     QPointF p1 = startPoint + QPointF(startDir * offset, 0);
     QPointF p3 = endPoint + QPointF(endDir * offset, 0);
