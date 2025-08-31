@@ -45,6 +45,7 @@ public:
     int type() const override { return Type; }
     // Sets background brush color
     void setBrush(QColor);
+    QString title() const { return titleItem ? titleItem->toPlainText() : QString(); }
 
     // Returns output connector circles
     QList<QGraphicsEllipseItem *> getOutItems();
@@ -65,6 +66,10 @@ public:
 
     QList<PropertyInfo> properties() const { return m_properties; }
     void setProperties(const QList<PropertyInfo> &props);
+    void setObjectOutput(bool enable);
+    bool hasObjectOutput() const { return m_hasSelfOut; }
+    QString propertyNameForCircle(QGraphicsEllipseItem *circle) const;
+    QGraphicsEllipseItem* circleForProperty(const QString &name, int direction) const;
 
 protected:
     // Displays context menu
@@ -86,6 +91,8 @@ private:
     QMap<QPair<QString,QString>,QGraphicsTextItem *> inObjText;
     QMap<QPair<QString,QString>,QGraphicsTextItem *> outObjText;
     QList<PropertyInfo> m_properties;
+    QGraphicsEllipseItem *selfOut{nullptr};
+    bool m_hasSelfOut = false;
 
     void applyProperties();
 
