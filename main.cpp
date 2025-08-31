@@ -3,6 +3,7 @@
 #include "models/Feature.h"
 
 #include <QApplication>
+#include <QFont>
 
 
 
@@ -13,6 +14,7 @@ int main(int argc, char *argv[])
     qRegisterMetaType<Feature*>("Feature*");
 
     QApplication app(argc, argv);
+    app.setFont(QFont("Roboto"));
 
     // Загрузка темы QDarkStyleSheet
     QFile styleFile(":/styles/dark_theme.qss");

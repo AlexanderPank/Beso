@@ -1,159 +1,84 @@
-/****************************************************************************
-**
-** Copyright (C) 2016 The Qt Company Ltd.
-** Contact: https://www.qt.io/licensing/
-**
-** This file is part of the examples of the Qt Toolkit.
-**
-** $QT_BEGIN_LICENSE:BSD$
-** Commercial License Usage
-** Licensees holding valid commercial Qt licenses may use this file in
-** accordance with the commercial license agreement provided with the
-** Software or, alternatively, in accordance with the terms contained in
-** a written agreement between you and The Qt Company. For licensing terms
-** and conditions see https://www.qt.io/terms-conditions. For further
-** information use the contact form at https://www.qt.io/contact-us.
-**
-** BSD License Usage
-** Alternatively, you may use this file under the terms of the BSD license
-** as follows:
-**
-** "Redistribution and use in source and binary forms, with or without
-** modification, are permitted provided that the following conditions are
-** met:
-**   * Redistributions of source code must retain the above copyright
-**     notice, this list of conditions and the following disclaimer.
-**   * Redistributions in binary form must reproduce the above copyright
-**     notice, this list of conditions and the following disclaimer in
-**     the documentation and/or other materials provided with the
-**     distribution.
-**   * Neither the name of The Qt Company Ltd nor the names of its
-**     contributors may be used to endorse or promote products derived
-**     from this software without specific prior written permission.
-**
-**
-** THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-** "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-** LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-** A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-** OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-** LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-** DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-** THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-** (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-** OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
-**
-** $QT_END_LICENSE$
-**
-****************************************************************************/
-
-
 #include "arrow.h"
-#include "diagramitem.h"
 
 #include <QPainter>
 #include <QPen>
 #include <QtMath>
 
-//! [0]
-//Arrow::Arrow(DiagramItem *startItem, DiagramItem *endItem, QGraphicsItem *parent)
-//    : QGraphicsLineItem(parent), myStartItem(startItem), myEndItem(endItem)
-//{
-//    setFlag(QGraphicsItem::ItemIsSelectable, true);
-//    setPen(QPen(myColor, 2, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
-//}
-
-Arrow::Arrow(QGraphicsEllipseItem *startItem, QGraphicsEllipseItem *endItem, QGraphicsItem *parent)
-{
+// Constructs arrow connecting two QGraphicsEllipseItem endpoints
+Arrow::Arrow(QGraphicsEllipseItem *startItem, QGraphicsEllipseItem *endItem,
+             QGraphicsItem *parent) : QGraphicsLineItem(parent),
+    m_startItem(startItem), m_endItem(endItem) {
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     setPen(QPen(myColor, 2, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
-    my_StartItem = startItem;
-    my_EndItem = endItem;
 }
-//! [0]
 
-//! [1]
-QRectF Arrow::boundingRect() const
-{
+// Returns bounding rectangle for the arrow including arrowhead
+QRectF Arrow::boundingRect() const {
     qreal extra = (pen().width() + 20) / 2.0;
-
     return QRectF(line().p1(), QSizeF(line().p2().x() - line().p1().x(),
                                       line().p2().y() - line().p1().y()))
         .normalized()
         .adjusted(-extra, -extra, extra, extra);
 }
-//! [1]
 
-//! [2]
-QPainterPath Arrow::shape() const
-{
+// Provides shape used for collisions (line plus arrow head)
+QPainterPath Arrow::shape() const {
     QPainterPath path = QGraphicsLineItem::shape();
     path.addPolygon(arrowHead);
     return path;
 }
-//! [2]
 
-//! [3]
-void Arrow::updatePosition()
-{
-
-    QLineF line;
-    if (my_StartItem!=nullptr)
-       line = QLineF(mapFromItem(my_StartItem, 0, 0), mapFromItem(my_EndItem, 0, 0));
-    else
-        if (myStartItem!=nullptr)
-            line = QLineF(mapFromItem(myStartItem, 0, 0), mapFromItem(myEndItem, 0, 0));
-
-    setLine(line);
+// Updates geometry based on start/end item positions
+void Arrow::updatePosition() {
+    if (!m_startItem || !m_endItem)
+        return;
+    QLineF newLine(mapFromItem(m_startItem, 0, 0),
+                   mapFromItem(m_endItem, 0, 0));
+    setLine(newLine);
 }
-//! [3]
 
-//! [4]
+// Paints polyline arrow with two bends and arrow head
 void Arrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
-                  QWidget *)
-{
-
-    if (my_StartItem->collidesWithItem(my_EndItem))
+                  QWidget *) {
+    if (!m_startItem || !m_endItem || m_startItem->collidesWithItem(m_endItem))
         return;
 
     QPen myPen = pen();
     myPen.setColor(myColor);
-    qreal arrowSize = 10;
     painter->setPen(myPen);
     painter->setBrush(myColor);
-//! [4] //! [5]
 
-    QPointF startPoint = my_StartItem->pos()+my_StartItem->parentItem()->pos()+QPointF(5,5);
-    QPointF endPoint = my_EndItem->pos()+my_EndItem->parentItem()->pos()+QPointF(5,5);
-    QLineF centerLine(startPoint, endPoint);
-    setLine(centerLine);
+    const qreal offset = 15.0;
+    QPointF startPoint = m_startItem->pos() + m_startItem->parentItem()->pos() + QPointF(5,5);
+    QPointF endPoint = m_endItem->pos() + m_endItem->parentItem()->pos() + QPointF(5,5);
 
-    QPointF corner(startPoint.x(), endPoint.y());
-    painter->drawLine(startPoint, corner);
-    painter->drawLine(corner, endPoint);
+    qreal startDir = (m_startItem->pos().x() < 0) ? -1 : 1;
+    qreal endDir = (m_endItem->pos().x() < 0) ? -1 : 1;
 
-//! [5] //! [6]
+    QPointF p1 = startPoint + QPointF(startDir * offset, 0);
+    QPointF p3 = endPoint + QPointF(endDir * offset, 0);
+    QPointF p2(p1.x(), p3.y());
 
-    QLineF arrowLine(corner, endPoint);
+    QPolygonF polyline;
+    polyline << startPoint << p1 << p2 << p3 << endPoint;
+    painter->drawPolyline(polyline);
+
+    QLineF arrowLine(p3, endPoint);
     double angle = std::atan2(-arrowLine.dy(), arrowLine.dx());
-
-    QPointF arrowP1 = endPoint - QPointF(sin(angle + M_PI / 2.5) * arrowSize,
-                                    cos(angle + M_PI / 2.5) * arrowSize);
-    QPointF arrowP2 = endPoint - QPointF(sin(angle + M_PI - M_PI / 2.5) * arrowSize,
-                                    cos(angle + M_PI - M_PI / 2.5) * arrowSize);
-
+    QPointF arrowP1 = endPoint - QPointF(std::sin(angle + M_PI / 2.5) * 10,
+                                         std::cos(angle + M_PI / 2.5) * 10);
+    QPointF arrowP2 = endPoint - QPointF(std::sin(angle + M_PI - M_PI / 2.5) * 10,
+                                         std::cos(angle + M_PI - M_PI / 2.5) * 10);
     arrowHead.clear();
     arrowHead << endPoint << arrowP1 << arrowP2;
-//! [6] //! [7]
     painter->drawPolygon(arrowHead);
+
     if (isSelected()) {
         painter->setPen(QPen(myColor, 1, Qt::DashLine));
-        QLineF myLine(startPoint, corner);
+        QLineF myLine(startPoint, p1);
         myLine.translate(0, 4.0);
         painter->drawLine(myLine);
-        myLine.translate(0,-8.0);
+        myLine.translate(0, -8.0);
         painter->drawLine(myLine);
     }
 }
-//! [7]
