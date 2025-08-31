@@ -47,9 +47,6 @@
 ** $QT_END_LICENSE$
 **
 ****************************************************************************/
-#include <QtWidgets>
-#include <QDebug>
-
 
 #include "arrow.h"
 #include "diagramitem.h"
@@ -58,6 +55,16 @@
 #include "DiagramSceneDlg.h"
 #include "ObjectSelectDialog.h"
 
+#include <QtWidgets>
+#include <QDebug>
+#include <QDir>
+#include <QFile>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QMap>
+#include <QTreeWidget>
+#include <QStyle>
+#include "../db_service/services/FileDataStorageService.h"
 
 const int InsertTextButton = 10;
 // Конструктор диалогового окна сцены
@@ -70,8 +77,6 @@ DiagramSceneDlg::DiagramSceneDlg()
     scene = new DiagramScene(itemMenu, this);
     scene->setSceneRect(QRectF(0, 0, 5000, 5000));
     scene->setBackgroundBrush(QPixmap(":/images_diag/background1.png"));
-    if (!backgroundButtonGroup->buttons().isEmpty())
-        backgroundButtonGroup->buttons().first()->setChecked(true);
 
     connect(scene, &DiagramScene::itemInserted,
             this, &DiagramSceneDlg::itemInserted);
@@ -117,19 +122,6 @@ void DiagramSceneDlg::backgroundButtonGroupClicked(QAbstractButton *button)
 
     scene->update();
     view->update();
-}
-
-// Обработчик выбора типа алгоритма
-void DiagramSceneDlg::algoritmButtonGroupClicked(QAbstractButton *button)
-{
-    const QList<QAbstractButton *> buttons = algoritmButtonGroup->buttons();
-    for (QAbstractButton *myButton : buttons) {
-        if (myButton != button)
-            button->setChecked(false);
-    }
-        const int id = algoritmButtonGroup->id(button);
-    scene->setItemType(static_cast<AlgoritmItem::AlgoritmType>(id));
-    scene->setMode(DiagramScene::InsertItem);
 }
 
 // Обработчик выбора элемента диаграммы
@@ -217,11 +209,6 @@ void DiagramSceneDlg::itemInserted(AlgoritmItem *item)
 {
     pointerTypeGroup->button(int(DiagramScene::MoveItem))->setChecked(true);
     scene->setMode(DiagramScene::Mode(pointerTypeGroup->checkedId()));
-    QAbstractButton *btn = algoritmButtonGroup->button(int(item->diagramType()));
-
-    if (btn!=nullptr)
-    btn->setChecked(false);
-
 }
 
 void DiagramSceneDlg::openObjectSelectDialog()
@@ -230,6 +217,29 @@ void DiagramSceneDlg::openObjectSelectDialog()
     if (dlg.exec() == QDialog::Accepted) {
         qDebug() << "Selected object id:" << dlg.selectedId();
     }
+}
+
+void DiagramSceneDlg::openBackgroundSettings()
+{
+    QDialog dlg(this);
+    dlg.setWindowTitle(tr("Базовый фон"));
+
+    backgroundButtonGroup = new QButtonGroup(&dlg);
+    connect(backgroundButtonGroup, QOverload<QAbstractButton *>::of(&QButtonGroup::buttonClicked),
+            this, &DiagramSceneDlg::backgroundButtonGroupClicked);
+
+    QGridLayout *backgroundLayout = new QGridLayout;
+    backgroundLayout->addWidget(createBackgroundCellWidget(tr("Серая сетка"), ":/images_diag/background1.png"), 0, 0);
+    backgroundLayout->addWidget(createBackgroundCellWidget(tr("Сетка"), ":/images_diag/background2.png"), 0, 1);
+    backgroundLayout->addWidget(createBackgroundCellWidget(tr("Черная сетка"), ":/images_diag/background3.png"), 1, 0);
+    backgroundLayout->addWidget(createBackgroundCellWidget(tr("Без сетки"), ":/images_diag/background4.png"), 1, 1);
+    backgroundLayout->setRowStretch(2, 10);
+    backgroundLayout->setColumnStretch(2, 10);
+
+    dlg.setLayout(backgroundLayout);
+    dlg.exec();
+
+    backgroundButtonGroup = nullptr;
 }
 
 // Обработчик вставки текстового элемента
@@ -388,48 +398,66 @@ void DiagramSceneDlg::createToolBox()
     QWidget *itemWidget = new QWidget;
     itemWidget->setLayout(layout);
 
-    backgroundButtonGroup = new QButtonGroup(this);
-    connect(backgroundButtonGroup, QOverload<QAbstractButton *>::of(&QButtonGroup::buttonClicked),
-            this, &DiagramSceneDlg::backgroundButtonGroupClicked);
+    // Load algorithms from storage
+    QTreeWidget *algTree = new QTreeWidget;
+    algTree->setHeaderHidden(true);
 
-    QGridLayout *backgroundLayout = new QGridLayout;
-    backgroundLayout->addWidget(createBackgroundCellWidget(tr("Серая сетка"),
-                                                           ":/images_diag/background1.png"), 0, 0);
-    backgroundLayout->addWidget(createBackgroundCellWidget(tr("Сетка"),
-                                                           ":/images_diag/background2.png"), 0, 1);
-    backgroundLayout->addWidget(createBackgroundCellWidget(tr("Черная сетка"),
-                                                           ":/images_diag/background3.png"), 1, 0);
-    backgroundLayout->addWidget(createBackgroundCellWidget(tr("Без сетки"),
-                                                           ":/images_diag/background4.png"), 1, 1);
+    QDir dir(QString(MAIN_DIR_DEFAULT) + SUB_DIR_ALGORITHMS);
+    dir.setNameFilters({"*.json"});
+    QFileInfoList files = dir.entryInfoList();
 
-    backgroundLayout->setRowStretch(2, 10);
-    backgroundLayout->setColumnStretch(2, 10);
+    QMap<QString, QTreeWidgetItem*> typeItems;
+    QMap<QString, QMap<QString, QTreeWidgetItem*>> subTypeItems;
 
-    QWidget *backgroundWidget = new QWidget;
-    backgroundWidget->setLayout(backgroundLayout);
+    QIcon folderIcon = QApplication::style()->standardIcon(QStyle::SP_DirIcon);
+    QIcon fileIcon = QApplication::style()->standardIcon(QStyle::SP_FileIcon);
 
-    algoritmButtonGroup = new QButtonGroup(this);
-    connect(algoritmButtonGroup, QOverload<QAbstractButton *>::of(&QButtonGroup::buttonClicked),
-            this, &DiagramSceneDlg::algoritmButtonGroupClicked);
+    for (const QFileInfo &info : files) {
+        QFile f(info.absoluteFilePath());
+        if (!f.open(QIODevice::ReadOnly))
+            continue;
+        QJsonDocument doc = QJsonDocument::fromJson(f.readAll());
+        f.close();
+        QJsonObject obj = doc.object();
 
-    QGridLayout *algoritmLayout = new QGridLayout;
-    algoritmLayout->addWidget(createAlgoritmCellWidget(tr("Алгоритм"),AlgoritmItem::AlgoritmType::ALGORITM), 0, 0);
-    algoritmLayout->addWidget(createAlgoritmCellWidget(tr("Условие"),AlgoritmItem::AlgoritmType::CONDITION), 0, 1);
-    algoritmLayout->addWidget(createAlgoritmCellWidget(tr("Событие"),AlgoritmItem::AlgoritmType::EVENT), 1, 0);
-     algoritmLayout->addWidget(createAlgoritmCellWidget(tr("Параметр"),AlgoritmItem::AlgoritmType::PARAM), 1, 1);
+        QString type = obj["type"].toString();
+        QString subType = obj["subType"].toString();
+        QString title = obj["title"].toString(info.completeBaseName());
 
-    algoritmLayout->setRowStretch(2, 10);
-    algoritmLayout->setColumnStretch(2, 10);
+        QTreeWidgetItem *typeItem = nullptr;
+        if (!typeItems.contains(type)) {
+            typeItem = new QTreeWidgetItem(algTree);
+            typeItem->setText(0, type);
+            typeItem->setIcon(0, folderIcon);
+            typeItems.insert(type, typeItem);
+        } else {
+            typeItem = typeItems.value(type);
+        }
 
-    QWidget *algoritmWidget = new QWidget;
-    algoritmWidget->setLayout(algoritmLayout);
+        QTreeWidgetItem *subTypeItem = nullptr;
+        QMap<QString, QTreeWidgetItem*> &subMap = subTypeItems[type];
+        if (!subMap.contains(subType)) {
+            subTypeItem = new QTreeWidgetItem(typeItem);
+            subTypeItem->setText(0, subType);
+            subTypeItem->setIcon(0, folderIcon);
+            subMap.insert(subType, subTypeItem);
+        } else {
+            subTypeItem = subMap.value(subType);
+        }
+
+        QTreeWidgetItem *algItem = new QTreeWidgetItem(subTypeItem);
+        algItem->setText(0, title);
+        algItem->setIcon(0, fileIcon);
+        algItem->setData(0, Qt::UserRole, info.absoluteFilePath());
+    }
+
+    algTree->expandAll();
 
     toolBox = new QToolBox;
     toolBox->setSizePolicy(QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Ignored));
     toolBox->setMinimumWidth(itemWidget->sizeHint().width());
     toolBox->addItem(itemWidget, tr("Основные блок-схемы"));
-    toolBox->addItem(algoritmWidget, tr("Формы алгоритмов"));
-    toolBox->addItem(backgroundWidget, tr("Базовый фон"));
+    toolBox->addItem(algTree, tr("Доступные ИРЗ"));
 }
 
 // Создаёт действия интерфейса
@@ -473,6 +501,10 @@ void DiagramSceneDlg::createActions()
     addAction->setStatusTip(tr("Выбор объекта из базы данных"));
     connect(addAction, &QAction::triggered, this, &DiagramSceneDlg::openObjectSelectDialog);
 
+    backgroundAction = new QAction(tr("&Базовый фон"), this);
+    backgroundAction->setStatusTip(tr("Настройка базового фона"));
+    connect(backgroundAction, &QAction::triggered, this, &DiagramSceneDlg::openBackgroundSettings);
+
     exitAction = new QAction(tr("&Выход"), this);
     exitAction->setShortcuts(QKeySequence::Quit);
     exitAction->setStatusTip(tr("Закрыть программу"));
@@ -508,8 +540,11 @@ void DiagramSceneDlg::createMenus()
     fileMenu->addAction(openAction);
     fileMenu->addAction(saveAction);
     fileMenu->addAction(saveAsAction);
-    fileMenu->addAction(addAction);
+    fileMenu->addAction(backgroundAction);
     fileMenu->addAction(exitAction);
+
+    modelMenu = menuBar()->addMenu(tr("Создание модели"));
+    modelMenu->addAction(addAction);
 
     itemMenu = menuBar()->addMenu(tr("&Элемент"));
     itemMenu->addAction(deleteAction);
@@ -618,28 +653,6 @@ QWidget *DiagramSceneDlg::createBackgroundCellWidget(const QString &text, const 
     button->setIconSize(QSize(50, 50));
     button->setCheckable(true);
     backgroundButtonGroup->addButton(button);
-
-    QGridLayout *layout = new QGridLayout;
-    layout->addWidget(button, 0, 0, Qt::AlignHCenter);
-    layout->addWidget(new QLabel(text), 1, 0, Qt::AlignCenter);
-
-    QWidget *widget = new QWidget;
-    widget->setLayout(layout);
-
-    return widget;
-}
-
-// Создаёт элемент выбора типа алгоритма
-QWidget *DiagramSceneDlg::createAlgoritmCellWidget(const QString &text, AlgoritmItem::AlgoritmType type)
-{
-    AlgoritmItem item(type, itemMenu);
-    QIcon icon(item.image(type));
-
-    QToolButton *button = new QToolButton;
-    button->setIcon(icon);
-    button->setIconSize(QSize(50, 50));
-    button->setCheckable(true);
-    buttonGroup->addButton(button, int(type));
 
     QGridLayout *layout = new QGridLayout;
     layout->addWidget(button, 0, 0, Qt::AlignHCenter);

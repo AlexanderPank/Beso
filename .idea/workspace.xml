@@ -25,9 +25,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4bf0ab9c-4e55-4ffa-befb-862d7ffbe0c5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/diagramscene/DiagramSceneDlg.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/diagramscene/DiagramSceneDlg.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/diagramscene/ObjectSelectDialog.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/diagramscene/ObjectSelectDialog.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/diagramscene/DiagramSceneDlg.h" beforeDir="false" afterPath="$PROJECT_DIR$/diagramscene/DiagramSceneDlg.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/diagramscene/itemtoolbox.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/diagramscene/itemtoolbox.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -66,7 +65,7 @@
     "RunOnceActivity.west.config.association.type.startup.service": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "Rebasing main",
+    "git-widget-placeholder": "Merging main",
     "last_opened_file_path": "/home/qq/Beso/CMakeLists.txt",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
