@@ -12,7 +12,6 @@ class QGraphicsTextItem;
 class QGraphicsEllipseItem;
 class QGraphicsSceneContextMenuEvent;
 class QGraphicsSceneMouseEvent;
-class QGraphicsRectItem;
 class QPainter;
 class QStyleOptionGraphicsItem;
 class QWidget;
@@ -57,6 +56,11 @@ public:
         QString name;
         QString type;
         int direction = 0; // 0-none,1-in,2-out
+
+        PropertyInfo() { title = ""; name = ""; type = ""; direction = 0; }
+        PropertyInfo(QString t, QString n, QString tp, int d) {
+            title = t; name = n; type = tp; direction = d;
+        }
     };
 
     QList<PropertyInfo> properties() const { return m_properties; }
@@ -77,7 +81,6 @@ private:
 
     QGraphicsPolygonItem *polygonItem{nullptr};
     QGraphicsTextItem *titleItem{nullptr};
-    QGraphicsRectItem *deleteButton{nullptr};
     QMap<QPair<QString,QString>,QGraphicsEllipseItem *> inObjCircle;
     QMap<QPair<QString,QString>,QGraphicsEllipseItem *> outObjCircle;
     QMap<QPair<QString,QString>,QGraphicsTextItem *> inObjText;
