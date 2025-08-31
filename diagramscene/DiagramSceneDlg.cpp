@@ -843,7 +843,7 @@ void DiagramSceneDlg::createToolbars()
 
     lineColorToolButton = new QToolButton;
     lineColorToolButton->setPopupMode(QToolButton::MenuButtonPopup);
-    QColor defaultLineColor = Qt::white;
+    QColor defaultLineColor = Qt::black;
     lineColorToolButton->setMenu(createColorMenu(SLOT(lineColorChanged()), defaultLineColor));
     lineAction = lineColorToolButton->menu()->defaultAction();
     lineColorToolButton->setIcon(createColorToolButtonIcon(

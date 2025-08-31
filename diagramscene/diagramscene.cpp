@@ -22,7 +22,7 @@ DiagramScene::DiagramScene(QMenu *itemMenu, QObject *parent)
     textItem = nullptr;
     myItemColor = Qt::white;
     myTextColor = Qt::black;
-    myLineColor = Qt::darkGray;
+    myLineColor = Qt::black;
     center = sceneRect().center();
     // Устанавливаем фон "Сетка" по умолчанию
     setBackgroundBrush(QPixmap(":/images_diag/background2.png"));
