@@ -185,6 +185,9 @@ void AlgorithmItem::paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget 
 
 void AlgorithmItem::applyProperties()
 {
+    // remove old arrows to avoid dangling pointers when connectors change
+    removeArrows();
+
     // clean previous connectors
     for (auto it : inObjCircle.values()) delete it;
     for (auto it : outObjCircle.values()) delete it;
