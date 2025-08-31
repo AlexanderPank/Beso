@@ -56,6 +56,7 @@
 #include "ObjectSelectDialog.h"
 
 #include <QtWidgets>
+#include <algorithm>
 #include <QDebug>
 #include <QDir>
 #include <QFile>
@@ -119,11 +120,11 @@ protected:
             }
         }
 
-        AlgoritmItem temp(AlgoritmItem::ALGORITM, nullptr, title, inParams, outParams);
-        temp.setBrush(QColor("#E3E3FD"));
+        auto *temp = new AlgoritmItem(AlgoritmItem::ALGORITM, nullptr, title, inParams, outParams);
+        temp->setBrush(QColor("#E3E3FD"));
         QGraphicsScene tmpScene;
-        tmpScene.addItem(&temp);
-        QRectF br = temp.boundingRect();
+        tmpScene.addItem(temp);
+        QRectF br = temp->boundingRect();
         QPixmap pix(br.size().toSize());
         pix.fill(Qt::transparent);
         QPainter painter(&pix);
@@ -287,16 +288,20 @@ void DiagramSceneDlg::openObjectSelectDialog()
     ObjectSelectDialog dlg(this);
     if (dlg.exec() == QDialog::Accepted) {
         QString title = dlg.selectedTitle();
-        QGraphicsRectItem *rect = new QGraphicsRectItem(0, 0, 150, 50);
+        auto *rect = new QGraphicsRectItem();
         rect->setBrush(Qt::lightGray);
         rect->setFlag(QGraphicsItem::ItemIsMovable, true);
         rect->setFlag(QGraphicsItem::ItemIsSelectable, true);
-        QGraphicsTextItem *text = new QGraphicsTextItem(title, rect);
-        QRectF r = rect->rect();
-        text->setPos(r.center().x() - text->boundingRect().width() / 2,
-                     r.center().y() - text->boundingRect().height() / 2);
+
+        auto *text = new QGraphicsTextItem(title, rect);
+        QRectF textRect = text->boundingRect();
+        qreal width = textRect.width() + 40; // 20px margin on both sides
+        qreal height = std::max(textRect.height() + 20, 50.0);
+        rect->setRect(0, 0, width, height);
+        text->setPos(20, (height - textRect.height()) / 2);
+
         QPointF centerPoint = view->mapToScene(view->viewport()->rect().center());
-        rect->setPos(centerPoint - QPointF(r.width() / 2, r.height() / 2));
+        rect->setPos(centerPoint - QPointF(width / 2, height / 2));
         scene->addItem(rect);
     }
 }
