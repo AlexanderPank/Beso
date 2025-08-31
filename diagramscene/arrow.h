@@ -88,7 +88,7 @@ private:
     QGraphicsEllipseItem *my_StartItem;
     QGraphicsEllipseItem *my_EndItem;
     QPolygonF arrowHead;
-    QColor myColor = Qt::black;
+    QColor myColor = QColor(100,149,237);
 };
 //! [0]
 

@@ -72,7 +72,7 @@ DiagramScene::DiagramScene(QMenu *itemMenu, QObject *parent)
     textItem = nullptr;
     myItemColor = Qt::white;
     myTextColor = Qt::black;
-    myLineColor = Qt::black;
+    myLineColor = QColor(100,149,237);
     center = sceneRect().center();
     // Устанавливаем фон "Сетка" по умолчанию
     setBackgroundBrush(QPixmap(":/images_diag/background2.png"));
@@ -287,6 +287,7 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
             static_cast<AlgoritmItem*>(endItem->parentItem())->addArrow(arrow);
             addItem(arrow);
             arrow->updatePosition();
+            emit lineInserted();
         }
     }
     line = nullptr;

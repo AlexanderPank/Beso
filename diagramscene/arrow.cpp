@@ -119,65 +119,37 @@ void Arrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
 
     QPen myPen = pen();
     myPen.setColor(myColor);
-    qreal arrowSize = 20;
+    qreal arrowSize = 10;
     painter->setPen(myPen);
     painter->setBrush(myColor);
 //! [4] //! [5]
 
-    QLineF centerLine;
-    centerLine = QLineF(my_StartItem->pos()+my_StartItem->parentItem()->pos()+QPointF(5,5),
-                        my_EndItem->pos()+my_EndItem->parentItem()->pos()+QPointF(5,5));
-//    if (myStartItem!=nullptr){
-//        centerLine = QLineF(myStartItem->pos(), myEndItem->pos());
-//        QPolygonF endPolygon = myEndItem->polygon();
-//        QPointF p1 = endPolygon.first() + myEndItem->pos();
-//        QPointF intersectPoint;
-//        for (int i = 1; i < endPolygon.count(); ++i) {
-//            QPointF p2 = endPolygon.at(i) + myEndItem->pos();
-//            QLineF polyLine = QLineF(p1, p2);
-//            QLineF::IntersectionType intersectionType =
-//                polyLine.intersects(centerLine, &intersectPoint);
-//            if (intersectionType == QLineF::BoundedIntersection)
-//                break;
-//            p1 = p2;
-//        }
+    QPointF startPoint = my_StartItem->pos()+my_StartItem->parentItem()->pos()+QPointF(5,5);
+    QPointF endPoint = my_EndItem->pos()+my_EndItem->parentItem()->pos()+QPointF(5,5);
+    QLineF centerLine(startPoint, endPoint);
+    setLine(centerLine);
 
-//        setLine(QLineF(intersectPoint, myStartItem->pos()));
-//    }else{
-//        centerLine = QLineF(my_StartItem->pos(), my_EndItem->pos());
-////        QPolygonF endPolygon = mapFromItem(my_EndItem,my_EndItem->pos().rx(),my_EndItem->pos().ry(),);
-////        QPointF p1 = endPolygon.first() + my_EndItem->pos();
-////        QPointF intersectPoint;
-////        for (int i = 1; i < endPolygon.count(); ++i) {
-////            QPointF p2 = endPolygon.at(i) + my_EndItem->pos();
-////            QLineF polyLine = QLineF(p1, p2);
-////            QLineF::IntersectionType intersectionType =
-////                polyLine.intersects(centerLine, &intersectPoint);
-////            if (intersectionType == QLineF::BoundedIntersection)
-////                break;
-////            p1 = p2;
-////        }
-
-        setLine(centerLine);
-//    }
+    QPointF corner(startPoint.x(), endPoint.y());
+    painter->drawLine(startPoint, corner);
+    painter->drawLine(corner, endPoint);
 
 //! [5] //! [6]
 
-    double angle = std::atan2(-line().dy(), line().dx());
+    QLineF arrowLine(corner, endPoint);
+    double angle = std::atan2(-arrowLine.dy(), arrowLine.dx());
 
-    QPointF arrowP1 = line().p2() - QPointF(sin(angle + M_PI / 2.5) * arrowSize,
+    QPointF arrowP1 = endPoint - QPointF(sin(angle + M_PI / 2.5) * arrowSize,
                                     cos(angle + M_PI / 2.5) * arrowSize);
-    QPointF arrowP2 = line().p2() - QPointF(sin(angle + M_PI - M_PI / 2.5) * arrowSize,
+    QPointF arrowP2 = endPoint - QPointF(sin(angle + M_PI - M_PI / 2.5) * arrowSize,
                                     cos(angle + M_PI - M_PI / 2.5) * arrowSize);
 
     arrowHead.clear();
-    arrowHead << line().p2() << arrowP1 << arrowP2;
+    arrowHead << endPoint << arrowP1 << arrowP2;
 //! [6] //! [7]
-    painter->drawLine(line());
     painter->drawPolygon(arrowHead);
     if (isSelected()) {
         painter->setPen(QPen(myColor, 1, Qt::DashLine));
-        QLineF myLine = line();
+        QLineF myLine(startPoint, corner);
         myLine.translate(0, 4.0);
         painter->drawLine(myLine);
         myLine.translate(0,-8.0);
