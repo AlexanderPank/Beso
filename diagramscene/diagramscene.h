@@ -94,6 +94,8 @@ private:
     // Проверяет, изменился ли элемент указанного типа
     bool isItemChange(int type) const;
 
+    void addArrowFromLine(const QPointF &endPoint);
+
     QGraphicsView *parentView = new QGraphicsView();
     QPointF beginMousePos;
     QPointF center;
@@ -111,6 +113,7 @@ private:
     QColor myTextColor;
     QColor myItemColor;
     QColor myLineColor;
+    bool drawingArrow = false;
 };
 
 #endif // DIAGRAMSCENE_H

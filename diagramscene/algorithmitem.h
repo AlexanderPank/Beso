@@ -68,6 +68,8 @@ public:
     void setProperties(const QList<PropertyInfo> &props);
     void setObjectOutput(bool enable);
     bool hasObjectOutput() const { return m_hasSelfOut; }
+    void setIsObject(bool enable) { m_isObject = enable; }
+    bool isObject() const { return m_isObject; }
     QString propertyNameForCircle(QGraphicsEllipseItem *circle) const;
     QGraphicsEllipseItem* circleForProperty(const QString &name, int direction) const;
 
@@ -93,6 +95,7 @@ private:
     QList<PropertyInfo> m_properties;
     QGraphicsEllipseItem *selfOut{nullptr};
     bool m_hasSelfOut = false;
+    bool m_isObject = false;
 
     void applyProperties();
 

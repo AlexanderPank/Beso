@@ -289,6 +289,7 @@ void DiagramSceneDlg::openObjectSelectDialog()
         item->setBrush(QColor("#D3D3D3"));
         item->setProperties(props);
         item->setObjectOutput(true);
+        item->setIsObject(true);
         QPointF centerPoint = view->mapToScene(view->viewport()->rect().center());
         item->setPos(centerPoint - QPointF(item->boundingRect().width()/2, item->boundingRect().height()/2));
         scene->addItem(item);
@@ -366,6 +367,7 @@ void DiagramSceneDlg::saveToJson()
             obj["x"] = alg->pos().x();
             obj["y"] = alg->pos().y();
             obj["self_out"] = alg->hasObjectOutput();
+            obj["is_object"] = alg->isObject();
             QJsonArray props;
             for (const auto &p : alg->properties()) {
                 QJsonObject po;
@@ -442,6 +444,7 @@ void DiagramSceneDlg::loadFromJson()
         auto *item = new AlgorithmItem(AlgorithmItem::ALGORITM, itemMenu, title, {}, {});
         item->setBrush(QColor("#D3D3D3"));
         item->setProperties(props);
+        item->setIsObject(obj["is_object"].toBool());
         if (obj["self_out"].toBool())
             item->setObjectOutput(true);
         item->setPos(obj["x"].toDouble(), obj["y"].toDouble());
@@ -463,7 +466,7 @@ void DiagramSceneDlg::loadFromJson()
             QGraphicsEllipseItem *endCircle = endItem->circleForProperty(toProp, 1);
             if (startCircle && endCircle) {
                 Arrow *arrow = new Arrow(startCircle, endCircle);
-                arrow->setColor(Qt::darkGray);
+                arrow->setColor(scene->lineColor());
                 startItem->addArrow(arrow);
                 endItem->addArrow(arrow);
                 scene->addItem(arrow);
@@ -843,7 +846,7 @@ void DiagramSceneDlg::createToolbars()
 
     lineColorToolButton = new QToolButton;
     lineColorToolButton->setPopupMode(QToolButton::MenuButtonPopup);
-    QColor defaultLineColor = Qt::black;
+    QColor defaultLineColor = Qt::white;
     lineColorToolButton->setMenu(createColorMenu(SLOT(lineColorChanged()), defaultLineColor));
     lineAction = lineColorToolButton->menu()->defaultAction();
     lineColorToolButton->setIcon(createColorToolButtonIcon(
