@@ -137,6 +137,7 @@ private:
     QMenu *fileMenu;
     QMenu *modelMenu;
     QMenu *itemMenu;
+    QMenu *settingsMenu;
     QMenu *aboutMenu;
 
     QToolBar *textToolBar;
