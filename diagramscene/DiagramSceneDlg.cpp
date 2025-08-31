@@ -525,7 +525,7 @@ void DiagramSceneDlg::createToolBox()
     toolBox = new QToolBox;
     toolBox->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Ignored));
     toolBox->setMinimumWidth(200);
-    toolBox->addItem(itemWidget, tr("Основные блок-схемы"));
+    toolBox->addItem(itemWidget, tr("Элементы блок-схемы"));
     toolBox->addItem(algTree, tr("Доступные ИРЗ"));
 }
 
