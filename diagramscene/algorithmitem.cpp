@@ -188,13 +188,13 @@ void AlgorithmItem::applyProperties()
     // clean previous connectors
     for (auto it : inObjCircle.values()) delete it;
     for (auto it : outObjCircle.values()) delete it;
-    if (selfOut) { delete selfOut; selfOut = nullptr; }
     for (auto it : inObjText.values()) delete it;
     for (auto it : outObjText.values()) delete it;
     inObjCircle.clear();
     outObjCircle.clear();
     inObjText.clear();
     outObjText.clear();
+    selfOut = nullptr;
 
     const int spacing = 20;
     const int titleMargin = 5;
