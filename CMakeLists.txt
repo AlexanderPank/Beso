@@ -159,7 +159,7 @@ add_executable(ScenarioClient
         db_service/modules/dscenariodistrict.ui
 
         diagramscene/DiagramSceneDlg.h
-        diagramscene/algoritmitem.h
+        diagramscene/algorithmitem.h
         diagramscene/diagramitem.h
         diagramscene/diagramscene.h
         diagramscene/arrow.h
@@ -167,7 +167,7 @@ add_executable(ScenarioClient
         diagramscene/itemtoolbox.h
 
         diagramscene/DiagramSceneDlg.cpp
-        diagramscene/algoritmitem.cpp
+        diagramscene/algorithmitem.cpp
         diagramscene/diagramitem.cpp
         diagramscene/itemtoolbox.cpp
         diagramscene/arrow.cpp

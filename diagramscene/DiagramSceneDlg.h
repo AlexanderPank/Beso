@@ -2,7 +2,7 @@
 #define DIAGRAMSCENEDLG_H
 
 #include "diagramitem.h"
-#include "algoritmitem.h"
+#include "algorithmitem.h"
 
 #include <QMainWindow>
 
@@ -28,35 +28,61 @@ class DiagramSceneDlg : public QMainWindow
     Q_OBJECT
 
 public:
+   // Создает диалоговое окно редактирования диаграммы
    DiagramSceneDlg();
 
 private slots:
+   // Обрабатывает выбор фона сцены
    void backgroundButtonGroupClicked(QAbstractButton *button);
-    void buttonGroupClicked(QAbstractButton *button);
-    void deleteItem();
-    void pointerGroupClicked();
-    void bringToFront();
-    void sendToBack();
-    void textInserted(QGraphicsTextItem *item);
-    void currentFontChanged(const QFont &font);
-    void fontSizeChanged(const QString &size);
-    void sceneScaleChanged(const QString &scale);
-    void textColorChanged();
-    void itemColorChanged();
-    void lineColorChanged();
-    void textButtonTriggered();
-    void fillButtonTriggered();
-    void lineButtonTriggered();
-    void handleFontChange();
-    void itemSelected(QGraphicsItem *item);
-    void changeZoom(int);
-    void about();
-    void singleLineButtonClicked();
-    void handleLineInserted();
+   // Обрабатывает выбор типа элемента
+   void buttonGroupClicked(QAbstractButton *button);
+   // Удаляет выделенный элемент
+   void deleteItem();
+   // Переключает режим указателя
+   void pointerGroupClicked();
+   // Поднимает элемент на передний план
+   void bringToFront();
+   // Отправляет элемент на задний план
+   void sendToBack();
+   // Обрабатывает вставку текстового элемента
+   void textInserted(QGraphicsTextItem *item);
+   // Изменяет текущий шрифт
+   void currentFontChanged(const QFont &font);
+   // Изменяет размер шрифта
+   void fontSizeChanged(const QString &size);
+   // Изменяет масштаб сцены
+   void sceneScaleChanged(const QString &scale);
+   // Меняет цвет текста
+   void textColorChanged();
+   // Меняет цвет элементов
+   void itemColorChanged();
+   // Меняет цвет линий
+   void lineColorChanged();
+   // Вставляет текстовый элемент
+   void textButtonTriggered();
+   // Заливка элемента
+   void fillButtonTriggered();
+   // Вставка линий
+   void lineButtonTriggered();
+   // Обработка смены шрифта
+   void handleFontChange();
+   // Обработка выбора элемента
+   void itemSelected(QGraphicsItem *item);
+   // Изменяет масштаб сцены
+   void changeZoom(int);
+   // Отображает информацию о программе
+   void about();
+   // Включает режим одиночной линии
+   void singleLineButtonClicked();
+   // Обработка вставки линии
+   void handleLineInserted();
 
-    void itemInserted(AlgoritmItem *item);
-    void openObjectSelectDialog();
-    void openBackgroundSettings();
+   // Сигнал о вставке нового алгоритмического элемента
+   void itemInserted(AlgorithmItem *item);
+   // Открывает диалог выбора объекта
+   void openObjectSelectDialog();
+   // Открывает настройки фона
+   void openBackgroundSettings();
 private:
     void createToolBox();
     void createActions();

@@ -15,8 +15,10 @@ class DiagramTextItem : public QGraphicsTextItem
 public:
     enum { Type = UserType + 3 };
 
+    // Конструктор текстового элемента
     DiagramTextItem(QGraphicsItem *parent = nullptr);
 
+    // Тип элемента
     int type() const override { return Type; }
 
 signals:
@@ -24,8 +26,11 @@ signals:
     void selectedChange(QGraphicsItem *item);
 
 protected:
+    // Отслеживает изменения выделения
     QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
+    // Обрабатывает потерю фокуса
     void focusOutEvent(QFocusEvent *event) override;
+    // Включает редактирование по двойному клику
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;
 };
 //! [0]
