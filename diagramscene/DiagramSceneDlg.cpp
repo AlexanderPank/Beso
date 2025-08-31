@@ -61,12 +61,82 @@
 #include <QFile>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QJsonArray>
+#include <QDrag>
+#include <QMimeData>
+#include <QGraphicsRectItem>
+#include <QGraphicsScene>
+#include <QGraphicsTextItem>
+#include <QPainter>
 #include <QMap>
 #include <QTreeWidget>
 #include <QStyle>
 #include "../db_service/services/FileDataStorageService.h"
 
 const int InsertTextButton = 10;
+
+class AlgorithmTreeWidget : public QTreeWidget
+{
+public:
+    using QTreeWidget::QTreeWidget;
+
+protected:
+    void startDrag(Qt::DropActions supportedActions) override
+    {
+        QTreeWidgetItem *item = currentItem();
+        if (!item || item->childCount() != 0) {
+            QTreeWidget::startDrag(supportedActions);
+            return;
+        }
+
+        QString filePath = item->data(0, Qt::UserRole).toString();
+        QFile f(filePath);
+        if (!f.open(QIODevice::ReadOnly)) {
+            QTreeWidget::startDrag(supportedActions);
+            return;
+        }
+        QJsonDocument doc = QJsonDocument::fromJson(f.readAll());
+        f.close();
+        QJsonObject obj = doc.object();
+
+        QString title = obj["title"].toString(item->text(0));
+        QList<QPair<QString,QString>> inParams;
+        QList<QPair<QString,QString>> outParams;
+        QJsonArray inArr = obj["input_parameters"].toArray();
+        for (const QJsonValue &val : inArr) {
+            QJsonObject o = val.toObject();
+            if (!o.isEmpty()) {
+                QString key = o.keys().first();
+                inParams.append({key, o.value(key).toString()});
+            }
+        }
+        QJsonArray outArr = obj["output_parameters"].toArray();
+        for (const QJsonValue &val : outArr) {
+            QJsonObject o = val.toObject();
+            if (!o.isEmpty()) {
+                QString key = o.keys().first();
+                outParams.append({key, o.value(key).toString()});
+            }
+        }
+
+        AlgoritmItem temp(AlgoritmItem::ALGORITM, nullptr, title, inParams, outParams);
+        temp.setBrush(QColor("#E3E3FD"));
+        QGraphicsScene tmpScene;
+        tmpScene.addItem(&temp);
+        QRectF br = temp.boundingRect();
+        QPixmap pix(br.size().toSize());
+        pix.fill(Qt::transparent);
+        QPainter painter(&pix);
+        tmpScene.render(&painter, QRectF(), br);
+
+        QDrag *drag = new QDrag(this);
+        QMimeData *mimeData = new QMimeData;
+        mimeData->setData("application/x-algorithm", filePath.toUtf8());
+        drag->setMimeData(mimeData);
+        drag->setPixmap(pix);
+        drag->exec(Qt::CopyAction);
+    }
+};
 // Конструктор диалогового окна сцены
 DiagramSceneDlg::DiagramSceneDlg()
 {
@@ -76,7 +146,7 @@ DiagramSceneDlg::DiagramSceneDlg()
 
     scene = new DiagramScene(itemMenu, this);
     scene->setSceneRect(QRectF(0, 0, 5000, 5000));
-    scene->setBackgroundBrush(QPixmap(":/images_diag/background1.png"));
+    scene->setBackgroundBrush(QPixmap(":/images_diag/background2.png"));
 
     connect(scene, &DiagramScene::itemInserted,
             this, &DiagramSceneDlg::itemInserted);
@@ -89,6 +159,7 @@ DiagramSceneDlg::DiagramSceneDlg()
     QHBoxLayout *layout = new QHBoxLayout;
     layout->addWidget(toolBox);
     view = new QGraphicsView(scene);
+    view->setAcceptDrops(true);
 
     layout->addWidget(view);
 
@@ -215,7 +286,18 @@ void DiagramSceneDlg::openObjectSelectDialog()
 {
     ObjectSelectDialog dlg(this);
     if (dlg.exec() == QDialog::Accepted) {
-        qDebug() << "Selected object id:" << dlg.selectedId();
+        QString title = dlg.selectedTitle();
+        QGraphicsRectItem *rect = new QGraphicsRectItem(0, 0, 150, 50);
+        rect->setBrush(Qt::lightGray);
+        rect->setFlag(QGraphicsItem::ItemIsMovable, true);
+        rect->setFlag(QGraphicsItem::ItemIsSelectable, true);
+        QGraphicsTextItem *text = new QGraphicsTextItem(title, rect);
+        QRectF r = rect->rect();
+        text->setPos(r.center().x() - text->boundingRect().width() / 2,
+                     r.center().y() - text->boundingRect().height() / 2);
+        QPointF centerPoint = view->mapToScene(view->viewport()->rect().center());
+        rect->setPos(centerPoint - QPointF(r.width() / 2, r.height() / 2));
+        scene->addItem(rect);
     }
 }
 
@@ -399,8 +481,9 @@ void DiagramSceneDlg::createToolBox()
     itemWidget->setLayout(layout);
 
     // Load algorithms from storage
-    QTreeWidget *algTree = new QTreeWidget;
+    AlgorithmTreeWidget *algTree = new AlgorithmTreeWidget;
     algTree->setHeaderHidden(true);
+    algTree->setDragEnabled(true);
 
     QDir dir(QString(MAIN_DIR_DEFAULT) + SUB_DIR_ALGORITHMS);
     dir.setNameFilters({"*.json"});
@@ -540,7 +623,6 @@ void DiagramSceneDlg::createMenus()
     fileMenu->addAction(openAction);
     fileMenu->addAction(saveAction);
     fileMenu->addAction(saveAsAction);
-    fileMenu->addAction(backgroundAction);
     fileMenu->addAction(exitAction);
 
     modelMenu = menuBar()->addMenu(tr("Создание модели"));
@@ -551,6 +633,9 @@ void DiagramSceneDlg::createMenus()
     itemMenu->addSeparator();
     itemMenu->addAction(toFrontAction);
     itemMenu->addAction(sendBackAction);
+
+    settingsMenu = menuBar()->addMenu(tr("Настройки"));
+    settingsMenu->addAction(backgroundAction);
 
     aboutMenu = menuBar()->addMenu(tr("&Помощь"));
     aboutMenu->addAction(aboutAction);
