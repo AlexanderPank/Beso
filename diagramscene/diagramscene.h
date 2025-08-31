@@ -113,7 +113,6 @@ private:
     QColor myTextColor;
     QColor myItemColor;
     QColor myLineColor;
-    bool drawingArrow = false;
 };
 
 #endif // DIAGRAMSCENE_H

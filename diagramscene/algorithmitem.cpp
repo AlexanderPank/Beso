@@ -185,10 +185,20 @@ void AlgorithmItem::paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget 
 
 void AlgorithmItem::applyProperties()
 {
-    // remove old arrows to avoid dangling pointers when connectors change
-    removeArrows();
+    struct ArrowInfo {
+        Arrow *arrow;
+        QString property;
+        bool isStart; // true if this item is arrow start
+    };
+    QList<ArrowInfo> infos;
+    for (Arrow *arrow : qAsConst(arrows)) {
+        if (arrow->startItem()->parentItem() == this) {
+            infos.append({arrow, propertyNameForCircle(arrow->startItem()), true});
+        } else if (arrow->endItem()->parentItem() == this) {
+            infos.append({arrow, propertyNameForCircle(arrow->endItem()), false});
+        }
+    }
 
-    // clean previous connectors
     for (auto it : inObjCircle.values()) delete it;
     for (auto it : outObjCircle.values()) delete it;
     for (auto it : inObjText.values()) delete it;
@@ -289,5 +299,21 @@ void AlgorithmItem::applyProperties()
         qreal y = -height / 2.0 + titleMargin + titleItem->boundingRect().height() / 2.0 - 6;
         selfOut->setPos(width / 2.0 - 15, y);
         outObjCircle.insert({QString(), QString()}, selfOut);
+    }
+
+    for (const ArrowInfo &info : infos) {
+        QGraphicsEllipseItem *circle = circleForProperty(info.property, info.isStart ? 2 : 1);
+        if (circle) {
+            if (info.isStart)
+                info.arrow->setStartItem(circle);
+            else
+                info.arrow->setEndItem(circle);
+            info.arrow->updatePosition();
+        } else {
+            static_cast<AlgorithmItem*>(info.arrow->startItem()->parentItem())->removeArrow(info.arrow);
+            static_cast<AlgorithmItem*>(info.arrow->endItem()->parentItem())->removeArrow(info.arrow);
+            if (scene()) scene()->removeItem(info.arrow);
+            delete info.arrow;
+        }
     }
 }
