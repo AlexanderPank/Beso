@@ -53,8 +53,10 @@
 #include "diagramscene.h"
 #include "diagramtextitem.h"
 #include "DiagramSceneDlg.h"
+#include "ObjectSelectDialog.h"
 
 #include <QtWidgets>
+#include <QDebug>
 
 const int InsertTextButton = 10;
 // Конструктор диалогового окна сцены
@@ -219,6 +221,14 @@ void DiagramSceneDlg::itemInserted(AlgoritmItem *item)
     if (btn!=nullptr)
     btn->setChecked(false);
 
+}
+
+void DiagramSceneDlg::openObjectSelectDialog()
+{
+    ObjectSelectDialog dlg(this);
+    if (dlg.exec() == QDialog::Accepted) {
+        qDebug() << "Selected object id:" << dlg.selectedId();
+    }
 }
 
 // Обработчик вставки текстового элемента
@@ -458,6 +468,10 @@ void DiagramSceneDlg::createActions()
     saveAsAction->setShortcuts(QKeySequence::SaveAs);
     connect(saveAsAction, &QAction::triggered, this, &QWidget::close);
 
+    addAction = new QAction(tr("&Выбрать объект"), this);
+    addAction->setStatusTip(tr("Выбор объекта из базы данных"));
+    connect(addAction, &QAction::triggered, this, &DiagramSceneDlg::openObjectSelectDialog);
+
     exitAction = new QAction(tr("&Выход"), this);
     exitAction->setShortcuts(QKeySequence::Quit);
     exitAction->setStatusTip(tr("Закрыть программу"));
@@ -493,6 +507,7 @@ void DiagramSceneDlg::createMenus()
     fileMenu->addAction(openAction);
     fileMenu->addAction(saveAction);
     fileMenu->addAction(saveAsAction);
+    fileMenu->addAction(addAction);
     fileMenu->addAction(exitAction);
 
     itemMenu = menuBar()->addMenu(tr("&Элемент"));

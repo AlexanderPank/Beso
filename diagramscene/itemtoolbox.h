@@ -15,15 +15,15 @@ class ItemToolBox : public QToolBox
 public:
     explicit ItemToolBox(QWidget *parent = nullptr);
     ~ItemToolBox();
-//{ ALGORITM, CONDITION, EVENT,PARAM };
+
 private:
+    void loadAlgorithms();
+
     Ui::ItemToolBox *ui;
-    QTreeWidget *eventTree;
-    QTreeWidget *conditionTree;
-    QTreeWidget *algoritmTree;
-    QTreeWidget *paramTree;
-
-
+    QTreeWidget *eventTree = nullptr;
+    QTreeWidget *conditionTree = nullptr;
+    QTreeWidget *algoritmTree = nullptr;
+    QTreeWidget *paramTree = nullptr;
 };
 
 #endif // ITEMTOOLBOX_H
