@@ -4,12 +4,11 @@
 #include <QGraphicsScene>
 #include <QGraphicsSceneContextMenuEvent>
 #include <QGraphicsSceneMouseEvent>
-#include <QGraphicsRectItem>
-#include <QGraphicsLineItem>
 #include <QMenu>
 #include <QPainter>
 #include <QPen>
 #include <QBrush>
+#include <QTextOption>
 
 // Creates algorithm item with connectors and title
 AlgorithmItem::AlgorithmItem(AlgorithmType diagramType, QMenu *contextMenu, QString title,
@@ -30,15 +29,7 @@ AlgorithmItem::AlgorithmItem(AlgorithmType diagramType, QMenu *contextMenu, QStr
     polygonItem = new QGraphicsPolygonItem(this);
     polygonItem->setZValue(-10);
     polygonItem->setPen(QPen(Qt::black, 1));
-
-    deleteButton = new QGraphicsRectItem(0, 0, 12, 12, this);
-    deleteButton->setBrush(Qt::white);
-    deleteButton->setPen(QPen(Qt::black, 1));
-    auto l1 = new QGraphicsLineItem(0, 0, 12, 12, deleteButton);
-    auto l2 = new QGraphicsLineItem(0, 12, 12, 0, deleteButton);
-    l1->setPen(QPen(Qt::black,1));
-    l2->setPen(QPen(Qt::black,1));
-    deleteButton->setVisible(false);
+    polygonItem->setBrush(QColor("#D3D3D3"));
 
     applyProperties();
 
@@ -131,10 +122,8 @@ QVariant AlgorithmItem::itemChange(GraphicsItemChange change, const QVariant &va
     } else if (change == QGraphicsItem::ItemSelectedHasChanged) {
         if (value.toBool()) {
             polygonItem->setPen(QPen(Qt::red, 2));
-            deleteButton->setVisible(true);
         } else {
             polygonItem->setPen(QPen(Qt::black, 1));
-            deleteButton->setVisible(false);
         }
     }
     return value;
@@ -142,16 +131,6 @@ QVariant AlgorithmItem::itemChange(GraphicsItemChange change, const QVariant &va
 
 void AlgorithmItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    if (deleteButton && deleteButton->isVisible()) {
-        QPointF p = deleteButton->mapFromItem(this, event->pos());
-        if (deleteButton->boundingRect().contains(p)) {
-            removeArrows();
-            if (scene())
-                scene()->removeItem(this);
-            delete this;
-            return;
-        }
-    }
     QGraphicsItem::mousePressEvent(event);
 }
 
@@ -220,12 +199,15 @@ void AlgorithmItem::applyProperties()
     int height = topOffset + h_size * spacing + bottomMargin;
 
     QPainterPath path;
-    path.addRoundedRect(-width/2.0, -height/2.0, width, height, 10, 10);
+    path.addRect(-width/2.0, -height/2.0, width, height);
     myPolygon = path.toFillPolygon();
     polygonItem->setPolygon(myPolygon);
 
+    titleItem->setTextWidth(width - 10);
+    QTextOption opt = titleItem->document()->defaultTextOption();
+    opt.setAlignment(Qt::AlignCenter);
+    titleItem->document()->setDefaultTextOption(opt);
     titleItem->setPos(-width / 2.0 + 5, -height / 2.0 + titleMargin);
-    deleteButton->setPos(width/2.0 - deleteButton->boundingRect().width(), -height/2.0);
 
     int i = 0;
     for (auto var : inObjCircle) {
