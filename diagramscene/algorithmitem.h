@@ -4,12 +4,15 @@
 #include <QGraphicsItem>
 #include <QMap>
 #include <QPair>
+#include <QList>
 
 class QMenu;
 class QGraphicsPolygonItem;
 class QGraphicsTextItem;
 class QGraphicsEllipseItem;
 class QGraphicsSceneContextMenuEvent;
+class QGraphicsSceneMouseEvent;
+class QGraphicsRectItem;
 class QPainter;
 class QStyleOptionGraphicsItem;
 class QWidget;
@@ -49,11 +52,22 @@ public:
     // Returns input connector circles
     QList<QGraphicsEllipseItem *> getInItems();
 
+    struct PropertyInfo {
+        QString title;
+        QString name;
+        QString type;
+        int direction = 0; // 0-none,1-in,2-out
+    };
+
+    QList<PropertyInfo> properties() const { return m_properties; }
+    void setProperties(const QList<PropertyInfo> &props);
+
 protected:
     // Displays context menu
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) override;
     // Handles geometry changes to update arrows
     QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
+    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 
 private:
     AlgorithmType myDiagramType;
@@ -63,10 +77,14 @@ private:
 
     QGraphicsPolygonItem *polygonItem{nullptr};
     QGraphicsTextItem *titleItem{nullptr};
+    QGraphicsRectItem *deleteButton{nullptr};
     QMap<QPair<QString,QString>,QGraphicsEllipseItem *> inObjCircle;
     QMap<QPair<QString,QString>,QGraphicsEllipseItem *> outObjCircle;
     QMap<QPair<QString,QString>,QGraphicsTextItem *> inObjText;
     QMap<QPair<QString,QString>,QGraphicsTextItem *> outObjText;
+    QList<PropertyInfo> m_properties;
+
+    void applyProperties();
 
 public:
     // Bounding rectangle of item

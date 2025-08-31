@@ -165,6 +165,8 @@ add_executable(ScenarioClient
         diagramscene/arrow.h
         diagramscene/diagramtextitem.h
         diagramscene/itemtoolbox.h
+        diagramscene/ObjectSelectDialog.h
+        diagramscene/PropertiesDialog.h
 
         diagramscene/DiagramSceneDlg.cpp
         diagramscene/algorithmitem.cpp
@@ -173,6 +175,8 @@ add_executable(ScenarioClient
         diagramscene/arrow.cpp
         diagramscene/diagramtextitem.cpp
         diagramscene/diagramscene.cpp
+        diagramscene/ObjectSelectDialog.cpp
+        diagramscene/PropertiesDialog.cpp
         diagramscene/itemtoolbox.ui
 )
 

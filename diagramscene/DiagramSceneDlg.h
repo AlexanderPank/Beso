@@ -83,6 +83,8 @@ private slots:
    void openObjectSelectDialog();
    // Открывает настройки фона
    void openBackgroundSettings();
+   // Открывает свойства элемента
+   void openItemProperties();
 private:
     void createToolBox();
     void createActions();
@@ -107,6 +109,7 @@ private:
     QAction *addAction;
     QAction *backgroundAction;
     QAction *deleteAction;
+    QAction *propertiesAction;
 
     QAction *toFrontAction;
     QAction *sendBackAction;
