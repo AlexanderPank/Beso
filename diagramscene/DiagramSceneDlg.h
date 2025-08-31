@@ -85,6 +85,8 @@ private slots:
    void openBackgroundSettings();
    // Открывает свойства элемента
    void openItemProperties();
+   void saveToJson();
+   void loadFromJson();
 private:
     void createToolBox();
     void createActions();

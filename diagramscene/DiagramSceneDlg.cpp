@@ -6,6 +6,7 @@
 #include "DiagramSceneDlg.h"
 #include "ObjectSelectDialog.h"
 #include "PropertiesDialog.h"
+#include "AlgorithmPropertiesDialog.h"
 
 #include <QtWidgets>
 #include <algorithm>
@@ -287,6 +288,7 @@ void DiagramSceneDlg::openObjectSelectDialog()
         auto *item = new AlgorithmItem(AlgorithmItem::ALGORITM, itemMenu, title, {}, {});
         item->setBrush(QColor("#D3D3D3"));
         item->setProperties(props);
+        item->setObjectOutput(true);
         QPointF centerPoint = view->mapToScene(view->viewport()->rect().center());
         item->setPos(centerPoint - QPointF(item->boundingRect().width()/2, item->boundingRect().height()/2));
         scene->addItem(item);
@@ -326,9 +328,148 @@ void DiagramSceneDlg::openItemProperties()
     AlgorithmItem *item = qgraphicsitem_cast<AlgorithmItem*>(sel.first());
     if (!item)
         return;
-    PropertiesDialog dlg(item->properties(), this);
-    if (dlg.exec() == QDialog::Accepted) {
-        item->setProperties(dlg.properties());
+    bool hasDirected = false;
+    for (const auto &p : item->properties()) {
+        if (p.direction != 0) {
+            hasDirected = true;
+            break;
+        }
+    }
+    if (hasDirected) {
+        AlgorithmPropertiesDialog dlg(item->properties(), this);
+        if (dlg.exec() == QDialog::Accepted) {
+            item->setProperties(dlg.properties());
+        }
+    } else {
+        PropertiesDialog dlg(item->properties(), this);
+        if (dlg.exec() == QDialog::Accepted) {
+            item->setProperties(dlg.properties());
+        }
+    }
+}
+
+void DiagramSceneDlg::saveToJson()
+{
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Сохранить файл"), QString(), tr("JSON (*.json)"));
+    if (fileName.isEmpty())
+        return;
+
+    QJsonObject root;
+    QJsonArray itemsArr;
+    QList<AlgorithmItem*> itemsList;
+    const auto allItems = scene->items();
+    for (QGraphicsItem *gi : allItems) {
+        if (auto alg = qgraphicsitem_cast<AlgorithmItem*>(gi)) {
+            itemsList.append(alg);
+            QJsonObject obj;
+            obj["title"] = alg->title();
+            obj["x"] = alg->pos().x();
+            obj["y"] = alg->pos().y();
+            obj["self_out"] = alg->hasObjectOutput();
+            QJsonArray props;
+            for (const auto &p : alg->properties()) {
+                QJsonObject po;
+                po["title"] = p.title;
+                po["name"] = p.name;
+                po["type"] = p.type;
+                po["direction"] = p.direction;
+                props.append(po);
+            }
+            obj["properties"] = props;
+            itemsArr.append(obj);
+        }
+    }
+    root["items"] = itemsArr;
+
+    QJsonArray arrowsArr;
+    for (QGraphicsItem *gi : allItems) {
+        if (gi->type() == Arrow::Type) {
+            Arrow *arr = static_cast<Arrow*>(gi);
+            AlgorithmItem *startAlg = qgraphicsitem_cast<AlgorithmItem*>(arr->startItem()->parentItem());
+            AlgorithmItem *endAlg = qgraphicsitem_cast<AlgorithmItem*>(arr->endItem()->parentItem());
+            int fromIndex = itemsList.indexOf(startAlg);
+            int toIndex = itemsList.indexOf(endAlg);
+            if (fromIndex >= 0 && toIndex >= 0) {
+                QJsonObject ao;
+                ao["from"] = fromIndex;
+                ao["to"] = toIndex;
+                ao["fromProp"] = startAlg->propertyNameForCircle(arr->startItem());
+                ao["toProp"] = endAlg->propertyNameForCircle(arr->endItem());
+                arrowsArr.append(ao);
+            }
+        }
+    }
+    root["arrows"] = arrowsArr;
+
+    QFile f(fileName);
+    if (f.open(QIODevice::WriteOnly)) {
+        f.write(QJsonDocument(root).toJson());
+        f.close();
+    }
+}
+
+void DiagramSceneDlg::loadFromJson()
+{
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Загрузить файл"), QString(), tr("JSON (*.json)"));
+    if (fileName.isEmpty())
+        return;
+
+    QFile f(fileName);
+    if (!f.open(QIODevice::ReadOnly))
+        return;
+    QJsonDocument doc = QJsonDocument::fromJson(f.readAll());
+    f.close();
+
+    scene->clear();
+
+    QJsonObject root = doc.object();
+    QJsonArray itemsArr = root["items"].toArray();
+    QList<AlgorithmItem*> itemsList;
+    for (const QJsonValue &val : itemsArr) {
+        QJsonObject obj = val.toObject();
+        QString title = obj["title"].toString();
+        QList<AlgorithmItem::PropertyInfo> props;
+        QJsonArray propsArr = obj["properties"].toArray();
+        for (const QJsonValue &pv : propsArr) {
+            QJsonObject po = pv.toObject();
+            AlgorithmItem::PropertyInfo p;
+            p.title = po["title"].toString();
+            p.name = po["name"].toString();
+            p.type = po["type"].toString();
+            p.direction = po["direction"].toInt();
+            props.append(p);
+        }
+        auto *item = new AlgorithmItem(AlgorithmItem::ALGORITM, itemMenu, title, {}, {});
+        item->setBrush(QColor("#D3D3D3"));
+        item->setProperties(props);
+        if (obj["self_out"].toBool())
+            item->setObjectOutput(true);
+        item->setPos(obj["x"].toDouble(), obj["y"].toDouble());
+        scene->addItem(item);
+        itemsList.append(item);
+    }
+
+    QJsonArray arrowsArr = root["arrows"].toArray();
+    for (const QJsonValue &val : arrowsArr) {
+        QJsonObject ao = val.toObject();
+        int from = ao["from"].toInt();
+        int to = ao["to"].toInt();
+        QString fromProp = ao["fromProp"].toString();
+        QString toProp = ao["toProp"].toString();
+        if (from >= 0 && from < itemsList.size() && to >= 0 && to < itemsList.size()) {
+            AlgorithmItem *startItem = itemsList[from];
+            AlgorithmItem *endItem = itemsList[to];
+            QGraphicsEllipseItem *startCircle = startItem->circleForProperty(fromProp, 2);
+            QGraphicsEllipseItem *endCircle = endItem->circleForProperty(toProp, 1);
+            if (startCircle && endCircle) {
+                Arrow *arrow = new Arrow(startCircle, endCircle);
+                arrow->setColor(Qt::darkGray);
+                startItem->addArrow(arrow);
+                endItem->addArrow(arrow);
+                scene->addItem(arrow);
+                arrow->updatePosition();
+            }
+        }
     }
 }
 
@@ -592,15 +733,15 @@ void DiagramSceneDlg::createActions()
     openAction = new QAction(tr("&Загрузить"), this);
     openAction->setShortcuts(QKeySequence::Open);
     openAction->setStatusTip(tr("Загрузить сохраненный файл"));
-    connect(openAction, &QAction::triggered, this, &QWidget::close);
+    connect(openAction, &QAction::triggered, this, &DiagramSceneDlg::loadFromJson);
 
     saveAction = new QAction(tr("&Сохранить"), this);
     saveAction->setShortcuts(QKeySequence::Save);
-    connect(saveAction, &QAction::triggered, this, &QWidget::close);
+    connect(saveAction, &QAction::triggered, this, &DiagramSceneDlg::saveToJson);
 
     saveAsAction = new QAction(tr("&Сохранить как"), this);
     saveAsAction->setShortcuts(QKeySequence::SaveAs);
-    connect(saveAsAction, &QAction::triggered, this, &QWidget::close);
+    connect(saveAsAction, &QAction::triggered, this, &DiagramSceneDlg::saveToJson);
 
     addAction = new QAction(tr("&Выбрать объект"), this);
     addAction->setStatusTip(tr("Выбор объекта из базы данных"));

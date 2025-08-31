@@ -16,16 +16,19 @@ PropertiesDialog::PropertiesDialog(const QList<AlgorithmItem::PropertyInfo> &pro
     QVBoxLayout *layout = new QVBoxLayout(this);
 
     auto filterEdit = new QLineEdit(this);
+    filterEdit->setObjectName("lineFilter");
     filterEdit->setPlaceholderText(tr("Фильтр"));
+    filterEdit->setStyleSheet("QLineEdit#lineFilter {padding-left: 3px;}");
+    filterEdit->setFixedHeight(35);
     layout->addWidget(filterEdit);
 
     QStringList headers;
-    headers << "" << tr("Title") << tr("Name") << tr("Type");
+    headers << "" << tr("Наименование") << tr("Параметр") << tr("Тип");
     m_table->setHorizontalHeaderLabels(headers);
     m_table->verticalHeader()->setVisible(false);
 
     m_table->setStyleSheet(
-            "QTableView { border: 1px solid #444; gridline-color: #444;  }"
+            "QTableView { border: 1px solid #444; gridline-color: #444; color:#fefefe; }"
             "QTableView:hover { border: 1px solid #444;  }"
             "QTableView QLineEdit { background: transparent; border: none; }"
             "QTableView QSpinBox { background: transparent; border: none; }"
@@ -45,6 +48,8 @@ PropertiesDialog::PropertiesDialog(const QList<AlgorithmItem::PropertyInfo> &pro
     m_table->setColumnWidth(0, 100);
     m_table->setColumnWidth(2, 180);
     m_table->setColumnWidth(3, 100);
+    int headerHeight = m_table->verticalHeader()->defaultSectionSize();
+    m_table->horizontalHeader()->setFixedHeight(headerHeight);
 
     int row = 0;
     for (const auto &p : props) {
@@ -60,15 +65,20 @@ PropertiesDialog::PropertiesDialog(const QList<AlgorithmItem::PropertyInfo> &pro
             auto combo = qobject_cast<QComboBox*>(m_table->cellWidget(row,0));
             int dir = combo ? combo->currentIndex() : 0;
             QColor bg = (dir == 0) ? Qt::transparent : QColor("#333");
-            QColor fg = (dir == 0) ? m_table->palette().text().color() : QColor("#fff");
+            QColor fg = QColor("#fefefe");
             for (int col = 1; col < m_table->columnCount(); ++col) {
                 if (auto item = m_table->item(row, col)) {
                     item->setBackground(bg);
                     item->setForeground(fg);
                 }
             }
-            if (combo)
-                combo->setStyleSheet(dir == 0 ? "" : "QComboBox { background:#333; color:#fff; }");
+            if (combo) {
+                QString style = "QComboBox { color:#fefefe; ";
+                if (dir != 0)
+                    style += "background:#333; ";
+                style += "}";
+                combo->setStyleSheet(style);
+            }
         };
         updateRow();
         connect(combo, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
