@@ -1,225 +1,180 @@
 #include "algoritmitem.h"
 
-#include "diagramitem.h"
 #include "arrow.h"
-
 #include <QGraphicsScene>
 #include <QGraphicsSceneContextMenuEvent>
 #include <QMenu>
 #include <QPainter>
 #include <QPen>
 
-AlgoritmItem::AlgoritmItem(AlgoritmType diagramType, QMenu *contextMenu, QString title, QList<QPair<QString,QString>> in , QList<QPair<QString,QString>> out ,
+// Creates algorithm item with connectors and title
+AlgoritmItem::AlgoritmItem(AlgoritmType diagramType, QMenu *contextMenu, QString title,
+                           QList<QPair<QString,QString>> in, QList<QPair<QString,QString>> out,
                            QGraphicsItem *parent)
-      : QGraphicsItem(parent), myDiagramType(diagramType)
-      , myContextMenu(contextMenu)
-  {
-      QPainterPath path;
+    : QGraphicsItem(parent), myDiagramType(diagramType), myContextMenu(contextMenu)
+{
+    QPainterPath path;
+    const int spacing = 20; // vertical distance between ports
 
-      int koef_x = 1;
-      int koef_y = 1;
+    titleItem = new QGraphicsTextItem(title, this);
+    QFont font = titleItem->font();
+    font.setBold(false);
+    font.setUnderline(false);
+    font.setPointSizeF(font.pointSizeF() * 0.8);
+    titleItem->setFont(font);
 
-      titleItem = new QGraphicsTextItem(title,this);
-      QFont font = titleItem->font();
-      font.setBold(true);
-      font.setUnderline(true);
-      titleItem->setFont(font);
+    int inTextsize = 0;
+    int outTextsize = 0;
 
-      int inTextsize = 0;
-      int outTextsize = 0;
+    for (auto pair : in) {
+        auto inItem = new QGraphicsTextItem(pair.first + " (" + pair.second + ")", this);
+        inObjText.insert(pair, inItem);
+        inTextsize = qMax(inTextsize, int(inItem->boundingRect().width()));
+        auto inObj = new QGraphicsEllipseItem(0, 0, 10, 10, this);
+        inObj->setData(Qt::UserRole, QString("in"));
+        inObjCircle.insert(pair, inObj);
+        inObj->setBrush(QBrush(Qt::green));
+    }
+    for (auto pair : out) {
+        auto outItem = new QGraphicsTextItem(pair.first + " (" + pair.second + ")", this);
+        outObjText.insert(pair, outItem);
+        outTextsize = qMax(outTextsize, int(outItem->boundingRect().width()));
+        auto outObj = new QGraphicsEllipseItem(0, 0, 10, 10, this);
+        outObj->setData(Qt::UserRole, QString("out"));
+        outObjCircle.insert(pair, outObj);
+        outObj->setBrush(QBrush(Qt::blue));
+    }
 
-      foreach (auto pair, in) {
-          auto inItem = new QGraphicsTextItem(pair.first+" ("+pair.second+")",this);
-          inObjText.insert(pair,inItem);
-          if (inItem->boundingRect().width()>inTextsize)
-              inTextsize = inItem->boundingRect().width();
-          auto inObj = new QGraphicsEllipseItem(0, 0, 10,10,this);
-          inObj->setData(Qt::UserRole,QString("in"));
-          inObjCircle.insert(pair,inObj);
-          inObj->setBrush( QBrush(Qt::green));
-      }
-      foreach (auto pair, out) {
-          auto outItem = new QGraphicsTextItem(pair.first+" ("+pair.second+")",this);
-          outObjText.insert(pair,outItem);
-          if (outItem->boundingRect().width()>outTextsize)
-              outTextsize = outItem->boundingRect().width();
-          auto outObj = new QGraphicsEllipseItem(0, 0, 10,10,this);
-          outObj->setData(Qt::UserRole,QString("out"));
-          outObjCircle.insert(pair,outObj);
-          outObj->setBrush( QBrush(Qt::blue));
-      }
+    int width = titleItem->boundingRect().width() + 25;
+    if (width < 50)
+        width = 50;
+    if (width < inTextsize + outTextsize)
+        width = inTextsize + outTextsize + 25;
+    int h_size = qMax(in.size(), out.size());
+    int height = (h_size + 1) * (spacing + 10);
 
+    path.addRoundedRect(-width / 2.0, -height / 2.0, width, height, 10, 10);
+    myPolygon = path.toFillPolygon();
+    polygonItem = new QGraphicsPolygonItem(myPolygon, this);
+    polygonItem->setZValue(-10);
+    polygonItem->setPen(QPen(Qt::black, 1));
+    titleItem->setPos(-width / 2.0 + 5, -height / 2.0 + 10);
 
-      int width = titleItem->boundingRect().width() + 25;
-      if (width==0)
-          width = 50;
-      if (width<inTextsize+outTextsize)
-          width = inTextsize+outTextsize+25;
-      int h_size = in.size()>out.size() ? in.size() : out.size();
-      int height = ( h_size + 1 ) * 24;
+    int i = 0;
+    for (auto var : inObjCircle) {
+        var->setPos(-width / 2.0 + 5, -height / 2.0 + 20 + i * spacing);
+        i++;
+    }
+    i = 0;
+    for (auto var : inObjText) {
+        var->setPos(-width / 2.0 + 15, -height / 2.0 + 18 + i * spacing);
+        i++;
+    }
+    i = 0;
+    for (auto var : outObjCircle) {
+        var->setPos(width / 2.0 - 15, -height / 2.0 + 20 + i * spacing);
+        i++;
+    }
+    i = 0;
+    for (auto var : outObjText) {
+        var->setPos(width / 2.0 - 15 - var->boundingRect().width(), -height / 2.0 + 18 + i * spacing);
+        i++;
+    }
 
-      path.addRoundedRect(0-width/2.0*koef_x,0-height/2.0*koef_y,width*koef_x,height*koef_y,10,10);
-      myPolygon = path.toFillPolygon();
+    setFlag(QGraphicsItem::ItemIsMovable, true);
+    setFlag(QGraphicsItem::ItemIsSelectable, true);
+    setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
+}
 
-//      setPolygon(myPolygon);
-      polygonItem = new QGraphicsPolygonItem(myPolygon,this);
-      polygonItem->setZValue(-10);
-      polygonItem->setPen(QPen(Qt::black,1));
-      titleItem->setPos(0-width/2.0*koef_x+5,0-height/2.0*koef_y);
-      int i = 1;
-      for (auto var : inObjCircle) {
-          var->setPos(0-width/2.0*koef_x+5, 0-height/2.0*koef_y+5 + i * 24);
-          i++;
-      }
-      i = 1;
-      for (auto var : inObjText) {
-          var->setPos(0-width/2.0*koef_x+15, 0-height/2.0*koef_y-5 + i * 24);
-          i++;
-      }
-      i = 1;
-      for (auto var : outObjCircle) {
-          var->setPos(width*koef_x/2.0-15, 0-height/2.0*koef_y+5 + i * 24);
-          i++;
-      }
-      i = 1;
-      for (auto var : outObjText) {
-          var->setPos(width*koef_x/2.0-15-var->boundingRect().width(), 0-height/2.0*koef_y-5 + i * 24);
-          i++;
-      }
+// Removes arrow reference from list
+void AlgoritmItem::removeArrow(Arrow *arrow) {
+    arrows.removeAll(arrow);
+}
 
-//      switch (myDiagramType) {
-//          case ALGORITM:
-//                setBrush();
-//              break;
-//          case CONDITION:
-//                setBrush();
-//              break;
-//          case EVENT:
-//                setBrush();
-//              break;
-//          default:
+// Removes and deletes all arrows connected to this item
+void AlgoritmItem::removeArrows() {
+    const auto arrowsCopy = arrows;
+    for (Arrow *arrow : arrowsCopy) {
+        static_cast<AlgoritmItem*>(arrow->startItem()->parentItem())->removeArrow(arrow);
+        static_cast<AlgoritmItem*>(arrow->endItem()->parentItem())->removeArrow(arrow);
+        scene()->removeItem(arrow);
+        delete arrow;
+    }
+}
 
-//              break;
-//      }
+// Adds arrow to internal list
+void AlgoritmItem::addArrow(Arrow *arrow) {
+    arrows.append(arrow);
+}
 
+// Returns pixmap representation for given type
+QPixmap AlgoritmItem::image(AlgoritmType type) {
+    QPixmap pixmap(250, 250);
+    switch (type) {
+    case ALGORITM:
+        setBrush(QColor("#E3E3FD"));
+        break;
+    case CONDITION:
+        setBrush(QColor("#FFFFE3"));
+        break;
+    case EVENT:
+        setBrush(QColor("#FFF9A3"));
+        break;
+    case PARAM:
+        setBrush(QColor("#CFFFE5"));
+        break;
+    default:
+        pixmap.fill(Qt::transparent);
+        break;
+    }
+    QPainter painter(&pixmap);
+    painter.setPen(QPen(Qt::black, 8));
+    painter.translate(125, 125);
+    painter.drawPolyline(myPolygon);
+    return pixmap;
+}
 
-      setFlag(QGraphicsItem::ItemIsMovable, true);
-      setFlag(QGraphicsItem::ItemIsSelectable, true);
-      setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
-  }
-  //! [0]
+// Sets fill brush color of polygon
+void AlgoritmItem::setBrush(QColor color) {
+    polygonItem->setBrush(color);
+}
 
-  //! [1]
-  void AlgoritmItem::removeArrow(Arrow *arrow)
-  {
-      arrows.removeAll(arrow);
-  }
-  //! [1]
+// Returns list of output connector circles
+QList<QGraphicsEllipseItem *> AlgoritmItem::getOutItems() {
+    return outObjCircle.values();
+}
 
-  //! [2]
-  void AlgoritmItem::removeArrows()
-  {
-      // need a copy here since removeArrow() will
-      // modify the arrows container
-      const auto arrowsCopy = arrows;
-      for (Arrow *arrow : arrowsCopy) {
-          static_cast<AlgoritmItem*>(arrow->_startItem()->parentItem())->removeArrow(arrow);
-          static_cast<AlgoritmItem*>(arrow->_endItem()->parentItem())->removeArrow(arrow);
-          scene()->removeItem(arrow);
-          delete arrow;
-      }
-  }
-  //! [2]
-
-  //! [3]
-  void AlgoritmItem::addArrow(Arrow *arrow)
-  {
-      arrows.append(arrow);
-  }
-  //! [3]
-
-  //! [4]
-  QPixmap AlgoritmItem::image(AlgoritmType type)
-  {
-      QPixmap pixmap(250, 250);
-      switch (type) {
-      case ALGORITM:
-//          pixmap.fill(Qt::cyan);
-          setBrush(QColor("#E3E3FD"));
-          break;
-      case CONDITION:
-//          pixmap.fill(Qt::green);
-          setBrush(QColor("#FFFFE3"));
-          break;
-      case EVENT:
-//          pixmap.fill(Qt::magenta);
-          setBrush(QColor("#FFF9A3"));
-          break;
-      case PARAM:
-//          pixmap.fill(Qt::magenta);
-          setBrush( QColor("#CFFFE5"));
-          break;
-      default:
-          pixmap.fill(Qt::transparent);
-          break;
-      }
-
-      QPainter painter(&pixmap);
-      painter.setPen(QPen(Qt::black, 8));
-      painter.translate(125, 125);
-      painter.drawPolyline(myPolygon);
-
-      return pixmap;
-  }
-
-  void AlgoritmItem::setBrush(QColor color)
-  {
-      polygonItem->setBrush(color);
-  }
-
-  QList<QGraphicsEllipseItem *> AlgoritmItem::getOutItems()
-  {
-      return outObjCircle.values();
-  }
-
-  QList<QGraphicsEllipseItem *> AlgoritmItem::getInItems()
-  {
+// Returns list of input connector circles
+QList<QGraphicsEllipseItem *> AlgoritmItem::getInItems() {
     return inObjCircle.values();
-  }
-  //! [4]
+}
 
-  //! [5]
-  void AlgoritmItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
-  {
-      scene()->clearSelection();
-      setSelected(true);
-      myContextMenu->exec(event->screenPos());
-  }
-  //! [5]
+// Shows context menu for the item
+void AlgoritmItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
+    scene()->clearSelection();
+    setSelected(true);
+    myContextMenu->exec(event->screenPos());
+}
 
-  //! [6]
-  QVariant AlgoritmItem::itemChange(GraphicsItemChange change, const QVariant &value)
-  {
-      if (change == QGraphicsItem::ItemPositionChange) {
-          for (Arrow *arrow : qAsConst(arrows))
-              arrow->updatePosition();
-      } else if (change == QGraphicsItem::ItemSelectedHasChanged) {
-          if (value.toBool())
-              polygonItem->setPen(QPen(Qt::red,2));
-          else
-              polygonItem->setPen(QPen(Qt::black,1));
-      }
+// Updates arrows when item moves or selection changes
+QVariant AlgoritmItem::itemChange(GraphicsItemChange change, const QVariant &value) {
+    if (change == QGraphicsItem::ItemPositionChange) {
+        for (Arrow *arrow : qAsConst(arrows))
+            arrow->updatePosition();
+    } else if (change == QGraphicsItem::ItemSelectedHasChanged) {
+        if (value.toBool())
+            polygonItem->setPen(QPen(Qt::red, 2));
+        else
+            polygonItem->setPen(QPen(Qt::black, 1));
+    }
+    return value;
+}
 
-      return value;
-  }
+// Bounding rectangle of the item
+QRectF AlgoritmItem::boundingRect() const {
+    return polygonItem->boundingRect();
+}
 
-  QRectF AlgoritmItem::boundingRect() const
-  {
-      return polygonItem->boundingRect();
-  }
-
-  void AlgoritmItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
-  {
-
-  }
-  //! [6]
+// No custom painting required
+void AlgoritmItem::paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *) {
+}
