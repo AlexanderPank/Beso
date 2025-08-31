@@ -116,38 +116,7 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         line = nullptr;
         if (parentView)
             parentView->setMouseTracking(false);
-        if (drawingArrow) {
-            drawingArrow = false;
-            myMode = prevMode;
-        }
         return;
-    }
-
-    if (myMode == InsertLine && line && drawingArrow &&
-            mouseEvent->button() == Qt::LeftButton) {
-        line->setLine(QLineF(line->line().p1(), mouseEvent->scenePos()));
-        addArrowFromLine(mouseEvent->scenePos());
-        return;
-    }
-
-    if (mouseEvent->button() == Qt::LeftButton && myMode == MoveItem) {
-        const QList<QGraphicsItem *> itemsAtPos = items(mouseEvent->scenePos());
-        for (QGraphicsItem *it : itemsAtPos) {
-            if (auto ellipse = qgraphicsitem_cast<QGraphicsEllipseItem *>(it)) {
-                if (ellipse->data(Qt::UserRole).toString().contains("out")) {
-                    prevMode = myMode;
-                    myMode = InsertLine;
-                    drawingArrow = true;
-                    QPointF centerPos = ellipse->sceneBoundingRect().center();
-                    line = new QGraphicsLineItem(QLineF(centerPos, centerPos));
-                    line->setPen(QPen(myLineColor, 2));
-                    addItem(line);
-                    if (parentView)
-                        parentView->setMouseTracking(true);
-                    return;
-                }
-            }
-        }
     }
 
     if (mouseEvent->button() == Qt::LeftButton &&
@@ -213,7 +182,6 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
                                         mouseEvent->scenePos()));
             line->setPen(QPen(myLineColor, 2));
             addItem(line);
-            drawingArrow = false;
             break;
         case InsertText:
             textItem = new DiagramTextItem();
@@ -259,7 +227,7 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
         myMode = prevMode;
         center = newCenter;
     }
-    if (line != nullptr && myMode == InsertLine && !drawingArrow) {
+    if (line != nullptr && myMode == InsertLine) {
         addArrowFromLine(mouseEvent->scenePos());
     }
     if (line)
@@ -378,10 +346,6 @@ void DiagramScene::addArrowFromLine(const QPointF &endPoint)
         emit lineInserted();
     }
 
-    if (drawingArrow) {
-        myMode = prevMode;
-        drawingArrow = false;
-    }
     if (parentView)
         parentView->setMouseTracking(false);
 }

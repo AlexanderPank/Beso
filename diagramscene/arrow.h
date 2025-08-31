@@ -26,6 +26,8 @@ public:
     // Access start/end items
     QGraphicsEllipseItem *startItem() { return m_startItem; }
     QGraphicsEllipseItem *endItem() { return m_endItem; }
+    void setStartItem(QGraphicsEllipseItem *item) { m_startItem = item; }
+    void setEndItem(QGraphicsEllipseItem *item) { m_endItem = item; }
     // Updates line geometry according to attached items
     void updatePosition();
 
