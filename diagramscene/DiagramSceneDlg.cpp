@@ -329,6 +329,14 @@ void DiagramSceneDlg::openItemProperties()
     AlgorithmItem *item = qgraphicsitem_cast<AlgorithmItem*>(sel.first());
     if (!item)
         return;
+    if (item->isObject()) {
+        PropertiesDialog dlg(item->properties(), this);
+        if (dlg.exec() == QDialog::Accepted) {
+            item->setProperties(dlg.properties());
+        }
+        return;
+    }
+
     bool hasDirected = false;
     for (const auto &p : item->properties()) {
         if (p.direction != 0) {
