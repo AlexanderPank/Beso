@@ -8,8 +8,8 @@
 #include <QPainter>
 #include <QPen>
 #include <QBrush>
-#include <QTextOption>
 #include <QTextDocument>
+#include <QTextOption>
 
 // Creates algorithm item with connectors and title
 AlgorithmItem::AlgorithmItem(AlgorithmType diagramType, QMenu *contextMenu, QString title,
@@ -156,7 +156,7 @@ void AlgorithmItem::applyProperties()
     inObjText.clear();
     outObjText.clear();
 
-    const int spacing = 25;
+    const int spacing = 20;
     const int titleMargin = 5;
 
     int inTextsize = 0;
@@ -167,8 +167,7 @@ void AlgorithmItem::applyProperties()
     for (const PropertyInfo &p : m_properties) {
         if (p.direction == 1) {
             auto text = new QGraphicsTextItem(p.title + " (" + p.type + ")", this);
-            text->setFont(QFont("Roboto", 11 ));
-
+            text->setFont(QFont("Roboto", 11));
             inObjText.insert({p.name,p.type}, text);
             inTextsize = qMax(inTextsize, int(text->boundingRect().width()));
             auto circ = new QGraphicsEllipseItem(0,0,12,12,this);
@@ -180,7 +179,7 @@ void AlgorithmItem::applyProperties()
             auto text = new QGraphicsTextItem("    " + p.title + " (" + p.type + ")", this);
             text->setFont(QFont("Roboto", 11));
             outObjText.insert({p.name,p.type}, text);
-            outTextsize = qMax(outTextsize, int( text->boundingRect().width()));
+            outTextsize = qMax(outTextsize, int(text->boundingRect().width()));
             auto circ = new QGraphicsEllipseItem(0,0,12,12,this);
             circ->setData(Qt::UserRole, QString("out"));
             circ->setBrush(QBrush(Qt::blue));
@@ -201,7 +200,10 @@ void AlgorithmItem::applyProperties()
     int height = topOffset + h_size * spacing + bottomMargin;
 
     QPainterPath path;
-    path.addRect(-width/2.0, -height/2.0, width, height);
+    if (inCount > 0 || outCount > 0)
+        path.addRoundedRect(-width/2.0, -height/2.0, width, height, 4, 4);
+    else
+        path.addRect(-width/2.0, -height/2.0, width, height);
     myPolygon = path.toFillPolygon();
     polygonItem->setPolygon(myPolygon);
 

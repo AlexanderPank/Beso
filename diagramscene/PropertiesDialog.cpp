@@ -25,7 +25,7 @@ PropertiesDialog::PropertiesDialog(const QList<AlgorithmItem::PropertyInfo> &pro
     m_table->verticalHeader()->setVisible(false);
 
     m_table->setStyleSheet(
-            "QTableView { border: 1px solid #444; gridline-color: #444;  }"
+            "QTableView { border: 1px solid #444; gridline-color: #444; color: #fefefe;  }"
             "QTableView:hover { border: 1px solid #444;  }"
             "QTableView QLineEdit { background: transparent; border: none; }"
             "QTableView QSpinBox { background: transparent; border: none; }"
