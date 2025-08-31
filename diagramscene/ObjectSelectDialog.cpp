@@ -12,7 +12,7 @@
 #include <QTreeWidget>
 #include <QVBoxLayout>
 
-#include "db_service/services/FileDataStorageService.h"
+#include "../db_service/services/FileDataStorageService.h"
 
 ObjectSelectDialog::ObjectSelectDialog(QWidget *parent)
     : QDialog(parent), m_tree(new QTreeWidget(this))

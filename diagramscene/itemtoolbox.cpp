@@ -9,7 +9,7 @@
 #include <QMap>
 #include <QStyle>
 
-#include "db_service/services/FileDataStorageService.h"
+#include "../db_service/services/FileDataStorageService.h"
 
 ItemToolBox::ItemToolBox(QWidget *parent) :
     QToolBox(parent),

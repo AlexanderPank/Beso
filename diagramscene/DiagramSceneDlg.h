@@ -82,7 +82,6 @@ public:
 
 private slots:
    void backgroundButtonGroupClicked(QAbstractButton *button);
-   void algoritmButtonGroupClicked(QAbstractButton *button);
     void buttonGroupClicked(QAbstractButton *button);
     void deleteItem();
     void pointerGroupClicked();
@@ -105,6 +104,7 @@ private slots:
 
     void itemInserted(AlgoritmItem *item);
     void openObjectSelectDialog();
+    void openBackgroundSettings();
 private:
     void createToolBox();
     void createActions();
@@ -112,8 +112,6 @@ private:
     void createToolbars();
     QWidget *createBackgroundCellWidget(const QString &text,
                                         const QString &image);
-    QWidget *createAlgoritmCellWidget(const QString &text,
-                                        AlgoritmItem::AlgoritmType type);
     QWidget *createCellWidget(const QString &text,
                               DiagramItem::DiagramType type);
     QMenu *createColorMenu(const char *slot, QColor defaultColor);
@@ -129,6 +127,7 @@ private:
     QAction *saveAsAction;
     QAction *exitAction;
     QAction *addAction;
+    QAction *backgroundAction;
     QAction *deleteAction;
 
     QAction *toFrontAction;
@@ -136,6 +135,7 @@ private:
     QAction *aboutAction;
 
     QMenu *fileMenu;
+    QMenu *modelMenu;
     QMenu *itemMenu;
     QMenu *aboutMenu;
 
@@ -153,8 +153,7 @@ private:
     QToolBox *toolBox;
     QButtonGroup *buttonGroup;
     QButtonGroup *pointerTypeGroup;
-    QButtonGroup *backgroundButtonGroup;
-    QButtonGroup *algoritmButtonGroup;
+    QButtonGroup *backgroundButtonGroup = nullptr;
     QToolButton *fontColorToolButton;
     QToolButton *fillColorToolButton;
     QToolButton *lineColorToolButton;
