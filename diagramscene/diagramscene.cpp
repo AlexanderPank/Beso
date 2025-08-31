@@ -53,24 +53,26 @@
 
 #include <QGraphicsSceneMouseEvent>
 #include <QTextCursor>
+#include <QPixmap>
 
-//! [0]
+// Конструктор сцены диаграммы
 DiagramScene::DiagramScene(QMenu *itemMenu, QObject *parent)
     : QGraphicsScene(parent)
 {
     myItemMenu = itemMenu;
     myMode = MoveItem;
-    myItemType = AlgoritmItem::ALGORITM;//DiagramItem::Step;
+    myItemType = AlgoritmItem::ALGORITM;
     line = nullptr;
     textItem = nullptr;
     myItemColor = Qt::white;
     myTextColor = Qt::black;
     myLineColor = Qt::black;
-            center = sceneRect().center();
+    center = sceneRect().center();
+    // Устанавливаем фон "Серая сетка" по умолчанию
+    setBackgroundBrush(QPixmap(":/images_diag/background1.png"));
 }
-//! [0]
 
-//! [1]
+// Устанавливает цвет стрелок
 void DiagramScene::setLineColor(const QColor &color)
 {
     myLineColor = color;
@@ -80,9 +82,8 @@ void DiagramScene::setLineColor(const QColor &color)
         update();
     }
 }
-//! [1]
 
-//! [2]
+// Устанавливает цвет текста
 void DiagramScene::setTextColor(const QColor &color)
 {
     myTextColor = color;
@@ -91,21 +92,18 @@ void DiagramScene::setTextColor(const QColor &color)
         item->setDefaultTextColor(myTextColor);
     }
 }
-//! [2]
 
-//! [3]
+// Устанавливает цвет элементов алгоритма
 void DiagramScene::setItemColor(const QColor &color)
 {
     myItemColor = color;
     if (isItemChange(DiagramItem::Type)) {
-//        DiagramItem *item = qgraphicsitem_cast<DiagramItem *>(selectedItems().first());
         AlgoritmItem *item = qgraphicsitem_cast<AlgoritmItem *>(selectedItems().first());
         item->setBrush(myItemColor);
     }
 }
-//! [3]
 
-//! [4]
+// Устанавливает шрифт текстовых элементов
 void DiagramScene::setFont(const QFont &font)
 {
     myFont = font;
@@ -118,23 +116,25 @@ void DiagramScene::setFont(const QFont &font)
     }
 }
 
+// Запоминает указатель на отображающий сцену виджет
 void DiagramScene::setView(QGraphicsView *view)
 {
     parentView = view;
 }
-//! [4]
 
+// Меняет режим работы сцены
 void DiagramScene::setMode(Mode mode)
 {
     myMode = mode;
 }
 
+// Устанавливает тип добавляемого алгоритмического элемента
 void DiagramScene::setItemType(AlgoritmItem::AlgoritmType type)
 {
     myItemType = type;
 }
 
-//! [5]
+// Завершает редактирование текста
 void DiagramScene::editorLostFocus(DiagramTextItem *item)
 {
     QTextCursor cursor = item->textCursor();
@@ -146,9 +146,8 @@ void DiagramScene::editorLostFocus(DiagramTextItem *item)
         item->deleteLater();
     }
 }
-//! [5]
 
-//! [6]
+// Обрабатывает нажатие кнопок мыши на сцене
 void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
     if (center.x()==0 && center.y()==0)
@@ -166,7 +165,6 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     AlgoritmItem *item;
     switch (myMode) {
         case InsertItem:{
-//            item = new DiagramItem(myItemType, myItemMenu);
             QString title = "";
             QList<QPair<QString,QString>> in;
             QList<QPair<QString,QString>> out;
@@ -203,14 +201,12 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
             item->setPos(mouseEvent->scenePos());
             emit itemInserted(item);}
             break;
-//! [6] //! [7]
         case InsertLine:
             line = new QGraphicsLineItem(QLineF(mouseEvent->scenePos(),
                                         mouseEvent->scenePos()));
             line->setPen(QPen(myLineColor, 2));
             addItem(line);
             break;
-//! [7] //! [8]
         case InsertText:
             textItem = new DiagramTextItem();
             textItem->setFont(myFont);
@@ -224,22 +220,19 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
             textItem->setDefaultTextColor(myTextColor);
             textItem->setPos(mouseEvent->scenePos());
             emit textInserted(textItem);
-//! [8] //! [9]
     default:
         ;
     }
     QGraphicsScene::mousePressEvent(mouseEvent);
 }
-//! [9]
 
-//! [10]
+// Обрабатывает перемещение мыши
 void DiagramScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
     if (myMode == MoveFullScene){
 
         newCenter = QPointF(center.x() + beginMousePos.x() - QCursor::pos().x(),
-                         center.y() + beginMousePos.y() - QCursor::pos().y());
-//        qDebug()<<"center"<<center<<" beginMousePos"<<beginMousePos<<" mouseEvent->pos()"<<QCursor::pos();
+                             center.y() + beginMousePos.y() - QCursor::pos().y());
         parentView->centerOn(newCenter);
 
     }
@@ -250,9 +243,8 @@ void DiagramScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
         QGraphicsScene::mouseMoveEvent(mouseEvent);
     }
 }
-//! [10]
 
-//! [11]
+// Обрабатывает отпускание кнопок мыши
 void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
     if (myMode == MoveFullScene){
@@ -279,7 +271,6 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
             if (static_cast<QGraphicsEllipseItem *>(var)->data(Qt::UserRole).toString().contains("in"))
                 endItem = static_cast<QGraphicsEllipseItem *>(var);
         }
-//! [11] //! [12]
 
         if (startItem && startItem->parentItem()
                 && endItem && endItem->parentItem()) {
@@ -288,16 +279,15 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
             arrow->setColor(myLineColor);
             static_cast<AlgoritmItem*>(startItem->parentItem())->addArrow(arrow);
             static_cast<AlgoritmItem*>(endItem->parentItem())->addArrow(arrow);
-//            arrow->setZValue(-1);
             addItem(arrow);
             arrow->updatePosition();
         }
     }
-//! [12] //! [13]
     line = nullptr;
     QGraphicsScene::mouseReleaseEvent(mouseEvent);
 }
 
+// Обрабатывает прокрутку колесом мыши
 void DiagramScene::wheelEvent(QGraphicsSceneWheelEvent *mouseEvent)
 {
     if (mouseEvent->delta()>0)
@@ -305,13 +295,11 @@ void DiagramScene::wheelEvent(QGraphicsSceneWheelEvent *mouseEvent)
     else
         emit zoom(-1);
 }
-//! [13]
 
-//! [14]
+// Проверяет, изменился ли элемент указанного типа
 bool DiagramScene::isItemChange(int type) const
 {
     const QList<QGraphicsItem *> items = selectedItems();
     const auto cb = [type](const QGraphicsItem *item) { return item->type() == type; };
     return std::find_if(items.begin(), items.end(), cb) != items.end();
 }
-//! [14]
