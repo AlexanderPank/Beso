@@ -110,7 +110,8 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         center = sceneRect().center();
 
     // Start scene dragging with right button or left button on empty space
-    if (mouseEvent->button() == Qt::RightButton ||
+    if ((mouseEvent->button() == Qt::RightButton &&
+         !itemAt(mouseEvent->scenePos(), QTransform())) ||
         (mouseEvent->button() == Qt::LeftButton && myMode == MoveItem &&
          !itemAt(mouseEvent->scenePos(), QTransform()))) {
         prevMode = myMode;

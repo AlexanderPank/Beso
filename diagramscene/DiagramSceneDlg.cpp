@@ -5,6 +5,7 @@
 #include "diagramtextitem.h"
 #include "DiagramSceneDlg.h"
 #include "ObjectSelectDialog.h"
+#include "PropertiesDialog.h"
 
 #include <QtWidgets>
 #include <algorithm>
@@ -120,6 +121,7 @@ DiagramSceneDlg::DiagramSceneDlg()
     setCentralWidget(splitter);
     setWindowTitle(tr("Редактор поведенческого ядра объекта"));
     setUnifiedTitleAndToolBarOnMac(true);
+    setWindowState(Qt::WindowMaximized);
     scene->setView(view);
     connect(scene,SIGNAL(zoom(int)),this,SLOT(changeZoom(int)));
 }
@@ -256,22 +258,39 @@ void DiagramSceneDlg::openObjectSelectDialog()
 {
     ObjectSelectDialog dlg(this);
     if (dlg.exec() == QDialog::Accepted) {
+        QString id = dlg.selectedId();
         QString title = dlg.selectedTitle();
-        auto *rect = new QGraphicsRectItem();
-        rect->setBrush(Qt::lightGray);
-        rect->setFlag(QGraphicsItem::ItemIsMovable, true);
-        rect->setFlag(QGraphicsItem::ItemIsSelectable, true);
+        QList<AlgorithmItem::PropertyInfo> props;
+        QDir dir(QString(MAIN_DIR_DEFAULT) + SUB_DIR_OBJECTS);
+        dir.setNameFilters({"*.json"});
+        QFileInfoList files = dir.entryInfoList();
+        for (const QFileInfo &info : files) {
+            QFile f(info.absoluteFilePath());
+            if (!f.open(QIODevice::ReadOnly))
+                continue;
+            QJsonDocument doc = QJsonDocument::fromJson(f.readAll());
+            f.close();
+            QJsonObject obj = doc.object();
+            if (obj["id"].toString() == id) {
+                QJsonArray arr = obj["properties"].toArray();
+                for (const QJsonValue &val : arr) {
+                    QJsonObject o = val.toObject();
+                    QString name = o["name"].toString();
+                    QString ptitle = o["title"].toString(name);
+                    QString type = o["type"].toString();
+                    props.append({ptitle, name, type, 0});
+                }
+                break;
+            }
+        }
 
-        auto *text = new QGraphicsTextItem(title, rect);
-        QRectF textRect = text->boundingRect();
-        qreal width = textRect.width() + 40; // 20px margin on both sides
-        qreal height = std::max(textRect.height() + 20, 50.0);
-        rect->setRect(0, 0, width, height);
-        text->setPos(20, (height - textRect.height()) / 2);
-
+        auto *item = new AlgorithmItem(AlgorithmItem::ALGORITM, itemMenu, title, {}, {});
+        item->setBrush(QColor("#E3E3FD"));
+        item->setProperties(props);
         QPointF centerPoint = view->mapToScene(view->viewport()->rect().center());
-        rect->setPos(centerPoint - QPointF(width / 2, height / 2));
-        scene->addItem(rect);
+        item->setPos(centerPoint - QPointF(item->boundingRect().width()/2, item->boundingRect().height()/2));
+        scene->addItem(item);
+        emit itemInserted(item);
     }
 }
 
@@ -297,6 +316,20 @@ void DiagramSceneDlg::openBackgroundSettings()
     dlg.exec();
 
     backgroundButtonGroup = nullptr;
+}
+
+void DiagramSceneDlg::openItemProperties()
+{
+    QList<QGraphicsItem*> sel = scene->selectedItems();
+    if (sel.isEmpty())
+        return;
+    AlgorithmItem *item = qgraphicsitem_cast<AlgorithmItem*>(sel.first());
+    if (!item)
+        return;
+    PropertiesDialog dlg(item->properties(), this);
+    if (dlg.exec() == QDialog::Accepted) {
+        item->setProperties(dlg.properties());
+    }
 }
 
 // Обработчик вставки текстового элемента
@@ -548,6 +581,9 @@ void DiagramSceneDlg::createActions()
     deleteAction->setStatusTip(tr("Delete item from diagram"));
     connect(deleteAction, &QAction::triggered, this, &DiagramSceneDlg::deleteItem);
 
+    propertiesAction = new QAction(tr("Свойства"), this);
+    connect(propertiesAction, &QAction::triggered, this, &DiagramSceneDlg::openItemProperties);
+
     newAction = new QAction(tr("&Новый..."), this);
     newAction->setShortcuts(QKeySequence::New);
     newAction->setStatusTip(tr("Создать новый файл"));
@@ -615,6 +651,7 @@ void DiagramSceneDlg::createMenus()
     settingsMenu->addAction(backgroundAction);
 
     itemMenu = menuBar()->addMenu(tr("&Элемент"));
+    itemMenu->addAction(propertiesAction);
     itemMenu->addAction(deleteAction);
     itemMenu->addSeparator();
     itemMenu->addAction(toFrontAction);

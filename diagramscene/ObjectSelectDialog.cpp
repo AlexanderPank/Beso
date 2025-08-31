@@ -20,7 +20,7 @@ ObjectSelectDialog::ObjectSelectDialog(QWidget *parent)
     : QDialog(parent), m_tree(new QTreeWidget(this))
 {
     setWindowTitle(tr("Выбор объекта"));
-    resize(400, 300);
+    resize(600, 800);
 
     m_tree->setHeaderHidden(true);
     auto *layout = new QVBoxLayout(this);
