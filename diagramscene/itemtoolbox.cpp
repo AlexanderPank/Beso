@@ -1,5 +1,6 @@
 #include "itemtoolbox.h"
 #include "ui_itemtoolbox.h"
+#include "../db_service/services/FileDataStorageService.h"
 
 #include <QApplication>
 #include <QDir>
@@ -9,7 +10,6 @@
 #include <QMap>
 #include <QStyle>
 
-#include "db_service/services/FileDataStorageService.h"
 
 ItemToolBox::ItemToolBox(QWidget *parent) :
     QToolBox(parent),

@@ -174,6 +174,8 @@ add_executable(ScenarioClient
         diagramscene/diagramtextitem.cpp
         diagramscene/diagramscene.cpp
         diagramscene/itemtoolbox.ui
+        diagramscene/ObjectSelectDialog.cpp
+        diagramscene/ObjectSelectDialog.h
 )
 
 

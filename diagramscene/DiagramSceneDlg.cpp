@@ -47,6 +47,9 @@
 ** $QT_END_LICENSE$
 **
 ****************************************************************************/
+#include <QtWidgets>
+#include <QDebug>
+
 
 #include "arrow.h"
 #include "diagramitem.h"
@@ -55,8 +58,6 @@
 #include "DiagramSceneDlg.h"
 #include "ObjectSelectDialog.h"
 
-#include <QtWidgets>
-#include <QDebug>
 
 const int InsertTextButton = 10;
 // Конструктор диалогового окна сцены
