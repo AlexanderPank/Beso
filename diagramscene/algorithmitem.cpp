@@ -15,6 +15,7 @@ AlgorithmItem::AlgorithmItem(AlgorithmType diagramType, QMenu *contextMenu, QStr
 {
     QPainterPath path;
     const int spacing = 20; // vertical distance between ports
+    const int titleMargin = 5; // top margin for title text
 
     titleItem = new QGraphicsTextItem(title, this);
     QFont font("Roboto", titleItem->font().pointSize());
@@ -53,35 +54,44 @@ AlgorithmItem::AlgorithmItem(AlgorithmType diagramType, QMenu *contextMenu, QStr
     if (width < inTextsize + outTextsize)
         width = inTextsize + outTextsize + 25;
     int h_size = qMax(in.size(), out.size());
-    int height = (h_size + 1) * (spacing + 10);
+
+    // Calculate total height: title + gap + connectors + bottom margin
+    const int topOffset = titleMargin + int(titleItem->boundingRect().height()) + 15;
+    const int bottomMargin = 20;
+    int height = topOffset + h_size * spacing + bottomMargin;
 
     path.addRoundedRect(-width / 2.0, -height / 2.0, width, height, 10, 10);
     myPolygon = path.toFillPolygon();
     polygonItem = new QGraphicsPolygonItem(myPolygon, this);
     polygonItem->setZValue(-10);
     polygonItem->setPen(QPen(Qt::black, 1));
-    // Place title near the bottom with 10px offset
-    titleItem->setPos(-width / 2.0 + 5,
-                      height / 2.0 - titleItem->boundingRect().height() - 10);
+
+    // Place title at the top
+    titleItem->setPos(-width / 2.0 + 5, -height / 2.0 + titleMargin);
 
     int i = 0;
     for (auto var : inObjCircle) {
-        var->setPos(-width / 2.0 + 5, -height / 2.0 + 20 + i * spacing);
+        const qreal y = -height / 2.0 + topOffset + i * spacing;
+        var->setPos(-width / 2.0 + 5, y);
         i++;
     }
     i = 0;
     for (auto var : inObjText) {
-        var->setPos(-width / 2.0 + 15, -height / 2.0 + 18 + i * spacing);
+        const qreal y = -height / 2.0 + topOffset + i * spacing;
+        var->setPos(-width / 2.0 + 15, y + 5 - var->boundingRect().height() / 2.0);
         i++;
     }
     i = 0;
     for (auto var : outObjCircle) {
-        var->setPos(width / 2.0 - 15, -height / 2.0 + 20 + i * spacing);
+        const qreal y = -height / 2.0 + topOffset + i * spacing;
+        var->setPos(width / 2.0 - 15, y);
         i++;
     }
     i = 0;
     for (auto var : outObjText) {
-        var->setPos(width / 2.0 - 15 - var->boundingRect().width(), -height / 2.0 + 18 + i * spacing);
+        const qreal y = -height / 2.0 + topOffset + i * spacing;
+        var->setPos(width / 2.0 - 15 - var->boundingRect().width(),
+                    y + 5 - var->boundingRect().height() / 2.0);
         i++;
     }
 
