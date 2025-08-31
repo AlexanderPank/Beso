@@ -8,6 +8,7 @@
 #include <QPainter>
 #include <QPen>
 #include <QBrush>
+#include <QTextDocument>
 #include <QTextOption>
 
 // Creates algorithm item with connectors and title
@@ -18,7 +19,7 @@ AlgorithmItem::AlgorithmItem(AlgorithmType diagramType, QMenu *contextMenu, QStr
 {
     titleItem = new QGraphicsTextItem(title, this);
     QFont font("Roboto");
-    font.setPixelSize(12);
+    font.setPixelSize(14);
     titleItem->setFont(font);
 
     for (auto &pair : in)
@@ -166,20 +167,20 @@ void AlgorithmItem::applyProperties()
     for (const PropertyInfo &p : m_properties) {
         if (p.direction == 1) {
             auto text = new QGraphicsTextItem(p.title + " (" + p.type + ")", this);
-            text->setFont(QFont("Roboto"));
+            text->setFont(QFont("Roboto", 11));
             inObjText.insert({p.name,p.type}, text);
             inTextsize = qMax(inTextsize, int(text->boundingRect().width()));
-            auto circ = new QGraphicsEllipseItem(0,0,10,10,this);
+            auto circ = new QGraphicsEllipseItem(0,0,12,12,this);
             circ->setData(Qt::UserRole, QString("in"));
             circ->setBrush(QBrush(Qt::green));
             inObjCircle.insert({p.name,p.type}, circ);
             inCount++;
         } else if (p.direction == 2) {
-            auto text = new QGraphicsTextItem(p.title + " (" + p.type + ")", this);
-            text->setFont(QFont("Roboto"));
+            auto text = new QGraphicsTextItem("    " + p.title + " (" + p.type + ")", this);
+            text->setFont(QFont("Roboto", 11));
             outObjText.insert({p.name,p.type}, text);
             outTextsize = qMax(outTextsize, int(text->boundingRect().width()));
-            auto circ = new QGraphicsEllipseItem(0,0,10,10,this);
+            auto circ = new QGraphicsEllipseItem(0,0,12,12,this);
             circ->setData(Qt::UserRole, QString("out"));
             circ->setBrush(QBrush(Qt::blue));
             outObjCircle.insert({p.name,p.type}, circ);
@@ -199,7 +200,10 @@ void AlgorithmItem::applyProperties()
     int height = topOffset + h_size * spacing + bottomMargin;
 
     QPainterPath path;
-    path.addRect(-width/2.0, -height/2.0, width, height);
+    if (inCount > 0 || outCount > 0)
+        path.addRoundedRect(-width/2.0, -height/2.0, width, height, 4, 4);
+    else
+        path.addRect(-width/2.0, -height/2.0, width, height);
     myPolygon = path.toFillPolygon();
     polygonItem->setPolygon(myPolygon);
 
@@ -218,7 +222,7 @@ void AlgorithmItem::applyProperties()
     i = 0;
     for (auto var : inObjText) {
         const qreal y = -height / 2.0 + topOffset + i * spacing;
-        var->setPos(-width / 2.0 + 15, y + 5 - var->boundingRect().height() / 2.0);
+        var->setPos(-width / 2.0 + 20, y + 5 - var->boundingRect().height() / 2.0);
         i++;
     }
     i = 0;
@@ -230,7 +234,7 @@ void AlgorithmItem::applyProperties()
     i = 0;
     for (auto var : outObjText) {
         const qreal y = -height / 2.0 + topOffset + i * spacing;
-        var->setPos(width / 2.0 - 15 - var->boundingRect().width(),
+        var->setPos(width / 2.0 - 20 - var->boundingRect().width(),
                     y + 5 - var->boundingRect().height() / 2.0);
         i++;
     }
