@@ -72,6 +72,7 @@
 #include <QMap>
 #include <QTreeWidget>
 #include <QStyle>
+#include <QSplitter>
 #include "../db_service/services/FileDataStorageService.h"
 
 const int InsertTextButton = 10;
@@ -155,19 +156,18 @@ DiagramSceneDlg::DiagramSceneDlg()
             this, &DiagramSceneDlg::textInserted);
     connect(scene, &DiagramScene::itemSelected,
             this, &DiagramSceneDlg::itemSelected);
+    connect(scene, &DiagramScene::lineInserted,
+            this, &DiagramSceneDlg::handleLineInserted);
     createToolbars();
 
-    QHBoxLayout *layout = new QHBoxLayout;
-    layout->addWidget(toolBox);
+    QSplitter *splitter = new QSplitter(Qt::Horizontal);
+    toolBox->setMinimumWidth(200);
+    splitter->addWidget(toolBox);
     view = new QGraphicsView(scene);
     view->setAcceptDrops(true);
+    splitter->addWidget(view);
 
-    layout->addWidget(view);
-
-    QWidget *widget = new QWidget;
-    widget->setLayout(layout);
-
-    setCentralWidget(widget);
+    setCentralWidget(splitter);
     setWindowTitle(tr("Редактор поведенческого ядра объекта"));
     setUnifiedTitleAndToolBarOnMac(true);
     scene->setView(view);
@@ -240,6 +240,24 @@ void DiagramSceneDlg::deleteItem()
 void DiagramSceneDlg::pointerGroupClicked()
 {
     scene->setMode(DiagramScene::Mode(pointerTypeGroup->checkedId()));
+}
+
+void DiagramSceneDlg::singleLineButtonClicked()
+{
+    m_singleLineMode = true;
+    if (pointerTypeGroup->button(int(DiagramScene::InsertLine)))
+        pointerTypeGroup->button(int(DiagramScene::InsertLine))->setChecked(true);
+    scene->setMode(DiagramScene::InsertLine);
+}
+
+void DiagramSceneDlg::handleLineInserted()
+{
+    if (m_singleLineMode) {
+        m_singleLineMode = false;
+        if (pointerTypeGroup->button(int(DiagramScene::MoveItem)))
+            pointerTypeGroup->button(int(DiagramScene::MoveItem))->setChecked(true);
+        scene->setMode(DiagramScene::MoveItem);
+    }
 }
 
 // Перемещает выделенный элемент на передний план
@@ -462,10 +480,8 @@ void DiagramSceneDlg::createToolBox()
     connect(buttonGroup, QOverload<QAbstractButton *>::of(&QButtonGroup::buttonClicked),
             this, &DiagramSceneDlg::buttonGroupClicked);
     QGridLayout *layout = new QGridLayout;
-    layout->addWidget(createCellWidget(tr("Conditional"), DiagramItem::Conditional), 0, 0);
-    layout->addWidget(createCellWidget(tr("Process"), DiagramItem::Step),0, 1);
-    layout->addWidget(createCellWidget(tr("Input/Output"), DiagramItem::Io), 1, 0);
-    layout->addWidget(createCellWidget(tr("Start/End"), DiagramItem::StartEnd), 2, 0);
+    layout->addWidget(createCellWidget(tr("Условие"), DiagramItem::Conditional), 0, 0);
+    layout->addWidget(createCellWidget(tr("Событие"), DiagramItem::StartEnd), 0, 1);
 
     QToolButton *textButton = new QToolButton;
     textButton->setCheckable(true);
@@ -474,12 +490,24 @@ void DiagramSceneDlg::createToolBox()
     textButton->setIconSize(QSize(50, 50));
     QGridLayout *textLayout = new QGridLayout;
     textLayout->addWidget(textButton, 0, 0, Qt::AlignHCenter);
-    textLayout->addWidget(new QLabel(tr("Text")), 1, 0, Qt::AlignCenter);
+    textLayout->addWidget(new QLabel(tr("Текст")), 1, 0, Qt::AlignCenter);
     QWidget *textWidget = new QWidget;
     textWidget->setLayout(textLayout);
-    layout->addWidget(textWidget, 1, 1);
+    layout->addWidget(textWidget, 1, 0);
 
-    layout->setRowStretch(3, 10);
+    QToolButton *singleLineButton = new QToolButton;
+    singleLineButton->setIcon(QIcon(":/images_diag/linepointer.png"));
+    singleLineButton->setIconSize(QSize(50, 50));
+    connect(singleLineButton, &QToolButton::clicked,
+            this, &DiagramSceneDlg::singleLineButtonClicked);
+    QGridLayout *lineLayout = new QGridLayout;
+    lineLayout->addWidget(singleLineButton, 0, 0, Qt::AlignHCenter);
+    lineLayout->addWidget(new QLabel(tr("Связь")), 1, 0, Qt::AlignCenter);
+    QWidget *lineWidget = new QWidget;
+    lineWidget->setLayout(lineLayout);
+    layout->addWidget(lineWidget, 1, 1);
+
+    layout->setRowStretch(2, 10);
     layout->setColumnStretch(2, 10);
 
     QWidget *itemWidget = new QWidget;
@@ -542,8 +570,8 @@ void DiagramSceneDlg::createToolBox()
     algTree->expandAll();
 
     toolBox = new QToolBox;
-    toolBox->setSizePolicy(QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Ignored));
-    toolBox->setMinimumWidth(itemWidget->sizeHint().width());
+    toolBox->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Ignored));
+    toolBox->setMinimumWidth(200);
     toolBox->addItem(itemWidget, tr("Основные блок-схемы"));
     toolBox->addItem(algTree, tr("Доступные ИРЗ"));
 }
@@ -630,8 +658,8 @@ void DiagramSceneDlg::createMenus()
     fileMenu->addAction(saveAsAction);
     fileMenu->addAction(exitAction);
 
-    modelMenu = menuBar()->addMenu(tr("Создание модели"));
-    modelMenu->addAction(addAction);
+    settingsMenu = menuBar()->addMenu(tr("Настройки"));
+    settingsMenu->addAction(backgroundAction);
 
     itemMenu = menuBar()->addMenu(tr("&Элемент"));
     itemMenu->addAction(deleteAction);
@@ -639,11 +667,8 @@ void DiagramSceneDlg::createMenus()
     itemMenu->addAction(toFrontAction);
     itemMenu->addAction(sendBackAction);
 
-    settingsMenu = menuBar()->addMenu(tr("Настройки"));
-    settingsMenu->addAction(backgroundAction);
-
-    aboutMenu = menuBar()->addMenu(tr("&Помощь"));
-    aboutMenu->addAction(aboutAction);
+    modelMenu = menuBar()->addMenu(tr("Создание модели"));
+    modelMenu->addAction(addAction);
 }
 
 // Создаёт панели инструментов
@@ -687,12 +712,14 @@ void DiagramSceneDlg::createToolbars()
 
     lineColorToolButton = new QToolButton;
     lineColorToolButton->setPopupMode(QToolButton::MenuButtonPopup);
-    lineColorToolButton->setMenu(createColorMenu(SLOT(lineColorChanged()), Qt::black));
+    QColor defaultLineColor(100,149,237);
+    lineColorToolButton->setMenu(createColorMenu(SLOT(lineColorChanged()), defaultLineColor));
     lineAction = lineColorToolButton->menu()->defaultAction();
     lineColorToolButton->setIcon(createColorToolButtonIcon(
-                                     ":/images_diag/linecolor.png", Qt::black));
+                                     ":/images_diag/linecolor.png", defaultLineColor));
     connect(lineColorToolButton, &QAbstractButton::clicked,
             this, &DiagramSceneDlg::lineButtonTriggered);
+    scene->setLineColor(defaultLineColor);
 
     textToolBar = addToolBar(tr("Font"));
     textToolBar->addWidget(fontCombo);

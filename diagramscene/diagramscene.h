@@ -122,6 +122,7 @@ signals:
     void textInserted(QGraphicsTextItem *item);
     void itemSelected(QGraphicsItem *item);
     void zoom(int i);
+    void lineInserted();
 
 protected:
     // Обработка нажатия кнопок мыши на сцене
