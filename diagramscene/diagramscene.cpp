@@ -22,7 +22,7 @@ DiagramScene::DiagramScene(QMenu *itemMenu, QObject *parent)
     textItem = nullptr;
     myItemColor = Qt::white;
     myTextColor = Qt::black;
-    myLineColor = QColor(100,149,237);
+    myLineColor = Qt::darkGray;
     center = sceneRect().center();
     // Устанавливаем фон "Сетка" по умолчанию
     setBackgroundBrush(QPixmap(":/images_diag/background2.png"));
@@ -108,13 +108,17 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
     if (center.x()==0 && center.y()==0)
         center = sceneRect().center();
-    if (mouseEvent->button() == Qt::RightButton && mouseEvent->button() != Qt::LeftButton){
+
+    // Start scene dragging with right button or left button on empty space
+    if (mouseEvent->button() == Qt::RightButton ||
+        (mouseEvent->button() == Qt::LeftButton && myMode == MoveItem &&
+         !itemAt(mouseEvent->scenePos(), QTransform()))) {
         prevMode = myMode;
         myMode = MoveFullScene;
         beginMousePos = QCursor::pos();
-
         return;
     }
+
     if (mouseEvent->button() != Qt::LeftButton)
         return;
 
@@ -247,10 +251,16 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
 // Обрабатывает прокрутку колесом мыши
 void DiagramScene::wheelEvent(QGraphicsSceneWheelEvent *mouseEvent)
 {
-    if (mouseEvent->delta()>0)
-        emit zoom(1);
-    else
-        emit zoom(-1);
+    if (mouseEvent->modifiers() & Qt::ControlModifier) {
+        if (mouseEvent->delta() > 0)
+            emit zoom(1);
+        else
+            emit zoom(-1);
+        mouseEvent->accept();
+    } else {
+        // Allow the view to perform default scrolling
+        mouseEvent->ignore();
+    }
 }
 
 // Обрабатывает вход объекта при перетаскивании
