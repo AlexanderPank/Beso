@@ -7,6 +7,7 @@
 #include <QGraphicsSceneContextMenuEvent>
 #include <QMenu>
 #include <QPainter>
+#include <QPen>
 
 AlgoritmItem::AlgoritmItem(AlgoritmType diagramType, QMenu *contextMenu, QString title, QList<QPair<QString,QString>> in , QList<QPair<QString,QString>> out ,
                            QGraphicsItem *parent)
@@ -62,8 +63,8 @@ AlgoritmItem::AlgoritmItem(AlgoritmType diagramType, QMenu *contextMenu, QString
 
 //      setPolygon(myPolygon);
       polygonItem = new QGraphicsPolygonItem(myPolygon,this);
-
-        polygonItem->setZValue(-10);
+      polygonItem->setZValue(-10);
+      polygonItem->setPen(QPen(Qt::black,1));
       titleItem->setPos(0-width/2.0*koef_x+5,0-height/2.0*koef_y);
       int i = 1;
       for (auto var : inObjCircle) {
@@ -202,6 +203,11 @@ AlgoritmItem::AlgoritmItem(AlgoritmType diagramType, QMenu *contextMenu, QString
       if (change == QGraphicsItem::ItemPositionChange) {
           for (Arrow *arrow : qAsConst(arrows))
               arrow->updatePosition();
+      } else if (change == QGraphicsItem::ItemSelectedHasChanged) {
+          if (value.toBool())
+              polygonItem->setPen(QPen(Qt::red,2));
+          else
+              polygonItem->setPen(QPen(Qt::black,1));
       }
 
       return value;

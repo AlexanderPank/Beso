@@ -54,6 +54,12 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QTextCursor>
 #include <QPixmap>
+#include <QGraphicsSceneDragDropEvent>
+#include <QMimeData>
+#include <QFile>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
 
 // Конструктор сцены диаграммы
 DiagramScene::DiagramScene(QMenu *itemMenu, QObject *parent)
@@ -68,8 +74,8 @@ DiagramScene::DiagramScene(QMenu *itemMenu, QObject *parent)
     myTextColor = Qt::black;
     myLineColor = Qt::black;
     center = sceneRect().center();
-    // Устанавливаем фон "Серая сетка" по умолчанию
-    setBackgroundBrush(QPixmap(":/images_diag/background1.png"));
+    // Устанавливаем фон "Сетка" по умолчанию
+    setBackgroundBrush(QPixmap(":/images_diag/background2.png"));
 }
 
 // Устанавливает цвет стрелок
@@ -294,6 +300,62 @@ void DiagramScene::wheelEvent(QGraphicsSceneWheelEvent *mouseEvent)
         emit zoom(1);
     else
         emit zoom(-1);
+}
+
+void DiagramScene::dragEnterEvent(QGraphicsSceneDragDropEvent *event)
+{
+    if (event->mimeData()->hasFormat("application/x-algorithm"))
+        event->acceptProposedAction();
+    else
+        QGraphicsScene::dragEnterEvent(event);
+}
+
+void DiagramScene::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
+{
+    if (event->mimeData()->hasFormat("application/x-algorithm"))
+        event->acceptProposedAction();
+    else
+        QGraphicsScene::dragMoveEvent(event);
+}
+
+void DiagramScene::dropEvent(QGraphicsSceneDragDropEvent *event)
+{
+    if (event->mimeData()->hasFormat("application/x-algorithm")) {
+        QString filePath = QString::fromUtf8(event->mimeData()->data("application/x-algorithm"));
+        QFile f(filePath);
+        if (f.open(QIODevice::ReadOnly)) {
+            QJsonDocument doc = QJsonDocument::fromJson(f.readAll());
+            f.close();
+            QJsonObject obj = doc.object();
+            QString title = obj["title"].toString();
+            QList<QPair<QString,QString>> inParams;
+            QList<QPair<QString,QString>> outParams;
+            QJsonArray inArr = obj["input_parameters"].toArray();
+            for (const QJsonValue &val : inArr) {
+                QJsonObject o = val.toObject();
+                if (!o.isEmpty()) {
+                    QString key = o.keys().first();
+                    inParams.append({key, o.value(key).toString()});
+                }
+            }
+            QJsonArray outArr = obj["output_parameters"].toArray();
+            for (const QJsonValue &val : outArr) {
+                QJsonObject o = val.toObject();
+                if (!o.isEmpty()) {
+                    QString key = o.keys().first();
+                    outParams.append({key, o.value(key).toString()});
+                }
+            }
+            AlgoritmItem *item = new AlgoritmItem(AlgoritmItem::ALGORITM, myItemMenu, title, inParams, outParams);
+            item->setBrush(QColor("#E3E3FD"));
+            addItem(item);
+            item->setPos(event->scenePos());
+            emit itemInserted(item);
+        }
+        event->acceptProposedAction();
+    } else {
+        QGraphicsScene::dropEvent(event);
+    }
 }
 
 // Проверяет, изменился ли элемент указанного типа

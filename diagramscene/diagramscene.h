@@ -66,6 +66,7 @@ class QGraphicsLineItem;
 class QFont;
 class QGraphicsTextItem;
 class QColor;
+class QGraphicsSceneDragDropEvent;
 QT_END_NAMESPACE
 
 class DiagramScene : public QGraphicsScene
@@ -134,6 +135,10 @@ protected:
 
     // Обработка прокрутки колесом мыши
     void wheelEvent(QGraphicsSceneWheelEvent *mouseEvent) override;
+
+    void dragEnterEvent(QGraphicsSceneDragDropEvent *event) override;
+    void dragMoveEvent(QGraphicsSceneDragDropEvent *event) override;
+    void dropEvent(QGraphicsSceneDragDropEvent *event) override;
 
 private:
     // Проверяет, изменился ли элемент указанного типа

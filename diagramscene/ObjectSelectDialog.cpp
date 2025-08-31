@@ -11,6 +11,7 @@
 #include <QStyle>
 #include <QTreeWidget>
 #include <QVBoxLayout>
+#include <QDialogButtonBox>
 
 #include "../db_service/services/FileDataStorageService.h"
 
@@ -24,15 +25,34 @@ ObjectSelectDialog::ObjectSelectDialog(QWidget *parent)
     auto *layout = new QVBoxLayout(this);
     layout->addWidget(m_tree);
 
+    auto *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+    buttonBox->button(QDialogButtonBox::Ok)->setText(tr("Выбрать"));
+    buttonBox->button(QDialogButtonBox::Cancel)->setText(tr("Отменить"));
+    layout->addWidget(buttonBox);
+
     loadObjects();
 
     connect(m_tree, &QTreeWidget::itemDoubleClicked,
             this, &ObjectSelectDialog::onItemDoubleClicked);
+    connect(buttonBox, &QDialogButtonBox::accepted, [this]() {
+        QTreeWidgetItem *item = m_tree->currentItem();
+        if (item && item->childCount() == 0) {
+            m_selectedId = item->data(0, Qt::UserRole).toString();
+            m_selectedTitle = item->text(0);
+            accept();
+        }
+    });
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 }
 
 QString ObjectSelectDialog::selectedId() const
 {
     return m_selectedId;
+}
+
+QString ObjectSelectDialog::selectedTitle() const
+{
+    return m_selectedTitle;
 }
 
 void ObjectSelectDialog::loadObjects()
@@ -103,6 +123,7 @@ void ObjectSelectDialog::onItemDoubleClicked(QTreeWidgetItem *item, int)
 {
     if (item && item->childCount() == 0) {
         m_selectedId = item->data(0, Qt::UserRole).toString();
+        m_selectedTitle = item->text(0);
         accept();
     }
 }
