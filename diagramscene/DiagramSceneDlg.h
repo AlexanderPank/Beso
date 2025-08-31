@@ -104,6 +104,7 @@ private slots:
     void about();
 
     void itemInserted(AlgoritmItem *item);
+    void openObjectSelectDialog();
 private:
     void createToolBox();
     void createActions();
