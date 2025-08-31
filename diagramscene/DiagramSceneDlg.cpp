@@ -362,60 +362,7 @@ void DiagramSceneDlg::saveToJson()
     QString fileName = QFileDialog::getSaveFileName(this, tr("Сохранить файл"), QString(), tr("JSON (*.json)"));
     if (fileName.isEmpty())
         return;
-
-    QJsonObject root;
-    QJsonArray itemsArr;
-    QList<AlgorithmItem*> itemsList;
-    const auto allItems = scene->items();
-    for (QGraphicsItem *gi : allItems) {
-        if (auto alg = qgraphicsitem_cast<AlgorithmItem*>(gi)) {
-            itemsList.append(alg);
-            QJsonObject obj;
-            obj["title"] = alg->title();
-            obj["x"] = alg->pos().x();
-            obj["y"] = alg->pos().y();
-            obj["self_out"] = alg->hasObjectOutput();
-            obj["is_object"] = alg->isObject();
-            QJsonArray props;
-            for (const auto &p : alg->properties()) {
-                QJsonObject po;
-                po["title"] = p.title;
-                po["name"] = p.name;
-                po["type"] = p.type;
-                po["direction"] = p.direction;
-                props.append(po);
-            }
-            obj["properties"] = props;
-            itemsArr.append(obj);
-        }
-    }
-    root["items"] = itemsArr;
-
-    QJsonArray arrowsArr;
-    for (QGraphicsItem *gi : allItems) {
-        if (gi->type() == Arrow::Type) {
-            Arrow *arr = static_cast<Arrow*>(gi);
-            AlgorithmItem *startAlg = qgraphicsitem_cast<AlgorithmItem*>(arr->startItem()->parentItem());
-            AlgorithmItem *endAlg = qgraphicsitem_cast<AlgorithmItem*>(arr->endItem()->parentItem());
-            int fromIndex = itemsList.indexOf(startAlg);
-            int toIndex = itemsList.indexOf(endAlg);
-            if (fromIndex >= 0 && toIndex >= 0) {
-                QJsonObject ao;
-                ao["from"] = fromIndex;
-                ao["to"] = toIndex;
-                ao["fromProp"] = startAlg->propertyNameForCircle(arr->startItem());
-                ao["toProp"] = endAlg->propertyNameForCircle(arr->endItem());
-                arrowsArr.append(ao);
-            }
-        }
-    }
-    root["arrows"] = arrowsArr;
-
-    QFile f(fileName);
-    if (f.open(QIODevice::WriteOnly)) {
-        f.write(QJsonDocument(root).toJson());
-        f.close();
-    }
+    scene->saveToFile(fileName);
 }
 
 void DiagramSceneDlg::loadFromJson()

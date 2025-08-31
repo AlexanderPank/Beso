@@ -357,3 +357,66 @@ bool DiagramScene::isItemChange(int type) const
     const auto cb = [type](const QGraphicsItem *item) { return item->type() == type; };
     return std::find_if(items.begin(), items.end(), cb) != items.end();
 }
+
+QJsonObject DiagramScene::toJson() const
+{
+    QJsonObject root;
+    QJsonArray itemsArr;
+    QList<AlgorithmItem*> itemsList;
+
+    const auto allItems = items();
+    for (QGraphicsItem *gi : allItems) {
+        if (auto alg = qgraphicsitem_cast<AlgorithmItem*>(gi)) {
+            itemsList.append(alg);
+            QJsonObject obj;
+            obj["title"] = alg->title();
+            obj["x"] = alg->pos().x();
+            obj["y"] = alg->pos().y();
+            obj["self_out"] = alg->hasObjectOutput();
+            obj["is_object"] = alg->isObject();
+            QJsonArray props;
+            for (const auto &p : alg->properties()) {
+                QJsonObject po;
+                po["title"] = p.title;
+                po["name"] = p.name;
+                po["type"] = p.type;
+                po["direction"] = p.direction;
+                props.append(po);
+            }
+            obj["properties"] = props;
+            itemsArr.append(obj);
+        }
+    }
+    root["items"] = itemsArr;
+
+    QJsonArray arrowsArr;
+    for (QGraphicsItem *gi : allItems) {
+        if (gi->type() == Arrow::Type) {
+            Arrow *arr = static_cast<Arrow*>(gi);
+            AlgorithmItem *startAlg = qgraphicsitem_cast<AlgorithmItem*>(arr->startItem()->parentItem());
+            AlgorithmItem *endAlg = qgraphicsitem_cast<AlgorithmItem*>(arr->endItem()->parentItem());
+            int fromIndex = itemsList.indexOf(startAlg);
+            int toIndex = itemsList.indexOf(endAlg);
+            if (fromIndex >= 0 && toIndex >= 0) {
+                QJsonObject ao;
+                ao["from"] = fromIndex;
+                ao["to"] = toIndex;
+                ao["fromProp"] = startAlg->propertyNameForCircle(arr->startItem());
+                ao["toProp"] = endAlg->propertyNameForCircle(arr->endItem());
+                arrowsArr.append(ao);
+            }
+        }
+    }
+    root["arrows"] = arrowsArr;
+    return root;
+}
+
+bool DiagramScene::saveToFile(const QString &fileName) const
+{
+    QFile f(fileName);
+    if (!f.open(QIODevice::WriteOnly))
+        return false;
+    f.write(QJsonDocument(toJson()).toJson());
+    f.close();
+    return true;
+}
