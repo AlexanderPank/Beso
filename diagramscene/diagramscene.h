@@ -6,6 +6,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include "algorithmitem.h"
+#include <QJsonObject>
 
 QT_BEGIN_NAMESPACE
 class QGraphicsSceneMouseEvent;
@@ -16,6 +17,7 @@ class QFont;
 class QGraphicsTextItem;
 class QColor;
 class QGraphicsSceneDragDropEvent;
+class QString;
 QT_END_NAMESPACE
 
 class DiagramScene : public QGraphicsScene
@@ -54,6 +56,12 @@ public:
 
     // Запоминает указатель на отображающий сцену виджет
     void setView(QGraphicsView *view);
+
+    // Возвращает JSON-объект с описанием элементов сцены
+    QJsonObject toJson() const;
+
+    // Сохраняет элементы сцены в указанный файл
+    bool saveToFile(const QString &fileName) const;
 
 public slots:
     // Меняет текущий режим работы сцены
