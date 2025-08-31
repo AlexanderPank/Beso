@@ -57,6 +57,10 @@ public:
         QString name;
         QString type;
         int direction = 0; // 0-none,1-in,2-out
+        PropertyInfo() {title = ""; name = ""; type = ""; direction = 0;};
+        PropertyInfo(QString t, QString n, QString tp, int d) {
+            title = t; name = n; type = tp; direction = d;
+        };
     };
 
     QList<PropertyInfo> properties() const { return m_properties; }
