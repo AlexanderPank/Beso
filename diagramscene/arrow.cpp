@@ -53,8 +53,8 @@ void Arrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
     const qreal offset = 15.0;
     qreal sr = m_startItem->rect().width() / 2.0;
     qreal er = m_endItem->rect().width() / 2.0;
-    QPointF startCenter = m_startItem->pos() + m_startItem->parentItem()->pos() + QPointF(sr, sr);
-    QPointF endCenter = m_endItem->pos() + m_endItem->parentItem()->pos() + QPointF(er, er);
+    QPointF startCenter = m_startItem->sceneBoundingRect().center();
+    QPointF endCenter = m_endItem->sceneBoundingRect().center();
 
     qreal startDir = (m_startItem->pos().x() < 0) ? -1 : 1;
     qreal endDir = (m_endItem->pos().x() < 0) ? -1 : 1;
