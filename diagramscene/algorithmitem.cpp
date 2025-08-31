@@ -108,6 +108,45 @@ void AlgorithmItem::setProperties(const QList<PropertyInfo> &props)
     applyProperties();
 }
 
+void AlgorithmItem::setObjectOutput(bool enable)
+{
+    m_hasSelfOut = enable;
+    applyProperties();
+}
+
+QString AlgorithmItem::propertyNameForCircle(QGraphicsEllipseItem *circle) const
+{
+    for (auto it = inObjCircle.constBegin(); it != inObjCircle.constEnd(); ++it) {
+        if (it.value() == circle)
+            return it.key().first;
+    }
+    for (auto it = outObjCircle.constBegin(); it != outObjCircle.constEnd(); ++it) {
+        if (it.value() == circle)
+            return it.key().first;
+    }
+    if (m_hasSelfOut && selfOut == circle)
+        return QString();
+    return QString();
+}
+
+QGraphicsEllipseItem* AlgorithmItem::circleForProperty(const QString &name, int direction) const
+{
+    if (direction == 1) {
+        for (auto it = inObjCircle.constBegin(); it != inObjCircle.constEnd(); ++it) {
+            if (it.key().first == name)
+                return it.value();
+        }
+    } else if (direction == 2) {
+        for (auto it = outObjCircle.constBegin(); it != outObjCircle.constEnd(); ++it) {
+            if (it.key().first == name)
+                return it.value();
+        }
+        if (m_hasSelfOut && name.isEmpty())
+            return selfOut;
+    }
+    return nullptr;
+}
+
 // Shows context menu for the item
 void AlgorithmItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
     scene()->clearSelection();
@@ -149,6 +188,7 @@ void AlgorithmItem::applyProperties()
     // clean previous connectors
     for (auto it : inObjCircle.values()) delete it;
     for (auto it : outObjCircle.values()) delete it;
+    if (selfOut) { delete selfOut; selfOut = nullptr; }
     for (auto it : inObjText.values()) delete it;
     for (auto it : outObjText.values()) delete it;
     inObjCircle.clear();
@@ -237,5 +277,14 @@ void AlgorithmItem::applyProperties()
         var->setPos(width / 2.0 - 20 - var->boundingRect().width(),
                     y + 5 - var->boundingRect().height() / 2.0);
         i++;
+    }
+
+    if (m_hasSelfOut) {
+        selfOut = new QGraphicsEllipseItem(0,0,12,12,this);
+        selfOut->setData(Qt::UserRole, QString("out"));
+        selfOut->setBrush(QBrush(Qt::blue));
+        qreal y = -height / 2.0 + titleMargin + titleItem->boundingRect().height() / 2.0 - 6;
+        selfOut->setPos(width / 2.0 - 15, y);
+        outObjCircle.insert({QString(), QString()}, selfOut);
     }
 }

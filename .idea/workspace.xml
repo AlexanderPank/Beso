@@ -25,11 +25,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4bf0ab9c-4e55-4ffa-befb-862d7ffbe0c5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/BD/BD_algorithms/alg_id_path.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/BD/BD_algorithms/alg_id_path.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/diagramscene/AlgorithmPropertiesDialog.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/diagramscene/AlgorithmPropertiesDialog.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/diagramscene/DiagramSceneDlg.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/diagramscene/DiagramSceneDlg.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/diagramscene/DiagramSceneDlg.h" beforeDir="false" afterPath="$PROJECT_DIR$/diagramscene/DiagramSceneDlg.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/diagramscene/PropertiesDialog.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/diagramscene/PropertiesDialog.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/diagramscene/algorithmitem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/diagramscene/algorithmitem.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/diagramscene/algorithmitem.h" beforeDir="false" afterPath="$PROJECT_DIR$/diagramscene/algorithmitem.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/diagramscene/diagramscene.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/diagramscene/diagramscene.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +114,7 @@
       <workItem from="1756563841044" duration="635000" />
       <workItem from="1756564720839" duration="1315000" />
       <workItem from="1756575896221" duration="15448000" />
-      <workItem from="1756659325514" duration="10544000" />
+      <workItem from="1756659325514" duration="10559000" />
     </task>
     <servers />
   </component>
