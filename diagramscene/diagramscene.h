@@ -68,7 +68,6 @@ class QGraphicsTextItem;
 class QColor;
 QT_END_NAMESPACE
 
-//! [0]
 class DiagramScene : public QGraphicsScene
 {
     Q_OBJECT
@@ -76,37 +75,68 @@ class DiagramScene : public QGraphicsScene
 public:
     enum Mode { InsertItem, InsertLine, InsertText, MoveItem, MoveFullScene };
 
+    // Конструктор сцены диаграммы
     explicit DiagramScene(QMenu *itemMenu, QObject *parent = nullptr);
+
+    // Возвращает текущий шрифт текста
     QFont font() const { return myFont; }
+
+    // Возвращает цвет текста
     QColor textColor() const { return myTextColor; }
+
+    // Возвращает цвет элементов
     QColor itemColor() const { return myItemColor; }
+
+    // Возвращает цвет линий
     QColor lineColor() const { return myLineColor; }
+
+    // Устанавливает цвет линий
     void setLineColor(const QColor &color);
+
+    // Устанавливает цвет текста
     void setTextColor(const QColor &color);
+
+    // Устанавливает цвет элементов
     void setItemColor(const QColor &color);
+
+    // Устанавливает шрифт текста
     void setFont(const QFont &font);
+
+    // Запоминает указатель на отображающий сцену виджет
     void setView(QGraphicsView *view);
 
 public slots:
+    // Меняет текущий режим работы сцены
     void setMode(Mode mode);
-//    void setItemType(DiagramItem::DiagramType type);
+
+    // Устанавливает тип добавляемого алгоритмического элемента
     void setItemType(AlgoritmItem::AlgoritmType type);
+
+    // Обрабатывает потерю фокуса текстовым редактором
     void editorLostFocus(DiagramTextItem *item);
 
 signals:
-//    void itemInserted(DiagramItem *item);
+    // Сигнал о вставке нового элемента
     void itemInserted(AlgoritmItem *item);
     void textInserted(QGraphicsTextItem *item);
     void itemSelected(QGraphicsItem *item);
     void zoom(int i);
 
 protected:
+    // Обработка нажатия кнопок мыши на сцене
     void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) override;
+
+    // Обработка перемещения мыши
     void mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent) override;
+
+    // Обработка отпускания кнопок мыши
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent) override;
+
+    // Обработка прокрутки колесом мыши
     void wheelEvent(QGraphicsSceneWheelEvent *mouseEvent) override;
 
 private:
+    // Проверяет, изменился ли элемент указанного типа
     bool isItemChange(int type) const;
 
     QGraphicsView *parentView = new QGraphicsView();
@@ -114,7 +144,6 @@ private:
     QPointF center;
     QPointF newCenter;
 
-//    DiagramItem::DiagramType
     AlgoritmItem::AlgoritmType myItemType;
     QMenu *myItemMenu;
     Mode prevMode;
@@ -128,6 +157,5 @@ private:
     QColor myItemColor;
     QColor myLineColor;
 };
-//! [0]
 
 #endif // DIAGRAMSCENE_H

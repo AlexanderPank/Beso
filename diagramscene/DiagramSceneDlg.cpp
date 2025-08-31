@@ -57,8 +57,7 @@
 #include <QtWidgets>
 
 const int InsertTextButton = 10;
-
-//! [0]
+// Конструктор диалогового окна сцены
 DiagramSceneDlg::DiagramSceneDlg()
 {
     createActions();
@@ -67,11 +66,12 @@ DiagramSceneDlg::DiagramSceneDlg()
 
     scene = new DiagramScene(itemMenu, this);
     scene->setSceneRect(QRectF(0, 0, 5000, 5000));
+    scene->setBackgroundBrush(QPixmap(":/images_diag/background1.png"));
+    if (!backgroundButtonGroup->buttons().isEmpty())
+        backgroundButtonGroup->buttons().first()->setChecked(true);
 
     connect(scene, &DiagramScene::itemInserted,
             this, &DiagramSceneDlg::itemInserted);
-//    connect(scene,SIGNAL(itemInserted(AlgoritmItem::AlgoritmType)),this,SLOT(itemInserted(AlgoritmItem::AlgoritmType)));
-//    connect(scene,SIGNAL(itemInserted(DiagramItem::DiagramType)),this,SLOT(itemInserted(DiagramItem::DiagramType)));
     connect(scene, &DiagramScene::textInserted,
             this, &DiagramSceneDlg::textInserted);
     connect(scene, &DiagramScene::itemSelected,
@@ -89,13 +89,12 @@ DiagramSceneDlg::DiagramSceneDlg()
 
     setCentralWidget(widget);
     setWindowTitle(tr("Редактор поведенческого ядра объекта"));
-    setUnifiedTitleAndToolBarOnMac(true);// B-)
+    setUnifiedTitleAndToolBarOnMac(true);
     scene->setView(view);
     connect(scene,SIGNAL(zoom(int)),this,SLOT(changeZoom(int)));
 }
-//! [0]
 
-//! [1]
+// Обработчик выбора фона сцены
 void DiagramSceneDlg::backgroundButtonGroupClicked(QAbstractButton *button)
 {
     const QList<QAbstractButton *> buttons = backgroundButtonGroup->buttons();
@@ -117,6 +116,7 @@ void DiagramSceneDlg::backgroundButtonGroupClicked(QAbstractButton *button)
     view->update();
 }
 
+// Обработчик выбора типа алгоритма
 void DiagramSceneDlg::algoritmButtonGroupClicked(QAbstractButton *button)
 {
     const QList<QAbstractButton *> buttons = algoritmButtonGroup->buttons();
@@ -125,12 +125,11 @@ void DiagramSceneDlg::algoritmButtonGroupClicked(QAbstractButton *button)
             button->setChecked(false);
     }
         const int id = algoritmButtonGroup->id(button);
-    scene->setItemType(static_cast<AlgoritmItem::AlgoritmType>(id));//TODO
+    scene->setItemType(static_cast<AlgoritmItem::AlgoritmType>(id));
     scene->setMode(DiagramScene::InsertItem);
 }
-//! [1]
 
-//! [2]
+// Обработчик выбора элемента диаграммы
 void DiagramSceneDlg::buttonGroupClicked(QAbstractButton *button)
 {
     const QList<QAbstractButton *> buttons = buttonGroup->buttons();
@@ -146,9 +145,8 @@ void DiagramSceneDlg::buttonGroupClicked(QAbstractButton *button)
         scene->setMode(DiagramScene::InsertItem);
     }
 }
-//! [2]
 
-//! [3]
+// Удаляет выбранные элементы
 void DiagramSceneDlg::deleteItem()
 {
     QList<QGraphicsItem *> selectedItems = scene->selectedItems();
@@ -170,16 +168,14 @@ void DiagramSceneDlg::deleteItem()
          delete item;
      }
 }
-//! [3]
 
-//! [4]
+// Изменяет режим указателя на сцене
 void DiagramSceneDlg::pointerGroupClicked()
 {
     scene->setMode(DiagramScene::Mode(pointerTypeGroup->checkedId()));
 }
-//! [4]
 
-//! [5]
+// Перемещает выделенный элемент на передний план
 void DiagramSceneDlg::bringToFront()
 {
     if (scene->selectedItems().isEmpty())
@@ -195,9 +191,8 @@ void DiagramSceneDlg::bringToFront()
     }
     selectedItem->setZValue(zValue);
 }
-//! [5]
 
-//! [6]
+// Перемещает выделенный элемент на задний план
 void DiagramSceneDlg::sendToBack()
 {
     if (scene->selectedItems().isEmpty())
@@ -213,51 +208,39 @@ void DiagramSceneDlg::sendToBack()
     }
     selectedItem->setZValue(zValue);
 }
-//! [6]
 
-//! [7]
-//void DiagramSceneDlg::itemInserted(DiagramItem *item)
-//{
-//    pointerTypeGroup->button(int(DiagramScene::MoveItem))->setChecked(true);
-//    scene->setMode(DiagramScene::Mode(pointerTypeGroup->checkedId()));
-//    buttonGroup->button(int(item->diagramType()))->setChecked(false);
-//}
+// Обработчик добавления нового элемента алгоритма
 void DiagramSceneDlg::itemInserted(AlgoritmItem *item)
 {
     pointerTypeGroup->button(int(DiagramScene::MoveItem))->setChecked(true);
     scene->setMode(DiagramScene::Mode(pointerTypeGroup->checkedId()));
-//    buttonGroup->button(int(item->diagramType()))->setChecked(false);
     QAbstractButton *btn = algoritmButtonGroup->button(int(item->diagramType()));
 
     if (btn!=nullptr)
     btn->setChecked(false);
 
 }
-//! [7]
 
-//! [8]
+// Обработчик вставки текстового элемента
 void DiagramSceneDlg::textInserted(QGraphicsTextItem *)
 {
     buttonGroup->button(InsertTextButton)->setChecked(false);
     scene->setMode(DiagramScene::Mode(pointerTypeGroup->checkedId()));
 }
-//! [8]
 
-//! [9]
+// Обновляет текущий шрифт текста
 void DiagramSceneDlg::currentFontChanged(const QFont &)
 {
     handleFontChange();
 }
-//! [9]
 
-//! [10]
+// Изменяет размер выбранного шрифта
 void DiagramSceneDlg::fontSizeChanged(const QString &)
 {
     handleFontChange();
 }
-//! [10]
 
-//! [11]
+// Изменяет масштаб отображения сцены
 void DiagramSceneDlg::sceneScaleChanged(const QString &scale)
 {
     double newScale = scale.left(scale.indexOf(tr("%"))).toDouble() / 100.0;
@@ -266,9 +249,8 @@ void DiagramSceneDlg::sceneScaleChanged(const QString &scale)
     view->translate(oldMatrix.dx(), oldMatrix.dy());
     view->scale(newScale, newScale);
 }
-//! [11]
 
-//! [12]
+// Изменяет цвет текста
 void DiagramSceneDlg::textColorChanged()
 {
     textAction = qobject_cast<QAction *>(sender());
@@ -277,9 +259,8 @@ void DiagramSceneDlg::textColorChanged()
                                      qvariant_cast<QColor>(textAction->data())));
     textButtonTriggered();
 }
-//! [12]
 
-//! [13]
+// Изменяет цвет выбранного элемента
 void DiagramSceneDlg::itemColorChanged()
 {
     fillAction = qobject_cast<QAction *>(sender());
@@ -288,9 +269,8 @@ void DiagramSceneDlg::itemColorChanged()
                                      qvariant_cast<QColor>(fillAction->data())));
     fillButtonTriggered();
 }
-//! [13]
 
-//! [14]
+// Изменяет цвет линий соединений
 void DiagramSceneDlg::lineColorChanged()
 {
     lineAction = qobject_cast<QAction *>(sender());
@@ -299,30 +279,26 @@ void DiagramSceneDlg::lineColorChanged()
                                      qvariant_cast<QColor>(lineAction->data())));
     lineButtonTriggered();
 }
-//! [14]
 
-//! [15]
+// Активирует режим ввода текста
 void DiagramSceneDlg::textButtonTriggered()
 {
     scene->setTextColor(qvariant_cast<QColor>(textAction->data()));
 }
-//! [15]
 
-//! [16]
+// Активирует выбор цвета заполнения
 void DiagramSceneDlg::fillButtonTriggered()
 {
     scene->setItemColor(qvariant_cast<QColor>(fillAction->data()));
 }
-//! [16]
 
-//! [17]
+// Активирует выбор цвета линий
 void DiagramSceneDlg::lineButtonTriggered()
 {
     scene->setLineColor(qvariant_cast<QColor>(lineAction->data()));
 }
-//! [17]
 
-//! [18]
+// Обрабатывает изменение параметров шрифта
 void DiagramSceneDlg::handleFontChange()
 {
     QFont font = fontCombo->currentFont();
@@ -333,9 +309,8 @@ void DiagramSceneDlg::handleFontChange()
 
     scene->setFont(font);
 }
-//! [18]
 
-//! [19]
+// Реагирует на выбор элемента сцены
 void DiagramSceneDlg::itemSelected(QGraphicsItem *item)
 {
     DiagramTextItem *textItem =
@@ -349,6 +324,7 @@ void DiagramSceneDlg::itemSelected(QGraphicsItem *item)
     underlineAction->setChecked(font.underline());
 }
 
+// Меняет масштаб сцены через колесо мыши
 void DiagramSceneDlg::changeZoom(int i)
 {
     int curIndex = sceneScaleCombo->currentIndex()+i;
@@ -358,9 +334,8 @@ void DiagramSceneDlg::changeZoom(int i)
         curIndex = 4;
     sceneScaleCombo->setCurrentIndex(curIndex);
 }
-//! [19]
 
-//! [20]
+// Показывает информацию о приложении
 void DiagramSceneDlg::about()
 {
     QMessageBox::about(this, tr("О программе"),
@@ -370,9 +345,8 @@ void DiagramSceneDlg::about()
                           " Предоставляет графический интерфейс для создания алгоритмов, "
                           "и показывающий поток данных между ними."));
 }
-//! [20]
 
-//! [21]
+// Создаёт набор инструментов
 void DiagramSceneDlg::createToolBox()
 {
     buttonGroup = new QButtonGroup(this);
@@ -384,7 +358,6 @@ void DiagramSceneDlg::createToolBox()
     layout->addWidget(createCellWidget(tr("Process"), DiagramItem::Step),0, 1);
     layout->addWidget(createCellWidget(tr("Input/Output"), DiagramItem::Io), 1, 0);
     layout->addWidget(createCellWidget(tr("Start/End"), DiagramItem::StartEnd), 2, 0);
-//! [21]
 
     QToolButton *textButton = new QToolButton;
     textButton->setCheckable(true);
@@ -424,7 +397,6 @@ void DiagramSceneDlg::createToolBox()
     QWidget *backgroundWidget = new QWidget;
     backgroundWidget->setLayout(backgroundLayout);
 
-    //
     algoritmButtonGroup = new QButtonGroup(this);
     connect(algoritmButtonGroup, QOverload<QAbstractButton *>::of(&QButtonGroup::buttonClicked),
             this, &DiagramSceneDlg::algoritmButtonGroupClicked);
@@ -434,8 +406,6 @@ void DiagramSceneDlg::createToolBox()
     algoritmLayout->addWidget(createAlgoritmCellWidget(tr("Условие"),AlgoritmItem::AlgoritmType::CONDITION), 0, 1);
     algoritmLayout->addWidget(createAlgoritmCellWidget(tr("Событие"),AlgoritmItem::AlgoritmType::EVENT), 1, 0);
      algoritmLayout->addWidget(createAlgoritmCellWidget(tr("Параметр"),AlgoritmItem::AlgoritmType::PARAM), 1, 1);
-//    algoritmLayout->addWidget(createAlgoritmCellWidget(tr("alg_1_4"),
-//                                                           ":/images_diag/background4.png"), 1, 1);
 
     algoritmLayout->setRowStretch(2, 10);
     algoritmLayout->setColumnStretch(2, 10);
@@ -443,7 +413,6 @@ void DiagramSceneDlg::createToolBox()
     QWidget *algoritmWidget = new QWidget;
     algoritmWidget->setLayout(algoritmLayout);
 
-//! [22]
     toolBox = new QToolBox;
     toolBox->setSizePolicy(QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Ignored));
     toolBox->setMinimumWidth(itemWidget->sizeHint().width());
@@ -451,9 +420,8 @@ void DiagramSceneDlg::createToolBox()
     toolBox->addItem(algoritmWidget, tr("Формы алгоритмов"));
     toolBox->addItem(backgroundWidget, tr("Базовый фон"));
 }
-//! [22]
 
-//! [23]
+// Создаёт действия интерфейса
 void DiagramSceneDlg::createActions()
 {
     toFrontAction = new QAction(QIcon(":/images_diag/bringtofront.png"),
@@ -461,7 +429,6 @@ void DiagramSceneDlg::createActions()
     toFrontAction->setShortcut(tr("Ctrl+F"));
     toFrontAction->setStatusTip(tr("Вывести элемент на передний план"));
     connect(toFrontAction, &QAction::triggered, this, &DiagramSceneDlg::bringToFront);
-//! [23]
 
     sendBackAction = new QAction(QIcon(":/images_diag/sendtoback.png"), tr("На &задний план"), this);
     sendBackAction->setShortcut(tr("Ctrl+T"));
@@ -485,12 +452,10 @@ void DiagramSceneDlg::createActions()
 
     saveAction = new QAction(tr("&Сохранить"), this);
     saveAction->setShortcuts(QKeySequence::Save);
-//    exitAction->setStatusTip(tr("Закрыть программу"));
     connect(saveAction, &QAction::triggered, this, &QWidget::close);
 
     saveAsAction = new QAction(tr("&Сохранить как"), this);
     saveAsAction->setShortcuts(QKeySequence::SaveAs);
-//    exitAction->setStatusTip(tr("Закрыть программу"));
     connect(saveAsAction, &QAction::triggered, this, &QWidget::close);
 
     exitAction = new QAction(tr("&Выход"), this);
@@ -520,7 +485,7 @@ void DiagramSceneDlg::createActions()
     connect(aboutAction, &QAction::triggered, this, &DiagramSceneDlg::about);
 }
 
-//! [24]
+// Создаёт меню приложения
 void DiagramSceneDlg::createMenus()
 {
     fileMenu = menuBar()->addMenu(tr("&Файл"));
@@ -539,12 +504,10 @@ void DiagramSceneDlg::createMenus()
     aboutMenu = menuBar()->addMenu(tr("&Помощь"));
     aboutMenu->addAction(aboutAction);
 }
-//! [24]
 
-//! [25]
+// Создаёт панели инструментов
 void DiagramSceneDlg::createToolbars()
 {
-//! [25]
     editToolBar = addToolBar(tr("Редактировать"));
     editToolBar->addAction(deleteAction);
     editToolBar->addAction(toFrontAction);
@@ -572,7 +535,6 @@ void DiagramSceneDlg::createToolbars()
     connect(fontColorToolButton, &QAbstractButton::clicked,
             this, &DiagramSceneDlg::textButtonTriggered);
 
-//! [26]
     fillColorToolButton = new QToolButton;
     fillColorToolButton->setPopupMode(QToolButton::MenuButtonPopup);
     fillColorToolButton->setMenu(createColorMenu(SLOT(itemColorChanged()), Qt::white));
@@ -581,7 +543,6 @@ void DiagramSceneDlg::createToolbars()
                                      ":/images_diag/floodfill.png", Qt::white));
     connect(fillColorToolButton, &QAbstractButton::clicked,
             this, &DiagramSceneDlg::fillButtonTriggered);
-//! [26]
 
     lineColorToolButton = new QToolButton;
     lineColorToolButton->setPopupMode(QToolButton::MenuButtonPopup);
@@ -630,11 +591,9 @@ void DiagramSceneDlg::createToolbars()
     pointerToolbar->addWidget(pointerButton);
     pointerToolbar->addWidget(linePointerButton);
     pointerToolbar->addWidget(sceneScaleCombo);
-//! [27]
 }
-//! [27]
 
-//! [28]
+// Создаёт элемент выбора фонового изображения
 QWidget *DiagramSceneDlg::createBackgroundCellWidget(const QString &text, const QString &image)
 {
     QToolButton *button = new QToolButton;
@@ -654,7 +613,8 @@ QWidget *DiagramSceneDlg::createBackgroundCellWidget(const QString &text, const 
     return widget;
 }
 
-QWidget *DiagramSceneDlg::createAlgoritmCellWidget(const QString &text, AlgoritmItem::AlgoritmType type)//TODO
+// Создаёт элемент выбора типа алгоритма
+QWidget *DiagramSceneDlg::createAlgoritmCellWidget(const QString &text, AlgoritmItem::AlgoritmType type)
 {
     AlgoritmItem item(type, itemMenu);
     QIcon icon(item.image(type));
@@ -674,9 +634,8 @@ QWidget *DiagramSceneDlg::createAlgoritmCellWidget(const QString &text, Algoritm
 
     return widget;
 }
-//! [28]
 
-//! [29]
+// Создаёт элемент выбора стандартной блок-схемы
 QWidget *DiagramSceneDlg::createCellWidget(const QString &text, DiagramItem::DiagramType type)
 {
 
@@ -698,9 +657,8 @@ QWidget *DiagramSceneDlg::createCellWidget(const QString &text, DiagramItem::Dia
 
     return widget;
 }
-//! [29]
 
-//! [30]
+// Создаёт меню выбора цвета
 QMenu *DiagramSceneDlg::createColorMenu(const char *slot, QColor defaultColor)
 {
     QList<QColor> colors;
@@ -721,9 +679,8 @@ QMenu *DiagramSceneDlg::createColorMenu(const char *slot, QColor defaultColor)
     }
     return colorMenu;
 }
-//! [30]
 
-//! [31]
+// Создаёт иконку для кнопки выбора цвета
 QIcon DiagramSceneDlg::createColorToolButtonIcon(const QString &imageFile, QColor color)
 {
     QPixmap pixmap(50, 80);
@@ -738,9 +695,8 @@ QIcon DiagramSceneDlg::createColorToolButtonIcon(const QString &imageFile, QColo
 
     return QIcon(pixmap);
 }
-//! [31]
 
-//! [32]
+// Создаёт одноцветную иконку
 QIcon DiagramSceneDlg::createColorIcon(QColor color)
 {
     QPixmap pixmap(20, 20);
@@ -750,4 +706,3 @@ QIcon DiagramSceneDlg::createColorIcon(QColor color)
 
     return QIcon(pixmap);
 }
-//! [32]

@@ -73,7 +73,6 @@ class QAbstractButton;
 class QGraphicsView;
 QT_END_NAMESPACE
 
-//! [0]
 class DiagramSceneDlg : public QMainWindow
 {
     Q_OBJECT
@@ -89,7 +88,6 @@ private slots:
     void pointerGroupClicked();
     void bringToFront();
     void sendToBack();
-//    void itemInserted(DiagramItem *item);
     void textInserted(QGraphicsTextItem *item);
     void currentFontChanged(const QFont &font);
     void fontSizeChanged(const QString &size);
@@ -166,6 +164,5 @@ private:
     QAction *fillAction;
     QAction *lineAction;
 };
-//! [0]
 
 #endif // DIAGRAMSCENEDLG_H
