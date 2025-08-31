@@ -114,6 +114,8 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         removeItem(line);
         delete line;
         line = nullptr;
+        if (parentView)
+            parentView->setMouseTracking(false);
         if (drawingArrow) {
             drawingArrow = false;
             myMode = prevMode;
@@ -140,6 +142,8 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
                     line = new QGraphicsLineItem(QLineF(centerPos, centerPos));
                     line->setPen(QPen(myLineColor, 2));
                     addItem(line);
+                    if (parentView)
+                        parentView->setMouseTracking(true);
                     return;
                 }
             }
@@ -378,6 +382,8 @@ void DiagramScene::addArrowFromLine(const QPointF &endPoint)
         myMode = prevMode;
         drawingArrow = false;
     }
+    if (parentView)
+        parentView->setMouseTracking(false);
 }
 
 // Проверяет, изменился ли элемент указанного типа

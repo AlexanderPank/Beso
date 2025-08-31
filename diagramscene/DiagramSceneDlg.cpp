@@ -442,9 +442,9 @@ void DiagramSceneDlg::loadFromJson()
             props.append(p);
         }
         auto *item = new AlgorithmItem(AlgorithmItem::ALGORITM, itemMenu, title, {}, {});
-        item->setBrush(QColor("#D3D3D3"));
         item->setProperties(props);
         item->setIsObject(obj["is_object"].toBool());
+        item->setBrush(item->isObject() ? QColor("#D3D3D3") : QColor("#E3E3FD"));
         if (obj["self_out"].toBool())
             item->setObjectOutput(true);
         item->setPos(obj["x"].toDouble(), obj["y"].toDouble());
