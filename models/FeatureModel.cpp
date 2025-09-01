@@ -4,9 +4,7 @@
 #include <QJsonArray>
 #include <QHBoxLayout>
 
-FeatureModel::~FeatureModel(){
-    qDeleteAll(m_properties);
-}
+FeatureModel::~FeatureModel(){}
 
 FeatureModel* FeatureModel::fromJson(const QJsonObject &json, QObject* parent){
     auto *model = new FeatureModel(parent);
