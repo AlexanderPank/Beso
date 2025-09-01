@@ -64,7 +64,34 @@ AlgorithmPropertiesDialog::AlgorithmPropertiesDialog(const QList<AlgorithmItem::
     connect(buttons, &QDialogButtonBox::rejected, this, &QDialog::reject);
     layout->addWidget(buttons);
 
-    resize(600, 400);
+    resize(600, 600);
+
+    m_outTable->setStyleSheet(
+            "QTableView { border: 1px solid #444; gridline-color: #444; color:#fefefe; }"
+            "QTableView:hover { border: 1px solid #444;  }"
+            "QTableView QLineEdit { background: transparent; border: none; }"
+            "QTableView QSpinBox { background: transparent; border: none; }"
+            "QTableView QComboBox { background: transparent; border: none; }"
+            "QTableView QDoubleSpinBox { background: transparent; border: none; }"
+            "QTableView QHeaderView::section {"
+            "  background-color: #2a2a2a;"
+            "  color: #aaa;"
+            "  padding: 4px 6px;"
+            "}"
+    );
+    m_inTable->setStyleSheet(
+            "QTableView { border: 1px solid #444; gridline-color: #444; color:#fefefe; }"
+            "QTableView:hover { border: 1px solid #444;  }"
+            "QTableView QLineEdit { background: transparent; border: none; }"
+            "QTableView QSpinBox { background: transparent; border: none; }"
+            "QTableView QComboBox { background: transparent; border: none; }"
+            "QTableView QDoubleSpinBox { background: transparent; border: none; }"
+            "QTableView QHeaderView::section {"
+            "  background-color: #2a2a2a;"
+            "  color: #aaa;"
+            "  padding: 4px 6px;"
+            "}"
+    );
 }
 
 QList<AlgorithmItem::PropertyInfo> AlgorithmPropertiesDialog::properties() const
