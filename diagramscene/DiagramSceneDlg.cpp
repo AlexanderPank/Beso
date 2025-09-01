@@ -101,10 +101,10 @@ protected:
 
             if (t == -1) {
                 mimeData->setData("application/x-diagram-text", QByteArray());
-                QGraphicsTextItem temp(item->text(0));
+                auto *temp = new QGraphicsTextItem(item->text(0));
                 QGraphicsScene tmpScene;
-                tmpScene.addItem(&temp);
-                QRectF br = temp.boundingRect();
+                tmpScene.addItem(temp);
+                QRectF br = temp->boundingRect();
                 QPixmap tpix(br.size().toSize());
                 tpix.fill(Qt::transparent);
                 QPainter p(&tpix);
