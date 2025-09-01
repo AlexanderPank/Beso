@@ -462,15 +462,58 @@ void DiagramSceneDlg::loadFromJson()
             p.direction = po["direction"].toInt();
             props.append(p);
         }
-        auto *item = new AlgorithmItem(AlgorithmItem::ALGORITM, itemMenu, title, {}, {});
+        AlgorithmItem::AlgorithmType type = static_cast<AlgorithmItem::AlgorithmType>(obj["type"].toInt());
+        auto *item = new AlgorithmItem(type, itemMenu, title, {}, {});
         item->setProperties(props);
         item->setIsObject(obj["is_object"].toBool());
-        item->setBrush(item->isObject() ? gDiagramColors.objectBackground : gDiagramColors.algorithmBackground);
+        QColor color(obj["color"].toString());
+        if (!color.isValid()) {
+            switch (type) {
+            case AlgorithmItem::EVENT:
+                color = gDiagramColors.eventBackground;
+                break;
+            case AlgorithmItem::CONDITION:
+                color = gDiagramColors.conditionBackground;
+                break;
+            case AlgorithmItem::PARAM:
+                color = gDiagramColors.paramBackground;
+                break;
+            case AlgorithmItem::INPUT:
+                color = gDiagramColors.inputDataBackground;
+                break;
+            case AlgorithmItem::OUTPUT:
+                color = gDiagramColors.outputDataBackground;
+                break;
+            default:
+                color = item->isObject() ? gDiagramColors.objectBackground : gDiagramColors.algorithmBackground;
+                break;
+            }
+        }
+        item->setBrush(color);
         if (obj["self_out"].toBool())
             item->setObjectOutput(true);
         item->setPos(obj["x"].toDouble(), obj["y"].toDouble());
         scene->addItem(item);
         itemsList.append(item);
+    }
+
+    QJsonArray textsArr = root["texts"].toArray();
+    for (const QJsonValue &val : textsArr) {
+        QJsonObject to = val.toObject();
+        auto *txt = new DiagramTextItem();
+        QFont font;
+        font.fromString(to["font"].toString());
+        txt->setFont(font);
+        txt->setPlainText(to["text"].toString());
+        txt->setDefaultTextColor(QColor(to["color"].toString()));
+        txt->setTextInteractionFlags(Qt::TextEditorInteraction);
+        txt->setZValue(1000.0);
+        connect(txt, &DiagramTextItem::lostFocus,
+                scene, &DiagramScene::editorLostFocus);
+        connect(txt, &DiagramTextItem::selectedChange,
+                scene, &DiagramScene::itemSelected);
+        scene->addItem(txt);
+        txt->setPos(to["x"].toDouble(), to["y"].toDouble());
     }
 
     QJsonArray arrowsArr = root["arrows"].toArray();

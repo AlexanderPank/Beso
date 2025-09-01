@@ -100,6 +100,10 @@ void AlgorithmItem::setBrush(QColor color) {
     polygonItem->setBrush(color);
 }
 
+QColor AlgorithmItem::brushColor() const {
+    return polygonItem->brush().color();
+}
+
 // Returns list of output connector circles
 QList<QGraphicsEllipseItem *> AlgorithmItem::getOutItems() {
     return outObjCircle.values();

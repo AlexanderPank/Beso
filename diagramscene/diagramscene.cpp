@@ -13,6 +13,7 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QGraphicsEllipseItem>
+#include "diagramtextitem.h"
 
 // Конструктор сцены диаграммы
 DiagramScene::DiagramScene(QMenu *itemMenu, QObject *parent)
@@ -453,6 +454,7 @@ QJsonObject DiagramScene::toJson() const
 {
     QJsonObject root;
     QJsonArray itemsArr;
+    QJsonArray textsArr;
     QList<AlgorithmItem*> itemsList;
 
     const auto allItems = items();
@@ -465,6 +467,8 @@ QJsonObject DiagramScene::toJson() const
             obj["y"] = alg->pos().y();
             obj["self_out"] = alg->hasObjectOutput();
             obj["is_object"] = alg->isObject();
+            obj["type"] = static_cast<int>(alg->diagramType());
+            obj["color"] = alg->brushColor().name();
             QJsonArray props;
             for (const auto &p : alg->properties()) {
                 QJsonObject po;
@@ -476,9 +480,18 @@ QJsonObject DiagramScene::toJson() const
             }
             obj["properties"] = props;
             itemsArr.append(obj);
+        } else if (auto txt = qgraphicsitem_cast<DiagramTextItem*>(gi)) {
+            QJsonObject to;
+            to["text"] = txt->toPlainText();
+            to["x"] = txt->pos().x();
+            to["y"] = txt->pos().y();
+            to["color"] = txt->defaultTextColor().name();
+            to["font"] = txt->font().toString();
+            textsArr.append(to);
         }
     }
     root["items"] = itemsArr;
+    root["texts"] = textsArr;
 
     QJsonArray arrowsArr;
     for (QGraphicsItem *gi : allItems) {

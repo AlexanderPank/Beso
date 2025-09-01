@@ -5,6 +5,7 @@
 #include <QMap>
 #include <QPair>
 #include <QList>
+#include <QColor>
 
 class QMenu;
 class QGraphicsPolygonItem;
@@ -45,6 +46,8 @@ public:
     int type() const override { return Type; }
     // Sets background brush color
     void setBrush(QColor);
+    // Returns current brush color
+    QColor brushColor() const;
     QString title() const { return titleItem ? titleItem->toPlainText() : QString(); }
 
     // Returns output connector circles
