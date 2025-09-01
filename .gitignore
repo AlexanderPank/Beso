@@ -9,3 +9,4 @@ $$PWD
 tests/build/*
 tests/cmake-build-debug/*
 .idea
+.idea/*

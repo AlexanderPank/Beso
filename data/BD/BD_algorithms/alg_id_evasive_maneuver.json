@@ -1,11 +1,1 @@
-{
-  "description": "Маневр уклонения - сделать разворот по курсу угрозы чтобы не попасть под удар",
-  "function": "ModelTasks.evasive_maneuver",
-  "id": "alg_id_evasive_maneuver",
-  "input_parameters": [],
-  "output_parameters": [],
-  "output_splitter": " ",
-  "subType": "Маневр",
-  "title": "Маневр уклонения - бегство",
-  "type": "inner"
-}
+{"description":"Маневр уклонения - сделать разворот по курсу угрозы чтобы не попасть под удар","function":"ModelTasks.evasive_maneuver","id":"alg_id_evasive_maneuver","input_parameters":[{"item":"any","title":""},{"objects":"int","title":""},{"title":"","type_danger":"float"},{"min_distance":"float","title":""},{"rain":"float","title":""},{"frog":"float","title":""},{"time_in_seconds":"int","title":""},{"restricted_area":"any","title":""}],"output_parameters":[],"output_splitter":" ","subType":"Маневр","title":"Маневр уклонения - бегство","type":"inner"}

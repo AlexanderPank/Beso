@@ -168,5 +168,13 @@ SignBase* SignFactory::updateConnectedSign(SignBase* sign, ObjectScenarioModel *
         border->redraw(center, bearing);
         return border;
     }
+    if (auto border = dynamic_cast<SignCircle*>(sign)) {
+        bool bOk;
+        QPointF center(obj->getPropertyDouble("lat", bOk), obj->getPropertyDouble("lon", bOk) );
+        auto radius = border->getRadius();
+        border->setCoordinatesInDegrees({center}, radius, false);
+        return border;
+    }
+
     return nullptr;
 }

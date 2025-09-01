@@ -18,6 +18,7 @@
 #include "map_enums.h"
 #include "map_tools/SignDrawer.h"
 #include "map_additional/MapInformer.h"
+#include "map_additional/MapCompass.h"
 
 
 namespace Ui {
@@ -93,6 +94,7 @@ private:
 
     int scaleIndex = 5;
     MapCoordinates *coordinateView;
+    MapCompass *compasView;
     MapScale *scaleView;
 
     MapToolPanel *toolPanel = nullptr;

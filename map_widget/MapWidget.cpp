@@ -28,6 +28,9 @@ MapWidget::MapWidget(QWidget *parent, QString mapFileName, QString rscPath) :
 
     coordinateView = new MapCoordinates(this);
     scaleView = new MapScale(this);
+    compasView = new MapCompass(this);
+
+
     connect(scaleView, &MapScale::scaleChanged, [=](long scale) { setScale(scale); });
 
     toolPanel = new MapToolPanel(this);
@@ -175,6 +178,7 @@ void MapWidget::resizeEvent(QResizeEvent *){
     toolPanel->updatePosition();
     mapInformer->updatePosition();
     scaleView->move(10, rect().height() - 1.5 * scaleView->height());
+    compasView->move(20, 20);
 }
 
 void MapWidget::wheelEvent(QWheelEvent* event) {

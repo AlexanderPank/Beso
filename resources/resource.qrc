@@ -23,6 +23,7 @@
         <file>images/appicon.png</file>
         <file>images/appicon2.png</file>
         <file alias="ADD_TO_MAP_ICON">images/add_location.png</file>
+        <file alias="COMPAS">images/compas_106.png</file>
         <file alias="SEARCH_ON_MAP">images/search.png</file>
         <file alias="EDIT_ICON">images/edit.png</file>
         <file>images/3d.png</file>

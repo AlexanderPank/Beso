@@ -154,7 +154,16 @@ void FeatureModel::addSearchButton() {
 // Метод для отображения в дереве
 QTreeWidgetItem* FeatureModel::getTreeWidgetItem(QTreeWidgetItem *parent)
 {
-    if (m_tree_widget_item != nullptr) return m_tree_widget_item; // Если уже существует, возвращаем nullptr
+    // После очистки дерева указатели на ранее созданные элементы становятся недействительными.
+    // Проверяем их перед повторным использованием.
+    if (m_tree_widget_item != nullptr && m_tree_widget_item->treeWidget() == nullptr)
+        m_tree_widget_item = nullptr;
+    if (m_property_item != nullptr && m_property_item->treeWidget() == nullptr)
+        m_property_item = nullptr;
+    if (m_coordinates_item != nullptr && m_coordinates_item->treeWidget() == nullptr)
+        m_coordinates_item = nullptr;
+
+    if (m_tree_widget_item != nullptr) return m_tree_widget_item; // Если уже существует, возвращаем его
 
     m_tree_widget_item = new QTreeWidgetItem(parent);
 
@@ -168,6 +177,7 @@ QTreeWidgetItem* FeatureModel::getTreeWidgetItem(QTreeWidgetItem *parent)
     connect(m_tree_widget_item->treeWidget(), &QTreeWidget::itemDoubleClicked, this, [this](QTreeWidgetItem *item, int column) {
         m_treeItemEditMode = column == 1;
     });
+    return m_tree_widget_item;
     // Добавляем свойства как дочерние элементы
     auto addProperty = [this](const QString &name, const QString &value,
                               std::function<void(QString)> callback = nullptr) -> QTreeWidgetItem* {
@@ -189,7 +199,9 @@ QTreeWidgetItem* FeatureModel::getTreeWidgetItem(QTreeWidgetItem *parent)
 
     };
 
+
     addProperty("Тип", m_type);
+
     addProperty("parent_id", m_parent_id, [this](const QString value) { setParentID(value);});
     addProperty("Класс код", m_class_code, [this](const QString value) {  setClassCode(value); emit redrawFeature(this); });
     addProperty("Толщина линии", QString::number(m_line_width), [this](const QString value) { bool ok; double v = value.toDouble(&ok); if(ok) setLineWidth(v); emit redrawFeature(this); });

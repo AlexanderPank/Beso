@@ -5,6 +5,7 @@
 #include <QMap>
 #include <QPair>
 #include <QList>
+#include <QColor>
 
 class QMenu;
 class QGraphicsPolygonItem;
@@ -21,7 +22,7 @@ class Arrow;
 class AlgorithmItem : public QGraphicsItem {
 public:
     enum { Type = UserType + 15 };
-    enum AlgorithmType { ALGORITM, CONDITION, EVENT, PARAM };
+    enum AlgorithmType { ALGORITM, CONDITION, EVENT, PARAM, INPUT, OUTPUT };
 
     // Constructs item with given type, context menu and connector lists
     AlgorithmItem(AlgorithmType diagramType, QMenu *contextMenu, QString title = "",
@@ -45,6 +46,8 @@ public:
     int type() const override { return Type; }
     // Sets background brush color
     void setBrush(QColor);
+    // Returns current brush color
+    QColor brushColor() const;
     QString title() const { return titleItem ? titleItem->toPlainText() : QString(); }
 
     // Returns output connector circles

@@ -5,7 +5,7 @@
   "coordinates": [],
   "description": "Наносится 2-мя точками.",
   "geometry_type": 3,
-  "group": "Надводные корабли",
+  "group": "Надводные корабли и судна",
   "id": "ZONE_OER",
   "is_own": 1,
   "line_width": 0.3,

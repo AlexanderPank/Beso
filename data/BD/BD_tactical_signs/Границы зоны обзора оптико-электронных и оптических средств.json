@@ -5,7 +5,7 @@
   "coordinates": [],
   "description": "Наносится 4-мя точками.",
   "geometry_type": 3,
-  "group": "БПЛА",
+  "group": "БПЛА (летательные аппараты)",
   "id": "ZONE_OES",
   "is_own": 1,
   "line_width": 0.3,

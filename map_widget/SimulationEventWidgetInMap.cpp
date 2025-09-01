@@ -36,6 +36,7 @@ SimulationEventWidgetInMap::SimulationEventWidgetInMap(QWidget *parent)
     m_textEditFilter->setFrameShape(QFrame::NoFrame);
     m_textEditFilter->setMaximumHeight(30);
     connect(m_textEditFilter, &QTextEdit::textChanged, this, &SimulationEventWidgetInMap::filterLog);
+    m_textEditFilter->setTextColor(QColor(0, 0, 0, 200));
 
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->addWidget(m_textEdit);

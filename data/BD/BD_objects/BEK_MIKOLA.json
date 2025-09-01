@@ -94,7 +94,7 @@
       "name": "connect_dist",
       "title": "удаление от пункта управления, м",
       "type": "int",
-      "value": 400000
+      "value": 250000
     },
     {
       "name": "course",
@@ -104,9 +104,9 @@
     },
     {
       "name": "detection_distance",
-      "title": "дистанция обнаружения",
+      "title": "дистанция обнаружения, м",
       "type": "int",
-      "value": 20000
+      "value": 25000
     },
     {
       "name": "distance_of_defeat",
@@ -224,7 +224,7 @@
       "name": "speed",
       "title": "крейсерская скорость, м/с",
       "type": "float",
-      "value": 3
+      "value": 18
     },
     {
       "name": "state",

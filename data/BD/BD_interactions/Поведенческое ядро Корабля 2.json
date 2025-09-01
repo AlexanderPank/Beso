@@ -1,11 +1,12 @@
 {
-  "title": "Модель поведения Корабля + связи + целераспределением БПЛА камикадзе ",
+  "title": "Модель поведения Корабля + связи + целераспределением БПЛА камикадзе + АК ",
   "type_object": "Надводные корабли:*",
   "object_list": [
     {"name": "SHIP", "description": "Идентификатор Корабля"}
   ],
   "interaction_list": [
     {
+      "id": "Корабль - очистка целей",
       "title": "",
       "interaction_type": "moving",
       "response_set_values": "!SHIP!.properties['target_list'] =  []",
@@ -13,6 +14,7 @@
       "trigger_condition": "CommunicationModel.actions.has_messages(receiver_id=!SHIP!.id, current_time=self.iteration_time) != True"
     },
     {
+      "id": "Корабль - получение сообщения от БПЛА",
       "title": "Получено сообщение от БПЛА - цель обнаружена ",
       "interaction_type": "moving",
       "response_set_values": "!SHIP!.properties['target_list'] = CommunicationModel.actions.process_messages(receiver_id=!SHIP!.id, current_time=self.iteration_time)",
@@ -20,6 +22,7 @@
       "trigger_condition": "CommunicationModel.actions.has_messages(receiver_id=!SHIP!.id, current_time=self.iteration_time) == True and !SHIP!.properties['state'] != 'destroyed'"
     },
     {
+      "id": "Корабль - целераспределение",
       "interaction_type": "moving",
       "response_action": "!SHIP!.actions.targeting(target_list=!SHIP!.properties['target_list'], all_items=self.objects, ship=!SHIP!, func_name='', library_name='')",
       "source_object_id": "!SHIP!",
@@ -27,7 +30,7 @@
       "trigger_condition": "!SHIP!.properties['target_list'] != []"
     },
     {
-      "id": "",
+      "id": "Корабль - попадание в носовую часть",
       "interaction_type": "find_path",
       "response_action": "",
       "response_set_values": "!SHIP!.properties['damage_state'] = ''",
@@ -36,7 +39,7 @@
       "trigger_condition": "!SHIP!.properties['damage_state'] == 'bow_flash'"
     },
     {
-      "id": "",
+      "id": "Корабль - попадание в центральную часть",
       "interaction_type": "find_path",
       "response_action": "",
       "response_set_values": "!SHIP!.properties['damage_state']='';!SHIP!.properties['state'] = 'destroyed'",
@@ -45,7 +48,7 @@
       "trigger_condition": "!SHIP!.properties['damage_state'] == 'center_flash'"
     },
     {
-      "id": "",
+      "id": "Корабль - попадание в кормовую часть",
       "interaction_type": "find_path",
       "response_action": "",
       "response_set_values": "!SHIP!.properties['damage_state'] = ''",
@@ -54,7 +57,7 @@
       "trigger_condition": "!SHIP!.properties['damage_state'] == 'stern_flash'"
     },
     {
-      "id": "",
+      "id": "Корабль - оценка ущерба корпуса",
       "interaction_type": "find_path",
       "response_action": "",
       "response_set_values": "!SHIP!.properties['state'] = 'destroyed'",
@@ -63,7 +66,7 @@
       "trigger_condition": "!SHIP!.properties['hull_damage'] >= 1"
     },
     {
-      "id": "",
+      "id": "Корабль - проверка уничтожения",
       "interaction_type": "moving",
       "response_action": "",
       "response_set_values": "!SHIP!.properties['damage_state']='destroyed'",
@@ -72,11 +75,57 @@
       "trigger_condition": "!SHIP!.properties['state'] == 'destroyed' and !SHIP!.properties['damage_state'] != 'destroyed'"
     },
     {
+      "id": "Корабль - движение",
       "title": "Движение объекта",
       "interaction_type": "moving",
       "response_action": "!SHIP!.actions.move(item=!SHIP!,  path=!SHIP!.properties['geo_path'],  time_in_seconds=self.second_in_iteration)",
       "source_object_id": "!SHIP!",
       "trigger_condition": "!SHIP!.properties['state'] == 'moving'"
+    },
+
+    {
+      "id": "Корабль - захват цели",
+      "interaction_type": "detect_enemy",
+      "response_set_values": "!SHIP!.properties['target'] = !SHIP!.actions.detect_enemy(item1=!SHIP!, objects=self.objects, rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], max_distance=!SHIP!.properties['ak_distance']) ",
+      "source_object_id": "!SHIP!",
+      "title": "Захват цели",
+      "trigger_condition": "!SHIP!.properties['target'] == '' and !SHIP!.actions.detect_enemy(item1=!SHIP!, objects=self.objects, rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], max_distance=!SHIP!.properties['ak_distance']) != '' "
+    },
+    {
+      "id": "Корабль - выстрел из АК-190",
+      "interaction_type": "ak_attack",
+      "response_action": "",
+      "response_set_values": " !SHIP!.properties['ak_bullet_count'] -= !SHIP!.properties['ak_bullet_per_second'];  ",
+      "source_object_id": "!SHIP!",
+      "title": "Выстрел из АК-190",
+      "trigger_condition": "!SHIP!.properties['target'] != '' and !SHIP!.properties['ak_bullet_count'] > 0  "
+    },
+    {
+      "id": "Корабль - оценка эффективности стрельбы АК-190",
+      "interaction_type": "ak_attack",
+      "response_action": "Model_00.actions.inc_object_prop(item=!SHIP!.properties['target'], prop='hit_count', objects=self.objects, value=Model_00.properties['tmp_int'])",
+      "response_set_values": "Model_00.properties['tmp_int'] = Model_00.actions.shoot_in_object(shooter=!SHIP!, target=Model_00.actions.get_object_by_id(object_id=!SHIP!.properties['target'], objects=self.objects), spread_horizontal=!SHIP!.properties['ak_spread_horizontal'], spread_vertical=!SHIP!.properties['ak_spread_vertical'], bullet_count=!SHIP!.properties['ak_bullet_per_second'], max_distance=!SHIP!.properties['ak_distance'])",
+      "source_object_id": "!SHIP!",
+      "title": "Оценка эффективности стрельбы АК-190",
+      "trigger_condition": "!SHIP!.properties['target'] != '' and !SHIP!.properties['ak_bullet_count'] >= 0  "
+    },
+    {
+      "id": "Корабль - цель уничтожена",
+      "interaction_type": "detect_enemy",
+      "response_action": "",
+      "response_set_values": "!SHIP!.properties['target'] = ''",
+      "source_object_id": "!SHIP!",
+      "title": "Цель уничтожена",
+      "trigger_condition": "Model_00.actions.get_object_prop(item=!SHIP!.properties['target'], prop='state', objects=self.objects, type_value='str') in ['destroyed', 'destroyed_bek'] "
+    },
+    {
+      "id": "Корабль - маневр уклонения",
+      "interaction_type": "evasive_maneuver",
+      "response_action": "",
+      "response_set_values": "!SHIP!.properties['speed'] = !SHIP!.properties['speed_maneuver']",
+      "source_object_id": "!SHIP!",
+      "title": "Маневр уклонения",
+      "trigger_condition": "!SHIP!.actions.evasive_maneuver(item=!SHIP!, objects=self.objects, type_danger=['БЭК'], min_distance=!SHIP!.properties['danger_distance'], rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], time_in_seconds=300, restricted_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\")) "
     }
   ]
 }

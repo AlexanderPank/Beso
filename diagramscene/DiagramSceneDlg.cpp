@@ -7,6 +7,7 @@
 #include "ObjectSelectDialog.h"
 #include "PropertiesDialog.h"
 #include "AlgorithmPropertiesDialog.h"
+#include "diagramcolors.h"
 
 #include <QtWidgets>
 #include <algorithm>
@@ -43,52 +44,134 @@ protected:
             return;
         }
 
-        QString filePath = item->data(0, Qt::UserRole).toString();
-        QFile f(filePath);
-        if (!f.open(QIODevice::ReadOnly)) {
+        QVariant var = item->data(0, Qt::UserRole);
+        if (var.type() == QVariant::String) {
+            QString filePath = var.toString();
+            QFile f(filePath);
+            if (!f.open(QIODevice::ReadOnly)) {
+                QTreeWidget::startDrag(supportedActions);
+                return;
+            }
+            QJsonDocument doc = QJsonDocument::fromJson(f.readAll());
+            f.close();
+            QJsonObject obj = doc.object();
+
+            QString title = obj["title"].toString(item->text(0));
+            QList<AlgorithmItem::PropertyInfo> props;
+            QJsonArray inArr = obj["input_parameters"].toArray();
+            for (const QJsonValue &val : inArr) {
+                QJsonObject o = val.toObject();
+                if (!o.isEmpty()) {
+                    QString pname;
+                    QString ptype;
+                    for (const QString &key : o.keys()) {
+                        if (key != "title") {
+                            pname = key;
+                            ptype = o.value(key).toString();
+                            break;
+                        }
+                    }
+                    QString ptitle = o.value("title").toString(pname);
+                    props.append(AlgorithmItem::PropertyInfo{ptitle, pname, ptype, 1});
+                }
+            }
+            QJsonArray outArr = obj["output_parameters"].toArray();
+            for (const QJsonValue &val : outArr) {
+                QJsonObject o = val.toObject();
+                if (!o.isEmpty()) {
+                    QString pname;
+                    QString ptype;
+                    for (const QString &key : o.keys()) {
+                        if (key != "title") {
+                            pname = key;
+                            ptype = o.value(key).toString();
+                            break;
+                        }
+                    }
+                    QString ptitle = o.value("title").toString(pname);
+                    props.append(AlgorithmItem::PropertyInfo{ptitle, pname, ptype, 2});
+                }
+            }
+
+            auto *temp = new AlgorithmItem(AlgorithmItem::ALGORITM, nullptr, title);
+            temp->setBrush(gDiagramColors.algorithmBackground);
+            temp->setProperties(props);
+            QGraphicsScene tmpScene;
+            tmpScene.addItem(temp);
+            QRectF br = temp->boundingRect();
+            QPixmap pix(br.size().toSize());
+            pix.fill(Qt::transparent);
+            QPainter painter(&pix);
+            tmpScene.render(&painter, QRectF(), br);
+
+            QDrag *drag = new QDrag(this);
+            QMimeData *mimeData = new QMimeData;
+            mimeData->setData("application/x-algorithm", filePath.toUtf8());
+            drag->setMimeData(mimeData);
+            drag->setPixmap(pix);
+            drag->exec(Qt::CopyAction);
+        } else if (var.type() == QVariant::Int) {
+            int t = var.toInt();
+            QDrag *drag = new QDrag(this);
+            QMimeData *mimeData = new QMimeData;
+            QPixmap pix(100, 50);
+            pix.fill(Qt::transparent);
+
+            if (t == -1) {
+                mimeData->setData("application/x-diagram-text", QByteArray());
+
+                mimeData->setText(item->text(0));
+
+                auto *temp = new QGraphicsTextItem(item->text(0));
+                QGraphicsScene tmpScene;
+                tmpScene.addItem(temp);
+                QRectF br = temp->boundingRect();
+                QPixmap tpix(br.size().toSize());
+                tpix.fill(Qt::transparent);
+                QPainter p(&tpix);
+                tmpScene.render(&p, QRectF(), br);
+                pix = tpix;
+            } else {
+                auto *temp = new AlgorithmItem(static_cast<AlgorithmItem::AlgorithmType>(t), nullptr, item->text(0));
+                switch (t) {
+                case AlgorithmItem::EVENT:
+                    temp->setBrush(gDiagramColors.eventBackground);
+                    break;
+                case AlgorithmItem::PARAM:
+                    temp->setBrush(gDiagramColors.paramBackground);
+                    break;
+                case AlgorithmItem::INPUT:
+                    temp->setBrush(gDiagramColors.inputDataBackground);
+                    break;
+                case AlgorithmItem::OUTPUT:
+                    temp->setBrush(gDiagramColors.outputDataBackground);
+                    break;
+                case AlgorithmItem::CONDITION:
+                    temp->setBrush(gDiagramColors.conditionBackground);
+                    break;
+
+                default:
+                    temp->setBrush(gDiagramColors.elementBackground);
+                    break;
+                }
+                QGraphicsScene tmpScene;
+                tmpScene.addItem(temp);
+                QRectF br = temp->boundingRect();
+                QPixmap tpix(br.size().toSize());
+                tpix.fill(Qt::transparent);
+                QPainter p(&tpix);
+                tmpScene.render(&p, QRectF(), br);
+                pix = tpix;
+                mimeData->setData("application/x-diagram-item", QByteArray::number(t));
+                mimeData->setText(item->text(0));
+            }
+
+            drag->setMimeData(mimeData);
+            drag->setPixmap(pix);
+            drag->exec(Qt::CopyAction);
+        } else {
             QTreeWidget::startDrag(supportedActions);
-            return;
         }
-        QJsonDocument doc = QJsonDocument::fromJson(f.readAll());
-        f.close();
-        QJsonObject obj = doc.object();
-
-        QString title = obj["title"].toString(item->text(0));
-        QList<QPair<QString,QString>> inParams;
-        QList<QPair<QString,QString>> outParams;
-        QJsonArray inArr = obj["input_parameters"].toArray();
-        for (const QJsonValue &val : inArr) {
-            QJsonObject o = val.toObject();
-            if (!o.isEmpty()) {
-                QString key = o.keys().first();
-                inParams.append({key, o.value(key).toString()});
-            }
-        }
-        QJsonArray outArr = obj["output_parameters"].toArray();
-        for (const QJsonValue &val : outArr) {
-            QJsonObject o = val.toObject();
-            if (!o.isEmpty()) {
-                QString key = o.keys().first();
-                outParams.append({key, o.value(key).toString()});
-            }
-        }
-
-        auto *temp = new AlgorithmItem(AlgorithmItem::ALGORITM, nullptr, title, inParams, outParams);
-        temp->setBrush(QColor("#E3E3FD"));
-        QGraphicsScene tmpScene;
-        tmpScene.addItem(temp);
-        QRectF br = temp->boundingRect();
-        QPixmap pix(br.size().toSize());
-        pix.fill(Qt::transparent);
-        QPainter painter(&pix);
-        tmpScene.render(&painter, QRectF(), br);
-
-        QDrag *drag = new QDrag(this);
-        QMimeData *mimeData = new QMimeData;
-        mimeData->setData("application/x-algorithm", filePath.toUtf8());
-        drag->setMimeData(mimeData);
-        drag->setPixmap(pix);
-        drag->exec(Qt::CopyAction);
     }
 };
 // Конструктор диалогового окна сцены
@@ -113,14 +196,15 @@ DiagramSceneDlg::DiagramSceneDlg()
     createToolbars();
 
     QSplitter *splitter = new QSplitter(Qt::Horizontal);
-    toolBox->setMinimumWidth(200);
+    toolBox->setMinimumWidth(400);
+
     splitter->addWidget(toolBox);
     view = new QGraphicsView(scene);
     view->setAcceptDrops(true);
     splitter->addWidget(view);
 
     setCentralWidget(splitter);
-    setWindowTitle(tr("Редактор поведенческого ядра объекта"));
+    setWindowTitle(tr("Редактор модели поведения объектов"));
     setUnifiedTitleAndToolBarOnMac(true);
     setWindowState(Qt::WindowMaximized);
     scene->setView(view);
@@ -286,7 +370,7 @@ void DiagramSceneDlg::openObjectSelectDialog()
         }
 
         auto *item = new AlgorithmItem(AlgorithmItem::ALGORITM, itemMenu, title, {}, {});
-        item->setBrush(QColor("#D3D3D3"));
+        item->setBrush(gDiagramColors.objectBackground);
         item->setProperties(props);
         item->setObjectOutput(true);
         item->setIsObject(true);
@@ -396,15 +480,58 @@ void DiagramSceneDlg::loadFromJson()
             p.direction = po["direction"].toInt();
             props.append(p);
         }
-        auto *item = new AlgorithmItem(AlgorithmItem::ALGORITM, itemMenu, title, {}, {});
+        AlgorithmItem::AlgorithmType type = static_cast<AlgorithmItem::AlgorithmType>(obj["type"].toInt());
+        auto *item = new AlgorithmItem(type, itemMenu, title, {}, {});
         item->setProperties(props);
         item->setIsObject(obj["is_object"].toBool());
-        item->setBrush(item->isObject() ? QColor("#D3D3D3") : QColor("#E3E3FD"));
+        QColor color(obj["color"].toString());
+        if (!color.isValid()) {
+            switch (type) {
+            case AlgorithmItem::EVENT:
+                color = gDiagramColors.eventBackground;
+                break;
+            case AlgorithmItem::CONDITION:
+                color = gDiagramColors.conditionBackground;
+                break;
+            case AlgorithmItem::PARAM:
+                color = gDiagramColors.paramBackground;
+                break;
+            case AlgorithmItem::INPUT:
+                color = gDiagramColors.inputDataBackground;
+                break;
+            case AlgorithmItem::OUTPUT:
+                color = gDiagramColors.outputDataBackground;
+                break;
+            default:
+                color = item->isObject() ? gDiagramColors.objectBackground : gDiagramColors.algorithmBackground;
+                break;
+            }
+        }
+        item->setBrush(color);
         if (obj["self_out"].toBool())
             item->setObjectOutput(true);
         item->setPos(obj["x"].toDouble(), obj["y"].toDouble());
         scene->addItem(item);
         itemsList.append(item);
+    }
+
+    QJsonArray textsArr = root["texts"].toArray();
+    for (const QJsonValue &val : textsArr) {
+        QJsonObject to = val.toObject();
+        auto *txt = new DiagramTextItem();
+        QFont font;
+        font.fromString(to["font"].toString());
+        txt->setFont(font);
+        txt->setPlainText(to["text"].toString());
+        txt->setDefaultTextColor(QColor(to["color"].toString()));
+        txt->setTextInteractionFlags(Qt::TextEditorInteraction);
+        txt->setZValue(1000.0);
+        connect(txt, &DiagramTextItem::lostFocus,
+                scene, &DiagramScene::editorLostFocus);
+        connect(txt, &DiagramTextItem::selectedChange,
+                scene, &DiagramScene::itemSelected);
+        scene->addItem(txt);
+        txt->setPos(to["x"].toDouble(), to["y"].toDouble());
     }
 
     QJsonArray arrowsArr = root["arrows"].toArray();
@@ -565,8 +692,10 @@ void DiagramSceneDlg::createToolBox()
     connect(buttonGroup, QOverload<QAbstractButton *>::of(&QButtonGroup::buttonClicked),
             this, &DiagramSceneDlg::buttonGroupClicked);
     QGridLayout *layout = new QGridLayout;
-    layout->addWidget(createCellWidget(tr("Условие"), DiagramItem::Conditional), 0, 0);
-    layout->addWidget(createCellWidget(tr("Событие"), DiagramItem::StartEnd), 0, 1);
+    layout->addWidget(createCellWidget(tr("Начало"), DiagramItem::Start, AlgorithmItem::ALGORITM), 0, 0);
+    layout->addWidget(createCellWidget(tr("Конец"), DiagramItem::End, AlgorithmItem::ALGORITM), 0, 1);
+    layout->addWidget(createCellWidget(tr("Условие"), DiagramItem::Conditional, AlgorithmItem::CONDITION), 1, 0);
+    layout->addWidget(createCellWidget(tr("Событие"), DiagramItem::Event, AlgorithmItem::EVENT), 1, 1);
 
     QToolButton *textButton = new QToolButton;
     textButton->setCheckable(true);
@@ -603,15 +732,54 @@ void DiagramSceneDlg::createToolBox()
     algTree->setHeaderHidden(true);
     algTree->setDragEnabled(true);
 
+    QIcon folderIcon = QApplication::style()->standardIcon(QStyle::SP_DirIcon);
+    QIcon fileIcon = QApplication::style()->standardIcon(QStyle::SP_FileIcon);
+
+    // Built-in diagram elements folder
+    QTreeWidgetItem *elementsRoot = new QTreeWidgetItem;
+    elementsRoot->setText(0, tr("Элементы блок схемы"));
+    elementsRoot->setIcon(0, folderIcon);
+    algTree->addTopLevelItem(elementsRoot);
+
+    QTreeWidgetItem *textItem = new QTreeWidgetItem(elementsRoot);
+    textItem->setText(0, tr("Текст"));
+    textItem->setIcon(0, fileIcon);
+    textItem->setData(0, Qt::UserRole, -1);
+
+    QTreeWidgetItem *eventItem = new QTreeWidgetItem(elementsRoot);
+    eventItem->setText(0, tr("Событие"));
+    eventItem->setIcon(0, fileIcon);
+    eventItem->setData(0, Qt::UserRole, static_cast<int>(AlgorithmItem::EVENT));
+
+
+    QTreeWidgetItem *condItem = new QTreeWidgetItem(elementsRoot);
+    condItem->setText(0, tr("Условие"));
+    condItem->setIcon(0, fileIcon);
+    condItem->setData(0, Qt::UserRole, static_cast<int>(AlgorithmItem::CONDITION));
+
+    QTreeWidgetItem *inputItem = new QTreeWidgetItem(elementsRoot);
+    inputItem->setText(0, tr("Блок входных данных"));
+    inputItem->setIcon(0, fileIcon);
+    inputItem->setData(0, Qt::UserRole, static_cast<int>(AlgorithmItem::INPUT));
+
+    QTreeWidgetItem *outputItem = new QTreeWidgetItem(elementsRoot);
+    outputItem->setText(0, tr("Блок выходных данных"));
+    outputItem->setIcon(0, fileIcon);
+    outputItem->setData(0, Qt::UserRole, static_cast<int>(AlgorithmItem::OUTPUT));
+
+    QTreeWidgetItem *paramItem = new QTreeWidgetItem(elementsRoot);
+    paramItem->setText(0, tr("Блок параметров"));
+    paramItem->setIcon(0, fileIcon);
+    paramItem->setData(0, Qt::UserRole, static_cast<int>(AlgorithmItem::PARAM));
+
+    elementsRoot->setExpanded(true);
+
     QDir dir(QString(MAIN_DIR_DEFAULT) + SUB_DIR_ALGORITHMS);
     dir.setNameFilters({"*.json"});
     QFileInfoList files = dir.entryInfoList();
 
     QMap<QString, QTreeWidgetItem*> typeItems;
     QMap<QString, QMap<QString, QTreeWidgetItem*>> subTypeItems;
-
-    QIcon folderIcon = QApplication::style()->standardIcon(QStyle::SP_DirIcon);
-    QIcon fileIcon = QApplication::style()->standardIcon(QStyle::SP_FileIcon);
 
     for (const QFileInfo &info : files) {
         QFile f(info.absoluteFilePath());
@@ -801,7 +969,7 @@ void DiagramSceneDlg::createToolbars()
 
     lineColorToolButton = new QToolButton;
     lineColorToolButton->setPopupMode(QToolButton::MenuButtonPopup);
-    QColor defaultLineColor = Qt::white;
+    QColor defaultLineColor = Qt::black;
     lineColorToolButton->setMenu(createColorMenu(SLOT(lineColorChanged()), defaultLineColor));
     lineAction = lineColorToolButton->menu()->defaultAction();
     lineColorToolButton->setIcon(createColorToolButtonIcon(
@@ -871,7 +1039,8 @@ QWidget *DiagramSceneDlg::createBackgroundCellWidget(const QString &text, const 
 }
 
 // Создаёт элемент выбора стандартной блок-схемы
-QWidget *DiagramSceneDlg::createCellWidget(const QString &text, DiagramItem::DiagramType type)
+QWidget *DiagramSceneDlg::createCellWidget(const QString &text, DiagramItem::DiagramType type,
+                                           AlgorithmItem::AlgorithmType algType)
 {
 
     DiagramItem item(type, itemMenu);
@@ -881,7 +1050,7 @@ QWidget *DiagramSceneDlg::createCellWidget(const QString &text, DiagramItem::Dia
     button->setIcon(icon);
     button->setIconSize(QSize(50, 50));
     button->setCheckable(true);
-    buttonGroup->addButton(button, int(type));
+    buttonGroup->addButton(button, int(algType));
 
     QGridLayout *layout = new QGridLayout;
     layout->addWidget(button, 0, 0, Qt::AlignHCenter);

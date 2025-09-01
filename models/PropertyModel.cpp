@@ -138,7 +138,11 @@ void PropertyModel::setValue(const QVariant &value, bool updateTree)
         setValueByType(value);
 
     if (currentTreeItem == nullptr || !updateTree) return;
-    currentTreeItem->setText(1, variantToString(m_value));
+    try {
+        currentTreeItem->setText(1, variantToString(m_value));
+    } catch (std::exception &e) {
+        qDebug() << "Ошибка при установке значения в дерево: " << e.what();
+    }
 }
 
 void PropertyModel::setType(const QString &type)
@@ -192,6 +196,12 @@ QString PropertyModel::variantToString(const QVariant& value) const {
 
 QTreeWidgetItem* PropertyModel::getTreeWidgetItem(QTreeWidgetItem* parent)
 {
+    // При пересоздании дерева старый указатель на элемент может указывать на
+    // уже удалённый объект. Проверяем это и при необходимости создаём новый
+    // QTreeWidgetItem.
+    if (currentTreeItem != nullptr && currentTreeItem->treeWidget() == nullptr)
+        currentTreeItem = nullptr;
+
     if (currentTreeItem == nullptr) //return  currentTreeItem;
         currentTreeItem = new QTreeWidgetItem(parent);
 

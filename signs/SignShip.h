@@ -76,6 +76,7 @@ public:
     SignCircle(QList<QPointF> coord, QString name, double radius, QString classCode="31261500011300000000");
     void setCoordinatesInDegrees(QList<QPointF> coord, double radius, bool emit_signals=true);
     void setCoordinatesInRadians(QList<QPointF> coord, double radius, bool emit_signals=true);
+    float getRadius() const {return m_radius;}
 private:
     double m_radius;
 };

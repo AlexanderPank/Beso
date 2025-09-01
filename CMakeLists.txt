@@ -168,6 +168,7 @@ add_executable(ScenarioClient
         diagramscene/ObjectSelectDialog.h
         diagramscene/AlgorithmPropertiesDialog.h
         diagramscene/PropertiesDialog.h
+        diagramscene/diagramcolors.h
 
         diagramscene/DiagramSceneDlg.cpp
         diagramscene/algorithmitem.cpp
@@ -179,9 +180,12 @@ add_executable(ScenarioClient
         diagramscene/ObjectSelectDialog.cpp
         diagramscene/AlgorithmPropertiesDialog.cpp
         diagramscene/PropertiesDialog.cpp
+        diagramscene/diagramcolors.cpp
         diagramscene/itemtoolbox.ui
         diagramscene/ObjectSelectDialog.cpp
         diagramscene/ObjectSelectDialog.h
+        map_widget/map_additional/MapCompass.cpp
+        map_widget/map_additional/MapCompass.h
 )
 
 

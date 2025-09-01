@@ -13,7 +13,7 @@ Q_OBJECT
 public:
     explicit SimulationEventWidgetInMap(QWidget *parent = nullptr);
     ~SimulationEventWidgetInMap();
-    void clearEvents() { m_textEdit->clear(); m_wasScroll = 0; }
+    void clearEvents() { m_textEdit->clear(); m_wasScroll = 0; m_filter_text = ""; m_log_text_list.clear();}
 
 public slots:
     void updateEventList(const QJsonArray &events);

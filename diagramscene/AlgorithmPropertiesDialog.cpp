@@ -18,12 +18,20 @@ AlgorithmPropertiesDialog::AlgorithmPropertiesDialog(const QList<AlgorithmItem::
     m_inTable->setColumnCount(3);
     m_inTable->setHorizontalHeaderLabels(headers);
     m_inTable->verticalHeader()->setVisible(false);
-    m_inTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    m_inTable->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Interactive);
+    m_inTable->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Interactive);
+    m_inTable->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
+    m_inTable->setColumnWidth(0, 150);
+    m_inTable->setColumnWidth(1, 150);
 
     m_outTable->setColumnCount(3);
     m_outTable->setHorizontalHeaderLabels(headers);
     m_outTable->verticalHeader()->setVisible(false);
-    m_outTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    m_outTable->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Interactive);
+    m_outTable->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Interactive);
+    m_outTable->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
+    m_outTable->setColumnWidth(0, 150);
+    m_outTable->setColumnWidth(1, 150);
 
     int inCount = 0;
     int outCount = 0;
@@ -64,7 +72,34 @@ AlgorithmPropertiesDialog::AlgorithmPropertiesDialog(const QList<AlgorithmItem::
     connect(buttons, &QDialogButtonBox::rejected, this, &QDialog::reject);
     layout->addWidget(buttons);
 
-    resize(600, 400);
+    resize(600, 600);
+
+    m_outTable->setStyleSheet(
+            "QTableView { border: 1px solid #444; gridline-color: #444; color:#fefefe; }"
+            "QTableView:hover { border: 1px solid #444;  }"
+            "QTableView QLineEdit { background: transparent; border: none; }"
+            "QTableView QSpinBox { background: transparent; border: none; }"
+            "QTableView QComboBox { background: transparent; border: none; }"
+            "QTableView QDoubleSpinBox { background: transparent; border: none; }"
+            "QTableView QHeaderView::section {"
+            "  background-color: #2a2a2a;"
+            "  color: #aaa;"
+            "  padding: 4px 6px;"
+            "}"
+    );
+    m_inTable->setStyleSheet(
+            "QTableView { border: 1px solid #444; gridline-color: #444; color:#fefefe; }"
+            "QTableView:hover { border: 1px solid #444;  }"
+            "QTableView QLineEdit { background: transparent; border: none; }"
+            "QTableView QSpinBox { background: transparent; border: none; }"
+            "QTableView QComboBox { background: transparent; border: none; }"
+            "QTableView QDoubleSpinBox { background: transparent; border: none; }"
+            "QTableView QHeaderView::section {"
+            "  background-color: #2a2a2a;"
+            "  color: #aaa;"
+            "  padding: 4px 6px;"
+            "}"
+    );
 }
 
 QList<AlgorithmItem::PropertyInfo> AlgorithmPropertiesDialog::properties() const

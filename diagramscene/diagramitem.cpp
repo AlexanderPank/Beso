@@ -15,31 +15,26 @@ DiagramItem::DiagramItem(DiagramType diagramType, QMenu *contextMenu,
 {
     QPainterPath path;
     switch (myDiagramType) {
-        case StartEnd:
-            path.moveTo(75, 0);//-125,-50
-
+        case Start:
+        case End:
+            path.moveTo(75, 0);
             path.arcTo(25, -50, 50, 50, 0, 90);
             path.arcTo(-75, -50, 50, 50, 90, 90);
             path.arcTo(-75, 0, 50, 50, 180, 90);
             path.arcTo(25, 0, 50, 50, 270, 90);
-
             path.lineTo(75, -25);
             myPolygon = path.toFillPolygon();
             break;
-        case Conditional: //ромбик
+        case Conditional:
             myPolygon << QPointF(-100, 0) << QPointF(0, 100)
                       << QPointF(100, 0) << QPointF(0, -100)
                       << QPointF(-100, 0);
             break;
-        case Step: //квадратик
+        case Event:
+        default:
             myPolygon << QPointF(-100, -100) << QPointF(100, -100)
                       << QPointF(100, 100) << QPointF(-100, 100)
                       << QPointF(-100, -100);
-            break;
-        default: //ромбик
-            myPolygon << QPointF(-120, -80) << QPointF(-70, 80)
-                      << QPointF(120, 80) << QPointF(70, -80)
-                      << QPointF(-120, -80);
             break;
     }
     setPolygon(myPolygon);
@@ -63,8 +58,8 @@ void DiagramItem::removeArrows()
     // modify the arrows container
     const auto arrowsCopy = arrows;
     for (Arrow *arrow : arrowsCopy) {
-//        arrow->startItem()->removeArrow(arrow);
-//        arrow->endItem()->removeArrow(arrow);
+        // arrow->startItem()->removeArrow(arrow);
+        // arrow->endItem()->removeArrow(arrow);
         scene()->removeItem(arrow);
         delete arrow;
     }

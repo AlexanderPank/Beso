@@ -166,6 +166,7 @@ private:
     SimulationEventWidgetInMap *eventLog;
     bool is3DMode = false;
     int m_time_elapsed = 0;
+    bool m_waiting_scenario_reload = false;
 };
 
 #endif // MAINWINDOW_H
