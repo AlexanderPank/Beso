@@ -413,7 +413,7 @@ void MainWindow::createScenario() {
         QJsonArray arrayObjects;
         for(DataStorageItem* objectItem: DataStorageServiceFactory::getInstance()->getElements(TypeElement::teOBJECT)) {
             QString idObject = objectItem->getData().value("id").toString();
-            if(idObject.startsWith("Model_00") || idObject.startsWith("WEATHER")) {
+            if(idObject.startsWith("Model_00") || idObject.startsWith("WEATHER") || idObject.startsWith("CommunicationModel")) {
                 arrayObjects.append(objectItem->getData());
             }
         }
