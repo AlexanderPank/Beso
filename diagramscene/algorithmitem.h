@@ -21,7 +21,7 @@ class Arrow;
 class AlgorithmItem : public QGraphicsItem {
 public:
     enum { Type = UserType + 15 };
-    enum AlgorithmType { ALGORITM, CONDITION, EVENT, PARAM };
+    enum AlgorithmType { ALGORITM, CONDITION, EVENT, PARAM, INPUT, OUTPUT };
 
     // Constructs item with given type, context menu and connector lists
     AlgorithmItem(AlgorithmType diagramType, QMenu *contextMenu, QString title = "",
