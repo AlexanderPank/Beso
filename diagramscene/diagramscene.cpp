@@ -158,7 +158,8 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
                     QPair<QString,QString> f("SeeTarget","bool");
                     in.append(f);
                     out = {QPair<QString,QString> ("Lat","double"),QPair<QString,QString> ("Lon","double")};
-                    myItemColor = gDiagramColors.elementBackground;
+                    myItemColor = gDiagramColors.conditionBackground;
+
                 }break;
             case AlgorithmItem::EVENT:
                 title = "Событие";
@@ -331,6 +332,11 @@ void DiagramScene::dropEvent(QGraphicsSceneDragDropEvent *event)
             title = title.isEmpty() ? QStringLiteral("Событие") : title;
             outParams = {QPair<QString,QString>("SeeTarget","bool")};
             break;
+        case AlgorithmItem::CONDITION:
+            title = title.isEmpty() ? QStringLiteral("Условие") : title;
+            inParams = {QPair<QString,QString>("SeeTarget","bool")};
+            outParams = {QPair<QString,QString>("Lat","double"), QPair<QString,QString>("Lon","double")};
+            break;
         case AlgorithmItem::PARAM:
             title = title.isEmpty() ? QStringLiteral("Параметры") : title;
             inParams = {QPair<QString,QString>("Lat","double"), QPair<QString,QString>("Lon","double")};
@@ -350,6 +356,9 @@ void DiagramScene::dropEvent(QGraphicsSceneDragDropEvent *event)
         switch (algType) {
         case AlgorithmItem::EVENT:
             item->setBrush(gDiagramColors.eventBackground);
+            break;
+        case AlgorithmItem::CONDITION:
+            item->setBrush(gDiagramColors.conditionBackground);
             break;
         case AlgorithmItem::PARAM:
             item->setBrush(gDiagramColors.paramBackground);
@@ -373,6 +382,10 @@ void DiagramScene::dropEvent(QGraphicsSceneDragDropEvent *event)
         txt->setFont(myFont);
         txt->setTextInteractionFlags(Qt::TextEditorInteraction);
         txt->setZValue(1000.0);
+        QString t = event->mimeData()->text();
+        if (t.isEmpty())
+            t = QStringLiteral("Текст");
+        txt->setPlainText(t);
         connect(txt, &DiagramTextItem::lostFocus,
                 this, &DiagramScene::editorLostFocus);
         connect(txt, &DiagramTextItem::selectedChange,
