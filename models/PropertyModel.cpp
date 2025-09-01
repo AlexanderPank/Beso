@@ -192,6 +192,12 @@ QString PropertyModel::variantToString(const QVariant& value) const {
 
 QTreeWidgetItem* PropertyModel::getTreeWidgetItem(QTreeWidgetItem* parent)
 {
+    // При пересоздании дерева старый указатель на элемент может указывать на
+    // уже удалённый объект. Проверяем это и при необходимости создаём новый
+    // QTreeWidgetItem.
+    if (currentTreeItem != nullptr && currentTreeItem->treeWidget() == nullptr)
+        currentTreeItem = nullptr;
+
     if (currentTreeItem == nullptr) //return  currentTreeItem;
         currentTreeItem = new QTreeWidgetItem(parent);
 
