@@ -928,7 +928,7 @@ void ScenarioEditor::updateObjectsFromBD() {
     m_scenarioParser->clearFileModels();
     m_scenarioParser->clearAlgorithmModels();
     for(ObjectScenarioModel* iterObject: m_scenarioParser->getObjects()) {
-        QString objectId = (iterObject->getId()=="Model_00"||iterObject->getId()=="WEATHER")?iterObject->getId():iterObject->getId().left(iterObject->getId().lastIndexOf("_"));
+        QString objectId = (iterObject->getId()=="Model_00"||iterObject->getId()=="WEATHER"||iterObject->getId()=="CommunicationModel")?iterObject->getId():iterObject->getId().left(iterObject->getId().lastIndexOf("_"));
         QJsonObject templateJsonObject;
         for(DataStorageItem* iterItem: dataStorageItems) {
             if(iterItem->getData()["id"] == objectId){
