@@ -102,7 +102,7 @@ protected:
             if (t == -1) {
                 mimeData->setData("application/x-diagram-text", QByteArray());
                 QGraphicsTextItem temp(item->text(0));
-                QGraphicsScene tmpScene;
+                QGraphicsScene tmpScene; AlgorithmTreeWidget::startDrag DiagramSceneDlg.cpp:105
                 tmpScene.addItem(&temp);
                 QRectF br = temp.boundingRect();
                 QPixmap tpix(br.size().toSize());

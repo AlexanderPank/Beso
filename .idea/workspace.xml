@@ -26,7 +26,6 @@
   <component name="ChangeListManager">
     <list default="true" id="4bf0ab9c-4e55-4ffa-befb-862d7ffbe0c5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/diagramscene/AlgorithmPropertiesDialog.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/diagramscene/AlgorithmPropertiesDialog.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +55,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "CMake Application.ScenarioClient.executor": "Debug",
+    "CMake Application.ScenarioClient.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -107,7 +106,7 @@
       <workItem from="1756563841044" duration="635000" />
       <workItem from="1756564720839" duration="1315000" />
       <workItem from="1756575896221" duration="15448000" />
-      <workItem from="1756712014769" duration="2543000" />
+      <workItem from="1756712014769" duration="5101000" />
     </task>
     <servers />
   </component>
