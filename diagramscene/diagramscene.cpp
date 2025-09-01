@@ -158,17 +158,27 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
                     QPair<QString,QString> f("SeeTarget","bool");
                     in.append(f);
                     out = {QPair<QString,QString> ("Lat","double"),QPair<QString,QString> ("Lon","double")};
-                    myItemColor = gDiagramColors.elementBackground;
+                    myItemColor = gDiagramColors.conditionBackground;
                 }break;
             case AlgorithmItem::EVENT:
                 title = "Событие";
                 out = {QPair<QString,QString> ("SeeTarget","bool")};
-                myItemColor = gDiagramColors.elementBackground;
+                myItemColor = gDiagramColors.eventBackground;
                 break;
             case AlgorithmItem::PARAM:
                 title = "Параметры";
                 in = {QPair<QString,QString> ("Lat","double"),QPair<QString,QString> ("Lon","double")};
-                myItemColor = gDiagramColors.elementBackground;
+                myItemColor = gDiagramColors.paramBackground;
+                break;
+            case AlgorithmItem::INPUT:
+                title = "Блок входных данных";
+                out = {QPair<QString,QString> ("Data","var")};
+                myItemColor = gDiagramColors.inputDataBackground;
+                break;
+            case AlgorithmItem::OUTPUT:
+                title = "Блок выходных данных";
+                in = {QPair<QString,QString> ("Data","var")};
+                myItemColor = gDiagramColors.outputDataBackground;
                 break;
             default:
                 break;
@@ -255,7 +265,9 @@ void DiagramScene::wheelEvent(QGraphicsSceneWheelEvent *mouseEvent)
 // Обрабатывает вход объекта при перетаскивании
 void DiagramScene::dragEnterEvent(QGraphicsSceneDragDropEvent *event)
 {
-    if (event->mimeData()->hasFormat("application/x-algorithm"))
+    if (event->mimeData()->hasFormat("application/x-algorithm") ||
+        event->mimeData()->hasFormat("application/x-diagram-item") ||
+        event->mimeData()->hasFormat("application/x-diagram-text"))
         event->acceptProposedAction();
     else
         QGraphicsScene::dragEnterEvent(event);
@@ -264,7 +276,9 @@ void DiagramScene::dragEnterEvent(QGraphicsSceneDragDropEvent *event)
 // Обрабатывает перемещение объекта при перетаскивании
 void DiagramScene::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
 {
-    if (event->mimeData()->hasFormat("application/x-algorithm"))
+    if (event->mimeData()->hasFormat("application/x-algorithm") ||
+        event->mimeData()->hasFormat("application/x-diagram-item") ||
+        event->mimeData()->hasFormat("application/x-diagram-text"))
         event->acceptProposedAction();
     else
         QGraphicsScene::dragMoveEvent(event);
@@ -305,6 +319,80 @@ void DiagramScene::dropEvent(QGraphicsSceneDragDropEvent *event)
             item->setPos(event->scenePos());
             emit itemInserted(item);
         }
+        event->acceptProposedAction();
+    } else if (event->mimeData()->hasFormat("application/x-diagram-item")) {
+        int type = event->mimeData()->data("application/x-diagram-item").toInt();
+        QString title = event->mimeData()->text();
+        QList<QPair<QString,QString>> inParams;
+        QList<QPair<QString,QString>> outParams;
+        AlgorithmItem::AlgorithmType algType = static_cast<AlgorithmItem::AlgorithmType>(type);
+        switch (algType) {
+        case AlgorithmItem::EVENT:
+            title = title.isEmpty() ? QStringLiteral("Событие") : title;
+            outParams = {QPair<QString,QString>("SeeTarget","bool")};
+            break;
+        case AlgorithmItem::CONDITION:
+            title = title.isEmpty() ? QStringLiteral("Условие") : title;
+            inParams = {QPair<QString,QString>("SeeTarget","bool")};
+            outParams = {QPair<QString,QString>("Lat","double"), QPair<QString,QString>("Lon","double")};
+            break;
+        case AlgorithmItem::PARAM:
+            title = title.isEmpty() ? QStringLiteral("Параметры") : title;
+            inParams = {QPair<QString,QString>("Lat","double"), QPair<QString,QString>("Lon","double")};
+            break;
+        case AlgorithmItem::INPUT:
+            title = title.isEmpty() ? QStringLiteral("Блок входных данных") : title;
+            outParams = {QPair<QString,QString>("Data","var")};
+            break;
+        case AlgorithmItem::OUTPUT:
+            title = title.isEmpty() ? QStringLiteral("Блок выходных данных") : title;
+            inParams = {QPair<QString,QString>("Data","var")};
+            break;
+        default:
+            break;
+        }
+        AlgorithmItem *item = new AlgorithmItem(algType, myItemMenu, title, inParams, outParams);
+        switch (algType) {
+        case AlgorithmItem::EVENT:
+            item->setBrush(gDiagramColors.eventBackground);
+            break;
+        case AlgorithmItem::CONDITION:
+            item->setBrush(gDiagramColors.conditionBackground);
+            break;
+        case AlgorithmItem::PARAM:
+            item->setBrush(gDiagramColors.paramBackground);
+            break;
+        case AlgorithmItem::INPUT:
+            item->setBrush(gDiagramColors.inputDataBackground);
+            break;
+        case AlgorithmItem::OUTPUT:
+            item->setBrush(gDiagramColors.outputDataBackground);
+            break;
+        default:
+            item->setBrush(gDiagramColors.elementBackground);
+            break;
+        }
+        addItem(item);
+        item->setPos(event->scenePos());
+        emit itemInserted(item);
+        event->acceptProposedAction();
+    } else if (event->mimeData()->hasFormat("application/x-diagram-text")) {
+        DiagramTextItem *txt = new DiagramTextItem();
+        txt->setFont(myFont);
+        txt->setTextInteractionFlags(Qt::TextEditorInteraction);
+        txt->setZValue(1000.0);
+        QString t = event->mimeData()->text();
+        if (t.isEmpty())
+            t = QStringLiteral("Текст");
+        txt->setPlainText(t);
+        connect(txt, &DiagramTextItem::lostFocus,
+                this, &DiagramScene::editorLostFocus);
+        connect(txt, &DiagramTextItem::selectedChange,
+                this, &DiagramScene::itemSelected);
+        addItem(txt);
+        txt->setDefaultTextColor(myTextColor);
+        txt->setPos(event->scenePos());
+        emit textInserted(txt);
         event->acceptProposedAction();
     } else {
         QGraphicsScene::dropEvent(event);

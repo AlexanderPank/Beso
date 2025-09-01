@@ -70,13 +70,19 @@ QPixmap AlgorithmItem::image(AlgorithmType type) {
         setBrush(gDiagramColors.algorithmBackground);
         break;
     case CONDITION:
-        setBrush(gDiagramColors.elementBackground);
+        setBrush(gDiagramColors.conditionBackground);
         break;
     case EVENT:
-        setBrush(gDiagramColors.elementBackground);
+        setBrush(gDiagramColors.eventBackground);
         break;
     case PARAM:
-        setBrush(gDiagramColors.elementBackground);
+        setBrush(gDiagramColors.paramBackground);
+        break;
+    case INPUT:
+        setBrush(gDiagramColors.inputDataBackground);
+        break;
+    case OUTPUT:
+        setBrush(gDiagramColors.outputDataBackground);
         break;
     default:
         pixmap.fill(Qt::transparent);
