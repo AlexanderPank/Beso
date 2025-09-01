@@ -119,7 +119,6 @@ private:
     SignDrawer* m_signDrawer;
     bool m_treeItemEditMode = false;
 
-    QList<FeatureModel*> m_tmp_listFeatures;
 
     SimulationEventWidgetInMap *m_eventLog;
 };

@@ -210,11 +210,12 @@ void ScenarioEditor::moveAllElements(const QPointF &newCenter) {
 
 int ScenarioEditor::loadScenario(const QString &filePath, const QString &mapPath,MapWidget *mapWidget)
 {
+
     if (!m_scenarioParser->loadScenario(filePath)){
         QMessageBox::warning(this, "Error", "Ошибка загрузки сценария " + filePath );
     }
 
-
+    m_features.clear();
     m_signController->clear();
     m_signObjects.clear();
     m_scenario_file = filePath;
@@ -460,7 +461,7 @@ QString ScenarioEditor::findChildValue(QTreeWidgetItem *parent, const QString &n
 void ScenarioEditor::createSignsFromObjects(QList<ObjectScenarioModel*> objects, QList<FeatureModel*> features){
     // Очищаем предыдущие связи
     m_signObjects.clear();
-    m_tmp_listFeatures = features;
+
     for (auto obj: features) {
         createSignFromFeature(obj);
     }
@@ -808,12 +809,8 @@ void ScenarioEditor::updateObjectStateFromModel(QJsonArray jsonObjectList, QJson
             }
 
             if (lon != 0 && lat != 0) {
-                auto current = sign->getCoordinatesInDegrees();
-                QPointF from;
-                if (!current.isEmpty())
-                    from = current.first();
-                SignAnimator::startAnimation(sign, from, QPointF(lat, lon),
-                                            course, 1000);
+                sign->setCoordinatesInDegrees({QPointF(lat,lon)}, course);
+                m_signController->updateSignOnMap(sign);
             }
             // смотрим появлись ли поля для отображения гео объектов
 

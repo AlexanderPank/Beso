@@ -8,6 +8,8 @@ AlgorithmModel::AlgorithmModel(QObject *parent) : QObject(parent)
 
 AlgorithmModel::~AlgorithmModel()
 {
+    qDeleteAll(m_inputParameters);
+    qDeleteAll(m_outputParameters);
 }
 
 // Getters implementation

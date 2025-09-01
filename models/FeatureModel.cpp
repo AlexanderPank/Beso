@@ -4,7 +4,9 @@
 #include <QJsonArray>
 #include <QHBoxLayout>
 
-FeatureModel::~FeatureModel(){}
+FeatureModel::~FeatureModel(){
+    qDeleteAll(m_properties);
+}
 
 FeatureModel* FeatureModel::fromJson(const QJsonObject &json, QObject* parent){
     auto *model = new FeatureModel(parent);
@@ -175,6 +177,7 @@ QTreeWidgetItem* FeatureModel::getTreeWidgetItem(QTreeWidgetItem *parent)
     connect(m_tree_widget_item->treeWidget(), &QTreeWidget::itemDoubleClicked, this, [this](QTreeWidgetItem *item, int column) {
         m_treeItemEditMode = column == 1;
     });
+    return m_tree_widget_item;
     // Добавляем свойства как дочерние элементы
     auto addProperty = [this](const QString &name, const QString &value,
                               std::function<void(QString)> callback = nullptr) -> QTreeWidgetItem* {
@@ -196,7 +199,9 @@ QTreeWidgetItem* FeatureModel::getTreeWidgetItem(QTreeWidgetItem *parent)
 
     };
 
+
     addProperty("Тип", m_type);
+
     addProperty("parent_id", m_parent_id, [this](const QString value) { setParentID(value);});
     addProperty("Класс код", m_class_code, [this](const QString value) {  setClassCode(value); emit redrawFeature(this); });
     addProperty("Толщина линии", QString::number(m_line_width), [this](const QString value) { bool ok; double v = value.toDouble(&ok); if(ok) setLineWidth(v); emit redrawFeature(this); });

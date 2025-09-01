@@ -31,8 +31,16 @@ bool ScenarioParser::loadScenario(const QString& filePath) {
     qDeleteAll(m_features);
     m_features.clear();
 
-    delete m_simulation_parameters;
-    m_simulation_parameters = nullptr;
+
+    delete m_simulation_parameters; m_simulation_parameters = nullptr;
+    delete rootItem        ;rootItem           = nullptr;
+    delete classesItem     ;classesItem        = nullptr;
+    delete objectsItem     ;objectsItem        = nullptr;
+    delete tacticalObject  ;tacticalObject     = nullptr;
+    delete algItem         ;algItem            = nullptr;
+    delete filesItem       ;filesItem          = nullptr;
+    delete interactionItems;interactionItems   = nullptr;
+    delete featuresItem    ;featuresItem       = nullptr;
 
     QJsonDocument doc = QJsonDocument::fromJson(file.readAll());
     m_rootJson = doc.object();
@@ -245,6 +253,7 @@ FileModel *ScenarioParser::addFileModel(QJsonObject file) {
 
 void ScenarioParser::buildTree(QTreeWidget* treeWidget) {
     treeWidget->clear();
+
     rootItem = new QTreeWidgetItem(treeWidget);
     rootItem->setText(0, m_scenario_id);
 
@@ -252,7 +261,7 @@ void ScenarioParser::buildTree(QTreeWidget* treeWidget) {
     objectsItem = new QTreeWidgetItem(treeWidget);
     objectsItem->setText(0, "Объекты");
     for (ObjectScenarioModel* obj : m_objects) {
-        obj->getTreeWidgetItem(objectsItem);
+        obj->getTreeWidgetItem(objectsItem, true);
     }
 
     classesItem = new QTreeWidgetItem(treeWidget);
@@ -264,8 +273,9 @@ void ScenarioParser::buildTree(QTreeWidget* treeWidget) {
 
     featuresItem = new QTreeWidgetItem(treeWidget);
     featuresItem->setText(0, "Тактические знаки");
-    for (FeatureModel* obj : m_features)
-        obj->getTreeWidgetItem(featuresItem);
+
+    for (FeatureModel* feature : m_features)
+        feature->getTreeWidgetItem(featuresItem);
 
     // Добавление алгоритмов
     algItem = new QTreeWidgetItem(treeWidget);

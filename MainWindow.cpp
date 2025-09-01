@@ -234,9 +234,11 @@ void MainWindow::update3DButtonView() {
 }
 
 void MainWindow::handleSimulationStateUpdate(QJsonDocument data) {
+
     auto time_elapsed = data["time_elapsed"].toInt();
     if (m_time_elapsed == time_elapsed) return;
     m_time_elapsed = time_elapsed;
+    if (m_waiting_scenario_reload) return;
 
     if (data["status"] == STATE_FINISHED && state != ModelState::Stopped) {
         setModelingProcessState(ModelState::Stopped);
@@ -355,12 +357,15 @@ void MainWindow::pauseSimulation() {
 }
 
 void MainWindow::reloadScenario() {
-
+    m_waiting_scenario_reload = true;
     if (state == ModelState::Playing || state == ModelState::Paused) {
         stopSimulation();
     }
+
+
     if (currentScenarioFileName != "")
         openScenario(currentScenarioFileName);
+    m_waiting_scenario_reload = false;
 }
 
 void MainWindow::resumeSimulation() {

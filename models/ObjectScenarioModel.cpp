@@ -12,6 +12,9 @@ ObjectScenarioModel::ObjectScenarioModel(QObject *parent) : QObject(parent)
 
 ObjectScenarioModel::~ObjectScenarioModel()
 {
+    qDeleteAll(m_properties);
+    qDeleteAll(m_features);
+    qDeleteAll(m_actions);
 }
 
 // Геттеры

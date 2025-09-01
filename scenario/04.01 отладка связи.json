@@ -1150,51 +1150,6 @@
             "id": "",
             "interaction_type": "moving",
             "response_action": "",
-            "response_set_values": "BPLA_VT40_1.properties['lat'] = SHIP_ROGOV_1.properties['lat']; BPLA_VT40_1.properties['lon'] = SHIP_ROGOV_1.properties['lon']",
-            "source_object_id": "BPLA_VT40_1",
-            "title": "",
-            "trigger_condition": "SHIP_ROGOV_1.properties['state'] == 'moving' and BPLA_VT40_1.properties['state'] == 'standing'"
-        },
-        {
-            "id": "",
-            "interaction_type": "moving",
-            "response_action": "BPLA_VT40_1.actions.move(item=BPLA_VT40_1,  path=BPLA_VT40_1.properties['geo_path'],  time_in_seconds=self.second_in_iteration)",
-            "response_set_values": "",
-            "source_object_id": "BPLA_VT40_1",
-            "title": "Движение по маршруту",
-            "trigger_condition": "len(BPLA_VT40_1.properties['geo_path']['geometry']['coordinates']) > 0 and BPLA_VT40_1.properties['state'] in ['moving', 'attacking']"
-        },
-        {
-            "id": "",
-            "interaction_type": "check_destroyed",
-            "response_action": "",
-            "response_set_values": "BPLA_VT40_1.properties['target'] = ''; ",
-            "source_object_id": "BPLA_VT40_1",
-            "title": "Цель уничтожена",
-            "trigger_condition": "BPLA_VT40_1.properties['state'] == 'moving'  and  BPLA_VT40_1.properties['target'] != '' and BPLA_VT40_1.actions.check_destroyed(objects=self.objects,  attacker=BPLA_VT40_1, target=BPLA_VT40_1.properties['target'], min_distance=BPLA_VT40_1.properties['distance_of_defeat'], probability=BPLA_VT40_1.properties['probability']) "
-        },
-        {
-            "id": "",
-            "interaction_type": "search",
-            "response_action": "Model_00.actions.fox_rabbit(lat1=BPLA_VT40_1.properties['lat'], lon1=BPLA_VT40_1.properties['lon'], alt1=BPLA_VT40_1.properties['alt'], speed1=BPLA_VT40_1.properties['speed'], lat2=Model_00.actions.get_object_prop(item=BPLA_VT40_1.properties['target'], prop='lat', objects=self.objects), lon2=Model_00.actions.get_object_prop(item=BPLA_VT40_1.properties['target'], prop='lon', objects=self.objects), alt2=Model_00.actions.get_object_prop(item=BPLA_VT40_1.properties['target'], prop='alt', objects=self.objects), speed2=Model_00.actions.get_object_prop(item=BPLA_VT40_1.properties['target'], prop='speed', objects=self.objects), course2=Model_00.actions.get_object_prop(item=BPLA_VT40_1.properties['target'], prop='course', objects=self.objects), dt=100.0) and BPLA_VT40_1.properties['geo_path']['geometry']['coordinates'] = BPLA_VT40_1.actions.find_path(ship_lat=BPLA_VT40_1.properties['lat'], ship_lon=BPLA_VT40_1.properties['lon'], target_lat=Model_00.properties['lat'], target_lon=Model_00.properties['lon'], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"))",
-            "response_set_values": "BPLA_VT40_1.properties['state'] = 'moving'; BPLA_VT40_1.properties['segment_index'] = 0; ",
-            "source_object_id": "BPLA_VT40_1",
-            "title": "Цель обнаружена, расчет точки встречи и вычисление маршрута",
-            "trigger_condition": "BPLA_VT40_1.properties['state'] in ['finished', 'moving'] and BPLA_VT40_1.properties['target'] != '' and self.iteration_time % 10 == 0 and BPLA_VT40_1.actions.detect_enemy(item1=BPLA_VT40_1, objects=self.objects, rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], max_distance=BPLA_VT40_1.properties['detection_distance'])"
-        },
-        {
-            "id": "",
-            "interaction_type": "search",
-            "response_action": "Model_00.actions.fox_rabbit(lat1=BPLA_VT40_1.properties['lat'], lon1=BPLA_VT40_1.properties['lon'], alt1=BPLA_VT40_1.properties['alt'], speed1=BPLA_VT40_1.properties['speed'], lat2=Model_00.actions.get_object_prop(item=BPLA_VT40_1.properties['target'], prop='lat', objects=self.objects), lon2=Model_00.actions.get_object_prop(item=BPLA_VT40_1.properties['target'], prop='lon', objects=self.objects), alt2=Model_00.actions.get_object_prop(item=BPLA_VT40_1.properties['target'], prop='alt', objects=self.objects), speed2=Model_00.actions.get_object_prop(item=BPLA_VT40_1.properties['target'], prop='speed', objects=self.objects), course2=Model_00.actions.get_object_prop(item=BPLA_VT40_1.properties['target'], prop='course', objects=self.objects), dt=100.0) and BPLA_VT40_1.properties['geo_path']['geometry']['coordinates'] = BPLA_VT40_1.actions.find_path(ship_lat=BPLA_VT40_1.properties['lat'], ship_lon=BPLA_VT40_1.properties['lon'], target_lat=Model_00.properties['lat'], target_lon=Model_00.properties['lon'], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"))",
-            "response_set_values": "BPLA_VT40_1.properties['state'] = 'moving'; BPLA_VT40_1.properties['segment_index'] = 0; ",
-            "source_object_id": "BPLA_VT40_1",
-            "title": "Расчет точки встречи и вычисление маршрута",
-            "trigger_condition": "BPLA_VT40_1.properties['state'] not in ['finished', 'moving'] and BPLA_VT40_1.properties['target'] != ''"
-        },
-        {
-            "id": "",
-            "interaction_type": "moving",
-            "response_action": "",
             "response_set_values": "",
             "source_object_id": "BPLA_1",
             "title": "Недопустимые метеоусловия для полета",
@@ -1280,6 +1235,168 @@
             "source_object_id": "BPLA_1",
             "title": "",
             "trigger_condition": "True == True "
+        },
+        {
+            "id": "",
+            "interaction_type": "moving",
+            "response_action": "",
+            "response_set_values": "BPLA_VT40_1.properties['lat'] = SHIP_ROGOV_1.properties['lat']; BPLA_VT40_1.properties['lon'] = SHIP_ROGOV_1.properties['lon']",
+            "source_object_id": "BPLA_VT40_1",
+            "title": "",
+            "trigger_condition": "SHIP_ROGOV_1.properties['state'] == 'moving' and BPLA_VT40_1.properties['state'] == 'standing'"
+        },
+        {
+            "id": "",
+            "interaction_type": "moving",
+            "response_action": "",
+            "response_set_values": "BPLA_VT40_1.properties['parent_id'] = 'SHIP_ROGOV_1'",
+            "source_object_id": "BPLA_VT40_1",
+            "title": "",
+            "trigger_condition": "BPLA_VT40_1.properties['state'] == 'standing'"
+        },
+        {
+            "id": "",
+            "interaction_type": "moving",
+            "response_action": "BPLA_VT40_1.actions.move(item=BPLA_VT40_1,  path=BPLA_VT40_1.properties['geo_path'],  time_in_seconds=self.second_in_iteration)",
+            "response_set_values": "",
+            "source_object_id": "BPLA_VT40_1",
+            "title": "Движение по маршруту",
+            "trigger_condition": "len(BPLA_VT40_1.properties['geo_path']['geometry']['coordinates']) > 0 and BPLA_VT40_1.properties['state'] in ['moving', 'attacking']"
+        },
+        {
+            "id": "",
+            "interaction_type": "check_destroyed",
+            "response_action": "",
+            "response_set_values": "BPLA_VT40_1.properties['target'] = ''; ",
+            "source_object_id": "BPLA_VT40_1",
+            "title": "Цель уничтожена",
+            "trigger_condition": "BPLA_VT40_1.properties['state'] == 'moving'  and  BPLA_VT40_1.properties['target'] != '' and BPLA_VT40_1.actions.check_destroyed(objects=self.objects,  attacker=BPLA_VT40_1, target=BPLA_VT40_1.properties['target'], min_distance=BPLA_VT40_1.properties['distance_of_defeat'], probability=BPLA_VT40_1.properties['probability']) "
+        },
+        {
+            "id": "",
+            "interaction_type": "search",
+            "response_action": "Model_00.actions.fox_rabbit(lat1=BPLA_VT40_1.properties['lat'], lon1=BPLA_VT40_1.properties['lon'], alt1=BPLA_VT40_1.properties['alt'], speed1=BPLA_VT40_1.properties['speed'], lat2=Model_00.actions.get_object_prop(item=BPLA_VT40_1.properties['target'], prop='lat', objects=self.objects), lon2=Model_00.actions.get_object_prop(item=BPLA_VT40_1.properties['target'], prop='lon', objects=self.objects), alt2=Model_00.actions.get_object_prop(item=BPLA_VT40_1.properties['target'], prop='alt', objects=self.objects), speed2=Model_00.actions.get_object_prop(item=BPLA_VT40_1.properties['target'], prop='speed', objects=self.objects), course2=Model_00.actions.get_object_prop(item=BPLA_VT40_1.properties['target'], prop='course', objects=self.objects), dt=100.0) and BPLA_VT40_1.properties['geo_path']['geometry']['coordinates'] = BPLA_VT40_1.actions.find_path(ship_lat=BPLA_VT40_1.properties['lat'], ship_lon=BPLA_VT40_1.properties['lon'], target_lat=Model_00.properties['lat'], target_lon=Model_00.properties['lon'], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"))",
+            "response_set_values": "BPLA_VT40_1.properties['state'] = 'moving'; BPLA_VT40_1.properties['segment_index'] = 0; ",
+            "source_object_id": "BPLA_VT40_1",
+            "title": "Цель обнаружена, расчет точки встречи и вычисление маршрута",
+            "trigger_condition": "BPLA_VT40_1.properties['state'] in ['finished', 'moving'] and BPLA_VT40_1.properties['target'] != '' and self.iteration_time % 10 == 0 and BPLA_VT40_1.actions.detect_enemy(item1=BPLA_VT40_1, objects=self.objects, rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], max_distance=BPLA_VT40_1.properties['detection_distance'])"
+        },
+        {
+            "id": "",
+            "interaction_type": "search",
+            "response_action": "Model_00.actions.fox_rabbit(lat1=BPLA_VT40_1.properties['lat'], lon1=BPLA_VT40_1.properties['lon'], alt1=BPLA_VT40_1.properties['alt'], speed1=BPLA_VT40_1.properties['speed'], lat2=Model_00.actions.get_object_prop(item=BPLA_VT40_1.properties['target'], prop='lat', objects=self.objects), lon2=Model_00.actions.get_object_prop(item=BPLA_VT40_1.properties['target'], prop='lon', objects=self.objects), alt2=Model_00.actions.get_object_prop(item=BPLA_VT40_1.properties['target'], prop='alt', objects=self.objects), speed2=Model_00.actions.get_object_prop(item=BPLA_VT40_1.properties['target'], prop='speed', objects=self.objects), course2=Model_00.actions.get_object_prop(item=BPLA_VT40_1.properties['target'], prop='course', objects=self.objects), dt=100.0) and BPLA_VT40_1.properties['geo_path']['geometry']['coordinates'] = BPLA_VT40_1.actions.find_path(ship_lat=BPLA_VT40_1.properties['lat'], ship_lon=BPLA_VT40_1.properties['lon'], target_lat=Model_00.properties['lat'], target_lon=Model_00.properties['lon'], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"))",
+            "response_set_values": "BPLA_VT40_1.properties['state'] = 'moving'; BPLA_VT40_1.properties['segment_index'] = 0; ",
+            "source_object_id": "BPLA_VT40_1",
+            "title": "Расчет точки встречи и вычисление маршрута",
+            "trigger_condition": "BPLA_VT40_1.properties['state'] not in ['finished', 'moving'] and BPLA_VT40_1.properties['target'] != ''"
+        },
+        {
+            "id": "",
+            "interaction_type": "moving",
+            "response_action": "",
+            "response_set_values": "BPLA_VT40_2.properties['lat'] = SHIP_ROGOV_1.properties['lat']; BPLA_VT40_2.properties['lon'] = SHIP_ROGOV_1.properties['lon']",
+            "source_object_id": "BPLA_VT40_2",
+            "title": "",
+            "trigger_condition": "SHIP_ROGOV_1.properties['state'] == 'moving' and BPLA_VT40_2.properties['state'] == 'standing'"
+        },
+        {
+            "id": "",
+            "interaction_type": "moving",
+            "response_action": "",
+            "response_set_values": "BPLA_VT40_2.properties['parent_id'] = 'SHIP_ROGOV_1'",
+            "source_object_id": "BPLA_VT40_2",
+            "title": "",
+            "trigger_condition": "BPLA_VT40_2.properties['state'] == 'standing'"
+        },
+        {
+            "id": "",
+            "interaction_type": "moving",
+            "response_action": "BPLA_VT40_2.actions.move(item=BPLA_VT40_2,  path=BPLA_VT40_2.properties['geo_path'],  time_in_seconds=self.second_in_iteration)",
+            "response_set_values": "",
+            "source_object_id": "BPLA_VT40_2",
+            "title": "Движение по маршруту",
+            "trigger_condition": "len(BPLA_VT40_2.properties['geo_path']['geometry']['coordinates']) > 0 and BPLA_VT40_2.properties['state'] in ['moving', 'attacking']"
+        },
+        {
+            "id": "",
+            "interaction_type": "check_destroyed",
+            "response_action": "",
+            "response_set_values": "BPLA_VT40_2.properties['target'] = ''; ",
+            "source_object_id": "BPLA_VT40_2",
+            "title": "Цель уничтожена",
+            "trigger_condition": "BPLA_VT40_2.properties['state'] == 'moving'  and  BPLA_VT40_2.properties['target'] != '' and BPLA_VT40_2.actions.check_destroyed(objects=self.objects,  attacker=BPLA_VT40_2, target=BPLA_VT40_2.properties['target'], min_distance=BPLA_VT40_2.properties['distance_of_defeat'], probability=BPLA_VT40_2.properties['probability']) "
+        },
+        {
+            "id": "",
+            "interaction_type": "search",
+            "response_action": "Model_00.actions.fox_rabbit(lat1=BPLA_VT40_2.properties['lat'], lon1=BPLA_VT40_2.properties['lon'], alt1=BPLA_VT40_2.properties['alt'], speed1=BPLA_VT40_2.properties['speed'], lat2=Model_00.actions.get_object_prop(item=BPLA_VT40_2.properties['target'], prop='lat', objects=self.objects), lon2=Model_00.actions.get_object_prop(item=BPLA_VT40_2.properties['target'], prop='lon', objects=self.objects), alt2=Model_00.actions.get_object_prop(item=BPLA_VT40_2.properties['target'], prop='alt', objects=self.objects), speed2=Model_00.actions.get_object_prop(item=BPLA_VT40_2.properties['target'], prop='speed', objects=self.objects), course2=Model_00.actions.get_object_prop(item=BPLA_VT40_2.properties['target'], prop='course', objects=self.objects), dt=100.0) and BPLA_VT40_2.properties['geo_path']['geometry']['coordinates'] = BPLA_VT40_2.actions.find_path(ship_lat=BPLA_VT40_2.properties['lat'], ship_lon=BPLA_VT40_2.properties['lon'], target_lat=Model_00.properties['lat'], target_lon=Model_00.properties['lon'], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"))",
+            "response_set_values": "BPLA_VT40_2.properties['state'] = 'moving'; BPLA_VT40_2.properties['segment_index'] = 0; ",
+            "source_object_id": "BPLA_VT40_2",
+            "title": "Цель обнаружена, расчет точки встречи и вычисление маршрута",
+            "trigger_condition": "BPLA_VT40_2.properties['state'] in ['finished', 'moving'] and BPLA_VT40_2.properties['target'] != '' and self.iteration_time % 10 == 0 and BPLA_VT40_2.actions.detect_enemy(item1=BPLA_VT40_2, objects=self.objects, rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], max_distance=BPLA_VT40_2.properties['detection_distance'])"
+        },
+        {
+            "id": "",
+            "interaction_type": "search",
+            "response_action": "Model_00.actions.fox_rabbit(lat1=BPLA_VT40_2.properties['lat'], lon1=BPLA_VT40_2.properties['lon'], alt1=BPLA_VT40_2.properties['alt'], speed1=BPLA_VT40_2.properties['speed'], lat2=Model_00.actions.get_object_prop(item=BPLA_VT40_2.properties['target'], prop='lat', objects=self.objects), lon2=Model_00.actions.get_object_prop(item=BPLA_VT40_2.properties['target'], prop='lon', objects=self.objects), alt2=Model_00.actions.get_object_prop(item=BPLA_VT40_2.properties['target'], prop='alt', objects=self.objects), speed2=Model_00.actions.get_object_prop(item=BPLA_VT40_2.properties['target'], prop='speed', objects=self.objects), course2=Model_00.actions.get_object_prop(item=BPLA_VT40_2.properties['target'], prop='course', objects=self.objects), dt=100.0) and BPLA_VT40_2.properties['geo_path']['geometry']['coordinates'] = BPLA_VT40_2.actions.find_path(ship_lat=BPLA_VT40_2.properties['lat'], ship_lon=BPLA_VT40_2.properties['lon'], target_lat=Model_00.properties['lat'], target_lon=Model_00.properties['lon'], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"))",
+            "response_set_values": "BPLA_VT40_2.properties['state'] = 'moving'; BPLA_VT40_2.properties['segment_index'] = 0; ",
+            "source_object_id": "BPLA_VT40_2",
+            "title": "Расчет точки встречи и вычисление маршрута",
+            "trigger_condition": "BPLA_VT40_2.properties['state'] not in ['finished', 'moving'] and BPLA_VT40_2.properties['target'] != ''"
+        },
+        {
+            "id": "",
+            "interaction_type": "moving",
+            "response_action": "",
+            "response_set_values": "BPLA_VT40_3.properties['lat'] = SHIP_ROGOV_1.properties['lat']; BPLA_VT40_3.properties['lon'] = SHIP_ROGOV_1.properties['lon']",
+            "source_object_id": "BPLA_VT40_3",
+            "title": "",
+            "trigger_condition": "SHIP_ROGOV_1.properties['state'] == 'moving' and BPLA_VT40_3.properties['state'] == 'standing'"
+        },
+        {
+            "id": "",
+            "interaction_type": "moving",
+            "response_action": "",
+            "response_set_values": "BPLA_VT40_3.properties['parent_id'] = 'SHIP_ROGOV_1'",
+            "source_object_id": "BPLA_VT40_3",
+            "title": "",
+            "trigger_condition": "BPLA_VT40_3.properties['state'] == 'standing'"
+        },
+        {
+            "id": "",
+            "interaction_type": "moving",
+            "response_action": "BPLA_VT40_3.actions.move(item=BPLA_VT40_3,  path=BPLA_VT40_3.properties['geo_path'],  time_in_seconds=self.second_in_iteration)",
+            "response_set_values": "",
+            "source_object_id": "BPLA_VT40_3",
+            "title": "Движение по маршруту",
+            "trigger_condition": "len(BPLA_VT40_3.properties['geo_path']['geometry']['coordinates']) > 0 and BPLA_VT40_3.properties['state'] in ['moving', 'attacking']"
+        },
+        {
+            "id": "",
+            "interaction_type": "check_destroyed",
+            "response_action": "",
+            "response_set_values": "BPLA_VT40_3.properties['target'] = ''; ",
+            "source_object_id": "BPLA_VT40_3",
+            "title": "Цель уничтожена",
+            "trigger_condition": "BPLA_VT40_3.properties['state'] == 'moving'  and  BPLA_VT40_3.properties['target'] != '' and BPLA_VT40_3.actions.check_destroyed(objects=self.objects,  attacker=BPLA_VT40_3, target=BPLA_VT40_3.properties['target'], min_distance=BPLA_VT40_3.properties['distance_of_defeat'], probability=BPLA_VT40_3.properties['probability']) "
+        },
+        {
+            "id": "",
+            "interaction_type": "search",
+            "response_action": "Model_00.actions.fox_rabbit(lat1=BPLA_VT40_3.properties['lat'], lon1=BPLA_VT40_3.properties['lon'], alt1=BPLA_VT40_3.properties['alt'], speed1=BPLA_VT40_3.properties['speed'], lat2=Model_00.actions.get_object_prop(item=BPLA_VT40_3.properties['target'], prop='lat', objects=self.objects), lon2=Model_00.actions.get_object_prop(item=BPLA_VT40_3.properties['target'], prop='lon', objects=self.objects), alt2=Model_00.actions.get_object_prop(item=BPLA_VT40_3.properties['target'], prop='alt', objects=self.objects), speed2=Model_00.actions.get_object_prop(item=BPLA_VT40_3.properties['target'], prop='speed', objects=self.objects), course2=Model_00.actions.get_object_prop(item=BPLA_VT40_3.properties['target'], prop='course', objects=self.objects), dt=100.0) and BPLA_VT40_3.properties['geo_path']['geometry']['coordinates'] = BPLA_VT40_3.actions.find_path(ship_lat=BPLA_VT40_3.properties['lat'], ship_lon=BPLA_VT40_3.properties['lon'], target_lat=Model_00.properties['lat'], target_lon=Model_00.properties['lon'], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"))",
+            "response_set_values": "BPLA_VT40_3.properties['state'] = 'moving'; BPLA_VT40_3.properties['segment_index'] = 0; ",
+            "source_object_id": "BPLA_VT40_3",
+            "title": "Цель обнаружена, расчет точки встречи и вычисление маршрута",
+            "trigger_condition": "BPLA_VT40_3.properties['state'] in ['finished', 'moving'] and BPLA_VT40_3.properties['target'] != '' and self.iteration_time % 10 == 0 and BPLA_VT40_3.actions.detect_enemy(item1=BPLA_VT40_3, objects=self.objects, rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], max_distance=BPLA_VT40_3.properties['detection_distance'])"
+        },
+        {
+            "id": "",
+            "interaction_type": "search",
+            "response_action": "Model_00.actions.fox_rabbit(lat1=BPLA_VT40_3.properties['lat'], lon1=BPLA_VT40_3.properties['lon'], alt1=BPLA_VT40_3.properties['alt'], speed1=BPLA_VT40_3.properties['speed'], lat2=Model_00.actions.get_object_prop(item=BPLA_VT40_3.properties['target'], prop='lat', objects=self.objects), lon2=Model_00.actions.get_object_prop(item=BPLA_VT40_3.properties['target'], prop='lon', objects=self.objects), alt2=Model_00.actions.get_object_prop(item=BPLA_VT40_3.properties['target'], prop='alt', objects=self.objects), speed2=Model_00.actions.get_object_prop(item=BPLA_VT40_3.properties['target'], prop='speed', objects=self.objects), course2=Model_00.actions.get_object_prop(item=BPLA_VT40_3.properties['target'], prop='course', objects=self.objects), dt=100.0) and BPLA_VT40_3.properties['geo_path']['geometry']['coordinates'] = BPLA_VT40_3.actions.find_path(ship_lat=BPLA_VT40_3.properties['lat'], ship_lon=BPLA_VT40_3.properties['lon'], target_lat=Model_00.properties['lat'], target_lon=Model_00.properties['lon'], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"))",
+            "response_set_values": "BPLA_VT40_3.properties['state'] = 'moving'; BPLA_VT40_3.properties['segment_index'] = 0; ",
+            "source_object_id": "BPLA_VT40_3",
+            "title": "Расчет точки встречи и вычисление маршрута",
+            "trigger_condition": "BPLA_VT40_3.properties['state'] not in ['finished', 'moving'] and BPLA_VT40_3.properties['target'] != ''"
         }
     ],
     "map_path": "maps/Sochi2/K3704.map",
@@ -2007,7 +2124,7 @@
                     "name": "course",
                     "title": "курс",
                     "type": "float",
-                    "value": 325.23311173938885
+                    "value": 325.21869507607056
                 },
                 {
                     "name": "detection_distance",
@@ -2072,7 +2189,7 @@
                     "name": "lat",
                     "title": "координаты - широта",
                     "type": "float",
-                    "value": 43.70920204622402
+                    "value": 43.67700051791339
                 },
                 {
                     "name": "length",
@@ -2084,7 +2201,7 @@
                     "name": "lon",
                     "title": "координаты - долгота",
                     "type": "float",
-                    "value": 39.52398635624583
+                    "value": 39.58030149257461
                 },
                 {
                     "name": "mass",
@@ -2292,7 +2409,7 @@
                     "name": "course",
                     "title": "курс",
                     "type": "float",
-                    "value": 320.2265335058187
+                    "value": 320.1424701519829
                 },
                 {
                     "name": "detection_distance",
@@ -2357,7 +2474,7 @@
                     "name": "lat",
                     "title": "координаты - широта",
                     "type": "float",
-                    "value": 43.85010620330946
+                    "value": 43.67167483402464
                 },
                 {
                     "name": "length",
@@ -2369,7 +2486,7 @@
                     "name": "lon",
                     "title": "координаты - долгота",
                     "type": "float",
-                    "value": 39.33033359143009
+                    "value": 39.59638813369614
                 },
                 {
                     "name": "mass",
@@ -2469,219 +2586,6 @@
                 }
             ],
             "title": "БЭК «Микола» №2"
-        },
-        {
-            "actions": [
-                {
-                    "algorithm_id": "alg_id_targeting",
-                    "name": "Алгоритм целераспределения",
-                    "output_mapping": [
-                    ],
-                    "type": "targeting"
-                },
-                {
-                    "algorithm_id": "alg_id_path",
-                    "name": "Движения по маршруту",
-                    "output_mapping": [
-                        {
-                            "course": "new_course",
-                            "title": ""
-                        },
-                        {
-                            "lat": "new_lat",
-                            "title": ""
-                        },
-                        {
-                            "lon": "new_lon",
-                            "title": ""
-                        },
-                        {
-                            "segment_index": "new_segment_index",
-                            "title": ""
-                        },
-                        {
-                            "state": "new_state",
-                            "title": ""
-                        }
-                    ],
-                    "type": "move"
-                },
-                {
-                    "algorithm_id": "alg_id_calculate_path",
-                    "name": "Расчет маршрута по графу видимости",
-                    "output_mapping": [
-                        {
-                            "geo_path.geometry.coordinates": "new_geo_path",
-                            "title": ""
-                        }
-                    ],
-                    "type": "find_path"
-                },
-                {
-                    "algorithm_id": "alg_id_look_detection",
-                    "name": "Алгоритм обнаружения объектов противника",
-                    "output_mapping": [
-                    ],
-                    "type": "look_detection"
-                },
-                {
-                    "algorithm_id": "alg_id_detect_enemy",
-                    "name": "Получение id вражеского объекта в радиусе определенной дистанции.",
-                    "output_mapping": [
-                    ],
-                    "type": "detect_enemy"
-                },
-                {
-                    "algorithm_id": "alg_id_check_destroyed",
-                    "name": "Провека уничтожения объекта",
-                    "output_mapping": [
-                    ],
-                    "type": "check_destroyed"
-                }
-            ],
-            "features": [
-            ],
-            "id": "BPLA_VT40_1",
-            "properties": [
-                {
-                    "name": "alt",
-                    "title": "координаты - высота над уровнем моря, м",
-                    "type": "int",
-                    "value": 0
-                },
-                {
-                    "name": "attack_distance",
-                    "title": "дистанция до цели, когда меняем скорость на скорость при атаке, м",
-                    "type": "int",
-                    "value": 3000
-                },
-                {
-                    "name": "attack_speed",
-                    "title": "скорость при атаке, м/с",
-                    "type": "float",
-                    "value": 41
-                },
-                {
-                    "name": "class_code",
-                    "title": "класскод",
-                    "type": "str",
-                    "value": "10185001"
-                },
-                {
-                    "name": "course",
-                    "title": "курс",
-                    "type": "float",
-                    "value": 132.62109286376128
-                },
-                {
-                    "name": "detection_distance",
-                    "title": "дальность обнаружения противника, м",
-                    "type": "float",
-                    "value": 15000
-                },
-                {
-                    "name": "distance_of_defeat",
-                    "title": "дистанция поражения, м",
-                    "type": "float",
-                    "value": 10
-                },
-                {
-                    "name": "geo_path",
-                    "title": "маршрут",
-                    "type": "feature",
-                    "value": {
-                        "geometry": {
-                            "coordinates": [
-                            ],
-                            "type": "LineString"
-                        },
-                        "properties": {
-                            "class_code": "131405000210000000",
-                            "id": "BPLA_VT40_1_path"
-                        },
-                        "type": "Feature"
-                    }
-                },
-                {
-                    "name": "hull_damage",
-                    "title": "текущее повреждений корпуса",
-                    "type": "int",
-                    "value": 0
-                },
-                {
-                    "name": "image",
-                    "title": "иконка",
-                    "type": "str",
-                    "value": "ship-blue.png"
-                },
-                {
-                    "name": "is_own",
-                    "title": "синий/красный",
-                    "type": "int",
-                    "value": 1
-                },
-                {
-                    "name": "lat",
-                    "title": "координаты - широта",
-                    "type": "float",
-                    "value": 43.66348807717417
-                },
-                {
-                    "name": "lon",
-                    "title": "координаты - долгота",
-                    "type": "float",
-                    "value": 39.55475273365924
-                },
-                {
-                    "name": "max_wind_speed",
-                    "title": "Допустимая скорость ветра",
-                    "type": "float",
-                    "value": 15
-                },
-                {
-                    "name": "probability",
-                    "title": "вероятность поражения от 0 до 1",
-                    "type": "float",
-                    "value": 0.33
-                },
-                {
-                    "name": "segment_index",
-                    "title": "индекс сегмента маршрута",
-                    "type": "int",
-                    "value": 0
-                },
-                {
-                    "name": "speed",
-                    "title": "крейсерская скорость, м/с",
-                    "type": "float",
-                    "value": 22
-                },
-                {
-                    "name": "state",
-                    "title": "состояние",
-                    "type": "str",
-                    "value": "standing"
-                },
-                {
-                    "name": "subType",
-                    "title": "подтип",
-                    "type": "str",
-                    "value": "Камикадзе"
-                },
-                {
-                    "name": "target",
-                    "title": "идентификатор цели",
-                    "type": "str",
-                    "value": ""
-                },
-                {
-                    "name": "type",
-                    "title": "тип",
-                    "type": "str",
-                    "value": "БПЛА"
-                }
-            ],
-            "title": "БПЛА «ВТ-40» №1"
         },
         {
             "actions": [
@@ -2979,6 +2883,663 @@
                 }
             ],
             "title": "БПЛА «Гранат-1» №1"
+        },
+        {
+            "actions": [
+                {
+                    "algorithm_id": "alg_id_targeting",
+                    "name": "Алгоритм целераспределения",
+                    "output_mapping": [
+                    ],
+                    "type": "targeting"
+                },
+                {
+                    "algorithm_id": "alg_id_path",
+                    "name": "Движения по маршруту",
+                    "output_mapping": [
+                        {
+                            "course": "new_course",
+                            "title": ""
+                        },
+                        {
+                            "lat": "new_lat",
+                            "title": ""
+                        },
+                        {
+                            "lon": "new_lon",
+                            "title": ""
+                        },
+                        {
+                            "segment_index": "new_segment_index",
+                            "title": ""
+                        },
+                        {
+                            "state": "new_state",
+                            "title": ""
+                        }
+                    ],
+                    "type": "move"
+                },
+                {
+                    "algorithm_id": "alg_id_calculate_path",
+                    "name": "Расчет маршрута по графу видимости",
+                    "output_mapping": [
+                        {
+                            "geo_path.geometry.coordinates": "new_geo_path",
+                            "title": ""
+                        }
+                    ],
+                    "type": "find_path"
+                },
+                {
+                    "algorithm_id": "alg_id_look_detection",
+                    "name": "Алгоритм обнаружения объектов противника",
+                    "output_mapping": [
+                    ],
+                    "type": "look_detection"
+                },
+                {
+                    "algorithm_id": "alg_id_detect_enemy",
+                    "name": "Получение id вражеского объекта в радиусе определенной дистанции.",
+                    "output_mapping": [
+                    ],
+                    "type": "detect_enemy"
+                },
+                {
+                    "algorithm_id": "alg_id_check_destroyed",
+                    "name": "Провека уничтожения объекта",
+                    "output_mapping": [
+                    ],
+                    "type": "check_destroyed"
+                }
+            ],
+            "features": [
+            ],
+            "id": "BPLA_VT40_1",
+            "properties": [
+                {
+                    "name": "alt",
+                    "title": "координаты - высота над уровнем моря, м",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "attack_distance",
+                    "title": "дистанция до цели, когда меняем скорость на скорость при атаке, м",
+                    "type": "int",
+                    "value": 3000
+                },
+                {
+                    "name": "attack_speed",
+                    "title": "скорость при атаке, м/с",
+                    "type": "float",
+                    "value": 41
+                },
+                {
+                    "name": "class_code",
+                    "title": "класскод",
+                    "type": "str",
+                    "value": "10185001"
+                },
+                {
+                    "name": "course",
+                    "title": "курс",
+                    "type": "float",
+                    "value": 126.73221245335499
+                },
+                {
+                    "name": "detection_distance",
+                    "title": "дальность обнаружения противника, м",
+                    "type": "float",
+                    "value": 15000
+                },
+                {
+                    "name": "distance_of_defeat",
+                    "title": "дистанция поражения, м",
+                    "type": "float",
+                    "value": 10
+                },
+                {
+                    "name": "geo_path",
+                    "title": "маршрут",
+                    "type": "feature",
+                    "value": {
+                        "geometry": {
+                            "coordinates": [
+                            ],
+                            "type": "LineString"
+                        },
+                        "properties": {
+                            "class_code": "131405000210000000",
+                            "id": "BPLA_VT40_1_path"
+                        },
+                        "type": "Feature"
+                    }
+                },
+                {
+                    "name": "hull_damage",
+                    "title": "текущее повреждений корпуса",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "image",
+                    "title": "иконка",
+                    "type": "str",
+                    "value": "ship-blue.png"
+                },
+                {
+                    "name": "is_own",
+                    "title": "синий/красный",
+                    "type": "int",
+                    "value": 1
+                },
+                {
+                    "name": "lat",
+                    "title": "координаты - широта",
+                    "type": "float",
+                    "value": 43.65868324010182
+                },
+                {
+                    "name": "lon",
+                    "title": "координаты - долгота",
+                    "type": "float",
+                    "value": 39.55294044617442
+                },
+                {
+                    "name": "max_wind_speed",
+                    "title": "Допустимая скорость ветра",
+                    "type": "float",
+                    "value": 15
+                },
+                {
+                    "name": "parent_id",
+                    "title": "идентификатор родительского объекта",
+                    "type": "str",
+                    "value": ""
+                },
+                {
+                    "name": "probability",
+                    "title": "вероятность поражения от 0 до 1",
+                    "type": "float",
+                    "value": 0.33
+                },
+                {
+                    "name": "segment_index",
+                    "title": "индекс сегмента маршрута",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "speed",
+                    "title": "крейсерская скорость, м/с",
+                    "type": "float",
+                    "value": 22
+                },
+                {
+                    "name": "state",
+                    "title": "состояние",
+                    "type": "str",
+                    "value": "standing"
+                },
+                {
+                    "name": "subType",
+                    "title": "подтип",
+                    "type": "str",
+                    "value": "Камикадзе"
+                },
+                {
+                    "name": "target",
+                    "title": "идентификатор цели",
+                    "type": "str",
+                    "value": ""
+                },
+                {
+                    "name": "type",
+                    "title": "тип",
+                    "type": "str",
+                    "value": "БПЛА"
+                }
+            ],
+            "title": "БПЛА «ВТ-40» №1"
+        },
+        {
+            "actions": [
+                {
+                    "algorithm_id": "alg_id_targeting",
+                    "name": "Алгоритм целераспределения",
+                    "output_mapping": [
+                    ],
+                    "type": "targeting"
+                },
+                {
+                    "algorithm_id": "alg_id_path",
+                    "name": "Движения по маршруту",
+                    "output_mapping": [
+                        {
+                            "course": "new_course",
+                            "title": ""
+                        },
+                        {
+                            "lat": "new_lat",
+                            "title": ""
+                        },
+                        {
+                            "lon": "new_lon",
+                            "title": ""
+                        },
+                        {
+                            "segment_index": "new_segment_index",
+                            "title": ""
+                        },
+                        {
+                            "state": "new_state",
+                            "title": ""
+                        }
+                    ],
+                    "type": "move"
+                },
+                {
+                    "algorithm_id": "alg_id_calculate_path",
+                    "name": "Расчет маршрута по графу видимости",
+                    "output_mapping": [
+                        {
+                            "geo_path.geometry.coordinates": "new_geo_path",
+                            "title": ""
+                        }
+                    ],
+                    "type": "find_path"
+                },
+                {
+                    "algorithm_id": "alg_id_look_detection",
+                    "name": "Алгоритм обнаружения объектов противника",
+                    "output_mapping": [
+                    ],
+                    "type": "look_detection"
+                },
+                {
+                    "algorithm_id": "alg_id_detect_enemy",
+                    "name": "Получение id вражеского объекта в радиусе определенной дистанции.",
+                    "output_mapping": [
+                    ],
+                    "type": "detect_enemy"
+                },
+                {
+                    "algorithm_id": "alg_id_check_destroyed",
+                    "name": "Провека уничтожения объекта",
+                    "output_mapping": [
+                    ],
+                    "type": "check_destroyed"
+                }
+            ],
+            "features": [
+            ],
+            "id": "BPLA_VT40_2",
+            "properties": [
+                {
+                    "name": "alt",
+                    "title": "координаты - высота над уровнем моря, м",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "attack_distance",
+                    "title": "дистанция до цели, когда меняем скорость на скорость при атаке, м",
+                    "type": "int",
+                    "value": 3000
+                },
+                {
+                    "name": "attack_speed",
+                    "title": "скорость при атаке, м/с",
+                    "type": "float",
+                    "value": 41
+                },
+                {
+                    "name": "class_code",
+                    "title": "класскод",
+                    "type": "str",
+                    "value": "10185001"
+                },
+                {
+                    "name": "course",
+                    "title": "курс",
+                    "type": "float",
+                    "value": 103.23553110561963
+                },
+                {
+                    "name": "detection_distance",
+                    "title": "дальность обнаружения противника, м",
+                    "type": "float",
+                    "value": 15000
+                },
+                {
+                    "name": "distance_of_defeat",
+                    "title": "дистанция поражения, м",
+                    "type": "float",
+                    "value": 10
+                },
+                {
+                    "name": "geo_path",
+                    "title": "маршрут",
+                    "type": "feature",
+                    "value": {
+                        "geometry": {
+                            "coordinates": [
+                            ],
+                            "type": "LineString"
+                        },
+                        "properties": {
+                            "class_code": "131405000210000000",
+                            "id": "BPLA_VT40_2_path"
+                        },
+                        "type": "Feature"
+                    }
+                },
+                {
+                    "name": "hull_damage",
+                    "title": "текущее повреждений корпуса",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "image",
+                    "title": "иконка",
+                    "type": "str",
+                    "value": "ship-blue.png"
+                },
+                {
+                    "name": "is_own",
+                    "title": "синий/красный",
+                    "type": "int",
+                    "value": 1
+                },
+                {
+                    "name": "lat",
+                    "title": "координаты - широта",
+                    "type": "float",
+                    "value": 43.65110889653134
+                },
+                {
+                    "name": "lon",
+                    "title": "координаты - долгота",
+                    "type": "float",
+                    "value": 39.55972127194901
+                },
+                {
+                    "name": "max_wind_speed",
+                    "title": "Допустимая скорость ветра",
+                    "type": "float",
+                    "value": 15
+                },
+                {
+                    "name": "parent_id",
+                    "title": "идентификатор родительского объекта",
+                    "type": "str",
+                    "value": ""
+                },
+                {
+                    "name": "probability",
+                    "title": "вероятность поражения от 0 до 1",
+                    "type": "float",
+                    "value": 0.33
+                },
+                {
+                    "name": "segment_index",
+                    "title": "индекс сегмента маршрута",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "speed",
+                    "title": "крейсерская скорость, м/с",
+                    "type": "float",
+                    "value": 22
+                },
+                {
+                    "name": "state",
+                    "title": "состояние",
+                    "type": "str",
+                    "value": "standing"
+                },
+                {
+                    "name": "subType",
+                    "title": "подтип",
+                    "type": "str",
+                    "value": "Камикадзе"
+                },
+                {
+                    "name": "target",
+                    "title": "идентификатор цели",
+                    "type": "str",
+                    "value": ""
+                },
+                {
+                    "name": "type",
+                    "title": "тип",
+                    "type": "str",
+                    "value": "БПЛА"
+                }
+            ],
+            "title": "БПЛА «ВТ-40» №2"
+        },
+        {
+            "actions": [
+                {
+                    "algorithm_id": "alg_id_targeting",
+                    "name": "Алгоритм целераспределения",
+                    "output_mapping": [
+                    ],
+                    "type": "targeting"
+                },
+                {
+                    "algorithm_id": "alg_id_path",
+                    "name": "Движения по маршруту",
+                    "output_mapping": [
+                        {
+                            "course": "new_course",
+                            "title": ""
+                        },
+                        {
+                            "lat": "new_lat",
+                            "title": ""
+                        },
+                        {
+                            "lon": "new_lon",
+                            "title": ""
+                        },
+                        {
+                            "segment_index": "new_segment_index",
+                            "title": ""
+                        },
+                        {
+                            "state": "new_state",
+                            "title": ""
+                        }
+                    ],
+                    "type": "move"
+                },
+                {
+                    "algorithm_id": "alg_id_calculate_path",
+                    "name": "Расчет маршрута по графу видимости",
+                    "output_mapping": [
+                        {
+                            "geo_path.geometry.coordinates": "new_geo_path",
+                            "title": ""
+                        }
+                    ],
+                    "type": "find_path"
+                },
+                {
+                    "algorithm_id": "alg_id_look_detection",
+                    "name": "Алгоритм обнаружения объектов противника",
+                    "output_mapping": [
+                    ],
+                    "type": "look_detection"
+                },
+                {
+                    "algorithm_id": "alg_id_detect_enemy",
+                    "name": "Получение id вражеского объекта в радиусе определенной дистанции.",
+                    "output_mapping": [
+                    ],
+                    "type": "detect_enemy"
+                },
+                {
+                    "algorithm_id": "alg_id_check_destroyed",
+                    "name": "Провека уничтожения объекта",
+                    "output_mapping": [
+                    ],
+                    "type": "check_destroyed"
+                }
+            ],
+            "features": [
+            ],
+            "id": "BPLA_VT40_3",
+            "properties": [
+                {
+                    "name": "alt",
+                    "title": "координаты - высота над уровнем моря, м",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "attack_distance",
+                    "title": "дистанция до цели, когда меняем скорость на скорость при атаке, м",
+                    "type": "int",
+                    "value": 3000
+                },
+                {
+                    "name": "attack_speed",
+                    "title": "скорость при атаке, м/с",
+                    "type": "float",
+                    "value": 41
+                },
+                {
+                    "name": "class_code",
+                    "title": "класскод",
+                    "type": "str",
+                    "value": "10185001"
+                },
+                {
+                    "name": "course",
+                    "title": "курс",
+                    "type": "float",
+                    "value": 112.5114451220213
+                },
+                {
+                    "name": "detection_distance",
+                    "title": "дальность обнаружения противника, м",
+                    "type": "float",
+                    "value": 15000
+                },
+                {
+                    "name": "distance_of_defeat",
+                    "title": "дистанция поражения, м",
+                    "type": "float",
+                    "value": 10
+                },
+                {
+                    "name": "geo_path",
+                    "title": "маршрут",
+                    "type": "feature",
+                    "value": {
+                        "geometry": {
+                            "coordinates": [
+                            ],
+                            "type": "LineString"
+                        },
+                        "properties": {
+                            "class_code": "131405000210000000",
+                            "id": "BPLA_VT40_3_path"
+                        },
+                        "type": "Feature"
+                    }
+                },
+                {
+                    "name": "hull_damage",
+                    "title": "текущее повреждений корпуса",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "image",
+                    "title": "иконка",
+                    "type": "str",
+                    "value": "ship-blue.png"
+                },
+                {
+                    "name": "is_own",
+                    "title": "синий/красный",
+                    "type": "int",
+                    "value": 1
+                },
+                {
+                    "name": "lat",
+                    "title": "координаты - широта",
+                    "type": "float",
+                    "value": 43.65955093297199
+                },
+                {
+                    "name": "lon",
+                    "title": "координаты - долгота",
+                    "type": "float",
+                    "value": 39.5392458451279
+                },
+                {
+                    "name": "max_wind_speed",
+                    "title": "Допустимая скорость ветра",
+                    "type": "float",
+                    "value": 15
+                },
+                {
+                    "name": "parent_id",
+                    "title": "идентификатор родительского объекта",
+                    "type": "str",
+                    "value": ""
+                },
+                {
+                    "name": "probability",
+                    "title": "вероятность поражения от 0 до 1",
+                    "type": "float",
+                    "value": 0.33
+                },
+                {
+                    "name": "segment_index",
+                    "title": "индекс сегмента маршрута",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "speed",
+                    "title": "крейсерская скорость, м/с",
+                    "type": "float",
+                    "value": 22
+                },
+                {
+                    "name": "state",
+                    "title": "состояние",
+                    "type": "str",
+                    "value": "standing"
+                },
+                {
+                    "name": "subType",
+                    "title": "подтип",
+                    "type": "str",
+                    "value": "Камикадзе"
+                },
+                {
+                    "name": "target",
+                    "title": "идентификатор цели",
+                    "type": "str",
+                    "value": ""
+                },
+                {
+                    "name": "type",
+                    "title": "тип",
+                    "type": "str",
+                    "value": "БПЛА"
+                }
+            ],
+            "title": "БПЛА «ВТ-40» №3"
         }
     ],
     "scenario_id": "05 отладка модели связи",

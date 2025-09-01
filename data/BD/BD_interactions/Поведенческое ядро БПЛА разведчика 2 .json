@@ -18,7 +18,7 @@
     {
       "title": "Расчет маршрута в зону разведки",
       "interaction_type": "moving",
-      "response_set_values": "!BPLA!.properties['geo_path']['geometry']['coordinates'] = !BPLA!.actions.find_path(ship_lat=!BPLA!.properties['lat'], ship_lon=!BPLA!.properties['lon'], target_lat=self.features['!BPLA_ZONE!'].coordinates[0][0], target_lon=self.features['AIR_SEARCH_REGION_1'].coordinates[0][1], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"))",
+      "response_set_values": "!BPLA!.properties['geo_path']['geometry']['coordinates'] = !BPLA!.actions.find_path(ship_lat=!BPLA!.properties['lat'], ship_lon=!BPLA!.properties['lon'], target_lat=self.features['!BPLA_ZONE!'].coordinates[0][0], target_lon=self.features['!BPLA_ZONE!'].coordinates[0][1], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"))",
       "source_object_id": "!BPLA!",
       "trigger_condition": "!BPLA!.properties['state'] == 'standing' and WEATHER.properties['wind_speed'] <= !BPLA!.properties['max_wind_speed']"
     },

@@ -26,8 +26,18 @@
   <component name="ChangeListManager">
     <list default="true" id="4bf0ab9c-4e55-4ffa-befb-862d7ffbe0c5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainWindow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/MainWindow.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainWindow.h" beforeDir="false" afterPath="$PROJECT_DIR$/MainWindow.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/BD/BD_interactions/Поведенческое ядро БПЛА разведчика 2 .json" beforeDir="false" afterPath="$PROJECT_DIR$/data/BD/BD_interactions/Поведенческое ядро БПЛА разведчика 2 .json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/BD/BD_objects/BEK_MIKOLA.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/BD/BD_objects/BEK_MIKOLA.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/BD/BD_objects/СистемаСвязи.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/BD/BD_objects/СистемаСвязи.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/PropertyModel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/models/PropertyModel.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_service/ScenarioEditor.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/db_service/ScenarioEditor.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_service/ScenarioEditor.h" beforeDir="false" afterPath="$PROJECT_DIR$/db_service/ScenarioEditor.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_service/ScenarioParser.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/db_service/ScenarioParser.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/AlgorithmModel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/models/AlgorithmModel.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/FeatureModel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/models/FeatureModel.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/ObjectScenarioModel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/models/ObjectScenarioModel.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scenario/04.01 отладка связи.json" beforeDir="false" afterPath="$PROJECT_DIR$/scenario/04.01 отладка связи.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,6 +115,7 @@
       <workItem from="1756575896221" duration="15448000" />
       <workItem from="1756712014769" duration="7546000" />
       <workItem from="1756720807715" duration="2961000" />
+      <workItem from="1756729459286" duration="7229000" />
     </task>
     <servers />
   </component>
@@ -115,5 +126,16 @@
     <isAutomaticCheckingOnLaunch value="false" />
     <isAutomaticFoundErrors value="true" />
     <isAutomaticReloadCMake value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/MainWindow.cpp</url>
+          <line>243</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
