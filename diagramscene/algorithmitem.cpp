@@ -70,7 +70,7 @@ QPixmap AlgorithmItem::image(AlgorithmType type) {
         setBrush(gDiagramColors.algorithmBackground);
         break;
     case CONDITION:
-        setBrush(gDiagramColors.elementBackground);
+        setBrush(gDiagramColors.conditionBackground);
         break;
     case EVENT:
         setBrush(gDiagramColors.eventBackground);

@@ -8,6 +8,7 @@ struct DiagramColors {
     QColor elementBackground{QStringLiteral("#FFFFE3")};
     QColor textBackground{Qt::white};
     QColor eventBackground{QStringLiteral("#FDE3E3")};
+    QColor conditionBackground{QStringLiteral("#E3F3FF")};
     QColor inputDataBackground{QStringLiteral("#E3FDE3")};
     QColor outputDataBackground{QStringLiteral("#E3E3FD")};
     QColor paramBackground{QStringLiteral("#FFF3E3")};
