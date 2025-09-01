@@ -101,7 +101,9 @@ protected:
 
             if (t == -1) {
                 mimeData->setData("application/x-diagram-text", QByteArray());
+
                 mimeData->setText(item->text(0));
+
                 auto *temp = new QGraphicsTextItem(item->text(0));
                 QGraphicsScene tmpScene;
                 tmpScene.addItem(temp);
@@ -129,6 +131,7 @@ protected:
                 case AlgorithmItem::CONDITION:
                     temp->setBrush(gDiagramColors.conditionBackground);
                     break;
+
                 default:
                     temp->setBrush(gDiagramColors.elementBackground);
                     break;
@@ -686,6 +689,7 @@ void DiagramSceneDlg::createToolBox()
     eventItem->setText(0, tr("Событие"));
     eventItem->setIcon(0, fileIcon);
     eventItem->setData(0, Qt::UserRole, static_cast<int>(AlgorithmItem::EVENT));
+
 
     QTreeWidgetItem *condItem = new QTreeWidgetItem(elementsRoot);
     condItem->setText(0, tr("Условие"));

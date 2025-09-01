@@ -159,6 +159,7 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
                     in.append(f);
                     out = {QPair<QString,QString> ("Lat","double"),QPair<QString,QString> ("Lon","double")};
                     myItemColor = gDiagramColors.conditionBackground;
+
                 }break;
             case AlgorithmItem::EVENT:
                 title = "Событие";
