@@ -4,9 +4,7 @@
 #include <QJsonArray>
 #include <QHBoxLayout>
 
-FeatureModel::~FeatureModel(){
-    qDeleteAll(m_properties);
-}
+FeatureModel::~FeatureModel(){}
 
 FeatureModel* FeatureModel::fromJson(const QJsonObject &json, QObject* parent){
     auto *model = new FeatureModel(parent);
@@ -154,7 +152,16 @@ void FeatureModel::addSearchButton() {
 // Метод для отображения в дереве
 QTreeWidgetItem* FeatureModel::getTreeWidgetItem(QTreeWidgetItem *parent)
 {
-    if (m_tree_widget_item != nullptr) return m_tree_widget_item; // Если уже существует, возвращаем nullptr
+    // После очистки дерева указатели на ранее созданные элементы становятся недействительными.
+    // Проверяем их перед повторным использованием.
+    if (m_tree_widget_item != nullptr && m_tree_widget_item->treeWidget() == nullptr)
+        m_tree_widget_item = nullptr;
+    if (m_property_item != nullptr && m_property_item->treeWidget() == nullptr)
+        m_property_item = nullptr;
+    if (m_coordinates_item != nullptr && m_coordinates_item->treeWidget() == nullptr)
+        m_coordinates_item = nullptr;
+
+    if (m_tree_widget_item != nullptr) return m_tree_widget_item; // Если уже существует, возвращаем его
 
     m_tree_widget_item = new QTreeWidgetItem(parent);
 

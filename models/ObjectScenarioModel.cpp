@@ -12,8 +12,6 @@ ObjectScenarioModel::ObjectScenarioModel(QObject *parent) : QObject(parent)
 
 ObjectScenarioModel::~ObjectScenarioModel()
 {
-    qDeleteAll(m_properties);
-    qDeleteAll(m_actions);
 }
 
 // Геттеры
@@ -275,6 +273,15 @@ void ObjectScenarioModel::addSearchButton() {
 
 QTreeWidgetItem* ObjectScenarioModel::getTreeWidgetItem(QTreeWidgetItem *parent, bool addChilds)
 {
+    // После очистки дерева ранее созданные элементы становятся недействительными,
+    // поэтому проверяем указатели на QTreeWidgetItem перед использованием.
+    if (treeWidgetItem != nullptr && treeWidgetItem->treeWidget() == nullptr)
+        treeWidgetItem = nullptr;
+    if (propItem != nullptr && propItem->treeWidget() == nullptr)
+        propItem = nullptr;
+    if (actionsItem != nullptr && actionsItem->treeWidget() == nullptr)
+        actionsItem = nullptr;
+
     if (treeWidgetItem == nullptr) {
         treeWidgetItem = new QTreeWidgetItem(parent);
 
