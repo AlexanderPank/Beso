@@ -18,12 +18,20 @@ AlgorithmPropertiesDialog::AlgorithmPropertiesDialog(const QList<AlgorithmItem::
     m_inTable->setColumnCount(3);
     m_inTable->setHorizontalHeaderLabels(headers);
     m_inTable->verticalHeader()->setVisible(false);
-    m_inTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    m_inTable->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Interactive);
+    m_inTable->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Interactive);
+    m_inTable->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
+    m_inTable->setColumnWidth(0, 150);
+    m_inTable->setColumnWidth(1, 150);
 
     m_outTable->setColumnCount(3);
     m_outTable->setHorizontalHeaderLabels(headers);
     m_outTable->verticalHeader()->setVisible(false);
-    m_outTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    m_outTable->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Interactive);
+    m_outTable->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Interactive);
+    m_outTable->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
+    m_outTable->setColumnWidth(0, 150);
+    m_outTable->setColumnWidth(1, 150);
 
     int inCount = 0;
     int outCount = 0;
