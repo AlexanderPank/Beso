@@ -297,26 +297,44 @@ void DiagramScene::dropEvent(QGraphicsSceneDragDropEvent *event)
             f.close();
             QJsonObject obj = doc.object();
             QString title = obj["title"].toString();
-            QList<QPair<QString,QString>> inParams;
-            QList<QPair<QString,QString>> outParams;
+            QList<AlgorithmItem::PropertyInfo> props;
             QJsonArray inArr = obj["input_parameters"].toArray();
             for (const QJsonValue &val : inArr) {
                 QJsonObject o = val.toObject();
                 if (!o.isEmpty()) {
-                    QString key = o.keys().first();
-                    inParams.append({key, o.value(key).toString()});
+                    QString pname;
+                    QString ptype;
+                    for (const QString &key : o.keys()) {
+                        if (key != "title") {
+                            pname = key;
+                            ptype = o.value(key).toString();
+                            break;
+                        }
+                    }
+                    QString ptitle = o.value("title").toString(pname);
+                    props.append(AlgorithmItem::PropertyInfo{ptitle, pname, ptype, 1});
                 }
             }
             QJsonArray outArr = obj["output_parameters"].toArray();
             for (const QJsonValue &val : outArr) {
                 QJsonObject o = val.toObject();
                 if (!o.isEmpty()) {
-                    QString key = o.keys().first();
-                    outParams.append({key, o.value(key).toString()});
+                    QString pname;
+                    QString ptype;
+                    for (const QString &key : o.keys()) {
+                        if (key != "title") {
+                            pname = key;
+                            ptype = o.value(key).toString();
+                            break;
+                        }
+                    }
+                    QString ptitle = o.value("title").toString(pname);
+                    props.append(AlgorithmItem::PropertyInfo{ptitle, pname, ptype, 2});
                 }
             }
-            AlgorithmItem *item = new AlgorithmItem(AlgorithmItem::ALGORITM, myItemMenu, title, inParams, outParams);
+            AlgorithmItem *item = new AlgorithmItem(AlgorithmItem::ALGORITM, myItemMenu, title);
             item->setBrush(gDiagramColors.algorithmBackground);
+            item->setProperties(props);
             addItem(item);
             item->setPos(event->scenePos());
             emit itemInserted(item);
