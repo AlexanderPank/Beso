@@ -3,6 +3,7 @@
 
 #include <QGraphicsScene>
 #include <QGraphicsSceneContextMenuEvent>
+#include <QGraphicsEllipseItem>
 #include <QMenu>
 #include <QPainter>
 
@@ -62,8 +63,8 @@ void DiagramItem::removeArrows()
     // modify the arrows container
     const auto arrowsCopy = arrows;
     for (Arrow *arrow : arrowsCopy) {
-        arrow->startItem()->removeArrow(arrow);
-        arrow->endItem()->removeArrow(arrow);
+        // arrow->startItem()->removeArrow(arrow);
+        // arrow->endItem()->removeArrow(arrow);
         scene()->removeItem(arrow);
         delete arrow;
     }

@@ -235,7 +235,7 @@ void AlgorithmItem::applyProperties()
             outTextsize = qMax(outTextsize, int(text->boundingRect().width()));
             auto circ = new QGraphicsEllipseItem(0,0,12,12,this);
             circ->setData(Qt::UserRole, QString("out"));
-            circ->setBrush(QBrush(Qt::blue));
+            circ->setBrush(QBrush("#37a2d7"));
             outObjCircle.insert({p.name,p.type}, circ);
             outCount++;
         }
@@ -295,7 +295,7 @@ void AlgorithmItem::applyProperties()
     if (m_hasSelfOut) {
         selfOut = new QGraphicsEllipseItem(0,0,12,12,this);
         selfOut->setData(Qt::UserRole, QString("out"));
-        selfOut->setBrush(QBrush(Qt::blue));
+        selfOut->setBrush(QBrush("#ffb400"));
         qreal y = -height / 2.0 + titleMargin + titleItem->boundingRect().height() / 2.0 - 6;
         selfOut->setPos(width / 2.0 - 15, y);
         outObjCircle.insert({QString(), QString()}, selfOut);

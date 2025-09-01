@@ -113,14 +113,15 @@ DiagramSceneDlg::DiagramSceneDlg()
     createToolbars();
 
     QSplitter *splitter = new QSplitter(Qt::Horizontal);
-    toolBox->setMinimumWidth(200);
+    toolBox->setMinimumWidth(400);
+
     splitter->addWidget(toolBox);
     view = new QGraphicsView(scene);
     view->setAcceptDrops(true);
     splitter->addWidget(view);
 
     setCentralWidget(splitter);
-    setWindowTitle(tr("Редактор поведенческого ядра объекта"));
+    setWindowTitle(tr("Редактор модели поведения объектов"));
     setUnifiedTitleAndToolBarOnMac(true);
     setWindowState(Qt::WindowMaximized);
     scene->setView(view);
@@ -801,7 +802,7 @@ void DiagramSceneDlg::createToolbars()
 
     lineColorToolButton = new QToolButton;
     lineColorToolButton->setPopupMode(QToolButton::MenuButtonPopup);
-    QColor defaultLineColor = Qt::white;
+    QColor defaultLineColor = Qt::black;
     lineColorToolButton->setMenu(createColorMenu(SLOT(lineColorChanged()), defaultLineColor));
     lineAction = lineColorToolButton->menu()->defaultAction();
     lineColorToolButton->setIcon(createColorToolButtonIcon(

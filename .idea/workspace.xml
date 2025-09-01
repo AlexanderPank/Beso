@@ -26,9 +26,9 @@
   <component name="ChangeListManager">
     <list default="true" id="4bf0ab9c-4e55-4ffa-befb-862d7ffbe0c5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db_service/ScenarioEditor.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/db_service/ScenarioEditor.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/DObjectProperties.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ui/DObjectProperties.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/DObjectProperties.ui" beforeDir="false" afterPath="$PROJECT_DIR$/ui/DObjectProperties.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/diagramscene/DiagramSceneDlg.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/diagramscene/DiagramSceneDlg.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/diagramscene/algorithmitem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/diagramscene/algorithmitem.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/diagramscene/diagramitem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/diagramscene/diagramitem.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +58,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "CMake Application.ScenarioClient.executor": "Run",
+    "CMake Application.ScenarioClient.executor": "Debug",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -66,8 +66,8 @@
     "RunOnceActivity.west.config.association.type.startup.service": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "Rebasing main",
-    "last_opened_file_path": "/home/qq/Beso/CMakeLists.txt",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/home/qq/Beso",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -77,17 +77,17 @@
   }
 }]]></component>
   <component name="RunManager" selected="CMake Application.ScenarioClient">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ScenarioClient" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ScenarioClient" TARGET_NAME="ScenarioClient" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ScenarioClient" RUN_TARGET_NAME="ScenarioClient">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <configuration name="ScenarioClient_autogen" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ScenarioClient" TARGET_NAME="ScenarioClient_autogen" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -109,6 +109,7 @@
       <workItem from="1756563841044" duration="635000" />
       <workItem from="1756564720839" duration="1315000" />
       <workItem from="1756575896221" duration="15448000" />
+      <workItem from="1756712014769" duration="770000" />
     </task>
     <servers />
   </component>
