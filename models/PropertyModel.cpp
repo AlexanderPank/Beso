@@ -138,7 +138,11 @@ void PropertyModel::setValue(const QVariant &value, bool updateTree)
         setValueByType(value);
 
     if (currentTreeItem == nullptr || !updateTree) return;
-    currentTreeItem->setText(1, variantToString(m_value));
+    try {
+        currentTreeItem->setText(1, variantToString(m_value));
+    } catch (std::exception &e) {
+        qDebug() << "Ошибка при установке значения в дерево: " << e.what();
+    }
 }
 
 void PropertyModel::setType(const QString &type)
