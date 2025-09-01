@@ -2,6 +2,7 @@
 #include "../models/Feature.h"
 #include <QFile>
 #include <QJsonArray>
+#include <QtAlgorithms>
 
 #include "../models/ActionModel.h"
 #include "../db_service/services/DataStorageServiceFactory.h"
@@ -17,12 +18,21 @@ bool ScenarioParser::loadScenario(const QString& filePath) {
     QFile file(filePath);
     if (!file.open(QIODevice::ReadOnly)) return false;
 
+    qDeleteAll(m_objects);
     m_objects.clear();
+    qDeleteAll(m_classes);
     m_classes.clear();
+    qDeleteAll(m_interactions);
     m_interactions.clear();
+    qDeleteAll(m_algorithms);
     m_algorithms.clear();
+    qDeleteAll(m_files);
     m_files.clear();
+    qDeleteAll(m_features);
     m_features.clear();
+
+    delete m_simulation_parameters;
+    m_simulation_parameters = nullptr;
 
     QJsonDocument doc = QJsonDocument::fromJson(file.readAll());
     m_rootJson = doc.object();
