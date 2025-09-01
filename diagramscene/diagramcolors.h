@@ -7,9 +7,9 @@ struct DiagramColors {
     QColor objectBackground{QStringLiteral("#D3D3D3")};
     QColor elementBackground{QStringLiteral("#FFFFE3")};
     QColor textBackground{Qt::white};
-    QColor eventBackground{QStringLiteral("#FDE3E3")};
+    QColor eventBackground{QStringLiteral("#fdfde3")};
     QColor inputDataBackground{QStringLiteral("#E3FDE3")};
-    QColor outputDataBackground{QStringLiteral("#E3E3FD")};
+    QColor outputDataBackground{QStringLiteral("#FDE3E3")};
     QColor paramBackground{QStringLiteral("#FFF3E3")};
     QColor inputCircle{Qt::green};
     QColor outputCircle{QStringLiteral("#37a2d7")};
