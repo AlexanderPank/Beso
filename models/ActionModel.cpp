@@ -9,7 +9,6 @@ ActionModel::ActionModel(QObject *parent) : QObject(parent)
 // Деструктор
 ActionModel::~ActionModel()
 {
-    qDeleteAll(m_outputMapping);
 }
 
 // Геттеры
