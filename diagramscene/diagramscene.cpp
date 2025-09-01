@@ -4,6 +4,8 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QTextCursor>
 #include <QPixmap>
+
+#include "diagramcolors.h"
 #include <QGraphicsSceneDragDropEvent>
 #include <QMimeData>
 #include <QFile>
@@ -21,9 +23,9 @@ DiagramScene::DiagramScene(QMenu *itemMenu, QObject *parent)
     myItemType = AlgorithmItem::ALGORITM;
     line = nullptr;
     textItem = nullptr;
-    myItemColor = Qt::white;
+    myItemColor = gDiagramColors.algorithmBackground;
     myTextColor = Qt::black;
-    myLineColor = Qt::black;
+    myLineColor = gDiagramColors.arrowColor;
     center = sceneRect().center();
     // Устанавливаем фон "Сетка" по умолчанию
     setBackgroundBrush(QPixmap(":/images_diag/background2.png"));
@@ -149,24 +151,24 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
                 title = "Алгоритм";
                 in = {QPair<QString,QString> ("Lat","double"),QPair<QString,QString> ("Lon","double")};
                 out = {QPair<QString,QString> ("Lat","double"),QPair<QString,QString> ("Lon","double")};
-                myItemColor = QColor("#E3E3FD");
+                myItemColor = gDiagramColors.algorithmBackground;
                 break;
             case AlgorithmItem::CONDITION:{
                     title = "Условие";
                     QPair<QString,QString> f("SeeTarget","bool");
                     in.append(f);
                     out = {QPair<QString,QString> ("Lat","double"),QPair<QString,QString> ("Lon","double")};
-                    myItemColor = QColor("#FFFFE3");
+                    myItemColor = gDiagramColors.elementBackground;
                 }break;
             case AlgorithmItem::EVENT:
                 title = "Событие";
                 out = {QPair<QString,QString> ("SeeTarget","bool")};
-                myItemColor = QColor("#FFF9A3");
+                myItemColor = gDiagramColors.elementBackground;
                 break;
             case AlgorithmItem::PARAM:
                 title = "Параметры";
                 in = {QPair<QString,QString> ("Lat","double"),QPair<QString,QString> ("Lon","double")};
-                myItemColor = QColor("#CFFFE5");
+                myItemColor = gDiagramColors.elementBackground;
                 break;
             default:
                 break;
@@ -298,7 +300,7 @@ void DiagramScene::dropEvent(QGraphicsSceneDragDropEvent *event)
                 }
             }
             AlgorithmItem *item = new AlgorithmItem(AlgorithmItem::ALGORITM, myItemMenu, title, inParams, outParams);
-            item->setBrush(QColor("#E3E3FD"));
+            item->setBrush(gDiagramColors.algorithmBackground);
             addItem(item);
             item->setPos(event->scenePos());
             emit itemInserted(item);
