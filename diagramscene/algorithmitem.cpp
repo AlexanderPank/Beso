@@ -11,6 +11,8 @@
 #include <QTextDocument>
 #include <QTextOption>
 
+#include "diagramcolors.h"
+
 // Creates algorithm item with connectors and title
 AlgorithmItem::AlgorithmItem(AlgorithmType diagramType, QMenu *contextMenu, QString title,
                              QList<QPair<QString,QString>> in, QList<QPair<QString,QString>> out,
@@ -30,7 +32,7 @@ AlgorithmItem::AlgorithmItem(AlgorithmType diagramType, QMenu *contextMenu, QStr
     polygonItem = new QGraphicsPolygonItem(this);
     polygonItem->setZValue(-10);
     polygonItem->setPen(QPen(Qt::black, 1));
-    polygonItem->setBrush(QColor("#D3D3D3"));
+    polygonItem->setBrush(gDiagramColors.objectBackground);
 
     applyProperties();
 
@@ -65,16 +67,16 @@ QPixmap AlgorithmItem::image(AlgorithmType type) {
     QPixmap pixmap(250, 250);
     switch (type) {
     case ALGORITM:
-        setBrush(QColor("#E3E3FD"));
+        setBrush(gDiagramColors.algorithmBackground);
         break;
     case CONDITION:
-        setBrush(QColor("#FFFFE3"));
+        setBrush(gDiagramColors.elementBackground);
         break;
     case EVENT:
-        setBrush(QColor("#FFF9A3"));
+        setBrush(gDiagramColors.elementBackground);
         break;
     case PARAM:
-        setBrush(QColor("#CFFFE5"));
+        setBrush(gDiagramColors.elementBackground);
         break;
     default:
         pixmap.fill(Qt::transparent);
@@ -225,7 +227,7 @@ void AlgorithmItem::applyProperties()
             inTextsize = qMax(inTextsize, int(text->boundingRect().width()));
             auto circ = new QGraphicsEllipseItem(0,0,12,12,this);
             circ->setData(Qt::UserRole, QString("in"));
-            circ->setBrush(QBrush(Qt::green));
+            circ->setBrush(QBrush(gDiagramColors.inputCircle));
             inObjCircle.insert({p.name,p.type}, circ);
             inCount++;
         } else if (p.direction == 2) {
@@ -235,7 +237,7 @@ void AlgorithmItem::applyProperties()
             outTextsize = qMax(outTextsize, int(text->boundingRect().width()));
             auto circ = new QGraphicsEllipseItem(0,0,12,12,this);
             circ->setData(Qt::UserRole, QString("out"));
-            circ->setBrush(QBrush("#37a2d7"));
+            circ->setBrush(QBrush(gDiagramColors.outputCircle));
             outObjCircle.insert({p.name,p.type}, circ);
             outCount++;
         }
@@ -295,7 +297,7 @@ void AlgorithmItem::applyProperties()
     if (m_hasSelfOut) {
         selfOut = new QGraphicsEllipseItem(0,0,12,12,this);
         selfOut->setData(Qt::UserRole, QString("out"));
-        selfOut->setBrush(QBrush("#ffb400"));
+        selfOut->setBrush(QBrush(gDiagramColors.selfOutputCircle));
         qreal y = -height / 2.0 + titleMargin + titleItem->boundingRect().height() / 2.0 - 6;
         selfOut->setPos(width / 2.0 - 15, y);
         outObjCircle.insert({QString(), QString()}, selfOut);

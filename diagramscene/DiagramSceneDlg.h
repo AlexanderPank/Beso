@@ -95,7 +95,8 @@ private:
     QWidget *createBackgroundCellWidget(const QString &text,
                                         const QString &image);
     QWidget *createCellWidget(const QString &text,
-                              DiagramItem::DiagramType type);
+                              DiagramItem::DiagramType type,
+                              AlgorithmItem::AlgorithmType algType);
     QMenu *createColorMenu(const char *slot, QColor defaultColor);
     QIcon createColorToolButtonIcon(const QString &image, QColor color);
     QIcon createColorIcon(QColor color);

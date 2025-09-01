@@ -7,6 +7,7 @@
 #include "ObjectSelectDialog.h"
 #include "PropertiesDialog.h"
 #include "AlgorithmPropertiesDialog.h"
+#include "diagramcolors.h"
 
 #include <QtWidgets>
 #include <algorithm>
@@ -74,7 +75,7 @@ protected:
         }
 
         auto *temp = new AlgorithmItem(AlgorithmItem::ALGORITM, nullptr, title, inParams, outParams);
-        temp->setBrush(QColor("#E3E3FD"));
+        temp->setBrush(gDiagramColors.algorithmBackground);
         QGraphicsScene tmpScene;
         tmpScene.addItem(temp);
         QRectF br = temp->boundingRect();
@@ -287,7 +288,7 @@ void DiagramSceneDlg::openObjectSelectDialog()
         }
 
         auto *item = new AlgorithmItem(AlgorithmItem::ALGORITM, itemMenu, title, {}, {});
-        item->setBrush(QColor("#D3D3D3"));
+        item->setBrush(gDiagramColors.objectBackground);
         item->setProperties(props);
         item->setObjectOutput(true);
         item->setIsObject(true);
@@ -400,7 +401,7 @@ void DiagramSceneDlg::loadFromJson()
         auto *item = new AlgorithmItem(AlgorithmItem::ALGORITM, itemMenu, title, {}, {});
         item->setProperties(props);
         item->setIsObject(obj["is_object"].toBool());
-        item->setBrush(item->isObject() ? QColor("#D3D3D3") : QColor("#E3E3FD"));
+        item->setBrush(item->isObject() ? gDiagramColors.objectBackground : gDiagramColors.algorithmBackground);
         if (obj["self_out"].toBool())
             item->setObjectOutput(true);
         item->setPos(obj["x"].toDouble(), obj["y"].toDouble());
@@ -566,8 +567,10 @@ void DiagramSceneDlg::createToolBox()
     connect(buttonGroup, QOverload<QAbstractButton *>::of(&QButtonGroup::buttonClicked),
             this, &DiagramSceneDlg::buttonGroupClicked);
     QGridLayout *layout = new QGridLayout;
-    layout->addWidget(createCellWidget(tr("Условие"), DiagramItem::Conditional), 0, 0);
-    layout->addWidget(createCellWidget(tr("Событие"), DiagramItem::StartEnd), 0, 1);
+    layout->addWidget(createCellWidget(tr("Начало"), DiagramItem::Start, AlgorithmItem::ALGORITM), 0, 0);
+    layout->addWidget(createCellWidget(tr("Конец"), DiagramItem::End, AlgorithmItem::ALGORITM), 0, 1);
+    layout->addWidget(createCellWidget(tr("Условие"), DiagramItem::Conditional, AlgorithmItem::CONDITION), 1, 0);
+    layout->addWidget(createCellWidget(tr("Событие"), DiagramItem::Event, AlgorithmItem::EVENT), 1, 1);
 
     QToolButton *textButton = new QToolButton;
     textButton->setCheckable(true);
@@ -872,7 +875,8 @@ QWidget *DiagramSceneDlg::createBackgroundCellWidget(const QString &text, const 
 }
 
 // Создаёт элемент выбора стандартной блок-схемы
-QWidget *DiagramSceneDlg::createCellWidget(const QString &text, DiagramItem::DiagramType type)
+QWidget *DiagramSceneDlg::createCellWidget(const QString &text, DiagramItem::DiagramType type,
+                                           AlgorithmItem::AlgorithmType algType)
 {
 
     DiagramItem item(type, itemMenu);
@@ -882,7 +886,7 @@ QWidget *DiagramSceneDlg::createCellWidget(const QString &text, DiagramItem::Dia
     button->setIcon(icon);
     button->setIconSize(QSize(50, 50));
     button->setCheckable(true);
-    buttonGroup->addButton(button, int(type));
+    buttonGroup->addButton(button, int(algType));
 
     QGridLayout *layout = new QGridLayout;
     layout->addWidget(button, 0, 0, Qt::AlignHCenter);

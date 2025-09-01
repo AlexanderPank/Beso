@@ -4,6 +4,8 @@
 #include <QGraphicsLineItem>
 #include <QColor>
 
+#include "diagramcolors.h"
+
 class QGraphicsEllipseItem;
 
 // Arrow represents a polyline connection between two circle handles
@@ -40,7 +42,7 @@ private:
     QGraphicsEllipseItem *m_startItem{nullptr};
     QGraphicsEllipseItem *m_endItem{nullptr};
     QPolygonF arrowHead;
-    QColor myColor = Qt::black;
+    QColor myColor = gDiagramColors.arrowColor;
 };
 
 #endif // ARROW_H
