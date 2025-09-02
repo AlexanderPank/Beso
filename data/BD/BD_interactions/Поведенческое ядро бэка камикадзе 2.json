@@ -47,12 +47,20 @@
       "response_action": ""
     },
     {
-      "title": "Цель обнаружена, расчет точки встречи и вычисление маршрута",
+      "title": "Цель обнаружена, расчет точки встречи, вычисление маршрута",
       "source_object_id": "!BEK!",
       "interaction_type": "search",
-      "trigger_condition": "!BEK!.properties['state'] in ['waiting', 'standing'] and self.iteration_time >=!BEK!.properties['waiting_time'] and !BEK!.actions.look_detection(item1=!BEK!, item2=!TARGET!,  rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], max_distance=!BEK!.properties['detection_distance'])",
-      "response_set_values": "!BEK!.properties['state'] = 'attacking'; !BEK!.properties['target'] = '!TARGET!';",
-      "response_action": "Model_00.actions.fox_rabbit(lat1=!BEK!.properties['lat'], lon1=!BEK!.properties['lon'], alt1=!BEK!.properties['alt'], speed1=!BEK!.properties['attack_speed'], lat2=!TARGET!.properties['lat'], lon2=!TARGET!.properties['lon'], alt2=!TARGET!.properties['alt'], speed2=!TARGET!.properties['speed'], course2=!TARGET!.properties['course'], dt=100.0) and !BEK!.properties['geo_path']['geometry']['coordinates'] = !BEK!.actions.find_path(ship_lat=!BEK!.properties['lat'], ship_lon=!BEK!.properties['lon'], target_lat=Model_00.properties['lat'], target_lon=Model_00.properties['lon'], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"))"
+      "response_set_values": "!BEK!.properties['state'] = 'attacking'; !BEK!.properties['target'] = '!TARGET!'; !BEK!.properties['segment_index'] = 0;",
+      "response_action": "Model_00.actions.fox_rabbit(lat1=!BEK!.properties['lat'], lon1=!BEK!.properties['lon'], alt1=!BEK!.properties['alt'], speed1=!BEK!.properties['attack_speed'], lat2=!TARGET!.properties['lat'], lon2=!TARGET!.properties['lon'], alt2=!TARGET!.properties['alt'], speed2=!TARGET!.properties['speed'], course2=!TARGET!.properties['course'], dt=100.0) and !BEK!.properties['geo_path']['geometry']['coordinates'] = !BEK!.actions.find_path(ship_lat=!BEK!.properties['lat'], ship_lon=!BEK!.properties['lon'], target_lat=Model_00.properties['lat'], target_lon=Model_00.properties['lon'], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"))",
+      "trigger_condition": "!BEK!.properties['state'] in ['waiting', 'standing'] and self.iteration_time >=!BEK!.properties['waiting_time'] and !BEK!.actions.look_detection(item1=!BEK!, item2=!TARGET!,  rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], max_distance=!BEK!.properties['detection_distance'])"
+    },
+    {
+      "title": "Цель обнаружена, корректировка точки встречи, попытка расчета маршрута",
+      "source_object_id": "!BEK!",
+      "interaction_type": "search",
+      "response_action": "Model_00.actions.fox_rabbit(lat1=!BEK!.properties['lat'], lon1=!BEK!.properties['lon'], alt1=!BEK!.properties['alt'], speed1=!BEK!.properties['attack_speed'], lat2=!TARGET!.properties['lat'], lon2=!TARGET!.properties['lon'], alt2=!TARGET!.properties['alt'], speed2=!TARGET!.properties['speed'], course2=!TARGET!.properties['course'], dt=100.0) and !BEK!.properties['geo_path']['geometry']['coordinates'] = !BEK!.actions.find_path(ship_lat=!BEK!.properties['lat'], ship_lon=!BEK!.properties['lon'], target_lat=Model_00.properties['lat'], target_lon=Model_00.properties['lon'], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"));",
+      "response_set_values": "!BEK!.properties['state'] = 'attacking'; !BEK!.properties['target'] = '!TARGET!'; !BEK!.properties['segment_index'] = 0;",
+      "trigger_condition": "!BEK!.properties['state'] in ['finished', 'attacking'] and !BEK!.properties['target'] != '' and self.iteration_time > !BEK!.properties['trigger_time']  and !BEK!.actions.look_detection(item1=!BEK!, item2=!TARGET!,  rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], max_distance=!BEK!.properties['detection_distance'])"
     },
     {
       "title": "Цель уничтожена",
@@ -70,13 +78,7 @@
       "response_set_values": "!BEK!.properties['state'] = 'destroyed_bek'",
       "response_action": ""
     },
-    {
-      "title": "Цель обнаружена, расчет точки встречи и вычисление маршрута",
-      "source_object_id": "!BEK!",
-      "interaction_type": "search",
-      "response_action": "Model_00.actions.fox_rabbit(lat1=!BEK!.properties['lat'], lon1=!BEK!.properties['lon'], alt1=!BEK!.properties['alt'], speed1=!BEK!.properties['attack_speed'], lat2=!TARGET!.properties['lat'], lon2=!TARGET!.properties['lon'], alt2=!TARGET!.properties['alt'], speed2=!TARGET!.properties['speed'], course2=!TARGET!.properties['course'], dt=100.0) and !BEK!.properties['geo_path']['geometry']['coordinates'] = !BEK!.actions.find_path(ship_lat=!BEK!.properties['lat'], ship_lon=!BEK!.properties['lon'], target_lat=Model_00.properties['lat'], target_lon=Model_00.properties['lon'], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"));",
-      "trigger_condition": "!BEK!.properties['state'] in ['finished', 'attacking'] and !BEK!.properties['target'] != '' and self.iteration_time > !BEK!.properties['trigger_time']  and !BEK!.actions.look_detection(item1=!BEK!, item2=!TARGET!,  rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], max_distance=!BEK!.properties['detection_distance'])"
-    },
+
     {
       "title": "Движение по маршруту",
       "source_object_id": "!BEK!",

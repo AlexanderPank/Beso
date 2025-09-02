@@ -25,60 +25,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4bf0ab9c-4e55-4ffa-befb-862d7ffbe0c5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/data/BD/BD_interactions/Поведенческое ядро бэка камикадзе 2.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/diagramscene/diagramcolors.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/diagramscene/diagramcolors.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map_widget/map_additional/MapCompass.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map_widget/map_additional/MapCompass.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scenario/06 demo.01.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/QtSettings.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainWindow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/MainWindow.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainWindow.h" beforeDir="false" afterPath="$PROJECT_DIR$/MainWindow.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/BD/BD_algorithms/alg_id_evasive_maneuver.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/BD/BD_algorithms/alg_id_evasive_maneuver.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/BD/BD_algorithms/alg_id_path.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/BD/BD_algorithms/alg_id_path.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/BD/BD_districts/district_1.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/BD/BD_districts/district_1.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/BD/BD_interactions/core_kamikadze.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/BD/BD_interactions/core_kamikadze.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/BD/BD_interactions/multy_example.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/BD/BD_interactions/multy_example.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/BD/BD_interactions/Поведенческое ядро БПЛА разведчика 2 .json" beforeDir="false" afterPath="$PROJECT_DIR$/data/BD/BD_interactions/Поведенческое ядро БПЛА разведчика 2 .json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/BD/BD_interactions/Поведенческое ядро Корабля 2.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/BD/BD_interactions/Поведенческое ядро Корабля 2.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/BD/BD_objects/BEK_MIKOLA.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/BD/BD_objects/BEK_MIKOLA.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/BD/BD_objects/BEK_MIKOLA_2.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/BD/BD_objects/SHIP_ИВАН_РОГОВ.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/BD/BD_objects/SHIP_ИВАН_РОГОВ.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/BD/BD_objects/Гидрометеоусловия.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/BD/BD_objects/Гидрометеоусловия.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/BD/BD_objects/СистемаСвязи.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/BD/BD_objects/СистемаСвязи.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/BD/BD_objects/СредаВзаимодействия.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/BD/BD_objects/СредаВзаимодействия.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/BD/BD_tactical_signs/Граница зоны обнаружения надводных целей РЛС.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/BD/BD_tactical_signs/Граница зоны обнаружения надводных целей РЛС.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/BD/BD_tactical_signs/Граница зоны оптико-электронной разведки.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/BD/BD_tactical_signs/Граница зоны оптико-электронной разведки.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/BD/BD_tactical_signs/Граница зоны полета БПЛА.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/BD/BD_tactical_signs/Граница зоны полета БПЛА.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/BD/BD_tactical_signs/Границы зоны обзора оптико-электронных и оптических средств.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/BD/BD_tactical_signs/Границы зоны обзора оптико-электронных и оптических средств.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/BD/BD_tactical_signs/Рубежи открытия огня.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/BD/BD_tactical_signs/Рубежи открытия огня.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db_service/ScenarioEditor.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/db_service/ScenarioEditor.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db_service/ScenarioEditor.h" beforeDir="false" afterPath="$PROJECT_DIR$/db_service/ScenarioEditor.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db_service/ScenarioParser.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/db_service/ScenarioParser.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/diagramscene/AlgorithmPropertiesDialog.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/diagramscene/AlgorithmPropertiesDialog.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/diagramscene/DiagramSceneDlg.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/diagramscene/DiagramSceneDlg.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/diagramscene/DiagramSceneDlg.h" beforeDir="false" afterPath="$PROJECT_DIR$/diagramscene/DiagramSceneDlg.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/diagramscene/algorithmitem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/diagramscene/algorithmitem.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/diagramscene/algorithmitem.h" beforeDir="false" afterPath="$PROJECT_DIR$/diagramscene/algorithmitem.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/diagramscene/arrow.h" beforeDir="false" afterPath="$PROJECT_DIR$/diagramscene/arrow.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/diagramscene/diagramitem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/diagramscene/diagramitem.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/diagramscene/diagramitem.h" beforeDir="false" afterPath="$PROJECT_DIR$/diagramscene/diagramitem.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/diagramscene/diagramscene.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/diagramscene/diagramscene.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/map_widget/MapWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/map_widget/MapWidget.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/map_widget/MapWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/map_widget/MapWidget.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/map_widget/SimulationEventWidgetInMap.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/map_widget/SimulationEventWidgetInMap.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/map_widget/SimulationEventWidgetInMap.h" beforeDir="false" afterPath="$PROJECT_DIR$/map_widget/SimulationEventWidgetInMap.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/ActionModel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/models/ActionModel.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/FeatureModel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/models/FeatureModel.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/ObjectScenarioModel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/models/ObjectScenarioModel.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/PropertyModel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/models/PropertyModel.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/resource.qrc" beforeDir="false" afterPath="$PROJECT_DIR$/resources/resource.qrc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scenario/04.01 отладка связи.json" beforeDir="false" afterPath="$PROJECT_DIR$/scenario/04.01 отладка связи.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/signs/SignFactory.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/signs/SignFactory.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/signs/SignShip.h" beforeDir="false" afterPath="$PROJECT_DIR$/signs/SignShip.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/BD/BD_interactions/Поведенческое ядро бэка камикадзе 2.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/BD/BD_interactions/Поведенческое ядро бэка камикадзе 2.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/BD/BD_interactions/Поведенческое ядро бэка камикадзе.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/BD/BD_interactions/Поведенческое ядро бэка камикадзе.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scenario/06 demo.01.json" beforeDir="false" afterPath="$PROJECT_DIR$/scenario/06 demo.01.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/DObjectProperties.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ui/DObjectProperties.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,7 +67,7 @@
     "RunOnceActivity.west.config.association.type.startup.service": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "Merging main",
+    "git-widget-placeholder": "main",
     "last_opened_file_path": "/home/qq/Beso/data/BD/BD_interactions",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -133,11 +84,6 @@
   </component>
   <component name="RunManager">
     <configuration name="ScenarioClient" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ScenarioClient" TARGET_NAME="ScenarioClient" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ScenarioClient" RUN_TARGET_NAME="ScenarioClient">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -159,6 +105,8 @@
       <workItem from="1756720807715" duration="2961000" />
       <workItem from="1756729459286" duration="7229000" />
       <workItem from="1756747660408" duration="15244000" />
+      <workItem from="1756794858786" duration="5335000" />
+      <workItem from="1756810942884" duration="5717000" />
     </task>
     <servers />
   </component>

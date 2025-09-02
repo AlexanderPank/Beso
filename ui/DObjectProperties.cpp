@@ -11,6 +11,7 @@
 #include <QLocale>
 #include <QHBoxLayout>
 #include <limits>
+#include <QJsonDocument>
 
 #include "../models/PropertyModel.h"
 
@@ -157,7 +158,11 @@ void DObjectProperties::accept()
         } else if (auto dsb = qobject_cast<QDoubleSpinBox*>(editor)) {
             prop->setValue(dsb->value());
         } else if (auto le = qobject_cast<QLineEdit*>(editor)) {
-            prop->setValue(le->text());
+            if (prop->type() == PropertyModel::ValueType::FEATURE) {
+                QJsonDocument doc = QJsonDocument::fromJson(le->text().toUtf8());
+                prop->setValue(doc.toVariant());
+            } else
+                prop->setValue(le->text());
         }
     }
     QDialog::accept();
