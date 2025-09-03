@@ -776,7 +776,7 @@
             ],
             "output_parameters": [
                 {
-                    "is_look": "bool",
+                    "is_look": "any",
                     "title": ""
                 }
             ],

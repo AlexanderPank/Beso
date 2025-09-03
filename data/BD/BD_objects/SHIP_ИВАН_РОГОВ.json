@@ -67,11 +67,17 @@
       "name": "Алгоритм целераспределения",
       "output_mapping": [],
       "type": "targeting"
+    },
+    {
+      "algorithm_id": "alg_id_look_detection",
+      "name": "Алгоритм обнаружения объектов противника",
+      "output_mapping": [],
+      "type": "look_detection"
     }
   ],
   "features": [
     {
-      "class_code": "31261500011300000001",
+      "class_code": "AK_DISTANCE",
       "color": "base",
       "coordinates": [],
       "description": "Наносится 2-мя точками. Двойной клик для завершения нанесения.",
@@ -97,7 +103,7 @@
       "description": "Наносится 2-мя точками. Двойной клик для завершения нанесения.",
       "geometry_type": 4,
       "icon": ":/icons/images/tacticals/circle.png",
-      "id": "CIRCLE_5",
+      "id": "RLS_DISTANCE",
       "is_own": 1,
       "line_width": 0.4000000059604645,
       "parent_object_id": "no",
@@ -109,7 +115,7 @@
       "short_name": "Граница обнаружения надводных целей РЛС",
       "spline": true,
       "title": "Граница обнаружения надводных целей РЛС",
-      "type": "CIRCLE"
+      "type": "RLS_DISTANCE"
     },
     {
       "class_code": "C121055000334",
@@ -118,7 +124,7 @@
       "description": "Наносится 2-мя точками. Двойной клик для завершения нанесения.",
       "geometry_type": 4,
       "icon": ":/icons/images/tacticals/circle.png",
-      "id": "CIRCLE_6",
+      "id": "BPLA_DISTANCE",
       "is_own": 1,
       "line_width": 0.30000001192092896,
       "parent_object_id": "no",
@@ -130,40 +136,70 @@
       "short_name": "Граница зоны полета БПЛА камикадзе",
       "spline": true,
       "title": "Граница зоны полета БПЛА камикадзе",
-      "type": "CIRCLE"
+      "type": "BPLA_DISTANCE"
     }
   ],
   "id": "SHIP_ROGOV",
   "properties": [
     {
+      "name": "rls_distance",
+      "title": "РЛС - максимальная дальность обнаружения, м",
+      "type": "int",
+      "value": 5000
+    },
+    {
       "name": "ak_bullet_count",
-      "title": "боезапас патронов в АК",
+      "title": "АК боезапас, шт ",
       "type": "int",
       "value": 10000
     },
     {
       "name": "ak_bullet_per_second",
-      "title": "расход патронов в АК в секунду",
+      "title": "АК расход патронов в секунду",
       "type": "int",
       "value": 100
     },
     {
       "name": "ak_distance",
-      "title": "эффективная дистанция поражения, м",
+      "title": "АК эффективная дистанция поражения, м",
       "type": "int",
       "value": 2000
     },
     {
       "name": "ak_spread_horizontal",
-      "title": "разброс по горизонтали на 100м",
+      "title": "АК, разброс по горизонтали на 100м",
       "type": "float",
       "value": 0.37
     },
     {
       "name": "ak_spread_vertical",
-      "title": "разброс по вертикали на 100м",
+      "title": "АК, разброс по вертикали на 100м",
       "type": "float",
       "value": 0.57
+    },
+    {
+      "name": "target",
+      "title": "АК текущий идентификатор цели",
+      "type": "str",
+      "value": ""
+    },
+    {
+      "name": "bpla_distance",
+      "title": "БПЛА камикадзе - дальность полета, м",
+      "type": "int",
+      "value": 15000
+    },
+    {
+      "name": "lat",
+      "title": "координаты - широта",
+      "type": "float",
+      "value": 0
+    },
+    {
+      "name": "lon",
+      "title": "координаты - долгота",
+      "type": "float",
+      "value": 0
     },
     {
       "name": "alt",
@@ -191,13 +227,19 @@
     },
     {
       "name": "damage_state",
-      "title": "тип повреждения",
+      "title": "Корпус - тип повреждения",
       "type": "str",
       "value": ""
     },
     {
+      "name": "hull_damage",
+      "title": "Корпус - количество повреждений от 0 до 1",
+      "type": "int",
+      "value": 0
+    },
+    {
       "name": "danger_distance",
-      "title": "мин дистанция при которой начинается маневр уклонения",
+      "title": "Маневр - макс дистанция до противника для осуществления маневра, м",
       "type": "int",
       "value": 4000
     },
@@ -223,36 +265,15 @@
       "type": "float",
       "value": 2
     },
-    {
-      "name": "hull_damage",
-      "title": "текущее повреждений корпуса",
-      "type": "int",
-      "value": 0
-    },
-    {
-      "name": "image",
-      "title": "иконка",
-      "type": "str",
-      "value": "ship-blue.png"
-    },
+
+
     {
       "name": "is_own",
-      "title": "синий/красный",
+      "title": "Признак синий/красный",
       "type": "int",
       "value": 0
     },
-    {
-      "name": "lat",
-      "title": "координаты - широта",
-      "type": "float",
-      "value": 0
-    },
-    {
-      "name": "lon",
-      "title": "координаты - долгота",
-      "type": "float",
-      "value": 0
-    },
+
     {
       "name": "noise_figure_db",
       "title": "Приемник - шумовой коэффициент дБ",
@@ -261,19 +282,19 @@
     },
     {
       "name": "segment_index",
-      "title": "индекс сегмента маршрута",
+      "title": "Маршрут - текущий индекс сегмента маршрута",
       "type": "int",
       "value": 0
     },
     {
       "name": "speed",
-      "title": "крейсерская скорость",
+      "title": "Текущая скорость, м/с",
       "type": "float",
       "value": 9
     },
     {
       "name": "speed_maneuver",
-      "title": "скорость при выполнении маневра",
+      "title": "скорость при выполнении маневра, м/с",
       "type": "float",
       "value": 13.6
     },
@@ -289,15 +310,10 @@
       "type": "str",
       "value": "УДК"
     },
-    {
-      "name": "target",
-      "title": "идентификатор цели АК",
-      "type": "str",
-      "value": ""
-    },
+
     {
       "name": "target_list",
-      "title": "Список целей для атаки",
+      "title": "БПЛА камикадзе - список объектов противника для целераспределения",
       "type": "list",
       "value": []
     },

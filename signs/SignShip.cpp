@@ -426,3 +426,6 @@ QList<QPointF> SignBorderOES::buildCoveragePolygon(double latInDegress,
     return  GeoUtil::toRadians(polygon);
 }
 
+SignRLS::SignRLS(QList<QPointF> coord, QString name, double radius, QString classCode):SignCircle(coord, name, radius, classCode){};
+SignBPLADistance::SignBPLADistance(QList<QPointF> coord, QString name, double radius, QString classCode):SignCircle(coord, name, radius, classCode){};
+SignAKDistance::SignAKDistance(QList<QPointF> coord, QString name, double radius):SignCircle(coord, name, radius, "31261500011300000001"){};

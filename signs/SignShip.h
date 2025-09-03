@@ -80,6 +80,7 @@ public:
 private:
     double m_radius;
 };
+
 class SignSector: public SignBase{
 public:
     SignSector(QList<QPointF> coordRad, QString name,  QPointF targetRad, double angleWidth,double distance);
@@ -129,6 +130,21 @@ private:
     double m_height = 0;
 };
 
+
+class SignRLS: public SignCircle{
+public:
+    SignRLS(QList<QPointF> coord, QString name, double radius, QString classCode="L0000003641u");
+};
+
+class SignBPLADistance: public SignCircle{
+public:
+    SignBPLADistance(QList<QPointF> coord, QString name, double radius, QString classCode="C121055000334");
+};
+
+class SignAKDistance: public SignCircle{
+public:
+    SignAKDistance(QList<QPointF> coord, QString name, double radius);
+};
 
 
 

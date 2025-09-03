@@ -124,6 +124,7 @@ void ScenarioEditor::itemDoubleClicked(QTreeWidgetItem *item, int column)
     auto objectModel = item->data(0, Qt::UserRole).value<ObjectScenarioModel*>();
     if (objectModel) {
         showPropertiesDialog(" Редактирование параметров " + objectModel->getTitle(), objectModel->properties());
+        updateConnectedSigns(objectModel);
         return;
     }
     auto featureModel = item->data(0, Qt::UserRole).value<FeatureModel*>();
@@ -138,6 +139,7 @@ void ScenarioEditor::showPropertiesDialog(const QString &title, const QMap<QStri
 {
     DObjectProperties dlg(title, props, this);
     dlg.exec();
+
 }
 
 void ScenarioEditor::saveScenario(bool saveAs){

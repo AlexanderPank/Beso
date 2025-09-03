@@ -22,6 +22,14 @@
       "trigger_condition": "CommunicationModel.actions.has_messages(receiver_id=!SHIP!.id, current_time=self.iteration_time) == True and !SHIP!.properties['state'] != 'destroyed'"
     },
     {
+      "title": "Обнаружение цели в зоне РЛС",
+      "source_object_id": "!SHIP!",
+      "interaction_type": "look_detection",
+      "trigger_condition": "!SHIP!.actions.look_detection(item1=!SHIP!, item2=self.objects,  rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], max_distance=!SHIP!.properties['rls_distance']) != []",
+      "response_set_values": "!SHIP!.properties['target_list'] = !SHIP!.actions.look_detection(item1=!SHIP!, item2=self.objects,  rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], max_distance=!SHIP!.properties['rls_distance'])",
+      "response_action": ""
+    },
+    {
       "id": "Корабль - целераспределение",
       "interaction_type": "moving",
       "response_action": "!SHIP!.actions.targeting(target_list=!SHIP!.properties['target_list'], all_items=self.objects, ship=!SHIP!, func_name='', library_name='')",

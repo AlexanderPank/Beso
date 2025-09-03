@@ -121,12 +121,13 @@ SignBase* SignFactory::createSignFromFeature(FeatureModel* feature){
         if (feature->getRadius() <= 0) {
             radius = feature->getPropertyInt("radius");
         }
-        sign = new SignCircle(coordinatesInRadian, feature->getTitle(), radius < 0 ? 0 : radius, feature->getClassCode());
-
+        if (feature->getClassCode() == "L0000003641u")  sign = new SignRLS(coordinatesInRadian, feature->getTitle(), radius < 0 ? 0 : radius, feature->getClassCode());
+        else if (feature->getClassCode() == "AK_DISTANCE")  sign = new SignAKDistance(coordinatesInRadian, feature->getTitle(), radius < 0 ? 0 : radius);
+        else if (feature->getClassCode() == "C121055000334")  sign = new SignBPLADistance(coordinatesInRadian, feature->getTitle(), radius < 0 ? 0 : radius, feature->getClassCode());
+        else sign = new SignCircle(coordinatesInRadian, feature->getTitle(), radius < 0 ? 0 : radius, feature->getClassCode());
     } else
     if (feature->getClassCode() == "915300000000") sign = new SignTitle(coordinatesInRadian, feature->getTitle(), feature->getText(), feature->getFontSize());
-    else
-    if (feature->getClassCode() == "222215005301")  sign = new SignBorderOES(coordinatesInRadian, feature->getTitle());
+    else  if (feature->getClassCode() == "222215005301")  sign = new SignBorderOES(coordinatesInRadian, feature->getTitle());
     else {
         sign = new SignBase(feature->getClassCode(), feature->getTitle(), QUuid::createUuid(), nullptr);
         sign->setName(feature->getTitle());
@@ -155,10 +156,10 @@ SignBase* SignFactory::createSignFromFeature(FeatureModel* feature){
 }
 
 SignBase* SignFactory::updateConnectedSign(SignBase* sign, ObjectScenarioModel *obj){
+    bool bOk;
+    QPointF center(obj->getPropertyDouble("lat", bOk), obj->getPropertyDouble("lon", bOk) );
 
     if (auto border = dynamic_cast<SignBorderOES*>(sign)) {
-        bool bOk;
-        QPointF center(obj->getPropertyDouble("lat", bOk), obj->getPropertyDouble("lon", bOk) );
         auto bearing = obj->getPropertyDouble("course", bOk);
         auto oes_res_height = obj->getPropertyDouble("oes_res_height", bOk);
         auto oes_res_width = obj->getPropertyDouble("oes_res_width", bOk);
@@ -168,10 +169,24 @@ SignBase* SignFactory::updateConnectedSign(SignBase* sign, ObjectScenarioModel *
         border->redraw(center, bearing);
         return border;
     }
-    if (auto border = dynamic_cast<SignCircle*>(sign)) {
-        bool bOk;
-        QPointF center(obj->getPropertyDouble("lat", bOk), obj->getPropertyDouble("lon", bOk) );
-        auto radius = border->getRadius();
+    if (auto border = dynamic_cast<SignRLS*>(sign)) {
+        auto radius = (double)border->getRadius();
+        auto rls_distance = obj->getPropertyDouble("rls_distance", bOk);
+        if (bOk) radius = rls_distance;
+        border->setCoordinatesInDegrees({center}, radius, false);
+        return border;
+    }
+    if (auto border = dynamic_cast<SignAKDistance*>(sign)) {
+        auto radius = (double)border->getRadius();
+        auto ak_distance = obj->getPropertyDouble("ak_distance", bOk);
+        if (bOk) radius = ak_distance;
+        border->setCoordinatesInDegrees({center}, radius, false);
+        return border;
+    }
+    if (auto border = dynamic_cast<SignBPLADistance*>(sign)) {
+        auto radius = (double)border->getRadius();
+        auto bpla_distance = obj->getPropertyDouble("bpla_distance", bOk);
+        if (bOk) radius = bpla_distance;
         border->setCoordinatesInDegrees({center}, radius, false);
         return border;
     }
