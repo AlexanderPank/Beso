@@ -207,6 +207,7 @@ SignCircle::SignCircle(QList<QPointF> _coordinates, QString _name, double radius
 }
 
 void SignCircle::setCoordinatesInDegrees(QList<QPointF> coord, double radius, bool emit_signals){
+    if (coord.size() == 0) return;
     coord = GeoUtil::toRadians(coord);
     auto point = GeoUtil::calculateNewPointRadians(coord[0].x(), coord[0].y(), radius, 0);
     SignBase::setCoordinatesInRadians( {coord[0], point}, emit_signals);

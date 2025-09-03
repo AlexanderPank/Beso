@@ -7,14 +7,6 @@
   ],
   "interaction_list": [
     {
-      "title": "Инициализация объекта моделирования",
-      "interaction_type": "moving",
-      "response_action": "",
-      "response_set_values": "!BEK!.properties['trigger_time'] = 0;",
-      "source_object_id": "!BEK!",
-      "trigger_condition": "'trigger_time' not in !BEK!.properties"
-    },
-    {
       "title": "Недопустимые метеоусловия для плавания",
       "interaction_type": "moving",
       "response_action": "",
@@ -35,7 +27,7 @@
       "title": "Прибытие в РОЖ",
       "source_object_id": "!BEK!",
       "interaction_type": "moving",
-      "response_set_values": "!BEK!.properties['state'] = 'waiting'; !BEK!.properties['segment_index'] = -1; !BEK!.properties['geo_path']['geometry']['coordinates'] = []; !BEK!.properties['waiting_time'] = Model_00.actions.get_waiting_time(item=!BEK!, geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"WAITING_REGION\")); ",
+      "response_set_values": "!BEK!.properties['state'] = 'waiting'; !BEK!.properties['segment_index'] = 0; !BEK!.properties['geo_path']['geometry']['coordinates'] = []; !BEK!.properties['waiting_time'] = Model_00.actions.get_waiting_time(item=!BEK!, geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"WAITING_REGION\")); ",
       "trigger_condition": "!BEK!.properties['state'] in ['finished'] and !BEK!.properties['target'] == '' and Model_00.actions.object_in_rog(item=!BEK!, geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"WAITING_REGION\")) != '' ",
       "response_action": ""
     },
@@ -47,20 +39,20 @@
       "response_action": ""
     },
     {
-      "title": "Цель обнаружена, расчет точки встречи, вычисление маршрута",
-      "source_object_id": "!BEK!",
-      "interaction_type": "search",
-      "response_set_values": "!BEK!.properties['state'] = 'attacking'; !BEK!.properties['target'] = '!TARGET!'; !BEK!.properties['segment_index'] = 0;",
-      "response_action": "Model_00.actions.fox_rabbit(lat1=!BEK!.properties['lat'], lon1=!BEK!.properties['lon'], alt1=!BEK!.properties['alt'], speed1=!BEK!.properties['attack_speed'], lat2=!TARGET!.properties['lat'], lon2=!TARGET!.properties['lon'], alt2=!TARGET!.properties['alt'], speed2=!TARGET!.properties['speed'], course2=!TARGET!.properties['course'], dt=100.0) and !BEK!.properties['geo_path']['geometry']['coordinates'] = !BEK!.actions.find_path(ship_lat=!BEK!.properties['lat'], ship_lon=!BEK!.properties['lon'], target_lat=Model_00.properties['lat'], target_lon=Model_00.properties['lon'], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"))",
-      "trigger_condition": "!BEK!.properties['state'] in ['waiting', 'standing'] and self.iteration_time >=!BEK!.properties['waiting_time'] and !BEK!.actions.look_detection(item1=!BEK!, item2=!TARGET!,  rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], max_distance=!BEK!.properties['detection_distance'])"
-    },
-    {
       "title": "Цель обнаружена, корректировка точки встречи, попытка расчета маршрута",
       "source_object_id": "!BEK!",
       "interaction_type": "search",
       "response_action": "Model_00.actions.fox_rabbit(lat1=!BEK!.properties['lat'], lon1=!BEK!.properties['lon'], alt1=!BEK!.properties['alt'], speed1=!BEK!.properties['attack_speed'], lat2=!TARGET!.properties['lat'], lon2=!TARGET!.properties['lon'], alt2=!TARGET!.properties['alt'], speed2=!TARGET!.properties['speed'], course2=!TARGET!.properties['course'], dt=100.0) and !BEK!.properties['geo_path']['geometry']['coordinates'] = !BEK!.actions.find_path(ship_lat=!BEK!.properties['lat'], ship_lon=!BEK!.properties['lon'], target_lat=Model_00.properties['lat'], target_lon=Model_00.properties['lon'], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"));",
-      "response_set_values": "!BEK!.properties['state'] = 'attacking'; !BEK!.properties['target'] = '!TARGET!'; !BEK!.properties['segment_index'] = 0;",
+      "response_set_values": "!BEK!.properties['state'] = 'attacking'; !BEK!.properties['target'] = '!TARGET!'; !BEK!.properties['segment_index'] = 0;!BEK!.properties['speed'] = !BEK!.properties['attack_speed'];",
       "trigger_condition": "!BEK!.properties['state'] in ['finished', 'attacking'] and !BEK!.properties['target'] != '' and self.iteration_time > !BEK!.properties['trigger_time']  and !BEK!.actions.look_detection(item1=!BEK!, item2=!TARGET!,  rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], max_distance=!BEK!.properties['detection_distance'])"
+    },
+    {
+      "title": "Цель обнаружена, расчет точки встречи, вычисление маршрута",
+      "source_object_id": "!BEK!",
+      "interaction_type": "search",
+      "response_set_values": "!BEK!.properties['state'] = 'attacking'; !BEK!.properties['target'] = '!TARGET!'; !BEK!.properties['segment_index'] = 0;!BEK!.properties['speed'] = !BEK!.properties['attack_speed'];",
+      "response_action": "Model_00.actions.fox_rabbit(lat1=!BEK!.properties['lat'], lon1=!BEK!.properties['lon'], alt1=!BEK!.properties['alt'], speed1=!BEK!.properties['attack_speed'], lat2=!TARGET!.properties['lat'], lon2=!TARGET!.properties['lon'], alt2=!TARGET!.properties['alt'], speed2=!TARGET!.properties['speed'], course2=!TARGET!.properties['course'], dt=100.0) and !BEK!.properties['geo_path']['geometry']['coordinates'] = !BEK!.actions.find_path(ship_lat=!BEK!.properties['lat'], ship_lon=!BEK!.properties['lon'], target_lat=Model_00.properties['lat'], target_lon=Model_00.properties['lon'], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"))",
+      "trigger_condition": "!BEK!.properties['state'] in ['waiting', 'standing'] and self.iteration_time >=!BEK!.properties['waiting_time'] and !BEK!.actions.look_detection(item1=!BEK!, item2=!TARGET!,  rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], max_distance=!BEK!.properties['detection_distance'])"
     },
     {
       "title": "Цель уничтожена",
@@ -91,6 +83,13 @@
       "interaction_type": "moving",
       "response_action": "!BEK!.actions.move(item=!BEK!,  path=!BEK!.properties['geo_path'],  time_in_seconds=self.second_in_iteration)",
       "trigger_condition": "len(!BEK!.properties['geo_path']['geometry']['coordinates']) > 0 and !BEK!.properties['state'] in ['moving', 'attacking'] and WEATHER.properties['storm_state'] <= !BEK!.properties['max_excitement']"
+    },
+    {
+      "title": "Останов движения (нет расчетной точки встречи)",
+      "source_object_id": "!BEK!",
+      "interaction_type": "moving",
+      "response_set_values": "!BEK!.properties['speed'] = 0; !BEK!.properties['state'] = 'standing';",
+      "trigger_condition": "len(!BEK!.properties['geo_path']['geometry']['coordinates']) == 0 and !BEK!.properties['state'] in ['moving', 'attacking']"
     }
   ]
 }

@@ -290,6 +290,12 @@
       "name": "speed",
       "title": "Текущая скорость, м/с",
       "type": "float",
+      "value": 0
+    },
+    {
+      "name": "slow_speed",
+      "title": "Крейсерская скорость, м/с",
+      "type": "float",
       "value": 9
     },
     {

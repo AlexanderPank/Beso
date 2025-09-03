@@ -5,7 +5,6 @@
         <file>images/resume.png</file>
         <file>images/stop.png</file>
         <file>images/open.png</file>
-        <file>images/roulet.jpg</file>
         <file>images/sign_add_points.jpg</file>
         <file>images/sign_change.jpg</file>
         <file>images/sign_properties.jpg</file>
@@ -14,6 +13,7 @@
         <file>images/sign_rotate.jpg</file>
         <file>images/sign_multy_select.png</file>
         <file>images/dropdown_arrow.png</file>
+        <file>images/roulette.jpg</file>
         <file>images/roulette_active.jpg</file>
         <file>images/sign_change_active.jpg</file>
         <file>images/sign_properties_active.jpg</file>

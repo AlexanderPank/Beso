@@ -90,7 +90,14 @@
       "source_object_id": "!SHIP!",
       "trigger_condition": "!SHIP!.properties['state'] == 'moving'"
     },
-
+    {
+      "id": "Корабль - остановка",
+      "title": "Достиг цели",
+      "interaction_type": "moving",
+      "response_set_values": "!SHIP!.properties['speed'] = 0; !SHIP!.properties['geo_path']['geometry']['coordinates'] = [];",
+      "source_object_id": "!SHIP!",
+      "trigger_condition": "!SHIP!.properties['state'] == 'finished' and len(!SHIP!.properties['geo_path']['geometry']['coordinates']) > 0"
+    },
     {
       "id": "Корабль - захват цели",
       "interaction_type": "detect_enemy",
@@ -129,11 +136,10 @@
     {
       "id": "Корабль - маневр уклонения",
       "interaction_type": "evasive_maneuver",
-      "response_action": "",
-      "response_set_values": "!SHIP!.properties['speed'] = !SHIP!.properties['speed_maneuver']",
+      "response_set_values": "!SHIP!.properties['speed'] = !SHIP!.properties['speed_maneuver']; !SHIP!.properties['state'] = 'moving'; ",
       "source_object_id": "!SHIP!",
       "title": "Маневр уклонения",
-      "trigger_condition": "!SHIP!.actions.evasive_maneuver(item=!SHIP!, objects=self.objects, type_danger=['БЭК'], min_distance=!SHIP!.properties['danger_distance'], rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], time_in_seconds=300, restricted_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\")) "
+      "trigger_condition": "!SHIP!.properties['state'] != 'destroyed' and !SHIP!.actions.evasive_maneuver(item=!SHIP!, objects=self.objects, type_danger=['БЭК'], min_distance=!SHIP!.properties['danger_distance'], rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], time_in_seconds=300, restricted_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\")) "
     }
   ]
 }

@@ -180,7 +180,13 @@
     },
     {
       "name": "speed",
-      "title": "крейсерская скорость, м/с",
+      "title": "текущая скорость, м/с",
+      "type": "float",
+      "value": 0
+    },
+    {
+      "name": "slow_speed",
+      "title": "Крейсерская скорость, м/с",
       "type": "float",
       "value": 22
     },

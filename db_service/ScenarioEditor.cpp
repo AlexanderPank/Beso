@@ -487,7 +487,7 @@ void ScenarioEditor::createSignFromFeature(FeatureModel* featureMain) {
     m_signObjects[featureMain->getId()] = sign;
     if(sign->getCoordinatesInDegrees().size() > 0)
         m_signController->addSignToMap(sign);
-
+    disconnect(sign, &SignBase::coordinateChanged, nullptr, nullptr);
     connect(sign, &SignBase::coordinateChanged, [featureMain, sign](QList<QPointF>) {
         featureMain->setCoordinates(sign->getCoordinatesInDegrees());
     });
@@ -739,8 +739,10 @@ void ScenarioEditor::updateObjectStateFromModel(QJsonArray jsonObjectList, QJson
         if (!feature) continue;
         auto *sign = m_signObjects[feature->getId()];
         if (!sign) continue;
-        if (feature->getGeometryType() == FeatureModel::GeometryType::CIRCLE)
-            ((SignCircle*) sign)->setCoordinatesInDegrees(feature->getCoordinates(), feature->getRadius());
+        if (feature->getGeometryType() == FeatureModel::GeometryType::CIRCLE ) {
+            if (feature->getParentID() == "")
+                ((SignCircle *) sign)->setCoordinatesInDegrees(feature->getCoordinates(), feature->getRadius());
+        }
         else
             sign->setCoordinatesInDegrees(feature->getCoordinates());
         if (feature->getPosition() == FeatureModel::PositionType::ALWAYS_TOP)
@@ -785,8 +787,7 @@ void ScenarioEditor::updateObjectStateFromModel(QJsonArray jsonObjectList, QJson
 
             auto geo_list = findGeoProperties(props);
             for (const auto& geo_field: geo_list) {
-                // если объект уничтожен то у него нет ни пути ни других гео объектов
-                if (props.contains("state") && props["state"].toString().startsWith("destroyed")) continue;
+
 
                 auto child_id = props[geo_field].toObject()["properties"].toObject()["id"].toString();
                 SignBase *childSign = nullptr;
@@ -795,16 +796,26 @@ void ScenarioEditor::updateObjectStateFromModel(QJsonArray jsonObjectList, QJson
                 else
                     childSign  = sign->getChild(geo_field);
 
-
                 if (!childSign) {
                     qLog() << "Появился гео знак неизвестно откуда";
                     continue;
                 }
+
+                // если объект уничтожен то у него нет ни пути ни других гео объектов
+                if (props.contains("state") && props["state"].toString().startsWith("destroyed")) {
+                    auto coordinates = childSign->getCoordinatesInDegrees();
+                    //if (coordinates.size() > 0) {
+                        childSign->setCoordinatesInDegrees({});
+                        m_signController->updateSignOnMap(childSign);
+                    //}
+                    continue;
+                }
+
                 childSign->setFeature(true);
-                qDebug() << "new geometry " << props[geo_field].toObject()["geometry"].toObject();
+
                 auto coordinates = props[geo_field].toObject()["geometry"].toObject()["coordinates"].toArray();
                 auto geoType = props[geo_field].toObject()["geometry"].toObject()["type"].toString().toLower();
-                qDebug() << "geo_field " << geo_field << "geoType " << geoType ;
+
                 if (geoType == "polygon") coordinates = coordinates[0].toArray();
                 childSign->setCoordinatesInDegrees(JsonArrayToQList(coordinates));
                 m_signController->updateSignOnMap(childSign);

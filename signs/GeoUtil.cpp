@@ -28,14 +28,33 @@ QList<QPointF> GeoUtil::toDegrees(QList<QPointF> points)  {
     return points;
 }
 
+static inline double normalizeLonDiff(double dlon) {
+    // приведём разницу долгот к диапазону [-pi, pi]
+    constexpr double pi = 3.14159265358979323846;
+    const double twoPi = 2.0 * pi;
+    dlon = std::fmod(dlon, twoPi);
+    if (dlon >  pi) dlon -= twoPi;
+    if (dlon < -pi) dlon += twoPi;
+    return dlon;
+}
+
 double GeoUtil::distanceBetweenPoints(const QPointF &p1Rad, const QPointF &p2Rad) {
-    const double R = 6371000.0; // Радиус Земли в метрах
-    double dlat = p2Rad.y() - p1Rad.y();
-    double dlon = p2Rad.x() - p1Rad.x();
-    double a = qSin(dlat/2) * qSin(dlat/2) +
-               qCos(p1Rad.y()) * qCos(p2Rad.y()) *
-               qSin(dlon/2) * qSin(dlon/2);
-    double c = 2 * qAtan2(qSqrt(a), qSqrt(1-a));
+    // p.x = lon(rad), p.y = lat(rad)
+    const double R = 6371000.0; // средний радиус Земли, м
+
+    const double dlat = p2Rad.y() - p1Rad.y();
+    const double dlon = normalizeLonDiff(p2Rad.x() - p1Rad.x());
+
+    const double sdlat2 = qSin(0.5 * dlat);
+    const double sdlon2 = qSin(0.5 * dlon);
+
+    double a = sdlat2 * sdlat2 +
+               qCos(p1Rad.y()) * qCos(p2Rad.y()) * (sdlon2 * sdlon2);
+
+    // эквивалент clamp для C++11
+    a = max(0.0, min(a, 1.0));
+
+    const double c = 2.0 * qAtan2(qSqrt(a), qSqrt(1.0 - a));
     return R * c;
 }
 
@@ -457,8 +476,9 @@ long GeoUtil::UpdateGisObject(HMAP hMap, HOBJ hObj, const QMap<int,QString>& gis
         gisObjectGeometry  = PrepareGeometry(geometryType,gisObjectCoordinates);
     }
 
-    int pcount = gisObjectCoordinates.isEmpty() ? 1000 : mapPointCount(hObj,0);
-    mapDeletePartObject(hObj,1, pcount,0);
+     auto p_count = (long int)mapPointCount(hObj,0);
+     mapDeletePartObject(hObj, 1, p_count, 0);
+
     if(gisObjectCoordinates.isEmpty() )
         return 1;
 

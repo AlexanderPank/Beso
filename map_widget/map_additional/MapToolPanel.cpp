@@ -87,6 +87,9 @@ void MapToolPanel::updateButtonView(ButtonState state) {
 
     if (_state == ButtonState::CHANGE_SIGN && state == ButtonState::NONE) ui->changeButton->setIcon( QIcon(":/icons/images/sign_change.jpg"));
     if (_state == ButtonState::ROTATE_SIGN && state == ButtonState::NONE) ui->rotateButton->setIcon( QIcon(":/icons/images/sign_rotate.jpg"));
+    if (_state == ButtonState::ROULETTE && state == ButtonState::NONE) ui->rulerButton->setIcon( QIcon(":/icons/images/sign_rotate.jpg"));
+    if (state == ButtonState::ROULETTE) ui->rulerButton->setIcon( QIcon(":/icons/images/roulette_active.jpg"));
+    else ui->rulerButton->setIcon( QIcon(":/icons/images/roulette.jpg"));
 
     _state = state;
     ui->rulerButton->setEnabled(_state == ButtonState::ROULETTE || _state == ButtonState::NONE);

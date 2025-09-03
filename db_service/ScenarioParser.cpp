@@ -444,7 +444,7 @@ InteractionModel *ScenarioParser::addInteractionModel(ObjectScenarioModel *objec
     interactionModelPath->setInteractionType("find_path");
     interactionModelPath->setTitle("Поиск маршрута");
     interactionModelPath->setTriggerCondition(QString("%1.properties['state'] == 'standing'").arg(objectScenarioModel->getId()));
-    interactionModelPath->setResponseSetValues(QString("%1.properties['state'] = 'moving'").arg(objectScenarioModel->getId()));
+    interactionModelPath->setResponseSetValues(QString("%1.properties['state'] = 'moving'; %1.properties['speed'] = %1.properties['slow_speed']").arg(objectScenarioModel->getId()));
     interactionModelPath->setResponseAction(QString("%1.properties['geo_path']['geometry']['coordinates'] = %1.actions.find_path(ship_lat=%1.properties['lat'], ship_lon=%1.properties['lon'], target_lat=self.features['%2'].coordinates[%3][0], target_lon=self.features['%2'].coordinates[%3][1], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"))")
                                                     .arg(objectScenarioModel->getId(), featureModel->getId(), QString::number(featureModel->getCoordinates().size()-1)));
     m_interactions.append(interactionModelPath);

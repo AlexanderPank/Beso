@@ -331,7 +331,7 @@ bool SignController::updateSignOnMap(int singId,  QList<QPointF> pointsInRadians
     if (!sign) return false;
 
     // Если объекта есть на карте, но нужно его скрыть, то удаляем его с карты
-    if (!sign->getVisibility() && sign->getGisID() != NO_SIGN)  {
+    if ((!sign->getVisibility() || sign->getCoordinatesInRadians().size()==0) && sign->getGisID() != NO_SIGN)  {
         removeSign(sign->getGisID());
         sign->setGisID(NO_SIGN);
         return true;
@@ -343,7 +343,7 @@ bool SignController::updateSignOnMap(int singId,  QList<QPointF> pointsInRadians
 
     auto hObj = signs[singId].first;
     if (hObj < 0) return false;
-    sign->setCoordinatesInRadians(pointsInRadians);
+    // sign->setCoordinatesInRadians(pointsInRadians);
 
     auto ret = _geoUtil->UpdateGisObject(_hMap, hObj,
                                          sign->getCharacteristics(),
