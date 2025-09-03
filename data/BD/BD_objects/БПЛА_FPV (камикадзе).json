@@ -70,7 +70,7 @@
       "name": "alt",
       "title": "координаты - высота над уровнем моря, м",
       "type": "int",
-      "value": 0
+      "value": 600
     },
     {
       "name": "attack_distance",

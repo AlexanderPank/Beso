@@ -1590,70 +1590,6 @@
             "type": "DIRECTION_OF_MOVEMENT"
         },
         {
-            "class_code": "111025000321",
-            "color": "base",
-            "coordinates": [
-                [
-                    44.52636207010275,
-                    37.55091606206208,
-                    0
-                ],
-                [
-                    44.53044306154682,
-                    37.64112526078686,
-                    0
-                ]
-            ],
-            "description": "Наностится n-точками.",
-            "geometry_type": 2,
-            "icon": "tactical_signs/white_destination_point.png",
-            "id": "DIRECTION_OF_MOVEMENT_11",
-            "is_own": 0,
-            "line_width": 0.30000001192092896,
-            "parent_object_id": "BEK_MIKOLA_4",
-            "position": 0,
-            "properties": [
-            ],
-            "scale": 100,
-            "scheme": "tactical_signs/white_destination_point.png",
-            "short_name": "Напр. движения",
-            "spline": false,
-            "title": "Направление движения",
-            "type": "DIRECTION_OF_MOVEMENT"
-        },
-        {
-            "class_code": "111025000321",
-            "color": "base",
-            "coordinates": [
-                [
-                    44.52126042596417,
-                    37.550381224915476,
-                    0
-                ],
-                [
-                    44.52572438918467,
-                    37.64379944651981,
-                    0
-                ]
-            ],
-            "description": "Наностится n-точками.",
-            "geometry_type": 2,
-            "icon": "tactical_signs/white_destination_point.png",
-            "id": "DIRECTION_OF_MOVEMENT_12",
-            "is_own": 0,
-            "line_width": 0.30000001192092896,
-            "parent_object_id": "BEK_MIKOLA_5",
-            "position": 0,
-            "properties": [
-            ],
-            "scale": 100,
-            "scheme": "tactical_signs/white_destination_point.png",
-            "short_name": "Напр. движения",
-            "spline": false,
-            "title": "Направление движения",
-            "type": "DIRECTION_OF_MOVEMENT"
-        },
-        {
             "class_code": "AK_DISTANCE",
             "color": "base",
             "coordinates": [
@@ -1744,6 +1680,70 @@
             "is_own": 1,
             "line_width": 0.30000001192092896,
             "parent_object_id": "SHIP_ROGOV_1",
+            "position": 0,
+            "properties": [
+            ],
+            "scale": 100,
+            "scheme": "tactical_signs/white_destination_point.png",
+            "short_name": "Напр. движения",
+            "spline": false,
+            "title": "Направление движения",
+            "type": "DIRECTION_OF_MOVEMENT"
+        },
+        {
+            "class_code": "111025000321",
+            "color": "base",
+            "coordinates": [
+                [
+                    44.517093749575935,
+                    37.55127262015979,
+                    0
+                ],
+                [
+                    44.52525675204451,
+                    37.65229741451564,
+                    0
+                ]
+            ],
+            "description": "Наностится n-точками.",
+            "geometry_type": 2,
+            "icon": "tactical_signs/white_destination_point.png",
+            "id": "DIRECTION_OF_MOVEMENT_14",
+            "is_own": 0,
+            "line_width": 0.30000001192092896,
+            "parent_object_id": "BEK_MIKOLA_5",
+            "position": 0,
+            "properties": [
+            ],
+            "scale": 100,
+            "scheme": "tactical_signs/white_destination_point.png",
+            "short_name": "Напр. движения",
+            "spline": false,
+            "title": "Направление движения",
+            "type": "DIRECTION_OF_MOVEMENT"
+        },
+        {
+            "class_code": "111025000321",
+            "color": "base",
+            "coordinates": [
+                [
+                    44.522365820365984,
+                    37.551510325558276,
+                    0
+                ],
+                [
+                    44.53069811395352,
+                    37.65514987929743,
+                    0
+                ]
+            ],
+            "description": "Наностится n-точками.",
+            "geometry_type": 2,
+            "icon": "tactical_signs/white_destination_point.png",
+            "id": "DIRECTION_OF_MOVEMENT_15",
+            "is_own": 0,
+            "line_width": 0.30000001192092896,
+            "parent_object_id": "BEK_MIKOLA_4",
             "position": 0,
             "properties": [
             ],
@@ -2578,204 +2578,6 @@
             "trigger_condition": "BEK_MIKOLA_3.properties['state'] == 'standing'"
         },
         {
-            "id": "",
-            "interaction_type": "moving",
-            "response_action": "",
-            "response_set_values": "BEK_MIKOLA_4.properties['state'] = 'stopped';",
-            "source_object_id": "BEK_MIKOLA_4",
-            "title": "Недопустимые метеоусловия для плавания",
-            "trigger_condition": "WEATHER.properties['storm_state'] > BEK_MIKOLA_4.properties['max_excitement']"
-        },
-        {
-            "id": "",
-            "interaction_type": "moving",
-            "response_action": "",
-            "response_set_values": "BEK_MIKOLA_4.properties['state'] = 'destroyed'; BEK_MIKOLA_4.properties['target'] = ''; BEK_MIKOLA_4.properties['geo_path']['geometry']['coordinates'] = []",
-            "source_object_id": "BEK_MIKOLA_4",
-            "title": "Обнаружено критическое повреждение от АК",
-            "trigger_condition": "BEK_MIKOLA_4.properties['hit_count'] >= BEK_MIKOLA_4.properties['max_hit_count'] and BEK_MIKOLA_4.properties['state'] in ['moving','standing','waiting','finished', 'attacking']"
-        },
-        {
-            "id": "",
-            "interaction_type": "moving",
-            "response_action": "",
-            "response_set_values": "BEK_MIKOLA_4.properties['state'] = 'waiting';BEK_MIKOLA_4.properties['speed'] = 0; BEK_MIKOLA_4.properties['segment_index'] = 0; BEK_MIKOLA_4.properties['geo_path']['geometry']['coordinates'] = []; BEK_MIKOLA_4.properties['waiting_time'] = Model_00.actions.get_waiting_time(item=BEK_MIKOLA_4, geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"WAITING_REGION\")); ",
-            "source_object_id": "BEK_MIKOLA_4",
-            "title": "Прибытие в РОЖ",
-            "trigger_condition": "BEK_MIKOLA_4.properties['state'] in ['finished'] and BEK_MIKOLA_4.properties['target'] == '' and Model_00.actions.object_in_rog(item=BEK_MIKOLA_4, geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"WAITING_REGION\")) != '' "
-        },
-        {
-            "id": "",
-            "interaction_type": "waiting",
-            "response_action": "",
-            "response_set_values": "",
-            "source_object_id": "BEK_MIKOLA_4",
-            "title": "Ожидание в РОЖ",
-            "trigger_condition": "BEK_MIKOLA_4.properties['state'] == 'waiting' and self.iteration_time < BEK_MIKOLA_4.properties['waiting_time']"
-        },
-        {
-            "id": "",
-            "interaction_type": "search",
-            "response_action": "Model_00.actions.fox_rabbit(lat1=BEK_MIKOLA_4.properties['lat'], lon1=BEK_MIKOLA_4.properties['lon'], alt1=BEK_MIKOLA_4.properties['alt'], speed1=BEK_MIKOLA_4.properties['attack_speed'], lat2=SHIP_ROGOV_1.properties['lat'], lon2=SHIP_ROGOV_1.properties['lon'], alt2=SHIP_ROGOV_1.properties['alt'], speed2=SHIP_ROGOV_1.properties['speed'], course2=SHIP_ROGOV_1.properties['course'], dt=100.0) and BEK_MIKOLA_4.properties['geo_path']['geometry']['coordinates'] = BEK_MIKOLA_4.actions.find_path(ship_lat=BEK_MIKOLA_4.properties['lat'], ship_lon=BEK_MIKOLA_4.properties['lon'], target_lat=Model_00.properties['lat'], target_lon=Model_00.properties['lon'], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"));",
-            "response_set_values": "BEK_MIKOLA_4.properties['target'] = 'SHIP_ROGOV_1'; BEK_MIKOLA_4.properties['segment_index'] = 0;",
-            "source_object_id": "BEK_MIKOLA_4",
-            "title": "Цель обнаружена, корректировка точки встречи, попытка расчета маршрута",
-            "trigger_condition": "BEK_MIKOLA_4.properties['state'] in ['attacking'] and BEK_MIKOLA_4.properties['target'] != '' and self.iteration_time > BEK_MIKOLA_4.properties['trigger_time']  and BEK_MIKOLA_4.actions.look_detection(item1=BEK_MIKOLA_4, item2=SHIP_ROGOV_1,  rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], max_distance=BEK_MIKOLA_4.properties['detection_distance'])"
-        },
-        {
-            "id": "",
-            "interaction_type": "search",
-            "response_action": "Model_00.actions.fox_rabbit(lat1=BEK_MIKOLA_4.properties['lat'], lon1=BEK_MIKOLA_4.properties['lon'], alt1=BEK_MIKOLA_4.properties['alt'], speed1=BEK_MIKOLA_4.properties['attack_speed'], lat2=SHIP_ROGOV_1.properties['lat'], lon2=SHIP_ROGOV_1.properties['lon'], alt2=SHIP_ROGOV_1.properties['alt'], speed2=SHIP_ROGOV_1.properties['speed'], course2=SHIP_ROGOV_1.properties['course'], dt=100.0) and BEK_MIKOLA_4.properties['geo_path']['geometry']['coordinates'] = BEK_MIKOLA_4.actions.find_path(ship_lat=BEK_MIKOLA_4.properties['lat'], ship_lon=BEK_MIKOLA_4.properties['lon'], target_lat=Model_00.properties['lat'], target_lon=Model_00.properties['lon'], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"))",
-            "response_set_values": "BEK_MIKOLA_4.properties['state'] = 'attacking'; BEK_MIKOLA_4.properties['target'] = 'SHIP_ROGOV_1'; BEK_MIKOLA_4.properties['segment_index'] = 0;BEK_MIKOLA_4.properties['speed']=BEK_MIKOLA_4.properties['attack_speed']",
-            "source_object_id": "BEK_MIKOLA_4",
-            "title": "Цель обнаружена, расчет точки встречи, вычисление маршрута",
-            "trigger_condition": "BEK_MIKOLA_4.properties['state'] in ['finished', 'waiting', 'standing'] and self.iteration_time >=BEK_MIKOLA_4.properties['waiting_time'] and BEK_MIKOLA_4.actions.look_detection(item1=BEK_MIKOLA_4, item2=SHIP_ROGOV_1,  rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], max_distance=BEK_MIKOLA_4.properties['detection_distance'])"
-        },
-        {
-            "id": "",
-            "interaction_type": "check_destroyed",
-            "response_action": "",
-            "response_set_values": "BEK_MIKOLA_4.properties['state'] = 'destroyed'",
-            "source_object_id": "BEK_MIKOLA_4",
-            "title": "Цель уничтожена",
-            "trigger_condition": "BEK_MIKOLA_4.properties['state'] == 'attacking'  and  BEK_MIKOLA_4.properties['target'] != '' and BEK_MIKOLA_4.actions.check_destroyed(objects=self.objects,  attacker=BEK_MIKOLA_4, target=BEK_MIKOLA_4.properties['target'], min_distance=5, probability=BEK_MIKOLA_4.properties['probability'], time_in_seconds=self.second_in_iteration) and SHIP_ROGOV_1.properties['state'] in ['destroyed']"
-        },
-        {
-            "id": "",
-            "interaction_type": "check_destroyed",
-            "response_action": "",
-            "response_set_values": "BEK_MIKOLA_4.properties['state'] = 'destroyed_bek'",
-            "source_object_id": "BEK_MIKOLA_4",
-            "title": "БЭК уничтожен",
-            "trigger_condition": "BEK_MIKOLA_4.properties['state'] in ['destroyed']"
-        },
-        {
-            "id": "",
-            "interaction_type": "moving",
-            "response_action": "BEK_MIKOLA_4.actions.move(item=BEK_MIKOLA_4,  path=BEK_MIKOLA_4.properties['geo_path'],  time_in_seconds=self.second_in_iteration)",
-            "response_set_values": "",
-            "source_object_id": "BEK_MIKOLA_4",
-            "title": "Движение по маршруту",
-            "trigger_condition": "len(BEK_MIKOLA_4.properties['geo_path']['geometry']['coordinates']) > 0 and BEK_MIKOLA_4.properties['state'] in ['moving', 'attacking'] and WEATHER.properties['storm_state'] <= BEK_MIKOLA_4.properties['max_excitement']"
-        },
-        {
-            "id": "",
-            "interaction_type": "moving",
-            "response_action": "",
-            "response_set_values": "BEK_MIKOLA_4.properties['speed'] = 0; BEK_MIKOLA_4.properties['state'] = 'standing';",
-            "source_object_id": "BEK_MIKOLA_4",
-            "title": "Останов движения (нет расчетной точки встречи)",
-            "trigger_condition": "len(BEK_MIKOLA_4.properties['geo_path']['geometry']['coordinates']) == 0 and BEK_MIKOLA_4.properties['state'] in ['moving', 'attacking']"
-        },
-        {
-            "id": "",
-            "interaction_type": "moving",
-            "response_action": "",
-            "response_set_values": "BEK_MIKOLA_5.properties['state'] = 'stopped';",
-            "source_object_id": "BEK_MIKOLA_5",
-            "title": "Недопустимые метеоусловия для плавания",
-            "trigger_condition": "WEATHER.properties['storm_state'] > BEK_MIKOLA_5.properties['max_excitement']"
-        },
-        {
-            "id": "",
-            "interaction_type": "moving",
-            "response_action": "",
-            "response_set_values": "BEK_MIKOLA_5.properties['state'] = 'destroyed'; BEK_MIKOLA_5.properties['target'] = ''; BEK_MIKOLA_5.properties['geo_path']['geometry']['coordinates'] = []",
-            "source_object_id": "BEK_MIKOLA_5",
-            "title": "Обнаружено критическое повреждение от АК",
-            "trigger_condition": "BEK_MIKOLA_5.properties['hit_count'] >= BEK_MIKOLA_5.properties['max_hit_count'] and BEK_MIKOLA_5.properties['state'] in ['moving','standing','waiting','finished', 'attacking']"
-        },
-        {
-            "id": "",
-            "interaction_type": "moving",
-            "response_action": "",
-            "response_set_values": "BEK_MIKOLA_5.properties['state'] = 'waiting';BEK_MIKOLA_5.properties['speed'] = 0; BEK_MIKOLA_5.properties['segment_index'] = 0; BEK_MIKOLA_5.properties['geo_path']['geometry']['coordinates'] = []; BEK_MIKOLA_5.properties['waiting_time'] = Model_00.actions.get_waiting_time(item=BEK_MIKOLA_5, geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"WAITING_REGION\")); ",
-            "source_object_id": "BEK_MIKOLA_5",
-            "title": "Прибытие в РОЖ",
-            "trigger_condition": "BEK_MIKOLA_5.properties['state'] in ['finished'] and BEK_MIKOLA_5.properties['target'] == '' and Model_00.actions.object_in_rog(item=BEK_MIKOLA_5, geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"WAITING_REGION\")) != '' "
-        },
-        {
-            "id": "",
-            "interaction_type": "waiting",
-            "response_action": "",
-            "response_set_values": "",
-            "source_object_id": "BEK_MIKOLA_5",
-            "title": "Ожидание в РОЖ",
-            "trigger_condition": "BEK_MIKOLA_5.properties['state'] == 'waiting' and self.iteration_time < BEK_MIKOLA_5.properties['waiting_time']"
-        },
-        {
-            "id": "",
-            "interaction_type": "search",
-            "response_action": "Model_00.actions.fox_rabbit(lat1=BEK_MIKOLA_5.properties['lat'], lon1=BEK_MIKOLA_5.properties['lon'], alt1=BEK_MIKOLA_5.properties['alt'], speed1=BEK_MIKOLA_5.properties['attack_speed'], lat2=SHIP_ROGOV_1.properties['lat'], lon2=SHIP_ROGOV_1.properties['lon'], alt2=SHIP_ROGOV_1.properties['alt'], speed2=SHIP_ROGOV_1.properties['speed'], course2=SHIP_ROGOV_1.properties['course'], dt=100.0) and BEK_MIKOLA_5.properties['geo_path']['geometry']['coordinates'] = BEK_MIKOLA_5.actions.find_path(ship_lat=BEK_MIKOLA_5.properties['lat'], ship_lon=BEK_MIKOLA_5.properties['lon'], target_lat=Model_00.properties['lat'], target_lon=Model_00.properties['lon'], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"));",
-            "response_set_values": "BEK_MIKOLA_5.properties['target'] = 'SHIP_ROGOV_1'; BEK_MIKOLA_5.properties['segment_index'] = 0;",
-            "source_object_id": "BEK_MIKOLA_5",
-            "title": "Цель обнаружена, корректировка точки встречи, попытка расчета маршрута",
-            "trigger_condition": "BEK_MIKOLA_5.properties['state'] in ['attacking'] and BEK_MIKOLA_5.properties['target'] != '' and self.iteration_time > BEK_MIKOLA_5.properties['trigger_time']  and BEK_MIKOLA_5.actions.look_detection(item1=BEK_MIKOLA_5, item2=SHIP_ROGOV_1,  rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], max_distance=BEK_MIKOLA_5.properties['detection_distance'])"
-        },
-        {
-            "id": "",
-            "interaction_type": "search",
-            "response_action": "Model_00.actions.fox_rabbit(lat1=BEK_MIKOLA_5.properties['lat'], lon1=BEK_MIKOLA_5.properties['lon'], alt1=BEK_MIKOLA_5.properties['alt'], speed1=BEK_MIKOLA_5.properties['attack_speed'], lat2=SHIP_ROGOV_1.properties['lat'], lon2=SHIP_ROGOV_1.properties['lon'], alt2=SHIP_ROGOV_1.properties['alt'], speed2=SHIP_ROGOV_1.properties['speed'], course2=SHIP_ROGOV_1.properties['course'], dt=100.0) and BEK_MIKOLA_5.properties['geo_path']['geometry']['coordinates'] = BEK_MIKOLA_5.actions.find_path(ship_lat=BEK_MIKOLA_5.properties['lat'], ship_lon=BEK_MIKOLA_5.properties['lon'], target_lat=Model_00.properties['lat'], target_lon=Model_00.properties['lon'], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"))",
-            "response_set_values": "BEK_MIKOLA_5.properties['state'] = 'attacking'; BEK_MIKOLA_5.properties['target'] = 'SHIP_ROGOV_1'; BEK_MIKOLA_5.properties['segment_index'] = 0;BEK_MIKOLA_5.properties['speed']=BEK_MIKOLA_5.properties['attack_speed']",
-            "source_object_id": "BEK_MIKOLA_5",
-            "title": "Цель обнаружена, расчет точки встречи, вычисление маршрута",
-            "trigger_condition": "BEK_MIKOLA_5.properties['state'] in ['finished', 'waiting', 'standing'] and self.iteration_time >=BEK_MIKOLA_5.properties['waiting_time'] and BEK_MIKOLA_5.actions.look_detection(item1=BEK_MIKOLA_5, item2=SHIP_ROGOV_1,  rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], max_distance=BEK_MIKOLA_5.properties['detection_distance'])"
-        },
-        {
-            "id": "",
-            "interaction_type": "check_destroyed",
-            "response_action": "",
-            "response_set_values": "BEK_MIKOLA_5.properties['state'] = 'destroyed'",
-            "source_object_id": "BEK_MIKOLA_5",
-            "title": "Цель уничтожена",
-            "trigger_condition": "BEK_MIKOLA_5.properties['state'] == 'attacking'  and  BEK_MIKOLA_5.properties['target'] != '' and BEK_MIKOLA_5.actions.check_destroyed(objects=self.objects,  attacker=BEK_MIKOLA_5, target=BEK_MIKOLA_5.properties['target'], min_distance=5, probability=BEK_MIKOLA_5.properties['probability'], time_in_seconds=self.second_in_iteration) and SHIP_ROGOV_1.properties['state'] in ['destroyed']"
-        },
-        {
-            "id": "",
-            "interaction_type": "check_destroyed",
-            "response_action": "",
-            "response_set_values": "BEK_MIKOLA_5.properties['state'] = 'destroyed_bek'",
-            "source_object_id": "BEK_MIKOLA_5",
-            "title": "БЭК уничтожен",
-            "trigger_condition": "BEK_MIKOLA_5.properties['state'] in ['destroyed']"
-        },
-        {
-            "id": "",
-            "interaction_type": "moving",
-            "response_action": "BEK_MIKOLA_5.actions.move(item=BEK_MIKOLA_5,  path=BEK_MIKOLA_5.properties['geo_path'],  time_in_seconds=self.second_in_iteration)",
-            "response_set_values": "",
-            "source_object_id": "BEK_MIKOLA_5",
-            "title": "Движение по маршруту",
-            "trigger_condition": "len(BEK_MIKOLA_5.properties['geo_path']['geometry']['coordinates']) > 0 and BEK_MIKOLA_5.properties['state'] in ['moving', 'attacking'] and WEATHER.properties['storm_state'] <= BEK_MIKOLA_5.properties['max_excitement']"
-        },
-        {
-            "id": "",
-            "interaction_type": "moving",
-            "response_action": "",
-            "response_set_values": "BEK_MIKOLA_5.properties['speed'] = 0; BEK_MIKOLA_5.properties['state'] = 'standing';",
-            "source_object_id": "BEK_MIKOLA_5",
-            "title": "Останов движения (нет расчетной точки встречи)",
-            "trigger_condition": "len(BEK_MIKOLA_5.properties['geo_path']['geometry']['coordinates']) == 0 and BEK_MIKOLA_5.properties['state'] in ['moving', 'attacking']"
-        },
-        {
-            "id": "",
-            "interaction_type": "find_path",
-            "response_action": "BEK_MIKOLA_4.properties['geo_path']['geometry']['coordinates'] = BEK_MIKOLA_4.actions.find_path(ship_lat=BEK_MIKOLA_4.properties['lat'], ship_lon=BEK_MIKOLA_4.properties['lon'], target_lat=self.features['DIRECTION_OF_MOVEMENT_11'].coordinates[1][0], target_lon=self.features['DIRECTION_OF_MOVEMENT_11'].coordinates[1][1], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"))",
-            "response_set_values": "BEK_MIKOLA_4.properties['state'] = 'moving'; BEK_MIKOLA_4.properties['speed'] = BEK_MIKOLA_4.properties['slow_speed']",
-            "source_object_id": "BEK_MIKOLA_4",
-            "title": "Поиск маршрута",
-            "trigger_condition": "BEK_MIKOLA_4.properties['state'] == 'standing'"
-        },
-        {
-            "id": "",
-            "interaction_type": "find_path",
-            "response_action": "BEK_MIKOLA_5.properties['geo_path']['geometry']['coordinates'] = BEK_MIKOLA_5.actions.find_path(ship_lat=BEK_MIKOLA_5.properties['lat'], ship_lon=BEK_MIKOLA_5.properties['lon'], target_lat=self.features['DIRECTION_OF_MOVEMENT_12'].coordinates[1][0], target_lon=self.features['DIRECTION_OF_MOVEMENT_12'].coordinates[1][1], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"))",
-            "response_set_values": "BEK_MIKOLA_5.properties['state'] = 'moving'; BEK_MIKOLA_5.properties['speed'] = BEK_MIKOLA_5.properties['slow_speed']",
-            "source_object_id": "BEK_MIKOLA_5",
-            "title": "Поиск маршрута",
-            "trigger_condition": "BEK_MIKOLA_5.properties['state'] == 'standing'"
-        },
-        {
             "id": "Корабль - проверка уничтожения",
             "interaction_type": "moving",
             "response_action": "",
@@ -2945,6 +2747,213 @@
             "source_object_id": "SHIP_ROGOV_1",
             "title": "Поиск маршрута",
             "trigger_condition": "SHIP_ROGOV_1.properties['state'] == 'standing'"
+        },
+        {
+            "id": "",
+            "interaction_type": "moving",
+            "response_action": "",
+            "response_set_values": "BEK_MIKOLA_4.properties['state'] = 'stopped';",
+            "source_object_id": "BEK_MIKOLA_4",
+            "title": "Недопустимые метеоусловия для плавания",
+            "trigger_condition": "WEATHER.properties['storm_state'] > BEK_MIKOLA_4.properties['max_excitement']"
+        },
+        {
+            "id": "",
+            "interaction_type": "moving",
+            "response_action": "",
+            "response_set_values": "BEK_MIKOLA_4.properties['state'] = 'destroyed'; BEK_MIKOLA_4.properties['target'] = ''; BEK_MIKOLA_4.properties['geo_path']['geometry']['coordinates'] = []",
+            "source_object_id": "BEK_MIKOLA_4",
+            "title": "Обнаружено критическое повреждение от АК",
+            "trigger_condition": "BEK_MIKOLA_4.properties['hit_count'] >= BEK_MIKOLA_4.properties['max_hit_count'] and BEK_MIKOLA_4.properties['state'] in ['moving','standing','waiting','finished', 'attacking']"
+        },
+        {
+            "id": "",
+            "interaction_type": "moving",
+            "response_action": "",
+            "response_set_values": "BEK_MIKOLA_4.properties['state'] = 'waiting';BEK_MIKOLA_4.properties['speed'] = 0; BEK_MIKOLA_4.properties['segment_index'] = 0; BEK_MIKOLA_4.properties['geo_path']['geometry']['coordinates'] = []; BEK_MIKOLA_4.properties['waiting_time'] = Model_00.actions.get_waiting_time(item=BEK_MIKOLA_4, geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"WAITING_REGION\")); ",
+            "source_object_id": "BEK_MIKOLA_4",
+            "title": "Прибытие в РОЖ",
+            "trigger_condition": "BEK_MIKOLA_4.properties['state'] in ['finished'] and BEK_MIKOLA_4.properties['target'] == '' and Model_00.actions.object_in_rog(item=BEK_MIKOLA_4, geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"WAITING_REGION\")) != '' "
+        },
+        {
+            "id": "",
+            "interaction_type": "waiting",
+            "response_action": "",
+            "response_set_values": "",
+            "source_object_id": "BEK_MIKOLA_4",
+            "title": "Ожидание в РОЖ",
+            "trigger_condition": "BEK_MIKOLA_4.properties['state'] == 'waiting' and self.iteration_time < BEK_MIKOLA_4.properties['waiting_time']"
+        },
+        {
+            "id": "",
+            "interaction_type": "search",
+            "response_action": "Model_00.actions.fox_rabbit(lat1=BEK_MIKOLA_4.properties['lat'], lon1=BEK_MIKOLA_4.properties['lon'], alt1=BEK_MIKOLA_4.properties['alt'], speed1=BEK_MIKOLA_4.properties['attack_speed'], lat2=SHIP_ROGOV_1.properties['lat'], lon2=SHIP_ROGOV_1.properties['lon'], alt2=SHIP_ROGOV_1.properties['alt'], speed2=SHIP_ROGOV_1.properties['speed'], course2=SHIP_ROGOV_1.properties['course'], dt=100.0) and BEK_MIKOLA_4.properties['geo_path']['geometry']['coordinates'] = BEK_MIKOLA_4.actions.find_path(ship_lat=BEK_MIKOLA_4.properties['lat'], ship_lon=BEK_MIKOLA_4.properties['lon'], target_lat=Model_00.properties['lat'], target_lon=Model_00.properties['lon'], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"));",
+            "response_set_values": "BEK_MIKOLA_4.properties['target'] = 'SHIP_ROGOV_1'; BEK_MIKOLA_4.properties['segment_index'] = 0;",
+            "source_object_id": "BEK_MIKOLA_4",
+            "title": "Цель обнаружена, корректировка точки встречи, попытка расчета маршрута",
+            "trigger_condition": "BEK_MIKOLA_4.properties['state'] in ['attacking'] and BEK_MIKOLA_4.properties['target'] != '' and self.iteration_time > BEK_MIKOLA_4.properties['trigger_time']  and BEK_MIKOLA_4.actions.look_detection(item1=BEK_MIKOLA_4, item2=SHIP_ROGOV_1,  rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], max_distance=BEK_MIKOLA_4.properties['detection_distance'])"
+        },
+        {
+            "id": "",
+            "interaction_type": "search",
+            "response_action": "Model_00.actions.fox_rabbit(lat1=BEK_MIKOLA_4.properties['lat'], lon1=BEK_MIKOLA_4.properties['lon'], alt1=BEK_MIKOLA_4.properties['alt'], speed1=BEK_MIKOLA_4.properties['attack_speed'], lat2=SHIP_ROGOV_1.properties['lat'], lon2=SHIP_ROGOV_1.properties['lon'], alt2=SHIP_ROGOV_1.properties['alt'], speed2=SHIP_ROGOV_1.properties['speed'], course2=SHIP_ROGOV_1.properties['course'], dt=100.0) and BEK_MIKOLA_4.properties['geo_path']['geometry']['coordinates'] = BEK_MIKOLA_4.actions.find_path(ship_lat=BEK_MIKOLA_4.properties['lat'], ship_lon=BEK_MIKOLA_4.properties['lon'], target_lat=Model_00.properties['lat'], target_lon=Model_00.properties['lon'], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"))",
+            "response_set_values": "BEK_MIKOLA_4.properties['state'] = 'attacking'; BEK_MIKOLA_4.properties['target'] = 'SHIP_ROGOV_1'; BEK_MIKOLA_4.properties['segment_index'] = 0;BEK_MIKOLA_4.properties['speed']=BEK_MIKOLA_4.properties['attack_speed']",
+            "source_object_id": "BEK_MIKOLA_4",
+            "title": "Цель обнаружена, расчет точки встречи, вычисление маршрута",
+            "trigger_condition": "BEK_MIKOLA_4.properties['state'] in ['finished', 'waiting', 'standing'] and self.iteration_time >=BEK_MIKOLA_4.properties['waiting_time'] and BEK_MIKOLA_4.actions.look_detection(item1=BEK_MIKOLA_4, item2=SHIP_ROGOV_1,  rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], max_distance=BEK_MIKOLA_4.properties['detection_distance'])"
+        },
+        {
+            "id": "",
+            "interaction_type": "check_destroyed",
+            "response_action": "",
+            "response_set_values": "BEK_MIKOLA_4.properties['state'] = 'destroyed'",
+            "source_object_id": "BEK_MIKOLA_4",
+            "title": "Цель уничтожена",
+            "trigger_condition": "BEK_MIKOLA_4.properties['state'] == 'attacking'  and  BEK_MIKOLA_4.properties['target'] != '' and BEK_MIKOLA_4.actions.check_destroyed(objects=self.objects,  attacker=BEK_MIKOLA_4, target=BEK_MIKOLA_4.properties['target'], min_distance=5, probability=BEK_MIKOLA_4.properties['probability'], time_in_seconds=self.second_in_iteration) and SHIP_ROGOV_1.properties['state'] in ['destroyed']"
+        },
+        {
+            "id": "",
+            "interaction_type": "check_destroyed",
+            "response_action": "",
+            "response_set_values": "BEK_MIKOLA_4.properties['state'] = 'destroyed_bek'",
+            "source_object_id": "BEK_MIKOLA_4",
+            "title": "БЭК уничтожен",
+            "trigger_condition": "BEK_MIKOLA_4.properties['state'] in ['destroyed']"
+        },
+        {
+            "id": "",
+            "interaction_type": "moving",
+            "response_action": "BEK_MIKOLA_4.actions.move(item=BEK_MIKOLA_4,  path=BEK_MIKOLA_4.properties['geo_path'],  time_in_seconds=self.second_in_iteration)",
+            "response_set_values": "",
+            "source_object_id": "BEK_MIKOLA_4",
+            "title": "Движение по маршруту",
+            "trigger_condition": "len(BEK_MIKOLA_4.properties['geo_path']['geometry']['coordinates']) > 0 and BEK_MIKOLA_4.properties['state'] in ['moving', 'attacking'] and WEATHER.properties['storm_state'] <= BEK_MIKOLA_4.properties['max_excitement']"
+        },
+        {
+            "id": "",
+            "interaction_type": "moving",
+            "response_action": "",
+            "response_set_values": "BEK_MIKOLA_4.properties['speed'] = 0; BEK_MIKOLA_4.properties['state'] = 'waiting';",
+            "source_object_id": "BEK_MIKOLA_4",
+            "title": "Останов движения (нет расчетной точки встречи)",
+            "trigger_condition": "len(BEK_MIKOLA_4.properties['geo_path']['geometry']['coordinates']) == 0 and BEK_MIKOLA_4.properties['state'] in ['moving', 'attacking']"
+        },
+        {
+            "id": "",
+            "interaction_type": "moving",
+            "response_action": "",
+            "response_set_values": "",
+            "source_object_id": "BEK_MIKOLA_5",
+            "title": "Недопустимые метеоусловия для плавания",
+            "trigger_condition": "WEATHER.properties['storm_state'] > BEK_MIKOLA_5.properties['max_excitement']"
+        },
+        {
+            "id": "",
+            "interaction_type": "moving",
+            "response_action": "",
+            "response_set_values": "BEK_MIKOLA_5.properties['state'] = 'destroyed'; BEK_MIKOLA_5.properties['target'] = ''; BEK_MIKOLA_5.properties['geo_path']['geometry']['coordinates'] = []",
+            "source_object_id": "BEK_MIKOLA_5",
+            "title": "Обнаружено критическое повреждение от АК",
+            "trigger_condition": "BEK_MIKOLA_5.properties['hit_count'] >= BEK_MIKOLA_5.properties['max_hit_count'] and BEK_MIKOLA_5.properties['state'] in ['moving','standing','waiting','finished', 'attacking']"
+        },
+        {
+            "id": "",
+            "interaction_type": "moving",
+            "response_action": "",
+            "response_set_values": "BEK_MIKOLA_5.properties['state'] = 'waiting'; BEK_MIKOLA_5.properties['segment_index'] = 0; BEK_MIKOLA_5.properties['geo_path']['geometry']['coordinates'] = []; BEK_MIKOLA_5.properties['waiting_time'] = Model_00.actions.get_waiting_time(item=BEK_MIKOLA_5, geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"WAITING_REGION\")); ",
+            "source_object_id": "BEK_MIKOLA_5",
+            "title": "Прибытие в РОЖ",
+            "trigger_condition": "BEK_MIKOLA_5.properties['state'] in ['finished'] and BEK_MIKOLA_5.properties['target'] == '' and Model_00.actions.object_in_rog(item=BEK_MIKOLA_5, geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"WAITING_REGION\")) != '' "
+        },
+        {
+            "id": "",
+            "interaction_type": "waiting",
+            "response_action": "",
+            "response_set_values": "",
+            "source_object_id": "BEK_MIKOLA_5",
+            "title": "Ожидание в РОЖ",
+            "trigger_condition": "BEK_MIKOLA_5.properties['state'] == 'waiting' and self.iteration_time < BEK_MIKOLA_5.properties['waiting_time']"
+        },
+        {
+            "id": "",
+            "interaction_type": "search",
+            "response_action": "Model_00.actions.fox_rabbit(lat1=BEK_MIKOLA_5.properties['lat'], lon1=BEK_MIKOLA_5.properties['lon'], alt1=BEK_MIKOLA_5.properties['alt'], speed1=BEK_MIKOLA_5.properties['attack_speed'], lat2=SHIP_ROGOV_1.properties['lat'], lon2=SHIP_ROGOV_1.properties['lon'], alt2=SHIP_ROGOV_1.properties['alt'], speed2=SHIP_ROGOV_1.properties['speed'], course2=SHIP_ROGOV_1.properties['course'], dt=100.0) and BEK_MIKOLA_5.properties['geo_path']['geometry']['coordinates'] = BEK_MIKOLA_5.actions.find_path(ship_lat=BEK_MIKOLA_5.properties['lat'], ship_lon=BEK_MIKOLA_5.properties['lon'], target_lat=Model_00.properties['lat'], target_lon=Model_00.properties['lon'], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"));",
+            "response_set_values": "BEK_MIKOLA_5.properties['state'] = 'attacking'; BEK_MIKOLA_5.properties['target'] = 'SHIP_ROGOV_1'; BEK_MIKOLA_5.properties['segment_index'] = 0;BEK_MIKOLA_5.properties['speed'] = BEK_MIKOLA_5.properties['attack_speed'];",
+            "source_object_id": "BEK_MIKOLA_5",
+            "title": "Цель обнаружена, корректировка точки встречи, попытка расчета маршрута",
+            "trigger_condition": "BEK_MIKOLA_5.properties['state'] in ['finished', 'attacking'] and BEK_MIKOLA_5.properties['target'] != '' and self.iteration_time > BEK_MIKOLA_5.properties['trigger_time']  and BEK_MIKOLA_5.actions.look_detection(item1=BEK_MIKOLA_5, item2=SHIP_ROGOV_1,  rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], max_distance=BEK_MIKOLA_5.properties['detection_distance'])"
+        },
+        {
+            "id": "",
+            "interaction_type": "search",
+            "response_action": "Model_00.actions.fox_rabbit(lat1=BEK_MIKOLA_5.properties['lat'], lon1=BEK_MIKOLA_5.properties['lon'], alt1=BEK_MIKOLA_5.properties['alt'], speed1=BEK_MIKOLA_5.properties['attack_speed'], lat2=SHIP_ROGOV_1.properties['lat'], lon2=SHIP_ROGOV_1.properties['lon'], alt2=SHIP_ROGOV_1.properties['alt'], speed2=SHIP_ROGOV_1.properties['speed'], course2=SHIP_ROGOV_1.properties['course'], dt=100.0) and BEK_MIKOLA_5.properties['geo_path']['geometry']['coordinates'] = BEK_MIKOLA_5.actions.find_path(ship_lat=BEK_MIKOLA_5.properties['lat'], ship_lon=BEK_MIKOLA_5.properties['lon'], target_lat=Model_00.properties['lat'], target_lon=Model_00.properties['lon'], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"))",
+            "response_set_values": "BEK_MIKOLA_5.properties['state'] = 'attacking'; BEK_MIKOLA_5.properties['target'] = 'SHIP_ROGOV_1'; BEK_MIKOLA_5.properties['segment_index'] = 0;BEK_MIKOLA_5.properties['speed'] = BEK_MIKOLA_5.properties['attack_speed'];",
+            "source_object_id": "BEK_MIKOLA_5",
+            "title": "Цель обнаружена, расчет точки встречи, вычисление маршрута",
+            "trigger_condition": "BEK_MIKOLA_5.properties['state'] in ['waiting', 'standing'] and self.iteration_time >=BEK_MIKOLA_5.properties['waiting_time'] and BEK_MIKOLA_5.actions.look_detection(item1=BEK_MIKOLA_5, item2=SHIP_ROGOV_1,  rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], max_distance=BEK_MIKOLA_5.properties['detection_distance'])"
+        },
+        {
+            "id": "",
+            "interaction_type": "check_destroyed",
+            "response_action": "",
+            "response_set_values": "BEK_MIKOLA_5.properties['state'] = 'destroyed'",
+            "source_object_id": "BEK_MIKOLA_5",
+            "title": "Цель уничтожена",
+            "trigger_condition": "BEK_MIKOLA_5.properties['state'] == 'attacking'  and  BEK_MIKOLA_5.properties['target'] != '' and BEK_MIKOLA_5.actions.check_destroyed(objects=self.objects,  attacker=BEK_MIKOLA_5, target=BEK_MIKOLA_5.properties['target'], min_distance=5, probability=BEK_MIKOLA_5.properties['probability'], time_in_seconds=self.second_in_iteration) and SHIP_ROGOV_1.properties['state'] in ['destroyed']"
+        },
+        {
+            "id": "",
+            "interaction_type": "check_destroyed",
+            "response_action": "",
+            "response_set_values": "BEK_MIKOLA_5.properties['state'] = 'destroyed_bek'",
+            "source_object_id": "BEK_MIKOLA_5",
+            "title": "БЭК уничтожен",
+            "trigger_condition": "BEK_MIKOLA_5.properties['state'] in ['destroyed']"
+        },
+        {
+            "id": "",
+            "interaction_type": "search",
+            "response_action": "",
+            "response_set_values": "BEK_MIKOLA_5.properties['trigger_time'] = self.iteration_time + 10; BEK_MIKOLA_5.properties['state'] = 'attacking'; BEK_MIKOLA_5.properties['target'] = 'SHIP_ROGOV_1'; BEK_MIKOLA_5.properties['segment_index'] = 0; BEK_MIKOLA_5.properties['speed'] = BEK_MIKOLA_5.properties['attack_speed'];BEK_MIKOLA_5.properties['geo_path']['geometry']['coordinates'] = BEK_MIKOLA_5.actions.get_variable_path(coordinates=BEK_MIKOLA_5.properties['geo_path']['geometry']['coordinates']); ",
+            "source_object_id": "BEK_MIKOLA_5",
+            "title": "Построение маршрута с переменным курсом ",
+            "trigger_condition": "BEK_MIKOLA_5.properties['state'] in ['finished', 'attacking'] and BEK_MIKOLA_5.properties['target'] != '' and self.iteration_time > BEK_MIKOLA_5.properties['trigger_time']  and BEK_MIKOLA_5.actions.look_detection(item1=BEK_MIKOLA_5, item2=SHIP_ROGOV_1,  rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], max_distance=BEK_MIKOLA_5.properties['detection_distance'])"
+        },
+        {
+            "id": "",
+            "interaction_type": "moving",
+            "response_action": "BEK_MIKOLA_5.actions.move(item=BEK_MIKOLA_5,  path=BEK_MIKOLA_5.properties['geo_path'],  time_in_seconds=self.second_in_iteration)",
+            "response_set_values": "",
+            "source_object_id": "BEK_MIKOLA_5",
+            "title": "Движение по маршруту",
+            "trigger_condition": "len(BEK_MIKOLA_5.properties['geo_path']['geometry']['coordinates']) > 0 and BEK_MIKOLA_5.properties['state'] in ['moving', 'attacking'] and WEATHER.properties['storm_state'] <= BEK_MIKOLA_5.properties['max_excitement']"
+        },
+        {
+            "id": "",
+            "interaction_type": "moving",
+            "response_action": "",
+            "response_set_values": "BEK_MIKOLA_5.properties['speed'] = 0; BEK_MIKOLA_5.properties['state'] = 'waiting';",
+            "source_object_id": "BEK_MIKOLA_5",
+            "title": "Останов движения (нет расчетной точки встречи)",
+            "trigger_condition": "len(BEK_MIKOLA_5.properties['geo_path']['geometry']['coordinates']) == 0 and BEK_MIKOLA_5.properties['state'] in ['moving', 'attacking']"
+        },
+        {
+            "id": "",
+            "interaction_type": "find_path",
+            "response_action": "BEK_MIKOLA_5.properties['geo_path']['geometry']['coordinates'] = BEK_MIKOLA_5.actions.find_path(ship_lat=BEK_MIKOLA_5.properties['lat'], ship_lon=BEK_MIKOLA_5.properties['lon'], target_lat=self.features['DIRECTION_OF_MOVEMENT_14'].coordinates[1][0], target_lon=self.features['DIRECTION_OF_MOVEMENT_14'].coordinates[1][1], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"))",
+            "response_set_values": "BEK_MIKOLA_5.properties['state'] = 'moving'; BEK_MIKOLA_5.properties['speed'] = BEK_MIKOLA_5.properties['slow_speed']",
+            "source_object_id": "BEK_MIKOLA_5",
+            "title": "Поиск маршрута",
+            "trigger_condition": "BEK_MIKOLA_5.properties['state'] == 'standing'"
+        },
+        {
+            "id": "",
+            "interaction_type": "find_path",
+            "response_action": "BEK_MIKOLA_4.properties['geo_path']['geometry']['coordinates'] = BEK_MIKOLA_4.actions.find_path(ship_lat=BEK_MIKOLA_4.properties['lat'], ship_lon=BEK_MIKOLA_4.properties['lon'], target_lat=self.features['DIRECTION_OF_MOVEMENT_15'].coordinates[1][0], target_lon=self.features['DIRECTION_OF_MOVEMENT_15'].coordinates[1][1], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"))",
+            "response_set_values": "BEK_MIKOLA_4.properties['state'] = 'moving'; BEK_MIKOLA_4.properties['speed'] = BEK_MIKOLA_4.properties['slow_speed']",
+            "source_object_id": "BEK_MIKOLA_4",
+            "title": "Поиск маршрута",
+            "trigger_condition": "BEK_MIKOLA_4.properties['state'] == 'standing'"
         }
     ],
     "map_path": "maps/RU4MDLM0/RU4MDLM0.sit",
@@ -5947,588 +5956,6 @@
                     "type": "find_path"
                 },
                 {
-                    "algorithm_id": "alg_id_look_detection",
-                    "name": "Алгоритм обнаружения объектов противника",
-                    "output_mapping": [
-                    ],
-                    "type": "look_detection"
-                },
-                {
-                    "algorithm_id": "alg_id_check_destroyed",
-                    "name": "Провека уничтожения объекта",
-                    "output_mapping": [
-                    ],
-                    "type": "check_destroyed"
-                },
-                {
-                    "algorithm_id": "alg_id_evasive_maneuver",
-                    "name": "Маневр уклонения - бегство",
-                    "output_mapping": [
-                    ],
-                    "type": "evrasive_maneuvr"
-                },
-                {
-                    "algorithm_id": "alg_get_variable_path",
-                    "name": "Построение маршрута с переменным курсом",
-                    "output_mapping": [
-                    ],
-                    "type": "get_variable_path"
-                }
-            ],
-            "features": [
-            ],
-            "id": "BEK_MIKOLA_4",
-            "properties": [
-                {
-                    "name": "alt",
-                    "title": "координаты - высота над уровнем моря, м",
-                    "type": "float",
-                    "value": 0
-                },
-                {
-                    "name": "angle_view",
-                    "title": "угол обзора ОЭС, градусы",
-                    "type": "int",
-                    "value": 360
-                },
-                {
-                    "name": "attack_speed",
-                    "title": "скорость развиваемая при атаке, м/с",
-                    "type": "int",
-                    "value": 23
-                },
-                {
-                    "name": "class_code",
-                    "title": "класскод",
-                    "type": "str",
-                    "value": "P0040062"
-                },
-                {
-                    "name": "connect_dist",
-                    "title": "удаление от пункта управления, м",
-                    "type": "int",
-                    "value": 250000
-                },
-                {
-                    "name": "course",
-                    "title": "курс",
-                    "type": "float",
-                    "value": 85.82272147687415
-                },
-                {
-                    "name": "detection_distance",
-                    "title": "дистанция обнаружения, м",
-                    "type": "int",
-                    "value": 25000
-                },
-                {
-                    "name": "distance_of_defeat",
-                    "title": "дистанция поражения",
-                    "type": "int",
-                    "value": 0
-                },
-                {
-                    "name": "geo_path",
-                    "title": "маршрут",
-                    "type": "feature",
-                    "value": {
-                        "geometry": {
-                            "coordinates": [
-                            ],
-                            "type": "LineString"
-                        },
-                        "properties": {
-                            "class_code": "131405000210000000",
-                            "id": "BEK_MIKOLA_4_path"
-                        },
-                        "type": "Feature"
-                    }
-                },
-                {
-                    "name": "height",
-                    "title": "высота, м",
-                    "type": "float",
-                    "value": 1.2
-                },
-                {
-                    "name": "hit_count",
-                    "title": "текущее количество попаданий по корпусу",
-                    "type": "int",
-                    "value": 0
-                },
-                {
-                    "name": "hull_damage",
-                    "title": "текущее повреждений корпуса",
-                    "type": "int",
-                    "value": 0
-                },
-                {
-                    "name": "image",
-                    "title": "иконка",
-                    "type": "str",
-                    "value": "бэк-red.png"
-                },
-                {
-                    "name": "is_own",
-                    "title": "синий/красный",
-                    "type": "int",
-                    "value": 0
-                },
-                {
-                    "name": "lat",
-                    "title": "координаты - широта",
-                    "type": "float",
-                    "value": 44.52636207010275
-                },
-                {
-                    "name": "length",
-                    "title": "длина, м",
-                    "type": "float",
-                    "value": 3.5
-                },
-                {
-                    "name": "lon",
-                    "title": "координаты - долгота",
-                    "type": "float",
-                    "value": 37.55091606206207
-                },
-                {
-                    "name": "mass",
-                    "title": "вес взрывчатого вещества, кг",
-                    "type": "int",
-                    "value": 0
-                },
-                {
-                    "name": "max_excitement",
-                    "title": "Допустимое волнение, баллы",
-                    "type": "float",
-                    "value": 5
-                },
-                {
-                    "name": "max_hit_count",
-                    "title": "критическое кол-во попаданий по корпусу, до выхода из строя",
-                    "type": "int",
-                    "value": 5
-                },
-                {
-                    "name": "probability",
-                    "title": "вероятность попадания в противника",
-                    "type": "float",
-                    "value": 0.33
-                },
-                {
-                    "name": "restriction",
-                    "title": "ограничения мореходности, Б",
-                    "type": "int",
-                    "value": 3
-                },
-                {
-                    "name": "rocket_count",
-                    "title": "кол-во крылатых ракет",
-                    "type": "int",
-                    "value": 0
-                },
-                {
-                    "name": "segment_index",
-                    "title": "индекс сегмента маршрута",
-                    "type": "int",
-                    "value": -1
-                },
-                {
-                    "name": "slow_speed",
-                    "title": "крейсерская скорость, м/с",
-                    "type": "float",
-                    "value": 18
-                },
-                {
-                    "name": "speed",
-                    "title": "текущая скорость",
-                    "type": "float",
-                    "value": 0
-                },
-                {
-                    "name": "state",
-                    "title": "состояние",
-                    "type": "str",
-                    "value": "standing"
-                },
-                {
-                    "name": "subType",
-                    "title": "подтип",
-                    "type": "str",
-                    "value": "Камикадзе"
-                },
-                {
-                    "name": "target",
-                    "title": "идентификатор цели",
-                    "type": "str",
-                    "value": ""
-                },
-                {
-                    "name": "trigger_time",
-                    "title": "отладочное поле",
-                    "type": "float",
-                    "value": 0
-                },
-                {
-                    "name": "type",
-                    "title": "тип",
-                    "type": "str",
-                    "value": "БЭК"
-                },
-                {
-                    "name": "type_connect",
-                    "title": "связь",
-                    "type": "str",
-                    "value": "Starlink"
-                },
-                {
-                    "name": "waiting_time",
-                    "title": "время ожидания в РОЖ",
-                    "type": "float",
-                    "value": 0
-                },
-                {
-                    "name": "width",
-                    "title": "ширина, м",
-                    "type": "float",
-                    "value": 0.9
-                }
-            ],
-            "title": "БЭК «Микола» №4"
-        },
-        {
-            "actions": [
-                {
-                    "algorithm_id": "alg_id_path",
-                    "name": "Движения по маршруту",
-                    "output_mapping": [
-                        {
-                            "course": "new_course",
-                            "title": ""
-                        },
-                        {
-                            "lat": "new_lat",
-                            "title": ""
-                        },
-                        {
-                            "lon": "new_lon",
-                            "title": ""
-                        },
-                        {
-                            "segment_index": "new_segment_index",
-                            "title": ""
-                        },
-                        {
-                            "state": "new_state",
-                            "title": ""
-                        }
-                    ],
-                    "type": "move"
-                },
-                {
-                    "algorithm_id": "alg_id_calculate_path",
-                    "name": "Расчет маршрута по графу видимости",
-                    "output_mapping": [
-                        {
-                            "geo_path.geometry.coordinates": "new_geo_path",
-                            "title": ""
-                        }
-                    ],
-                    "type": "find_path"
-                },
-                {
-                    "algorithm_id": "alg_id_look_detection",
-                    "name": "Алгоритм обнаружения объектов противника",
-                    "output_mapping": [
-                    ],
-                    "type": "look_detection"
-                },
-                {
-                    "algorithm_id": "alg_id_check_destroyed",
-                    "name": "Провека уничтожения объекта",
-                    "output_mapping": [
-                    ],
-                    "type": "check_destroyed"
-                },
-                {
-                    "algorithm_id": "alg_id_evasive_maneuver",
-                    "name": "Маневр уклонения - бегство",
-                    "output_mapping": [
-                    ],
-                    "type": "evrasive_maneuvr"
-                },
-                {
-                    "algorithm_id": "alg_get_variable_path",
-                    "name": "Построение маршрута с переменным курсом",
-                    "output_mapping": [
-                    ],
-                    "type": "get_variable_path"
-                }
-            ],
-            "features": [
-            ],
-            "id": "BEK_MIKOLA_5",
-            "properties": [
-                {
-                    "name": "alt",
-                    "title": "координаты - высота над уровнем моря, м",
-                    "type": "float",
-                    "value": 0
-                },
-                {
-                    "name": "angle_view",
-                    "title": "угол обзора ОЭС, градусы",
-                    "type": "int",
-                    "value": 360
-                },
-                {
-                    "name": "attack_speed",
-                    "title": "скорость развиваемая при атаке, м/с",
-                    "type": "int",
-                    "value": 23
-                },
-                {
-                    "name": "class_code",
-                    "title": "класскод",
-                    "type": "str",
-                    "value": "P0040062"
-                },
-                {
-                    "name": "connect_dist",
-                    "title": "удаление от пункта управления, м",
-                    "type": "int",
-                    "value": 250000
-                },
-                {
-                    "name": "course",
-                    "title": "курс",
-                    "type": "float",
-                    "value": 89.9986249492568
-                },
-                {
-                    "name": "detection_distance",
-                    "title": "дистанция обнаружения, м",
-                    "type": "int",
-                    "value": 25000
-                },
-                {
-                    "name": "distance_of_defeat",
-                    "title": "дистанция поражения",
-                    "type": "int",
-                    "value": 0
-                },
-                {
-                    "name": "geo_path",
-                    "title": "маршрут",
-                    "type": "feature",
-                    "value": {
-                        "geometry": {
-                            "coordinates": [
-                            ],
-                            "type": "LineString"
-                        },
-                        "properties": {
-                            "class_code": "131405000210000000",
-                            "id": "BEK_MIKOLA_5_path"
-                        },
-                        "type": "Feature"
-                    }
-                },
-                {
-                    "name": "height",
-                    "title": "высота, м",
-                    "type": "float",
-                    "value": 1.2
-                },
-                {
-                    "name": "hit_count",
-                    "title": "текущее количество попаданий по корпусу",
-                    "type": "int",
-                    "value": 0
-                },
-                {
-                    "name": "hull_damage",
-                    "title": "текущее повреждений корпуса",
-                    "type": "int",
-                    "value": 0
-                },
-                {
-                    "name": "image",
-                    "title": "иконка",
-                    "type": "str",
-                    "value": "бэк-red.png"
-                },
-                {
-                    "name": "is_own",
-                    "title": "синий/красный",
-                    "type": "int",
-                    "value": 0
-                },
-                {
-                    "name": "lat",
-                    "title": "координаты - широта",
-                    "type": "float",
-                    "value": 44.52126042596417
-                },
-                {
-                    "name": "length",
-                    "title": "длина, м",
-                    "type": "float",
-                    "value": 3.5
-                },
-                {
-                    "name": "lon",
-                    "title": "координаты - долгота",
-                    "type": "float",
-                    "value": 37.550381224915476
-                },
-                {
-                    "name": "mass",
-                    "title": "вес взрывчатого вещества, кг",
-                    "type": "int",
-                    "value": 0
-                },
-                {
-                    "name": "max_excitement",
-                    "title": "Допустимое волнение, баллы",
-                    "type": "float",
-                    "value": 5
-                },
-                {
-                    "name": "max_hit_count",
-                    "title": "критическое кол-во попаданий по корпусу, до выхода из строя",
-                    "type": "int",
-                    "value": 5
-                },
-                {
-                    "name": "probability",
-                    "title": "вероятность попадания в противника",
-                    "type": "float",
-                    "value": 0.33
-                },
-                {
-                    "name": "restriction",
-                    "title": "ограничения мореходности, Б",
-                    "type": "int",
-                    "value": 3
-                },
-                {
-                    "name": "rocket_count",
-                    "title": "кол-во крылатых ракет",
-                    "type": "int",
-                    "value": 0
-                },
-                {
-                    "name": "segment_index",
-                    "title": "индекс сегмента маршрута",
-                    "type": "int",
-                    "value": -1
-                },
-                {
-                    "name": "slow_speed",
-                    "title": "крейсерская скорость, м/с",
-                    "type": "float",
-                    "value": 18
-                },
-                {
-                    "name": "speed",
-                    "title": "текущая скорость",
-                    "type": "float",
-                    "value": 0
-                },
-                {
-                    "name": "state",
-                    "title": "состояние",
-                    "type": "str",
-                    "value": "standing"
-                },
-                {
-                    "name": "subType",
-                    "title": "подтип",
-                    "type": "str",
-                    "value": "Камикадзе"
-                },
-                {
-                    "name": "target",
-                    "title": "идентификатор цели",
-                    "type": "str",
-                    "value": ""
-                },
-                {
-                    "name": "trigger_time",
-                    "title": "отладочное поле",
-                    "type": "float",
-                    "value": 0
-                },
-                {
-                    "name": "type",
-                    "title": "тип",
-                    "type": "str",
-                    "value": "БЭК"
-                },
-                {
-                    "name": "type_connect",
-                    "title": "связь",
-                    "type": "str",
-                    "value": "Starlink"
-                },
-                {
-                    "name": "waiting_time",
-                    "title": "время ожидания в РОЖ",
-                    "type": "float",
-                    "value": 0
-                },
-                {
-                    "name": "width",
-                    "title": "ширина, м",
-                    "type": "float",
-                    "value": 0.9
-                }
-            ],
-            "title": "БЭК «Микола» №5"
-        },
-        {
-            "actions": [
-                {
-                    "algorithm_id": "alg_id_path",
-                    "name": "Движения по маршруту",
-                    "output_mapping": [
-                        {
-                            "course": "new_course",
-                            "title": ""
-                        },
-                        {
-                            "lat": "new_lat",
-                            "title": ""
-                        },
-                        {
-                            "lon": "new_lon",
-                            "title": ""
-                        },
-                        {
-                            "segment_index": "new_segment_index",
-                            "title": ""
-                        },
-                        {
-                            "state": "new_state",
-                            "title": ""
-                        }
-                    ],
-                    "type": "move"
-                },
-                {
-                    "algorithm_id": "alg_id_calculate_path",
-                    "name": "Расчет маршрута по графу видимости",
-                    "output_mapping": [
-                        {
-                            "geo_path.geometry.coordinates": "new_geo_path",
-                            "title": ""
-                        }
-                    ],
-                    "type": "find_path"
-                },
-                {
                     "algorithm_id": "alg_id_detect_thermal_imager",
                     "name": "Алгоритм обнаружения объектов противника на заданном радиусе",
                     "output_mapping": [
@@ -6832,6 +6259,588 @@
                 }
             ],
             "title": "«Иван Рогов» пр 23900 №1"
+        },
+        {
+            "actions": [
+                {
+                    "algorithm_id": "alg_id_path",
+                    "name": "Движения по маршруту",
+                    "output_mapping": [
+                        {
+                            "course": "new_course",
+                            "title": ""
+                        },
+                        {
+                            "lat": "new_lat",
+                            "title": ""
+                        },
+                        {
+                            "lon": "new_lon",
+                            "title": ""
+                        },
+                        {
+                            "segment_index": "new_segment_index",
+                            "title": ""
+                        },
+                        {
+                            "state": "new_state",
+                            "title": ""
+                        }
+                    ],
+                    "type": "move"
+                },
+                {
+                    "algorithm_id": "alg_id_calculate_path",
+                    "name": "Расчет маршрута по графу видимости",
+                    "output_mapping": [
+                        {
+                            "geo_path.geometry.coordinates": "new_geo_path",
+                            "title": ""
+                        }
+                    ],
+                    "type": "find_path"
+                },
+                {
+                    "algorithm_id": "alg_id_look_detection",
+                    "name": "Алгоритм обнаружения объектов противника",
+                    "output_mapping": [
+                    ],
+                    "type": "look_detection"
+                },
+                {
+                    "algorithm_id": "alg_id_check_destroyed",
+                    "name": "Провека уничтожения объекта",
+                    "output_mapping": [
+                    ],
+                    "type": "check_destroyed"
+                },
+                {
+                    "algorithm_id": "alg_id_evasive_maneuver",
+                    "name": "Маневр уклонения - бегство",
+                    "output_mapping": [
+                    ],
+                    "type": "evrasive_maneuvr"
+                },
+                {
+                    "algorithm_id": "alg_get_variable_path",
+                    "name": "Построение маршрута с переменным курсом",
+                    "output_mapping": [
+                    ],
+                    "type": "get_variable_path"
+                }
+            ],
+            "features": [
+            ],
+            "id": "BEK_MIKOLA_4",
+            "properties": [
+                {
+                    "name": "alt",
+                    "title": "координаты - высота над уровнем моря, м",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "angle_view",
+                    "title": "угол обзора ОЭС, градусы",
+                    "type": "int",
+                    "value": 360
+                },
+                {
+                    "name": "attack_speed",
+                    "title": "скорость развиваемая при атаке, м/с",
+                    "type": "int",
+                    "value": 23
+                },
+                {
+                    "name": "class_code",
+                    "title": "класскод",
+                    "type": "str",
+                    "value": "P0040062"
+                },
+                {
+                    "name": "connect_dist",
+                    "title": "удаление от пункта управления, м",
+                    "type": "int",
+                    "value": 250000
+                },
+                {
+                    "name": "course",
+                    "title": "курс",
+                    "type": "float",
+                    "value": 87.12447130354666
+                },
+                {
+                    "name": "detection_distance",
+                    "title": "дистанция обнаружения, м",
+                    "type": "int",
+                    "value": 25000
+                },
+                {
+                    "name": "distance_of_defeat",
+                    "title": "дистанция поражения",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "geo_path",
+                    "title": "маршрут",
+                    "type": "feature",
+                    "value": {
+                        "geometry": {
+                            "coordinates": [
+                            ],
+                            "type": "LineString"
+                        },
+                        "properties": {
+                            "class_code": "131405000210000000",
+                            "id": "BEK_MIKOLA_4_path"
+                        },
+                        "type": "Feature"
+                    }
+                },
+                {
+                    "name": "height",
+                    "title": "высота, м",
+                    "type": "float",
+                    "value": 1.2
+                },
+                {
+                    "name": "hit_count",
+                    "title": "текущее количество попаданий по корпусу",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "hull_damage",
+                    "title": "текущее повреждений корпуса",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "image",
+                    "title": "иконка",
+                    "type": "str",
+                    "value": "бэк-red.png"
+                },
+                {
+                    "name": "is_own",
+                    "title": "синий/красный",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "lat",
+                    "title": "координаты - широта",
+                    "type": "float",
+                    "value": 44.522365820365984
+                },
+                {
+                    "name": "length",
+                    "title": "длина, м",
+                    "type": "float",
+                    "value": 3.5
+                },
+                {
+                    "name": "lon",
+                    "title": "координаты - долгота",
+                    "type": "float",
+                    "value": 37.551510325558276
+                },
+                {
+                    "name": "mass",
+                    "title": "вес взрывчатого вещества, кг",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "max_excitement",
+                    "title": "Допустимое волнение, баллы",
+                    "type": "float",
+                    "value": 5
+                },
+                {
+                    "name": "max_hit_count",
+                    "title": "критическое кол-во попаданий по корпусу, до выхода из строя",
+                    "type": "int",
+                    "value": 5
+                },
+                {
+                    "name": "probability",
+                    "title": "вероятность попадания в противника",
+                    "type": "float",
+                    "value": 0.33
+                },
+                {
+                    "name": "restriction",
+                    "title": "ограничения мореходности, Б",
+                    "type": "int",
+                    "value": 3
+                },
+                {
+                    "name": "rocket_count",
+                    "title": "кол-во крылатых ракет",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "segment_index",
+                    "title": "индекс сегмента маршрута",
+                    "type": "int",
+                    "value": -1
+                },
+                {
+                    "name": "slow_speed",
+                    "title": "крейсерская скорость, м/с",
+                    "type": "float",
+                    "value": 18
+                },
+                {
+                    "name": "speed",
+                    "title": "текущая скорость",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "state",
+                    "title": "состояние",
+                    "type": "str",
+                    "value": "standing"
+                },
+                {
+                    "name": "subType",
+                    "title": "подтип",
+                    "type": "str",
+                    "value": "Камикадзе"
+                },
+                {
+                    "name": "target",
+                    "title": "идентификатор цели",
+                    "type": "str",
+                    "value": ""
+                },
+                {
+                    "name": "trigger_time",
+                    "title": "отладочное поле",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "type",
+                    "title": "тип",
+                    "type": "str",
+                    "value": "БЭК"
+                },
+                {
+                    "name": "type_connect",
+                    "title": "связь",
+                    "type": "str",
+                    "value": "Starlink"
+                },
+                {
+                    "name": "waiting_time",
+                    "title": "время ожидания в РОЖ",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "width",
+                    "title": "ширина, м",
+                    "type": "float",
+                    "value": 0.9
+                }
+            ],
+            "title": "БЭК «Микола» №4"
+        },
+        {
+            "actions": [
+                {
+                    "algorithm_id": "alg_id_path",
+                    "name": "Движения по маршруту",
+                    "output_mapping": [
+                        {
+                            "course": "new_course",
+                            "title": ""
+                        },
+                        {
+                            "lat": "new_lat",
+                            "title": ""
+                        },
+                        {
+                            "lon": "new_lon",
+                            "title": ""
+                        },
+                        {
+                            "segment_index": "new_segment_index",
+                            "title": ""
+                        },
+                        {
+                            "state": "new_state",
+                            "title": ""
+                        }
+                    ],
+                    "type": "move"
+                },
+                {
+                    "algorithm_id": "alg_id_calculate_path",
+                    "name": "Расчет маршрута по графу видимости",
+                    "output_mapping": [
+                        {
+                            "geo_path.geometry.coordinates": "new_geo_path",
+                            "title": ""
+                        }
+                    ],
+                    "type": "find_path"
+                },
+                {
+                    "algorithm_id": "alg_id_look_detection",
+                    "name": "Алгоритм обнаружения объектов противника",
+                    "output_mapping": [
+                    ],
+                    "type": "look_detection"
+                },
+                {
+                    "algorithm_id": "alg_id_check_destroyed",
+                    "name": "Провека уничтожения объекта",
+                    "output_mapping": [
+                    ],
+                    "type": "check_destroyed"
+                },
+                {
+                    "algorithm_id": "alg_id_evasive_maneuver",
+                    "name": "Маневр уклонения - бегство",
+                    "output_mapping": [
+                    ],
+                    "type": "evrasive_maneuvr"
+                },
+                {
+                    "algorithm_id": "alg_get_variable_path",
+                    "name": "Построение маршрута с переменным курсом",
+                    "output_mapping": [
+                    ],
+                    "type": "get_variable_path"
+                }
+            ],
+            "features": [
+            ],
+            "id": "BEK_MIKOLA_5",
+            "properties": [
+                {
+                    "name": "alt",
+                    "title": "координаты - высота над уровнем моря, м",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "angle_view",
+                    "title": "угол обзора ОЭС, градусы",
+                    "type": "int",
+                    "value": 360
+                },
+                {
+                    "name": "attack_speed",
+                    "title": "скорость развиваемая при атаке, м/с",
+                    "type": "int",
+                    "value": 23
+                },
+                {
+                    "name": "class_code",
+                    "title": "класскод",
+                    "type": "str",
+                    "value": "P0040062"
+                },
+                {
+                    "name": "connect_dist",
+                    "title": "удаление от пункта управления, м",
+                    "type": "int",
+                    "value": 250000
+                },
+                {
+                    "name": "course",
+                    "title": "курс",
+                    "type": "float",
+                    "value": 81.84066408928254
+                },
+                {
+                    "name": "detection_distance",
+                    "title": "дистанция обнаружения, м",
+                    "type": "int",
+                    "value": 25000
+                },
+                {
+                    "name": "distance_of_defeat",
+                    "title": "дистанция поражения",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "geo_path",
+                    "title": "маршрут",
+                    "type": "feature",
+                    "value": {
+                        "geometry": {
+                            "coordinates": [
+                            ],
+                            "type": "LineString"
+                        },
+                        "properties": {
+                            "class_code": "131405000210000000",
+                            "id": "BEK_MIKOLA_5_path"
+                        },
+                        "type": "Feature"
+                    }
+                },
+                {
+                    "name": "height",
+                    "title": "высота, м",
+                    "type": "float",
+                    "value": 1.2
+                },
+                {
+                    "name": "hit_count",
+                    "title": "текущее количество попаданий по корпусу",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "hull_damage",
+                    "title": "текущее повреждений корпуса",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "image",
+                    "title": "иконка",
+                    "type": "str",
+                    "value": "бэк-red.png"
+                },
+                {
+                    "name": "is_own",
+                    "title": "синий/красный",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "lat",
+                    "title": "координаты - широта",
+                    "type": "float",
+                    "value": 44.517093749575935
+                },
+                {
+                    "name": "length",
+                    "title": "длина, м",
+                    "type": "float",
+                    "value": 3.5
+                },
+                {
+                    "name": "lon",
+                    "title": "координаты - долгота",
+                    "type": "float",
+                    "value": 37.55127262015979
+                },
+                {
+                    "name": "mass",
+                    "title": "вес взрывчатого вещества, кг",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "max_excitement",
+                    "title": "Допустимое волнение, баллы",
+                    "type": "float",
+                    "value": 5
+                },
+                {
+                    "name": "max_hit_count",
+                    "title": "критическое кол-во попаданий по корпусу, до выхода из строя",
+                    "type": "int",
+                    "value": 5
+                },
+                {
+                    "name": "probability",
+                    "title": "вероятность попадания в противника",
+                    "type": "float",
+                    "value": 0.33
+                },
+                {
+                    "name": "restriction",
+                    "title": "ограничения мореходности, Б",
+                    "type": "int",
+                    "value": 3
+                },
+                {
+                    "name": "rocket_count",
+                    "title": "кол-во крылатых ракет",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "segment_index",
+                    "title": "индекс сегмента маршрута",
+                    "type": "int",
+                    "value": -1
+                },
+                {
+                    "name": "slow_speed",
+                    "title": "крейсерская скорость, м/с",
+                    "type": "float",
+                    "value": 18
+                },
+                {
+                    "name": "speed",
+                    "title": "текущая скорость",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "state",
+                    "title": "состояние",
+                    "type": "str",
+                    "value": "standing"
+                },
+                {
+                    "name": "subType",
+                    "title": "подтип",
+                    "type": "str",
+                    "value": "Камикадзе"
+                },
+                {
+                    "name": "target",
+                    "title": "идентификатор цели",
+                    "type": "str",
+                    "value": ""
+                },
+                {
+                    "name": "trigger_time",
+                    "title": "отладочное поле",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "type",
+                    "title": "тип",
+                    "type": "str",
+                    "value": "БЭК"
+                },
+                {
+                    "name": "type_connect",
+                    "title": "связь",
+                    "type": "str",
+                    "value": "Starlink"
+                },
+                {
+                    "name": "waiting_time",
+                    "title": "время ожидания в РОЖ",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "width",
+                    "title": "ширина, м",
+                    "type": "float",
+                    "value": 0.9
+                }
+            ],
+            "title": "БЭК «Микола» №5"
         }
     ],
     "scenario_id": "ввв",

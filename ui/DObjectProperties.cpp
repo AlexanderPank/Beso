@@ -12,8 +12,11 @@
 #include <QHBoxLayout>
 #include <limits>
 #include <QJsonDocument>
+#include <QJsonObject>
+#include <QToolButton>
 
 #include "../models/PropertyModel.h"
+#include "../models/Feature.h"
 
 class TrimDoubleSpinBox : public QDoubleSpinBox
 {
@@ -128,7 +131,28 @@ void DObjectProperties::buildTable()
             dsb->setFocusPolicy(Qt::ClickFocus);
             ui->tableWidget->setCellWidget(row, 2, dsb);
             m_editors.insert(prop, dsb);
-        } else {
+        } else if (type == PropertyModel::ValueType::FEATURE) {
+            QLineEdit *le = new QLineEdit(prop->stringValue(), ui->tableWidget);
+            le->setAlignment(Qt::AlignRight);
+            le->setFocusPolicy(Qt::ClickFocus);
+            auto container = new QWidget(ui->tableWidget);
+            auto layout = new QHBoxLayout(container);
+            layout->setContentsMargins(0, 0, 0, 0);
+            layout->addWidget(le);
+            QToolButton *btnClear = new QToolButton(container);
+            btnClear->setIcon(btnClear->style()->standardIcon(QStyle::SP_DialogCloseButton));
+            btnClear->setToolTip(tr("Очистить координаты"));
+            btnClear->setAutoRaise(true);
+            layout->addWidget(btnClear);
+            layout->setStretch(0, 1);
+            connect(btnClear, &QToolButton::clicked, this, [prop, le](){
+                auto * feature = qvariant_cast<Feature*>(prop->value());
+                feature->clearCoordinates();
+                le->setText( feature->toString() );
+            });
+            ui->tableWidget->setCellWidget(row, 2, container);
+            m_editors.insert(prop, le);
+        }  else {
             QLineEdit *le = new QLineEdit(prop->stringValue(), ui->tableWidget);
             le->setAlignment(Qt::AlignRight);
             le->setFocusPolicy(Qt::ClickFocus);

@@ -30,6 +30,8 @@ public:
     void updateProperty(const QString key, const QVariant value);
 
     QList<QPointF> getCoordinates() const;
+    void clearCoordinates() { m_coordinates.clear();}
+
     QList<QList<QPointF>>  getMultyCoordinates()const;
 
     QVariantMap getProperties() const { return m_properties; };

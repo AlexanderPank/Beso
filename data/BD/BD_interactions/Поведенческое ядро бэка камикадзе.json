@@ -88,7 +88,7 @@
       "title": "Останов движения (нет расчетной точки встречи)",
       "source_object_id": "!BEK!",
       "interaction_type": "moving",
-      "response_set_values": "!BEK!.properties['speed'] = 0; !BEK!.properties['state'] = 'standing';",
+      "response_set_values": "!BEK!.properties['speed'] = 0; !BEK!.properties['state'] = 'waiting';",
       "trigger_condition": "len(!BEK!.properties['geo_path']['geometry']['coordinates']) == 0 and !BEK!.properties['state'] in ['moving', 'attacking']"
     }
   ]

@@ -42,14 +42,14 @@ double GeoUtil::distanceBetweenPoints(const QPointF &p1Rad, const QPointF &p2Rad
     // p.x = lon(rad), p.y = lat(rad)
     const double R = 6371000.0; // средний радиус Земли, м
 
-    const double dlat = p2Rad.y() - p1Rad.y();
-    const double dlon = normalizeLonDiff(p2Rad.x() - p1Rad.x());
+    const double dlat = p2Rad.x() - p1Rad.x();
+    const double dlon = normalizeLonDiff(p2Rad.y() - p1Rad.y());
 
     const double sdlat2 = qSin(0.5 * dlat);
     const double sdlon2 = qSin(0.5 * dlon);
 
     double a = sdlat2 * sdlat2 +
-               qCos(p1Rad.y()) * qCos(p2Rad.y()) * (sdlon2 * sdlon2);
+               qCos(p1Rad.x()) * qCos(p2Rad.x()) * (sdlon2 * sdlon2);
 
     // эквивалент clamp для C++11
     a = max(0.0, min(a, 1.0));
@@ -103,23 +103,66 @@ QPointF GeoUtil::calculateNewPoint(double latitudeDeg, double longitudeDeg, doub
     return QPointF(newLat, newLon );
 }
 
-QPointF GeoUtil::calculateNewPointRadians(double latRad, double lonRad, double distanceMeters, double bearingDegrees) {
-    // Константа радиуса Земли в метрах
-    const double earthRadius = 6371000.0;
+//QPointF GeoUtil::calculateNewPointRadians(double latRad, double lonRad, double distanceMeters, double bearingDegrees) {
+//    // Константа радиуса Земли в метрах
+//    const double earthRadius = 6371000.0;
+//
+//    // Преобразуем угол направления в радианы
+//    double bearingRad = toRadians(bearingDegrees);
+//
+//    // Вычисление новой координаты
+//    double newLatRad = asin(sin(latRad) * cos(distanceMeters / earthRadius) +
+//                            cos(latRad) * sin(distanceMeters / earthRadius) * cos(bearingRad));
+//    double newLonRad = lonRad + atan2(sin(bearingRad) * sin(distanceMeters / earthRadius) * cos(latRad),
+//                                      cos(distanceMeters / earthRadius) - sin(latRad) * sin(newLatRad));
+//    newLonRad = fmod(newLonRad + M_PI, 2 * M_PI) - M_PI;
+//    // Преобразуем координаты обратно в градусы
+//
+//
+//    return QPointF(newLatRad, newLonRad);
+//}
+static inline double clamp01(double v) {
+    return v < 0.0 ? 0.0 : (v > 1.0 ? 1.0 : v);
+}
 
-    // Преобразуем угол направления в радианы
-    double bearingRad = toRadians(bearingDegrees);
+static inline double normalizeLon(double lon) {
+    // перевод в диапазон [-pi, pi]
+    const double pi    = 3.14159265358979323846;
+    const double twoPi = 2.0 * pi;
+    lon = std::fmod(lon + pi, twoPi);
+    if (lon < 0.0) lon += twoPi;
+    return lon - pi;
+}
 
-    // Вычисление новой координаты
-    double newLatRad = asin(sin(latRad) * cos(distanceMeters / earthRadius) +
-                            cos(latRad) * sin(distanceMeters / earthRadius) * cos(bearingRad));
-    double newLonRad = lonRad + atan2(sin(bearingRad) * sin(distanceMeters / earthRadius) * cos(latRad),
-                                      cos(distanceMeters / earthRadius) - sin(latRad) * sin(newLatRad));
-    newLonRad = fmod(newLonRad + M_PI, 2 * M_PI) - M_PI;
-    // Преобразуем координаты обратно в градусы
+// Возвращает QPointF(lonRad, latRad) в РАДИАНАХ
+QPointF GeoUtil::calculateNewPointRadians(double latRad,
+                                          double lonRad,
+                                          double distanceMeters,
+                                          double bearingDegrees)
+{
+    const double R     = 6371008.8; // средний сферический радиус Земли, м
+    const double theta = qDegreesToRadians(bearingDegrees); // курс в рад
+    const double delta = distanceMeters / R;                 // угловое расстояние (рад)
 
+    const double sinLat = qSin(latRad);
+    const double cosLat = qCos(latRad);
+    const double sinDelta = qSin(delta);
+    const double cosDelta = qCos(delta);
+    const double sinTheta = qSin(theta);
+    const double cosTheta = qCos(theta);
 
-    return QPointF(newLatRad, newLonRad);
+    // широта
+    double arg = sinLat * cosDelta + cosLat * sinDelta * cosTheta;
+    arg = clamp01(arg);                    // защита от округления
+    double newLatRad = qAsin(arg);
+
+    // долгота
+    double newLonRad = lonRad + qAtan2(sinTheta * sinDelta * cosLat,
+                                       cosDelta - sinLat * qSin(newLatRad));
+    newLonRad = normalizeLon(newLonRad);   // в [-pi, pi]
+
+    // ПОДЧЕРКИВАЮ: возвращаем (lat, lon) 0.77910185602562332 0.6604558477822956  newLat= 0.77941577805316797 newLon=0.66045584778229571
+    return QPointF(newLatRad, newLonRad );
 }
 
 double GeoUtil::calculateAngleRad(const QPointF &pointRad1, const QPointF &pointRad2) {
