@@ -32,6 +32,7 @@ signals:
     void multySelectClicked();
     void signLabelsToggled(bool);
     void featureLabelsToggled(bool);
+    void showLayerList(bool);
 
 private:
     Ui::MapToolPanel *ui;

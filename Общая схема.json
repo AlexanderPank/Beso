@@ -1,0 +1,489 @@
+{
+    "arrows": [
+        {
+            "from": 4,
+            "fromProp": "out",
+            "to": 1,
+            "toProp": "in"
+        },
+        {
+            "from": 7,
+            "fromProp": "out",
+            "to": 2,
+            "toProp": "in"
+        },
+        {
+            "from": 5,
+            "fromProp": "out",
+            "to": 4,
+            "toProp": "in"
+        },
+        {
+            "from": 6,
+            "fromProp": "out",
+            "to": 5,
+            "toProp": "in"
+        },
+        {
+            "from": 9,
+            "fromProp": "out",
+            "to": 6,
+            "toProp": "in"
+        },
+        {
+            "from": 8,
+            "fromProp": "out",
+            "to": 3,
+            "toProp": "in"
+        },
+        {
+            "from": 10,
+            "fromProp": "out",
+            "to": 7,
+            "toProp": "in"
+        }
+    ],
+    "items": [
+        {
+            "color": "#d3d3d3",
+            "is_object": true,
+            "properties": [
+                {
+                    "direction": 0,
+                    "name": "alt",
+                    "title": "координаты - высота над уровнем моря, м",
+                    "type": "float"
+                },
+                {
+                    "direction": 0,
+                    "name": "angle_view",
+                    "title": "угол обзора ОЭС, градусы",
+                    "type": "int"
+                },
+                {
+                    "direction": 0,
+                    "name": "attack_speed",
+                    "title": "скорость развиваемая при атаке, м/с",
+                    "type": "int"
+                },
+                {
+                    "direction": 0,
+                    "name": "class_code",
+                    "title": "класскод",
+                    "type": "str"
+                },
+                {
+                    "direction": 0,
+                    "name": "connect_dist",
+                    "title": "удаление от пункта управления, м",
+                    "type": "int"
+                },
+                {
+                    "direction": 0,
+                    "name": "course",
+                    "title": "курс",
+                    "type": "float"
+                },
+                {
+                    "direction": 0,
+                    "name": "detection_distance",
+                    "title": "дистанция обнаружения, м",
+                    "type": "int"
+                },
+                {
+                    "direction": 0,
+                    "name": "distance_of_defeat",
+                    "title": "дистанция поражения",
+                    "type": "int"
+                },
+                {
+                    "direction": 0,
+                    "name": "geo_path",
+                    "title": "маршрут",
+                    "type": "feature"
+                },
+                {
+                    "direction": 0,
+                    "name": "height",
+                    "title": "высота, м",
+                    "type": "float"
+                },
+                {
+                    "direction": 0,
+                    "name": "hit_count",
+                    "title": "текущее количество попаданий по корпусу",
+                    "type": "int"
+                },
+                {
+                    "direction": 0,
+                    "name": "hull_damage",
+                    "title": "текущее повреждений корпуса",
+                    "type": "int"
+                },
+                {
+                    "direction": 0,
+                    "name": "image",
+                    "title": "иконка",
+                    "type": "str"
+                },
+                {
+                    "direction": 0,
+                    "name": "is_own",
+                    "title": "синий/красный",
+                    "type": "int"
+                },
+                {
+                    "direction": 0,
+                    "name": "lat",
+                    "title": "координаты - широта",
+                    "type": "float"
+                },
+                {
+                    "direction": 0,
+                    "name": "length",
+                    "title": "длина, м",
+                    "type": "float"
+                },
+                {
+                    "direction": 0,
+                    "name": "lon",
+                    "title": "координаты - долгота",
+                    "type": "float"
+                },
+                {
+                    "direction": 0,
+                    "name": "mass",
+                    "title": "вес взрывчатого вещества, кг",
+                    "type": "int"
+                },
+                {
+                    "direction": 0,
+                    "name": "max_excitement",
+                    "title": "Допустимое волнение, баллы",
+                    "type": "float"
+                },
+                {
+                    "direction": 0,
+                    "name": "max_hit_count",
+                    "title": "критическое кол-во попаданий по корпусу, до выхода из строя",
+                    "type": "int"
+                },
+                {
+                    "direction": 0,
+                    "name": "probability",
+                    "title": "вероятность попадания в противника",
+                    "type": "float"
+                },
+                {
+                    "direction": 0,
+                    "name": "restriction",
+                    "title": "ограничения мореходности, Б",
+                    "type": "int"
+                },
+                {
+                    "direction": 0,
+                    "name": "rocket_count",
+                    "title": "кол-во крылатых ракет",
+                    "type": "int"
+                },
+                {
+                    "direction": 0,
+                    "name": "segment_index",
+                    "title": "индекс сегмента маршрута",
+                    "type": "int"
+                },
+                {
+                    "direction": 0,
+                    "name": "speed",
+                    "title": "крейсерская скорость, м/с",
+                    "type": "float"
+                },
+                {
+                    "direction": 0,
+                    "name": "state",
+                    "title": "состояние",
+                    "type": "str"
+                },
+                {
+                    "direction": 0,
+                    "name": "subType",
+                    "title": "подтип",
+                    "type": "str"
+                },
+                {
+                    "direction": 0,
+                    "name": "target",
+                    "title": "идентификатор цели",
+                    "type": "str"
+                },
+                {
+                    "direction": 0,
+                    "name": "trigger_time",
+                    "title": "отладочное поле",
+                    "type": "float"
+                },
+                {
+                    "direction": 0,
+                    "name": "type",
+                    "title": "тип",
+                    "type": "str"
+                },
+                {
+                    "direction": 0,
+                    "name": "type_connect",
+                    "title": "связь",
+                    "type": "str"
+                },
+                {
+                    "direction": 0,
+                    "name": "waiting_time",
+                    "title": "время ожидания в РОЖ",
+                    "type": "float"
+                },
+                {
+                    "direction": 0,
+                    "name": "width",
+                    "title": "ширина, м",
+                    "type": "float"
+                }
+            ],
+            "self_out": true,
+            "title": "БЭК «Микола»",
+            "type": 0,
+            "x": 3340,
+            "y": 2504
+        },
+        {
+            "color": "#e3e3fd",
+            "is_object": false,
+            "properties": [
+                {
+                    "direction": 1,
+                    "name": "in",
+                    "title": "",
+                    "type": "состояние объекта"
+                },
+                {
+                    "direction": 2,
+                    "name": "out",
+                    "title": "",
+                    "type": "any"
+                }
+            ],
+            "self_out": false,
+            "title": "Установка текущего стостояния",
+            "type": 0,
+            "x": 4125,
+            "y": 2765
+        },
+        {
+            "color": "#e3e3fd",
+            "is_object": false,
+            "properties": [
+                {
+                    "direction": 1,
+                    "name": "in",
+                    "title": "",
+                    "type": "состояние объекта"
+                },
+                {
+                    "direction": 2,
+                    "name": "out",
+                    "title": "",
+                    "type": "any"
+                }
+            ],
+            "self_out": false,
+            "title": "Установка текущего стостояния",
+            "type": 0,
+            "x": 3550,
+            "y": 2631
+        },
+        {
+            "color": "#e3e3fd",
+            "is_object": false,
+            "properties": [
+                {
+                    "direction": 1,
+                    "name": "in",
+                    "title": "",
+                    "type": "идентификатор цели"
+                },
+                {
+                    "direction": 2,
+                    "name": "out",
+                    "title": "",
+                    "type": "any"
+                }
+            ],
+            "self_out": false,
+            "title": "Изменение состояния на \"Атака\"",
+            "type": 0,
+            "x": 3206,
+            "y": 2915
+        },
+        {
+            "color": "#e3e3fd",
+            "is_object": false,
+            "properties": [
+                {
+                    "direction": 1,
+                    "name": "in",
+                    "title": "",
+                    "type": "маршрут"
+                },
+                {
+                    "direction": 2,
+                    "name": "out",
+                    "title": "",
+                    "type": "состояние"
+                }
+            ],
+            "self_out": false,
+            "title": "ИРЗ движение по маршруту",
+            "type": 0,
+            "x": 3823,
+            "y": 2765
+        },
+        {
+            "color": "#e3e3fd",
+            "is_object": false,
+            "properties": [
+                {
+                    "direction": 1,
+                    "name": "in",
+                    "title": "",
+                    "type": "координаты"
+                },
+                {
+                    "direction": 2,
+                    "name": "out",
+                    "title": "",
+                    "type": "маршрут"
+                }
+            ],
+            "self_out": false,
+            "title": "Построение маршрута до точки",
+            "type": 0,
+            "x": 3531,
+            "y": 2765
+        },
+        {
+            "color": "#e3e3fd",
+            "is_object": false,
+            "properties": [
+                {
+                    "direction": 1,
+                    "name": "in",
+                    "title": "",
+                    "type": "идентификатор"
+                },
+                {
+                    "direction": 2,
+                    "name": "out",
+                    "title": "",
+                    "type": "координаты"
+                }
+            ],
+            "self_out": false,
+            "title": "Определение точки перехвата",
+            "type": 0,
+            "x": 3213,
+            "y": 2765
+        },
+        {
+            "color": "#e3e3fd",
+            "is_object": false,
+            "properties": [
+                {
+                    "direction": 1,
+                    "name": "in",
+                    "title": "",
+                    "type": "any"
+                },
+                {
+                    "direction": 2,
+                    "name": "out",
+                    "title": "",
+                    "type": "any"
+                }
+            ],
+            "self_out": false,
+            "title": "ИРЗ движение по маршруту",
+            "type": 0,
+            "x": 3187,
+            "y": 2631
+        },
+        {
+            "color": "#e3e3fd",
+            "is_object": false,
+            "properties": [
+                {
+                    "direction": 1,
+                    "name": "in",
+                    "title": "",
+                    "type": "any"
+                },
+                {
+                    "direction": 2,
+                    "name": "out",
+                    "title": "",
+                    "type": "обнаружен"
+                }
+            ],
+            "self_out": false,
+            "title": "ИРЗ поиск противника",
+            "type": 0,
+            "x": 2936,
+            "y": 2915
+        },
+        {
+            "color": "#e3e3fd",
+            "is_object": false,
+            "properties": [
+                {
+                    "direction": 1,
+                    "name": "in",
+                    "title": "",
+                    "type": "any"
+                },
+                {
+                    "direction": 2,
+                    "name": "out",
+                    "title": "",
+                    "type": "any"
+                }
+            ],
+            "self_out": false,
+            "title": "Состояние Атака",
+            "type": 0,
+            "x": 2949,
+            "y": 2765
+        },
+        {
+            "color": "#e3e3fd",
+            "is_object": false,
+            "properties": [
+                {
+                    "direction": 1,
+                    "name": "in",
+                    "title": "",
+                    "type": "any"
+                },
+                {
+                    "direction": 2,
+                    "name": "out",
+                    "title": "",
+                    "type": "any"
+                }
+            ],
+            "self_out": false,
+            "title": "Состояние Движение",
+            "type": 0,
+            "x": 2935,
+            "y": 2631
+        }
+    ],
+    "texts": [
+    ]
+}

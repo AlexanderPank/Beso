@@ -30,6 +30,7 @@ MapWidget::MapWidget(QWidget *parent, QString mapFileName, QString rscPath) :
     scaleView = new MapScale(this);
     compasView = new MapCompass(this);
 
+    ui->mapSelectDialog->SetMapView(mapView);
 
     connect(scaleView, &MapScale::scaleChanged, [=](long scale) { setScale(scale); });
 
@@ -64,6 +65,10 @@ MapWidget::MapWidget(QWidget *parent, QString mapFileName, QString rscPath) :
         if (!m_signEditor->hasSelection()) return;
         m_signEditor->removeSelectedSign();
         getMapView()->Repaint();
+    });
+    ///////
+    connect(toolPanel, &MapToolPanel::showLayerList, [=](bool checked) {
+        ui->mapSelectDialog->Execute(mapView->VarViewSelect, false);
     });
     ///////
     toolPanel->show();
@@ -160,6 +165,7 @@ int MapWidget::loadMap(QString mapFileName) {
             layers << layerName;
         }
     */
+    // ui->mapSelectDialog->Execute(mapView->VarViewSelect, true);
     return 1;
 }
 

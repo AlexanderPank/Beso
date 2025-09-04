@@ -1,0 +1,959 @@
+{
+    "arrows": [
+        {
+            "from": 5,
+            "fromProp": "",
+            "to": 0,
+            "toProp": "obj"
+        },
+        {
+            "from": 0,
+            "fromProp": "path",
+            "to": 6,
+            "toProp": "path"
+        },
+        {
+            "from": 0,
+            "fromProp": "obj",
+            "to": 6,
+            "toProp": "item"
+        },
+        {
+            "from": 1,
+            "fromProp": "_lon",
+            "to": 0,
+            "toProp": "lon"
+        },
+        {
+            "from": 1,
+            "fromProp": "_lat",
+            "to": 0,
+            "toProp": "lat"
+        },
+        {
+            "from": 1,
+            "fromProp": "_alt",
+            "to": 0,
+            "toProp": "alt"
+        },
+        {
+            "from": 4,
+            "fromProp": "run",
+            "to": 3,
+            "toProp": "restricted_area"
+        },
+        {
+            "from": 5,
+            "fromProp": "",
+            "to": 3,
+            "toProp": "item"
+        },
+        {
+            "from": 4,
+            "fromProp": "move",
+            "to": 6,
+            "toProp": "path"
+        },
+        {
+            "from": 5,
+            "fromProp": "state",
+            "to": 4,
+            "toProp": "state"
+        },
+        {
+            "from": 5,
+            "fromProp": "",
+            "to": 6,
+            "toProp": "item"
+        },
+        {
+            "from": 6,
+            "fromProp": "new_course",
+            "to": 7,
+            "toProp": "course"
+        },
+        {
+            "from": 6,
+            "fromProp": "new_lat",
+            "to": 7,
+            "toProp": "lat"
+        },
+        {
+            "from": 6,
+            "fromProp": "new_lon",
+            "to": 7,
+            "toProp": "lon"
+        },
+        {
+            "from": 6,
+            "fromProp": "new_state",
+            "to": 7,
+            "toProp": "state"
+        },
+        {
+            "from": 2,
+            "fromProp": "is_look",
+            "to": 8,
+            "toProp": "isTarget"
+        },
+        {
+            "from": 8,
+            "fromProp": "alt",
+            "to": 1,
+            "toProp": "alt2"
+        },
+        {
+            "from": 8,
+            "fromProp": "course",
+            "to": 1,
+            "toProp": "course2"
+        },
+        {
+            "from": 8,
+            "fromProp": "lat",
+            "to": 1,
+            "toProp": "lat2"
+        },
+        {
+            "from": 8,
+            "fromProp": "lon",
+            "to": 1,
+            "toProp": "lon2"
+        },
+        {
+            "from": 8,
+            "fromProp": "speed",
+            "to": 1,
+            "toProp": "speed2"
+        },
+        {
+            "from": 5,
+            "fromProp": "lat",
+            "to": 1,
+            "toProp": "lat1"
+        },
+        {
+            "from": 5,
+            "fromProp": "lon",
+            "to": 1,
+            "toProp": "lon1"
+        },
+        {
+            "from": 5,
+            "fromProp": "speed",
+            "to": 1,
+            "toProp": "speed1"
+        },
+        {
+            "from": 5,
+            "fromProp": "lat",
+            "to": 3,
+            "toProp": "frog"
+        },
+        {
+            "from": 5,
+            "fromProp": "lon",
+            "to": 3,
+            "toProp": "min_distance"
+        },
+        {
+            "from": 8,
+            "fromProp": "lat",
+            "to": 3,
+            "toProp": "type_danger"
+        },
+        {
+            "from": 8,
+            "fromProp": "lon",
+            "to": 3,
+            "toProp": "rain"
+        }
+    ],
+    "items": [
+        {
+            "color": "#e3e3fd",
+            "is_object": false,
+            "properties": [
+                {
+                    "direction": 1,
+                    "name": "alt",
+                    "title": "_alt",
+                    "type": "float"
+                },
+                {
+                    "direction": 1,
+                    "name": "lat",
+                    "title": "_lat",
+                    "type": "float"
+                },
+                {
+                    "direction": 1,
+                    "name": "lon",
+                    "title": "_lon",
+                    "type": "float"
+                },
+                {
+                    "direction": 1,
+                    "name": "obj",
+                    "title": "Объект",
+                    "type": "any"
+                },
+                {
+                    "direction": 2,
+                    "name": "obj",
+                    "title": "Объект",
+                    "type": "any"
+                },
+                {
+                    "direction": 2,
+                    "name": "path",
+                    "title": "Маршрут",
+                    "type": "feature"
+                }
+            ],
+            "self_out": false,
+            "title": "Расчет маршрута до цели",
+            "type": 0,
+            "x": 3540.6666666666665,
+            "y": 3039.333333333333
+        },
+        {
+            "color": "#e3e3fd",
+            "is_object": false,
+            "properties": [
+                {
+                    "direction": 1,
+                    "name": "lat1",
+                    "title": "lat1",
+                    "type": "float"
+                },
+                {
+                    "direction": 1,
+                    "name": "lon1",
+                    "title": "lon1",
+                    "type": "float"
+                },
+                {
+                    "direction": 1,
+                    "name": "alt1",
+                    "title": "alt1",
+                    "type": "float"
+                },
+                {
+                    "direction": 1,
+                    "name": "speed1",
+                    "title": "speed1",
+                    "type": "float"
+                },
+                {
+                    "direction": 1,
+                    "name": "lat2",
+                    "title": "lat2",
+                    "type": "float"
+                },
+                {
+                    "direction": 1,
+                    "name": "lon2",
+                    "title": "lon2",
+                    "type": "float"
+                },
+                {
+                    "direction": 1,
+                    "name": "alt2",
+                    "title": "alt2",
+                    "type": "float"
+                },
+                {
+                    "direction": 1,
+                    "name": "speed2",
+                    "title": "speed2",
+                    "type": "float"
+                },
+                {
+                    "direction": 1,
+                    "name": "course2",
+                    "title": "course2",
+                    "type": "float"
+                },
+                {
+                    "direction": 1,
+                    "name": "dt",
+                    "title": "dt",
+                    "type": "float"
+                },
+                {
+                    "direction": 2,
+                    "name": "_lat",
+                    "title": "_lat",
+                    "type": "float"
+                },
+                {
+                    "direction": 2,
+                    "name": "_lon",
+                    "title": "_lon",
+                    "type": "float"
+                },
+                {
+                    "direction": 2,
+                    "name": "_alt",
+                    "title": "_alt",
+                    "type": "float"
+                },
+                {
+                    "direction": 2,
+                    "name": "_is_caught",
+                    "title": "_is_caught",
+                    "type": "bool"
+                }
+            ],
+            "self_out": false,
+            "title": "Алгоритма расчета точки встречи",
+            "type": 0,
+            "x": 3116.666666666666,
+            "y": 2920.3333333333335
+        },
+        {
+            "color": "#e3e3fd",
+            "is_object": false,
+            "properties": [
+                {
+                    "direction": 2,
+                    "name": "is_look",
+                    "title": "is_look",
+                    "type": "bool"
+                }
+            ],
+            "self_out": false,
+            "title": "Алгоритм обнаружения объектов противника",
+            "type": 0,
+            "x": 2152,
+            "y": 2778
+        },
+        {
+            "color": "#e3e3fd",
+            "is_object": false,
+            "properties": [
+                {
+                    "direction": 1,
+                    "name": "item",
+                    "title": "",
+                    "type": "any"
+                },
+                {
+                    "direction": 1,
+                    "name": "objects",
+                    "title": "",
+                    "type": "int"
+                },
+                {
+                    "direction": 1,
+                    "name": "type_danger",
+                    "title": "",
+                    "type": "float"
+                },
+                {
+                    "direction": 1,
+                    "name": "min_distance",
+                    "title": "",
+                    "type": "float"
+                },
+                {
+                    "direction": 1,
+                    "name": "rain",
+                    "title": "",
+                    "type": "float"
+                },
+                {
+                    "direction": 1,
+                    "name": "frog",
+                    "title": "",
+                    "type": "float"
+                },
+                {
+                    "direction": 1,
+                    "name": "time_in_seconds",
+                    "title": "",
+                    "type": "int"
+                },
+                {
+                    "direction": 1,
+                    "name": "restricted_area",
+                    "title": "",
+                    "type": "any"
+                }
+            ],
+            "self_out": false,
+            "title": "Маневр уклонения - бегство",
+            "type": 0,
+            "x": 3117,
+            "y": 2646
+        },
+        {
+            "color": "#e3e3fd",
+            "is_object": false,
+            "properties": [
+                {
+                    "direction": 1,
+                    "name": "state",
+                    "title": "Текущее состояние",
+                    "type": "str"
+                },
+                {
+                    "direction": 2,
+                    "name": "move",
+                    "title": "В движении",
+                    "type": "str"
+                },
+                {
+                    "direction": 2,
+                    "name": "waiting",
+                    "title": "В ожидании",
+                    "type": "str"
+                },
+                {
+                    "direction": 2,
+                    "name": "atack",
+                    "title": "В атаке",
+                    "type": "str"
+                },
+                {
+                    "direction": 2,
+                    "name": "run",
+                    "title": "Бегство",
+                    "type": "str"
+                }
+            ],
+            "self_out": false,
+            "title": "Действие по смене состояния",
+            "type": 0,
+            "x": 2645.333333333333,
+            "y": 2281.333333333333
+        },
+        {
+            "color": "#d3d3d3",
+            "is_object": true,
+            "properties": [
+                {
+                    "direction": 0,
+                    "name": "alt",
+                    "title": "координаты - высота над уровнем моря, м",
+                    "type": "float"
+                },
+                {
+                    "direction": 0,
+                    "name": "angle_view",
+                    "title": "угол обзора ОЭС, градусы",
+                    "type": "int"
+                },
+                {
+                    "direction": 2,
+                    "name": "attack_speed",
+                    "title": "скорость развиваемая при атаке, м/с",
+                    "type": "int"
+                },
+                {
+                    "direction": 0,
+                    "name": "class_code",
+                    "title": "класскод",
+                    "type": "str"
+                },
+                {
+                    "direction": 0,
+                    "name": "connect_dist",
+                    "title": "удаление от пункта управления, м",
+                    "type": "int"
+                },
+                {
+                    "direction": 2,
+                    "name": "course",
+                    "title": "курс",
+                    "type": "float"
+                },
+                {
+                    "direction": 0,
+                    "name": "detection_distance",
+                    "title": "дистанция обнаружения, м",
+                    "type": "int"
+                },
+                {
+                    "direction": 0,
+                    "name": "distance_of_defeat",
+                    "title": "дистанция поражения",
+                    "type": "int"
+                },
+                {
+                    "direction": 0,
+                    "name": "geo_path",
+                    "title": "маршрут",
+                    "type": "feature"
+                },
+                {
+                    "direction": 0,
+                    "name": "height",
+                    "title": "высота, м",
+                    "type": "float"
+                },
+                {
+                    "direction": 0,
+                    "name": "hit_count",
+                    "title": "текущее количество попаданий по корпусу",
+                    "type": "int"
+                },
+                {
+                    "direction": 0,
+                    "name": "hull_damage",
+                    "title": "текущее повреждений корпуса",
+                    "type": "int"
+                },
+                {
+                    "direction": 0,
+                    "name": "image",
+                    "title": "иконка",
+                    "type": "str"
+                },
+                {
+                    "direction": 0,
+                    "name": "is_own",
+                    "title": "синий/красный",
+                    "type": "int"
+                },
+                {
+                    "direction": 2,
+                    "name": "lat",
+                    "title": "координаты - широта",
+                    "type": "float"
+                },
+                {
+                    "direction": 0,
+                    "name": "length",
+                    "title": "длина, м",
+                    "type": "float"
+                },
+                {
+                    "direction": 2,
+                    "name": "lon",
+                    "title": "координаты - долгота",
+                    "type": "float"
+                },
+                {
+                    "direction": 0,
+                    "name": "mass",
+                    "title": "вес взрывчатого вещества, кг",
+                    "type": "int"
+                },
+                {
+                    "direction": 0,
+                    "name": "max_excitement",
+                    "title": "Допустимое волнение, баллы",
+                    "type": "float"
+                },
+                {
+                    "direction": 0,
+                    "name": "max_hit_count",
+                    "title": "критическое кол-во попаданий по корпусу, до выхода из строя",
+                    "type": "int"
+                },
+                {
+                    "direction": 0,
+                    "name": "probability",
+                    "title": "вероятность попадания в противника",
+                    "type": "float"
+                },
+                {
+                    "direction": 0,
+                    "name": "restriction",
+                    "title": "ограничения мореходности, Б",
+                    "type": "int"
+                },
+                {
+                    "direction": 0,
+                    "name": "rocket_count",
+                    "title": "кол-во крылатых ракет",
+                    "type": "int"
+                },
+                {
+                    "direction": 0,
+                    "name": "segment_index",
+                    "title": "индекс сегмента маршрута",
+                    "type": "int"
+                },
+                {
+                    "direction": 2,
+                    "name": "speed",
+                    "title": "крейсерская скорость, м/с",
+                    "type": "float"
+                },
+                {
+                    "direction": 2,
+                    "name": "state",
+                    "title": "состояние",
+                    "type": "str"
+                },
+                {
+                    "direction": 0,
+                    "name": "subType",
+                    "title": "подтип",
+                    "type": "str"
+                },
+                {
+                    "direction": 0,
+                    "name": "target",
+                    "title": "идентификатор цели",
+                    "type": "str"
+                },
+                {
+                    "direction": 0,
+                    "name": "trigger_time",
+                    "title": "отладочное поле",
+                    "type": "float"
+                },
+                {
+                    "direction": 0,
+                    "name": "type",
+                    "title": "тип",
+                    "type": "str"
+                },
+                {
+                    "direction": 0,
+                    "name": "type_connect",
+                    "title": "связь",
+                    "type": "str"
+                },
+                {
+                    "direction": 0,
+                    "name": "waiting_time",
+                    "title": "время ожидания в РОЖ",
+                    "type": "float"
+                },
+                {
+                    "direction": 0,
+                    "name": "width",
+                    "title": "ширина, м",
+                    "type": "float"
+                }
+            ],
+            "self_out": true,
+            "title": "БЭК «Микола»",
+            "type": 0,
+            "x": 1635,
+            "y": 2831
+        },
+        {
+            "color": "#e3e3fd",
+            "is_object": false,
+            "properties": [
+                {
+                    "direction": 1,
+                    "name": "item",
+                    "title": "Объект моделирования",
+                    "type": "any"
+                },
+                {
+                    "direction": 1,
+                    "name": "path",
+                    "title": "Маршрут движения GeoJson",
+                    "type": "feature"
+                },
+                {
+                    "direction": 1,
+                    "name": "time_in_seconds",
+                    "title": "Шаг модельного времени",
+                    "type": "int"
+                },
+                {
+                    "direction": 2,
+                    "name": "new_course",
+                    "title": "Курс",
+                    "type": "float"
+                },
+                {
+                    "direction": 2,
+                    "name": "new_lat",
+                    "title": "координаты",
+                    "type": "float"
+                },
+                {
+                    "direction": 2,
+                    "name": "new_lon",
+                    "title": "координаты",
+                    "type": "float"
+                },
+                {
+                    "direction": 2,
+                    "name": "new_segment_index",
+                    "title": "Индекс сегмента маршрута",
+                    "type": "int"
+                },
+                {
+                    "direction": 2,
+                    "name": "new_state",
+                    "title": "Состояние finished - достиг конца маршрута",
+                    "type": "str"
+                }
+            ],
+            "self_out": false,
+            "title": "Движения по маршруту",
+            "type": 0,
+            "x": 4046,
+            "y": 2417
+        },
+        {
+            "color": "#d3d3d3",
+            "is_object": true,
+            "properties": [
+                {
+                    "direction": 0,
+                    "name": "alt",
+                    "title": "координаты - высота над уровнем моря, м",
+                    "type": "float"
+                },
+                {
+                    "direction": 0,
+                    "name": "angle_view",
+                    "title": "угол обзора ОЭС, градусы",
+                    "type": "int"
+                },
+                {
+                    "direction": 0,
+                    "name": "attack_speed",
+                    "title": "скорость развиваемая при атаке, м/с",
+                    "type": "int"
+                },
+                {
+                    "direction": 0,
+                    "name": "class_code",
+                    "title": "класскод",
+                    "type": "str"
+                },
+                {
+                    "direction": 0,
+                    "name": "connect_dist",
+                    "title": "удаление от пункта управления, м",
+                    "type": "int"
+                },
+                {
+                    "direction": 1,
+                    "name": "course",
+                    "title": "курс",
+                    "type": "float"
+                },
+                {
+                    "direction": 0,
+                    "name": "detection_distance",
+                    "title": "дистанция обнаружения, м",
+                    "type": "int"
+                },
+                {
+                    "direction": 0,
+                    "name": "distance_of_defeat",
+                    "title": "дистанция поражения",
+                    "type": "int"
+                },
+                {
+                    "direction": 0,
+                    "name": "geo_path",
+                    "title": "маршрут",
+                    "type": "feature"
+                },
+                {
+                    "direction": 0,
+                    "name": "height",
+                    "title": "высота, м",
+                    "type": "float"
+                },
+                {
+                    "direction": 0,
+                    "name": "hit_count",
+                    "title": "текущее количество попаданий по корпусу",
+                    "type": "int"
+                },
+                {
+                    "direction": 0,
+                    "name": "hull_damage",
+                    "title": "текущее повреждений корпуса",
+                    "type": "int"
+                },
+                {
+                    "direction": 0,
+                    "name": "image",
+                    "title": "иконка",
+                    "type": "str"
+                },
+                {
+                    "direction": 0,
+                    "name": "is_own",
+                    "title": "синий/красный",
+                    "type": "int"
+                },
+                {
+                    "direction": 1,
+                    "name": "lat",
+                    "title": "координаты - широта",
+                    "type": "float"
+                },
+                {
+                    "direction": 0,
+                    "name": "length",
+                    "title": "длина, м",
+                    "type": "float"
+                },
+                {
+                    "direction": 1,
+                    "name": "lon",
+                    "title": "координаты - долгота",
+                    "type": "float"
+                },
+                {
+                    "direction": 0,
+                    "name": "mass",
+                    "title": "вес взрывчатого вещества, кг",
+                    "type": "int"
+                },
+                {
+                    "direction": 0,
+                    "name": "max_excitement",
+                    "title": "Допустимое волнение, баллы",
+                    "type": "float"
+                },
+                {
+                    "direction": 0,
+                    "name": "max_hit_count",
+                    "title": "критическое кол-во попаданий по корпусу, до выхода из строя",
+                    "type": "int"
+                },
+                {
+                    "direction": 0,
+                    "name": "probability",
+                    "title": "вероятность попадания в противника",
+                    "type": "float"
+                },
+                {
+                    "direction": 0,
+                    "name": "restriction",
+                    "title": "ограничения мореходности, Б",
+                    "type": "int"
+                },
+                {
+                    "direction": 0,
+                    "name": "rocket_count",
+                    "title": "кол-во крылатых ракет",
+                    "type": "int"
+                },
+                {
+                    "direction": 0,
+                    "name": "segment_index",
+                    "title": "индекс сегмента маршрута",
+                    "type": "int"
+                },
+                {
+                    "direction": 0,
+                    "name": "speed",
+                    "title": "крейсерская скорость, м/с",
+                    "type": "float"
+                },
+                {
+                    "direction": 1,
+                    "name": "state",
+                    "title": "состояние",
+                    "type": "str"
+                },
+                {
+                    "direction": 0,
+                    "name": "subType",
+                    "title": "подтип",
+                    "type": "str"
+                },
+                {
+                    "direction": 0,
+                    "name": "target",
+                    "title": "идентификатор цели",
+                    "type": "str"
+                },
+                {
+                    "direction": 0,
+                    "name": "trigger_time",
+                    "title": "отладочное поле",
+                    "type": "float"
+                },
+                {
+                    "direction": 0,
+                    "name": "type",
+                    "title": "тип",
+                    "type": "str"
+                },
+                {
+                    "direction": 0,
+                    "name": "type_connect",
+                    "title": "связь",
+                    "type": "str"
+                },
+                {
+                    "direction": 0,
+                    "name": "waiting_time",
+                    "title": "время ожидания в РОЖ",
+                    "type": "float"
+                },
+                {
+                    "direction": 0,
+                    "name": "width",
+                    "title": "ширина, м",
+                    "type": "float"
+                }
+            ],
+            "self_out": true,
+            "title": "БЭК «Микола»",
+            "type": 0,
+            "x": 4697,
+            "y": 2611
+        },
+        {
+            "color": "#e3e3fd",
+            "is_object": false,
+            "properties": [
+                {
+                    "direction": 1,
+                    "name": "isTarget",
+                    "title": "Является целью",
+                    "type": "bool"
+                },
+                {
+                    "direction": 2,
+                    "name": "alt",
+                    "title": "",
+                    "type": "float"
+                },
+                {
+                    "direction": 2,
+                    "name": "course",
+                    "title": "курс",
+                    "type": "float"
+                },
+                {
+                    "direction": 2,
+                    "name": "lat",
+                    "title": "широта",
+                    "type": "float"
+                },
+                {
+                    "direction": 2,
+                    "name": "lon",
+                    "title": "долгота",
+                    "type": "float"
+                },
+                {
+                    "direction": 2,
+                    "name": "speed",
+                    "title": "скорость",
+                    "type": "float"
+                }
+            ],
+            "self_out": false,
+            "title": "Получение данных по цели",
+            "type": 0,
+            "x": 2582.6666666666665,
+            "y": 2774
+        }
+    ],
+    "texts": [
+    ]
+}

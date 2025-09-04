@@ -52,6 +52,9 @@ MapToolPanel::MapToolPanel(QWidget *parent) :
 
     connect(ui->signLabelsButton, &QPushButton::toggled, this, &MapToolPanel::signLabelsToggled);
     connect(ui->featureLabelsButton, &QPushButton::toggled, this, &MapToolPanel::featureLabelsToggled);
+    connect(ui->layerListButton, &QPushButton::toggled, this, [this](bool checked){
+        emit showLayerList(checked);
+    });
 
     this->setMaximumWidth(40);
     this->setFixedWidth(40);

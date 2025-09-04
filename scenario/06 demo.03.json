@@ -1484,137 +1484,6 @@
             "type": "LINK_LINE"
         },
         {
-            "class_code": "31261500011300000001",
-            "color": "base",
-            "coordinates": [
-                [
-                    44.62987061574977,
-                    37.84983103933108,
-                    0
-                ],
-                [
-                    44.64785704786814,
-                    37.84983103933108,
-                    0
-                ]
-            ],
-            "description": "Наносится 2-мя точками. Двойной клик для завершения нанесения.",
-            "geometry_type": 4,
-            "icon": ":/icons/images/tacticals/circle.png",
-            "id": "AK_DISTANCE_11",
-            "is_own": 1,
-            "line_width": 0.4000000059604645,
-            "parent_object_id": "SHIP_ROGOV_1",
-            "position": 0,
-            "properties": [
-            ],
-            "radius": 2000,
-            "scale": 100,
-            "scheme": ":/icons/images/tacticals/circle_scheme.png",
-            "short_name": "Рубеж открытия огня АК",
-            "spline": true,
-            "title": "Рубеж открытия огня АК",
-            "type": "AK_DISTANCE"
-        },
-        {
-            "class_code": "L0000003641u",
-            "color": "red",
-            "coordinates": [
-                [
-                    44.62987061574977,
-                    37.84983103933108,
-                    0
-                ],
-                [
-                    44.6748366960457,
-                    37.84983103933108,
-                    0
-                ]
-            ],
-            "description": "Наносится 2-мя точками. Двойной клик для завершения нанесения.",
-            "geometry_type": 4,
-            "icon": ":/icons/images/tacticals/circle.png",
-            "id": "CIRCLE_5_11",
-            "is_own": 1,
-            "line_width": 0.4000000059604645,
-            "parent_object_id": "SHIP_ROGOV_1",
-            "position": 0,
-            "properties": [
-            ],
-            "radius": 5000,
-            "scale": 100,
-            "scheme": ":/icons/images/tacticals/circle_scheme.png",
-            "short_name": "Граница обнаружения надводных целей РЛС",
-            "spline": true,
-            "title": "Граница обнаружения надводных целей РЛС",
-            "type": "CIRCLE"
-        },
-        {
-            "class_code": "C121055000334",
-            "color": "base",
-            "coordinates": [
-                [
-                    44.62987061574977,
-                    37.84983103933108,
-                    0
-                ],
-                [
-                    44.719820762773764,
-                    37.84983103933108,
-                    0
-                ]
-            ],
-            "description": "Наносится 2-мя точками. Двойной клик для завершения нанесения.",
-            "geometry_type": 4,
-            "icon": ":/icons/images/tacticals/circle.png",
-            "id": "CIRCLE_6_11",
-            "is_own": 1,
-            "line_width": 0.30000001192092896,
-            "parent_object_id": "SHIP_ROGOV_1",
-            "position": 0,
-            "properties": [
-            ],
-            "radius": 10002,
-            "scale": 100,
-            "scheme": ":/icons/images/tacticals/circle_scheme.png",
-            "short_name": "Граница зоны полета БПЛА камикадзе",
-            "spline": true,
-            "title": "Граница зоны полета БПЛА камикадзе",
-            "type": "CIRCLE"
-        },
-        {
-            "class_code": "111025000321",
-            "color": "base",
-            "coordinates": [
-                [
-                    44.628937040831595,
-                    37.850246585103434,
-                    0
-                ],
-                [
-                    44.48306884441574,
-                    37.85220765464093,
-                    0
-                ]
-            ],
-            "description": "Наностится n-точками.",
-            "geometry_type": 2,
-            "icon": "tactical_signs/white_destination_point.png",
-            "id": "DIRECTION_OF_MOVEMENT_7",
-            "is_own": 1,
-            "line_width": 0.30000001192092896,
-            "parent_object_id": "SHIP_ROGOV_1",
-            "position": 0,
-            "properties": [
-            ],
-            "scale": 100,
-            "scheme": "tactical_signs/white_destination_point.png",
-            "short_name": "Напр. движения",
-            "spline": false,
-            "title": "Направление движения",
-            "type": "DIRECTION_OF_MOVEMENT"
-        },
-        {
             "class_code": "111025000321",
             "color": "base",
             "coordinates": [
@@ -2160,6 +2029,107 @@
             "spline": false,
             "title": "Запрещенный район",
             "type": "RESTRICTED_AREA"
+        },
+        {
+            "class_code": "AK_DISTANCE",
+            "color": "base",
+            "coordinates": [
+            ],
+            "description": "Наносится 2-мя точками. Двойной клик для завершения нанесения.",
+            "geometry_type": 4,
+            "icon": ":/icons/images/tacticals/circle.png",
+            "id": "AK_DISTANCE_11",
+            "is_own": 1,
+            "line_width": 0.4000000059604645,
+            "parent_object_id": "SHIP_ROGOV_1",
+            "position": 0,
+            "properties": [
+            ],
+            "radius": 2000,
+            "scale": 100,
+            "scheme": ":/icons/images/tacticals/circle_scheme.png",
+            "short_name": "Рубеж открытия огня АК",
+            "spline": true,
+            "title": "Рубеж открытия огня АК",
+            "type": "AK_DISTANCE"
+        },
+        {
+            "class_code": "L0000003641u",
+            "color": "red",
+            "coordinates": [
+            ],
+            "description": "Наносится 2-мя точками. Двойной клик для завершения нанесения.",
+            "geometry_type": 4,
+            "icon": ":/icons/images/tacticals/circle.png",
+            "id": "RLS_DISTANCE_11",
+            "is_own": 1,
+            "line_width": 0.4000000059604645,
+            "parent_object_id": "SHIP_ROGOV_1",
+            "position": 0,
+            "properties": [
+            ],
+            "radius": 5000,
+            "scale": 100,
+            "scheme": ":/icons/images/tacticals/circle_scheme.png",
+            "short_name": "Граница обнаружения надводных целей РЛС",
+            "spline": true,
+            "title": "Граница обнаружения надводных целей РЛС",
+            "type": "RLS_DISTANCE"
+        },
+        {
+            "class_code": "C121055000334",
+            "color": "base",
+            "coordinates": [
+            ],
+            "description": "Наносится 2-мя точками. Двойной клик для завершения нанесения.",
+            "geometry_type": 4,
+            "icon": ":/icons/images/tacticals/circle.png",
+            "id": "BPLA_DISTANCE_11",
+            "is_own": 1,
+            "line_width": 0.30000001192092896,
+            "parent_object_id": "SHIP_ROGOV_1",
+            "position": 0,
+            "properties": [
+            ],
+            "radius": 10002,
+            "scale": 100,
+            "scheme": ":/icons/images/tacticals/circle_scheme.png",
+            "short_name": "Граница зоны полета БПЛА камикадзе",
+            "spline": true,
+            "title": "Граница зоны полета БПЛА камикадзе",
+            "type": "BPLA_DISTANCE"
+        },
+        {
+            "class_code": "111025000321",
+            "color": "base",
+            "coordinates": [
+                [
+                    44.64557277110101,
+                    37.845801561256096,
+                    0
+                ],
+                [
+                    44.534793515357734,
+                    37.84797483789262,
+                    0
+                ]
+            ],
+            "description": "Наностится n-точками.",
+            "geometry_type": 2,
+            "icon": "tactical_signs/white_destination_point.png",
+            "id": "DIRECTION_OF_MOVEMENT_14",
+            "is_own": 1,
+            "line_width": 0.30000001192092896,
+            "parent_object_id": "SHIP_ROGOV_1",
+            "position": 0,
+            "properties": [
+            ],
+            "scale": 100,
+            "scheme": "tactical_signs/white_destination_point.png",
+            "short_name": "Напр. движения",
+            "spline": false,
+            "title": "Направление движения",
+            "type": "DIRECTION_OF_MOVEMENT"
         }
     ],
     "files": [
@@ -2652,69 +2622,6 @@
             "trigger_condition": "SHIP_ROGOV_1.properties['state'] == 'destroyed' and SHIP_ROGOV_1.properties['damage_state'] != 'destroyed'"
         },
         {
-            "id": "Корабль - очистка целей",
-            "interaction_type": "moving",
-            "response_action": "",
-            "response_set_values": "SHIP_ROGOV_1.properties['target_list'] =  []",
-            "source_object_id": "SHIP_ROGOV_1",
-            "title": "",
-            "trigger_condition": "CommunicationModel.actions.has_messages(receiver_id=SHIP_ROGOV_1.id, current_time=self.iteration_time) != True"
-        },
-        {
-            "id": "Корабль - получение сообщения от БПЛА",
-            "interaction_type": "moving",
-            "response_action": "",
-            "response_set_values": "SHIP_ROGOV_1.properties['target_list'] = CommunicationModel.actions.process_messages(receiver_id=SHIP_ROGOV_1.id, current_time=self.iteration_time)",
-            "source_object_id": "SHIP_ROGOV_1",
-            "title": "Получено сообщение от БПЛА - цель обнаружена ",
-            "trigger_condition": "CommunicationModel.actions.has_messages(receiver_id=SHIP_ROGOV_1.id, current_time=self.iteration_time) == True and SHIP_ROGOV_1.properties['state'] != 'destroyed'"
-        },
-        {
-            "id": "Корабль - целераспределение",
-            "interaction_type": "moving",
-            "response_action": "SHIP_ROGOV_1.actions.targeting(target_list=SHIP_ROGOV_1.properties['target_list'], all_items=self.objects, ship=SHIP_ROGOV_1, func_name='', library_name='')",
-            "response_set_values": "",
-            "source_object_id": "SHIP_ROGOV_1",
-            "title": "Целераспределение",
-            "trigger_condition": "SHIP_ROGOV_1.properties['target_list'] != []"
-        },
-        {
-            "id": "Корабль - попадание в носовую часть",
-            "interaction_type": "find_path",
-            "response_action": "",
-            "response_set_values": "SHIP_ROGOV_1.properties['damage_state'] = ''",
-            "source_object_id": "SHIP_ROGOV_1",
-            "title": "Попадание в носовую часть, снижение прочности корпуса",
-            "trigger_condition": "SHIP_ROGOV_1.properties['damage_state'] == 'bow_flash'"
-        },
-        {
-            "id": "Корабль - попадание в центральную часть",
-            "interaction_type": "find_path",
-            "response_action": "",
-            "response_set_values": "SHIP_ROGOV_1.properties['damage_state']='';SHIP_ROGOV_1.properties['state'] = 'destroyed'",
-            "source_object_id": "SHIP_ROGOV_1",
-            "title": "Попадание в центральную часть, критическое повреждение корпуса",
-            "trigger_condition": "SHIP_ROGOV_1.properties['damage_state'] == 'center_flash'"
-        },
-        {
-            "id": "Корабль - попадание в кормовую часть",
-            "interaction_type": "find_path",
-            "response_action": "",
-            "response_set_values": "SHIP_ROGOV_1.properties['damage_state'] = ''",
-            "source_object_id": "SHIP_ROGOV_1",
-            "title": "Попадание в кормовую часть, снижение скорости",
-            "trigger_condition": "SHIP_ROGOV_1.properties['damage_state'] == 'stern_flash'"
-        },
-        {
-            "id": "Корабль - оценка ущерба корпуса",
-            "interaction_type": "find_path",
-            "response_action": "",
-            "response_set_values": "SHIP_ROGOV_1.properties['state'] = 'destroyed'",
-            "source_object_id": "SHIP_ROGOV_1",
-            "title": "",
-            "trigger_condition": "SHIP_ROGOV_1.properties['hull_damage'] >= 1"
-        },
-        {
             "id": "Корабль - проверка уничтожения",
             "interaction_type": "moving",
             "response_action": "",
@@ -2722,69 +2629,6 @@
             "source_object_id": "!BEK!",
             "title": "Объект уничтожен",
             "trigger_condition": "SHIP_ROGOV_1.properties['state'] == 'destroyed' and SHIP_ROGOV_1.properties['damage_state'] != 'destroyed'"
-        },
-        {
-            "id": "Корабль - движение",
-            "interaction_type": "moving",
-            "response_action": "SHIP_ROGOV_1.actions.move(item=SHIP_ROGOV_1,  path=SHIP_ROGOV_1.properties['geo_path'],  time_in_seconds=self.second_in_iteration)",
-            "response_set_values": "",
-            "source_object_id": "SHIP_ROGOV_1",
-            "title": "Движение объекта",
-            "trigger_condition": "SHIP_ROGOV_1.properties['state'] == 'moving'"
-        },
-        {
-            "id": "Корабль - захват цели",
-            "interaction_type": "detect_enemy",
-            "response_action": "",
-            "response_set_values": "SHIP_ROGOV_1.properties['target'] = SHIP_ROGOV_1.actions.detect_enemy(item1=SHIP_ROGOV_1, objects=self.objects, rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], max_distance=SHIP_ROGOV_1.properties['ak_distance']) ",
-            "source_object_id": "SHIP_ROGOV_1",
-            "title": "Захват цели",
-            "trigger_condition": "SHIP_ROGOV_1.properties['target'] == '' and SHIP_ROGOV_1.actions.detect_enemy(item1=SHIP_ROGOV_1, objects=self.objects, rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], max_distance=SHIP_ROGOV_1.properties['ak_distance']) != '' "
-        },
-        {
-            "id": "Корабль - выстрел из АК-190",
-            "interaction_type": "ak_attack",
-            "response_action": "",
-            "response_set_values": " SHIP_ROGOV_1.properties['ak_bullet_count'] -= SHIP_ROGOV_1.properties['ak_bullet_per_second'];  ",
-            "source_object_id": "SHIP_ROGOV_1",
-            "title": "Выстрел из АК-190",
-            "trigger_condition": "SHIP_ROGOV_1.properties['target'] != '' and SHIP_ROGOV_1.properties['ak_bullet_count'] > 0  "
-        },
-        {
-            "id": "Корабль - оценка эффективности стрельбы АК-190",
-            "interaction_type": "ak_attack",
-            "response_action": "Model_00.actions.inc_object_prop(item=SHIP_ROGOV_1.properties['target'], prop='hit_count', objects=self.objects, value=Model_00.properties['tmp_int'])",
-            "response_set_values": "Model_00.properties['tmp_int'] = Model_00.actions.shoot_in_object(shooter=SHIP_ROGOV_1, target=Model_00.actions.get_object_by_id(object_id=SHIP_ROGOV_1.properties['target'], objects=self.objects), spread_horizontal=SHIP_ROGOV_1.properties['ak_spread_horizontal'], spread_vertical=SHIP_ROGOV_1.properties['ak_spread_vertical'], bullet_count=SHIP_ROGOV_1.properties['ak_bullet_per_second'], max_distance=SHIP_ROGOV_1.properties['ak_distance'])",
-            "source_object_id": "SHIP_ROGOV_1",
-            "title": "Оценка эффективности стрельбы АК-190",
-            "trigger_condition": "SHIP_ROGOV_1.properties['target'] != '' and SHIP_ROGOV_1.properties['ak_bullet_count'] >= 0  "
-        },
-        {
-            "id": "Корабль - цель уничтожена",
-            "interaction_type": "detect_enemy",
-            "response_action": "",
-            "response_set_values": "SHIP_ROGOV_1.properties['target'] = ''",
-            "source_object_id": "SHIP_ROGOV_1",
-            "title": "Цель уничтожена",
-            "trigger_condition": "Model_00.actions.get_object_prop(item=SHIP_ROGOV_1.properties['target'], prop='state', objects=self.objects, type_value='str') in ['destroyed', 'destroyed_bek'] "
-        },
-        {
-            "id": "Корабль - маневр уклонения",
-            "interaction_type": "evasive_maneuver",
-            "response_action": "",
-            "response_set_values": "SHIP_ROGOV_1.properties['speed'] = SHIP_ROGOV_1.properties['speed_maneuver']",
-            "source_object_id": "SHIP_ROGOV_1",
-            "title": "Маневр уклонения",
-            "trigger_condition": "SHIP_ROGOV_1.actions.evasive_maneuver(item=SHIP_ROGOV_1, objects=self.objects, type_danger=['БЭК'], min_distance=SHIP_ROGOV_1.properties['danger_distance'], rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], time_in_seconds=300, restricted_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\")) "
-        },
-        {
-            "id": "",
-            "interaction_type": "find_path",
-            "response_action": "SHIP_ROGOV_1.properties['geo_path']['geometry']['coordinates'] = SHIP_ROGOV_1.actions.find_path(ship_lat=SHIP_ROGOV_1.properties['lat'], ship_lon=SHIP_ROGOV_1.properties['lon'], target_lat=self.features['DIRECTION_OF_MOVEMENT_7'].coordinates[1][0], target_lon=self.features['DIRECTION_OF_MOVEMENT_7'].coordinates[1][1], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"))",
-            "response_set_values": "SHIP_ROGOV_1.properties['state'] = 'moving'",
-            "source_object_id": "SHIP_ROGOV_1",
-            "title": "Поиск маршрута",
-            "trigger_condition": "SHIP_ROGOV_1.properties['state'] == 'standing'"
         },
         {
             "id": "",
@@ -3388,6 +3232,159 @@
             "source_object_id": "BEK_MIKOLA_6",
             "title": "Поиск маршрута",
             "trigger_condition": "BEK_MIKOLA_6.properties['state'] == 'standing'"
+        },
+        {
+            "id": "Корабль - очистка целей",
+            "interaction_type": "moving",
+            "response_action": "",
+            "response_set_values": "SHIP_ROGOV_1.properties['target_list'] =  []",
+            "source_object_id": "SHIP_ROGOV_1",
+            "title": "",
+            "trigger_condition": "CommunicationModel.actions.has_messages(receiver_id=SHIP_ROGOV_1.id, current_time=self.iteration_time) != True"
+        },
+        {
+            "id": "Корабль - получение сообщения от БПЛА",
+            "interaction_type": "moving",
+            "response_action": "",
+            "response_set_values": "SHIP_ROGOV_1.properties['target_list'] = CommunicationModel.actions.process_messages(receiver_id=SHIP_ROGOV_1.id, current_time=self.iteration_time)",
+            "source_object_id": "SHIP_ROGOV_1",
+            "title": "Получено сообщение от БПЛА - цель обнаружена ",
+            "trigger_condition": "CommunicationModel.actions.has_messages(receiver_id=SHIP_ROGOV_1.id, current_time=self.iteration_time) == True and SHIP_ROGOV_1.properties['state'] != 'destroyed'"
+        },
+        {
+            "id": "",
+            "interaction_type": "look_detection",
+            "response_action": "",
+            "response_set_values": "SHIP_ROGOV_1.properties['target_list'] = SHIP_ROGOV_1.actions.look_detection(item1=SHIP_ROGOV_1, item2=self.objects,  rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], max_distance=SHIP_ROGOV_1.properties['rls_distance'])",
+            "source_object_id": "SHIP_ROGOV_1",
+            "title": "Обнаружение цели в зоне РЛС",
+            "trigger_condition": "SHIP_ROGOV_1.actions.look_detection(item1=SHIP_ROGOV_1, item2=self.objects,  rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], max_distance=SHIP_ROGOV_1.properties['rls_distance']) != []"
+        },
+        {
+            "id": "Корабль - целераспределение",
+            "interaction_type": "moving",
+            "response_action": "SHIP_ROGOV_1.actions.targeting(target_list=SHIP_ROGOV_1.properties['target_list'], all_items=self.objects, ship=SHIP_ROGOV_1, func_name='', library_name='')",
+            "response_set_values": "",
+            "source_object_id": "SHIP_ROGOV_1",
+            "title": "Целераспределение",
+            "trigger_condition": "SHIP_ROGOV_1.properties['target_list'] != []"
+        },
+        {
+            "id": "Корабль - попадание в носовую часть",
+            "interaction_type": "find_path",
+            "response_action": "",
+            "response_set_values": "SHIP_ROGOV_1.properties['damage_state'] = ''",
+            "source_object_id": "SHIP_ROGOV_1",
+            "title": "Попадание в носовую часть, снижение прочности корпуса",
+            "trigger_condition": "SHIP_ROGOV_1.properties['damage_state'] == 'bow_flash'"
+        },
+        {
+            "id": "Корабль - попадание в центральную часть",
+            "interaction_type": "find_path",
+            "response_action": "",
+            "response_set_values": "SHIP_ROGOV_1.properties['damage_state']='';SHIP_ROGOV_1.properties['state'] = 'destroyed'",
+            "source_object_id": "SHIP_ROGOV_1",
+            "title": "Попадание в центральную часть, критическое повреждение корпуса",
+            "trigger_condition": "SHIP_ROGOV_1.properties['damage_state'] == 'center_flash'"
+        },
+        {
+            "id": "Корабль - попадание в кормовую часть",
+            "interaction_type": "find_path",
+            "response_action": "",
+            "response_set_values": "SHIP_ROGOV_1.properties['damage_state'] = ''",
+            "source_object_id": "SHIP_ROGOV_1",
+            "title": "Попадание в кормовую часть, снижение скорости",
+            "trigger_condition": "SHIP_ROGOV_1.properties['damage_state'] == 'stern_flash'"
+        },
+        {
+            "id": "Корабль - оценка ущерба корпуса",
+            "interaction_type": "find_path",
+            "response_action": "",
+            "response_set_values": "SHIP_ROGOV_1.properties['state'] = 'destroyed'",
+            "source_object_id": "SHIP_ROGOV_1",
+            "title": "",
+            "trigger_condition": "SHIP_ROGOV_1.properties['hull_damage'] >= 1"
+        },
+        {
+            "id": "Корабль - проверка уничтожения",
+            "interaction_type": "moving",
+            "response_action": "",
+            "response_set_values": "SHIP_ROGOV_1.properties['damage_state']='destroyed'",
+            "source_object_id": "!BEK!",
+            "title": "Объект уничтожен",
+            "trigger_condition": "SHIP_ROGOV_1.properties['state'] == 'destroyed' and SHIP_ROGOV_1.properties['damage_state'] != 'destroyed'"
+        },
+        {
+            "id": "Корабль - движение",
+            "interaction_type": "moving",
+            "response_action": "SHIP_ROGOV_1.actions.move(item=SHIP_ROGOV_1,  path=SHIP_ROGOV_1.properties['geo_path'],  time_in_seconds=self.second_in_iteration)",
+            "response_set_values": "",
+            "source_object_id": "SHIP_ROGOV_1",
+            "title": "Движение объекта",
+            "trigger_condition": "SHIP_ROGOV_1.properties['state'] == 'moving'"
+        },
+        {
+            "id": "Корабль - остановка",
+            "interaction_type": "moving",
+            "response_action": "",
+            "response_set_values": "SHIP_ROGOV_1.properties['speed'] = 0; SHIP_ROGOV_1.properties['geo_path']['geometry']['coordinates'] = [];",
+            "source_object_id": "SHIP_ROGOV_1",
+            "title": "Достиг цели",
+            "trigger_condition": "SHIP_ROGOV_1.properties['state'] == 'finished' and len(SHIP_ROGOV_1.properties['geo_path']['geometry']['coordinates']) > 0"
+        },
+        {
+            "id": "Корабль - захват цели",
+            "interaction_type": "detect_enemy",
+            "response_action": "",
+            "response_set_values": "SHIP_ROGOV_1.properties['target'] = SHIP_ROGOV_1.actions.detect_enemy(item1=SHIP_ROGOV_1, objects=self.objects, rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], max_distance=SHIP_ROGOV_1.properties['ak_distance']) ",
+            "source_object_id": "SHIP_ROGOV_1",
+            "title": "Захват цели",
+            "trigger_condition": "SHIP_ROGOV_1.properties['target'] == '' and SHIP_ROGOV_1.actions.detect_enemy(item1=SHIP_ROGOV_1, objects=self.objects, rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], max_distance=SHIP_ROGOV_1.properties['ak_distance']) != '' "
+        },
+        {
+            "id": "Корабль - выстрел из АК-190",
+            "interaction_type": "ak_attack",
+            "response_action": "",
+            "response_set_values": " SHIP_ROGOV_1.properties['ak_bullet_count'] -= SHIP_ROGOV_1.properties['ak_bullet_per_second'];  ",
+            "source_object_id": "SHIP_ROGOV_1",
+            "title": "Выстрел из АК-190",
+            "trigger_condition": "SHIP_ROGOV_1.properties['target'] != '' and SHIP_ROGOV_1.properties['ak_bullet_count'] > 0  "
+        },
+        {
+            "id": "Корабль - оценка эффективности стрельбы АК-190",
+            "interaction_type": "ak_attack",
+            "response_action": "Model_00.actions.inc_object_prop(item=SHIP_ROGOV_1.properties['target'], prop='hit_count', objects=self.objects, value=Model_00.properties['tmp_int'])",
+            "response_set_values": "Model_00.properties['tmp_int'] = Model_00.actions.shoot_in_object(shooter=SHIP_ROGOV_1, target=Model_00.actions.get_object_by_id(object_id=SHIP_ROGOV_1.properties['target'], objects=self.objects), spread_horizontal=SHIP_ROGOV_1.properties['ak_spread_horizontal'], spread_vertical=SHIP_ROGOV_1.properties['ak_spread_vertical'], bullet_count=SHIP_ROGOV_1.properties['ak_bullet_per_second'], max_distance=SHIP_ROGOV_1.properties['ak_distance'])",
+            "source_object_id": "SHIP_ROGOV_1",
+            "title": "Оценка эффективности стрельбы АК-190",
+            "trigger_condition": "SHIP_ROGOV_1.properties['target'] != '' and SHIP_ROGOV_1.properties['ak_bullet_count'] >= 0  "
+        },
+        {
+            "id": "Корабль - цель уничтожена",
+            "interaction_type": "detect_enemy",
+            "response_action": "",
+            "response_set_values": "SHIP_ROGOV_1.properties['target'] = ''",
+            "source_object_id": "SHIP_ROGOV_1",
+            "title": "Цель уничтожена",
+            "trigger_condition": "Model_00.actions.get_object_prop(item=SHIP_ROGOV_1.properties['target'], prop='state', objects=self.objects, type_value='str') in ['destroyed', 'destroyed_bek'] "
+        },
+        {
+            "id": "Корабль - маневр уклонения",
+            "interaction_type": "evasive_maneuver",
+            "response_action": "",
+            "response_set_values": "SHIP_ROGOV_1.properties['speed'] = SHIP_ROGOV_1.properties['speed_maneuver']; SHIP_ROGOV_1.properties['state'] = 'moving'; ",
+            "source_object_id": "SHIP_ROGOV_1",
+            "title": "Маневр уклонения",
+            "trigger_condition": "SHIP_ROGOV_1.properties['state'] != 'destroyed' and SHIP_ROGOV_1.actions.evasive_maneuver(item=SHIP_ROGOV_1, objects=self.objects, type_danger=['БЭК'], min_distance=SHIP_ROGOV_1.properties['danger_distance'], rain=WEATHER.properties['rain_intensive'], frog=WEATHER.properties['frog_intensive'], time_in_seconds=300, restricted_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\")) "
+        },
+        {
+            "id": "",
+            "interaction_type": "find_path",
+            "response_action": "SHIP_ROGOV_1.properties['geo_path']['geometry']['coordinates'] = SHIP_ROGOV_1.actions.find_path(ship_lat=SHIP_ROGOV_1.properties['lat'], ship_lon=SHIP_ROGOV_1.properties['lon'], target_lat=self.features['DIRECTION_OF_MOVEMENT_14'].coordinates[1][0], target_lon=self.features['DIRECTION_OF_MOVEMENT_14'].coordinates[1][1], geo_area=Model_00.actions.filter_by_type(objects=self.features, obj_type=\"RESTRICTED_AREA\"))",
+            "response_set_values": "SHIP_ROGOV_1.properties['state'] = 'moving'; SHIP_ROGOV_1.properties['speed'] = SHIP_ROGOV_1.properties['slow_speed']",
+            "source_object_id": "SHIP_ROGOV_1",
+            "title": "Поиск маршрута",
+            "trigger_condition": "SHIP_ROGOV_1.properties['state'] == 'standing'"
         }
     ],
     "map_path": "maps/RU4MDLM0/RU4MDLM0.sit",
@@ -5487,332 +5484,6 @@
                     "type": "find_path"
                 },
                 {
-                    "algorithm_id": "alg_id_detect_thermal_imager",
-                    "name": "Алгоритм обнаружения объектов противника на заданном радиусе",
-                    "output_mapping": [
-                    ],
-                    "type": "search"
-                },
-                {
-                    "algorithm_id": "alg_id_detect_enemy",
-                    "name": "Получение id вражеского объекта в радиусе определенной дистанции.",
-                    "output_mapping": [
-                    ],
-                    "type": "detect_enemy"
-                },
-                {
-                    "algorithm_id": "alg_id_calc_effect_air",
-                    "name": "Алгоритм Расчета эффективности поражения (пулеметом или АК)",
-                    "output_mapping": [
-                    ],
-                    "type": "ak_attack"
-                },
-                {
-                    "algorithm_id": "alg_id_evasive_maneuver",
-                    "name": "Маневр уклонения - бегство",
-                    "output_mapping": [
-                    ],
-                    "type": "evasive_maneuver"
-                },
-                {
-                    "algorithm_id": "alg_id_targeting",
-                    "name": "Алгоритм целераспределения",
-                    "output_mapping": [
-                    ],
-                    "type": "targeting"
-                }
-            ],
-            "features": [
-                {
-                    "class_code": "31261500011300000001",
-                    "color": "base",
-                    "coordinates": [
-                    ],
-                    "description": "Наносится 2-мя точками. Двойной клик для завершения нанесения.",
-                    "geometry_type": 4,
-                    "icon": ":/icons/images/tacticals/circle.png",
-                    "id": "AK_DISTANCE",
-                    "is_own": 1,
-                    "line_width": 0.4000000059604645,
-                    "parent_object_id": "",
-                    "position": 0,
-                    "properties": [
-                    ],
-                    "radius": 2000,
-                    "scale": 100,
-                    "scheme": ":/icons/images/tacticals/circle_scheme.png",
-                    "short_name": "Рубеж открытия огня АК",
-                    "spline": true,
-                    "title": "Рубеж открытия огня АК",
-                    "type": "AK_DISTANCE"
-                },
-                {
-                    "class_code": "L0000003641u",
-                    "color": "red",
-                    "coordinates": [
-                    ],
-                    "description": "Наносится 2-мя точками. Двойной клик для завершения нанесения.",
-                    "geometry_type": 4,
-                    "icon": ":/icons/images/tacticals/circle.png",
-                    "id": "CIRCLE_5",
-                    "is_own": 1,
-                    "line_width": 0.4000000059604645,
-                    "parent_object_id": "no",
-                    "position": 0,
-                    "properties": [
-                    ],
-                    "radius": 5000,
-                    "scale": 100,
-                    "scheme": ":/icons/images/tacticals/circle_scheme.png",
-                    "short_name": "Граница обнаружения надводных целей РЛС",
-                    "spline": true,
-                    "title": "Граница обнаружения надводных целей РЛС",
-                    "type": "CIRCLE"
-                },
-                {
-                    "class_code": "C121055000334",
-                    "color": "base",
-                    "coordinates": [
-                    ],
-                    "description": "Наносится 2-мя точками. Двойной клик для завершения нанесения.",
-                    "geometry_type": 4,
-                    "icon": ":/icons/images/tacticals/circle.png",
-                    "id": "CIRCLE_6",
-                    "is_own": 1,
-                    "line_width": 0.30000001192092896,
-                    "parent_object_id": "no",
-                    "position": 0,
-                    "properties": [
-                    ],
-                    "radius": 10002,
-                    "scale": 100,
-                    "scheme": ":/icons/images/tacticals/circle_scheme.png",
-                    "short_name": "Граница зоны полета БПЛА камикадзе",
-                    "spline": true,
-                    "title": "Граница зоны полета БПЛА камикадзе",
-                    "type": "CIRCLE"
-                }
-            ],
-            "id": "SHIP_ROGOV_1",
-            "properties": [
-                {
-                    "name": "ak_bullet_count",
-                    "title": "боезапас патронов в АК",
-                    "type": "int",
-                    "value": 10000
-                },
-                {
-                    "name": "ak_bullet_per_second",
-                    "title": "расход патронов в АК в секунду",
-                    "type": "int",
-                    "value": 100
-                },
-                {
-                    "name": "ak_distance",
-                    "title": "эффективная дистанция поражения, м",
-                    "type": "int",
-                    "value": 2000
-                },
-                {
-                    "name": "ak_spread_horizontal",
-                    "title": "разброс по горизонтали на 100м",
-                    "type": "float",
-                    "value": 0.37
-                },
-                {
-                    "name": "ak_spread_vertical",
-                    "title": "разброс по вертикали на 100м",
-                    "type": "float",
-                    "value": 0.57
-                },
-                {
-                    "name": "alt",
-                    "title": "координаты - высота над уровнем моря, м",
-                    "type": "int",
-                    "value": 0
-                },
-                {
-                    "name": "bandwidth_khz",
-                    "title": "Приемник - ширина полосы приема, кГц",
-                    "type": "int",
-                    "value": 20000
-                },
-                {
-                    "name": "class_code",
-                    "title": "класскод",
-                    "type": "str",
-                    "value": "131472600009"
-                },
-                {
-                    "name": "course",
-                    "title": "курс",
-                    "type": "float",
-                    "value": 173.30939952994004
-                },
-                {
-                    "name": "damage_state",
-                    "title": "тип повреждения",
-                    "type": "str",
-                    "value": ""
-                },
-                {
-                    "name": "danger_distance",
-                    "title": "мин дистанция при которой начинается маневр уклонения",
-                    "type": "int",
-                    "value": 4000
-                },
-                {
-                    "name": "geo_path",
-                    "title": "маршрут",
-                    "type": "feature",
-                    "value": {
-                        "geometry": {
-                            "coordinates": [
-                            ],
-                            "type": "LineString"
-                        },
-                        "properties": {
-                            "class_code": "131405000210000000",
-                            "id": "SHIP_ROGOV_1_path"
-                        },
-                        "type": "Feature"
-                    }
-                },
-                {
-                    "name": "gr_lin",
-                    "title": "Приемник - усиление",
-                    "type": "float",
-                    "value": 2
-                },
-                {
-                    "name": "hull_damage",
-                    "title": "текущее повреждений корпуса",
-                    "type": "int",
-                    "value": 0
-                },
-                {
-                    "name": "image",
-                    "title": "иконка",
-                    "type": "str",
-                    "value": "ship-blue.png"
-                },
-                {
-                    "name": "is_own",
-                    "title": "синий/красный",
-                    "type": "int",
-                    "value": 1
-                },
-                {
-                    "name": "lat",
-                    "title": "координаты - широта",
-                    "type": "float",
-                    "value": 44.62987061574977
-                },
-                {
-                    "name": "lon",
-                    "title": "координаты - долгота",
-                    "type": "float",
-                    "value": 37.84983103933107
-                },
-                {
-                    "name": "noise_figure_db",
-                    "title": "Приемник - шумовой коэффициент дБ",
-                    "type": "float",
-                    "value": 3
-                },
-                {
-                    "name": "segment_index",
-                    "title": "индекс сегмента маршрута",
-                    "type": "int",
-                    "value": 0
-                },
-                {
-                    "name": "speed",
-                    "title": "крейсерская скорость",
-                    "type": "float",
-                    "value": 6
-                },
-                {
-                    "name": "speed_maneuver",
-                    "title": "скорость при выполнении маневра",
-                    "type": "float",
-                    "value": 8
-                },
-                {
-                    "name": "state",
-                    "title": "состояние",
-                    "type": "str",
-                    "value": "standing"
-                },
-                {
-                    "name": "subType",
-                    "title": "подтип объекта",
-                    "type": "str",
-                    "value": "УДК"
-                },
-                {
-                    "name": "target",
-                    "title": "идентификатор цели АК",
-                    "type": "str",
-                    "value": ""
-                },
-                {
-                    "name": "target_list",
-                    "title": "Список целей для атаки",
-                    "type": "list",
-                    "value": [
-                    ]
-                },
-                {
-                    "name": "type",
-                    "title": "тип",
-                    "type": "str",
-                    "value": "Надводные корабли"
-                }
-            ],
-            "title": "«Иван Рогов» пр 23900 №1"
-        },
-        {
-            "actions": [
-                {
-                    "algorithm_id": "alg_id_path",
-                    "name": "Движения по маршруту",
-                    "output_mapping": [
-                        {
-                            "course": "new_course",
-                            "title": ""
-                        },
-                        {
-                            "lat": "new_lat",
-                            "title": ""
-                        },
-                        {
-                            "lon": "new_lon",
-                            "title": ""
-                        },
-                        {
-                            "segment_index": "new_segment_index",
-                            "title": ""
-                        },
-                        {
-                            "state": "new_state",
-                            "title": ""
-                        }
-                    ],
-                    "type": "move"
-                },
-                {
-                    "algorithm_id": "alg_id_calculate_path",
-                    "name": "Расчет маршрута по графу видимости",
-                    "output_mapping": [
-                        {
-                            "geo_path.geometry.coordinates": "new_geo_path",
-                            "title": ""
-                        }
-                    ],
-                    "type": "find_path"
-                },
-                {
                     "algorithm_id": "alg_id_look_detection",
                     "name": "Алгоритм обнаружения объектов противника",
                     "output_mapping": [
@@ -7481,6 +7152,351 @@
                 }
             ],
             "title": "БЭК «Микола» №6"
+        },
+        {
+            "actions": [
+                {
+                    "algorithm_id": "alg_id_path",
+                    "name": "Движения по маршруту",
+                    "output_mapping": [
+                        {
+                            "course": "new_course",
+                            "title": ""
+                        },
+                        {
+                            "lat": "new_lat",
+                            "title": ""
+                        },
+                        {
+                            "lon": "new_lon",
+                            "title": ""
+                        },
+                        {
+                            "segment_index": "new_segment_index",
+                            "title": ""
+                        },
+                        {
+                            "state": "new_state",
+                            "title": ""
+                        }
+                    ],
+                    "type": "move"
+                },
+                {
+                    "algorithm_id": "alg_id_calculate_path",
+                    "name": "Расчет маршрута по графу видимости",
+                    "output_mapping": [
+                        {
+                            "geo_path.geometry.coordinates": "new_geo_path",
+                            "title": ""
+                        }
+                    ],
+                    "type": "find_path"
+                },
+                {
+                    "algorithm_id": "alg_id_detect_thermal_imager",
+                    "name": "Алгоритм обнаружения объектов противника на заданном радиусе",
+                    "output_mapping": [
+                    ],
+                    "type": "search"
+                },
+                {
+                    "algorithm_id": "alg_id_detect_enemy",
+                    "name": "Получение id вражеского объекта в радиусе определенной дистанции.",
+                    "output_mapping": [
+                    ],
+                    "type": "detect_enemy"
+                },
+                {
+                    "algorithm_id": "alg_id_calc_effect_air",
+                    "name": "Алгоритм Расчета эффективности поражения (пулеметом или АК)",
+                    "output_mapping": [
+                    ],
+                    "type": "ak_attack"
+                },
+                {
+                    "algorithm_id": "alg_id_evasive_maneuver",
+                    "name": "Маневр уклонения - бегство",
+                    "output_mapping": [
+                    ],
+                    "type": "evasive_maneuver"
+                },
+                {
+                    "algorithm_id": "alg_id_targeting",
+                    "name": "Алгоритм целераспределения",
+                    "output_mapping": [
+                    ],
+                    "type": "targeting"
+                },
+                {
+                    "algorithm_id": "alg_id_look_detection",
+                    "name": "Алгоритм обнаружения объектов противника",
+                    "output_mapping": [
+                    ],
+                    "type": "look_detection"
+                }
+            ],
+            "features": [
+                {
+                    "class_code": "AK_DISTANCE",
+                    "color": "base",
+                    "coordinates": [
+                    ],
+                    "description": "Наносится 2-мя точками. Двойной клик для завершения нанесения.",
+                    "geometry_type": 4,
+                    "icon": ":/icons/images/tacticals/circle.png",
+                    "id": "AK_DISTANCE",
+                    "is_own": 1,
+                    "line_width": 0.4000000059604645,
+                    "parent_object_id": "",
+                    "position": 0,
+                    "properties": [
+                    ],
+                    "radius": 2000,
+                    "scale": 100,
+                    "scheme": ":/icons/images/tacticals/circle_scheme.png",
+                    "short_name": "Рубеж открытия огня АК",
+                    "spline": true,
+                    "title": "Рубеж открытия огня АК",
+                    "type": "AK_DISTANCE"
+                },
+                {
+                    "class_code": "L0000003641u",
+                    "color": "red",
+                    "coordinates": [
+                    ],
+                    "description": "Наносится 2-мя точками. Двойной клик для завершения нанесения.",
+                    "geometry_type": 4,
+                    "icon": ":/icons/images/tacticals/circle.png",
+                    "id": "RLS_DISTANCE",
+                    "is_own": 1,
+                    "line_width": 0.4000000059604645,
+                    "parent_object_id": "no",
+                    "position": 0,
+                    "properties": [
+                    ],
+                    "radius": 5000,
+                    "scale": 100,
+                    "scheme": ":/icons/images/tacticals/circle_scheme.png",
+                    "short_name": "Граница обнаружения надводных целей РЛС",
+                    "spline": true,
+                    "title": "Граница обнаружения надводных целей РЛС",
+                    "type": "RLS_DISTANCE"
+                },
+                {
+                    "class_code": "C121055000334",
+                    "color": "base",
+                    "coordinates": [
+                    ],
+                    "description": "Наносится 2-мя точками. Двойной клик для завершения нанесения.",
+                    "geometry_type": 4,
+                    "icon": ":/icons/images/tacticals/circle.png",
+                    "id": "BPLA_DISTANCE",
+                    "is_own": 1,
+                    "line_width": 0.30000001192092896,
+                    "parent_object_id": "no",
+                    "position": 0,
+                    "properties": [
+                    ],
+                    "radius": 10002,
+                    "scale": 100,
+                    "scheme": ":/icons/images/tacticals/circle_scheme.png",
+                    "short_name": "Граница зоны полета БПЛА камикадзе",
+                    "spline": true,
+                    "title": "Граница зоны полета БПЛА камикадзе",
+                    "type": "BPLA_DISTANCE"
+                }
+            ],
+            "id": "SHIP_ROGOV_1",
+            "properties": [
+                {
+                    "name": "ak_bullet_count",
+                    "title": "АК боезапас, шт ",
+                    "type": "int",
+                    "value": 10000
+                },
+                {
+                    "name": "ak_bullet_per_second",
+                    "title": "АК расход патронов в секунду",
+                    "type": "int",
+                    "value": 100
+                },
+                {
+                    "name": "ak_distance",
+                    "title": "АК эффективная дистанция поражения, м",
+                    "type": "int",
+                    "value": 2000
+                },
+                {
+                    "name": "ak_spread_horizontal",
+                    "title": "АК, разброс по горизонтали на 100м",
+                    "type": "float",
+                    "value": 0.37
+                },
+                {
+                    "name": "ak_spread_vertical",
+                    "title": "АК, разброс по вертикали на 100м",
+                    "type": "float",
+                    "value": 0.57
+                },
+                {
+                    "name": "alt",
+                    "title": "координаты - высота над уровнем моря, м",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "bandwidth_khz",
+                    "title": "Приемник - ширина полосы приема, кГц",
+                    "type": "int",
+                    "value": 20000
+                },
+                {
+                    "name": "bpla_distance",
+                    "title": "БПЛА камикадзе - дальность полета, м",
+                    "type": "int",
+                    "value": 15000
+                },
+                {
+                    "name": "class_code",
+                    "title": "класскод",
+                    "type": "str",
+                    "value": "131472600009"
+                },
+                {
+                    "name": "course",
+                    "title": "курс",
+                    "type": "float",
+                    "value": 172.3291695355389
+                },
+                {
+                    "name": "damage_state",
+                    "title": "Корпус - тип повреждения",
+                    "type": "str",
+                    "value": ""
+                },
+                {
+                    "name": "danger_distance",
+                    "title": "Маневр - макс дистанция до противника для осуществления маневра, м",
+                    "type": "int",
+                    "value": 4000
+                },
+                {
+                    "name": "geo_path",
+                    "title": "маршрут",
+                    "type": "feature",
+                    "value": {
+                        "geometry": {
+                            "coordinates": [
+                            ],
+                            "type": "LineString"
+                        },
+                        "properties": {
+                            "class_code": "131405000210000000",
+                            "id": "SHIP_ROGOV_1_path"
+                        },
+                        "type": "Feature"
+                    }
+                },
+                {
+                    "name": "gr_lin",
+                    "title": "Приемник - усиление",
+                    "type": "float",
+                    "value": 2
+                },
+                {
+                    "name": "hull_damage",
+                    "title": "Корпус - количество повреждений от 0 до 1",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "is_own",
+                    "title": "Признак синий/красный",
+                    "type": "int",
+                    "value": 1
+                },
+                {
+                    "name": "lat",
+                    "title": "координаты - широта",
+                    "type": "float",
+                    "value": 44.645572771101
+                },
+                {
+                    "name": "lon",
+                    "title": "координаты - долгота",
+                    "type": "float",
+                    "value": 37.845801561256096
+                },
+                {
+                    "name": "noise_figure_db",
+                    "title": "Приемник - шумовой коэффициент дБ",
+                    "type": "float",
+                    "value": 3
+                },
+                {
+                    "name": "rls_distance",
+                    "title": "РЛС - максимальная дальность обнаружения, м",
+                    "type": "int",
+                    "value": 5000
+                },
+                {
+                    "name": "segment_index",
+                    "title": "Маршрут - текущий индекс сегмента маршрута",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "slow_speed",
+                    "title": "Крейсерская скорость, м/с",
+                    "type": "float",
+                    "value": 9
+                },
+                {
+                    "name": "speed",
+                    "title": "Текущая скорость, м/с",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "speed_maneuver",
+                    "title": "скорость при выполнении маневра, м/с",
+                    "type": "float",
+                    "value": 13.6
+                },
+                {
+                    "name": "state",
+                    "title": "состояние",
+                    "type": "str",
+                    "value": "standing"
+                },
+                {
+                    "name": "subType",
+                    "title": "подтип объекта",
+                    "type": "str",
+                    "value": "УДК"
+                },
+                {
+                    "name": "target",
+                    "title": "АК текущий идентификатор цели",
+                    "type": "str",
+                    "value": ""
+                },
+                {
+                    "name": "target_list",
+                    "title": "БПЛА камикадзе - список объектов противника для целераспределения",
+                    "type": "list",
+                    "value": [
+                    ]
+                },
+                {
+                    "name": "type",
+                    "title": "тип",
+                    "type": "str",
+                    "value": "Надводные корабли"
+                }
+            ],
+            "title": "«Иван Рогов» пр 23900 №1"
         }
     ],
     "scenario_id": "ввв",

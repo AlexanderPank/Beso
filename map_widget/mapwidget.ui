@@ -27,7 +27,18 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="QDMapView" name="mapView"/>
+    <widget class="QDMapView" name="mapView">
+     <widget class="QDMapSelectDialog" name="mapSelectDialog">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>350</y>
+        <width>100</width>
+        <height>80</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
    </item>
   </layout>
  </widget>
@@ -36,6 +47,12 @@
    <class>QDMapView</class>
    <extends>QWidget</extends>
    <header>qdmcmp.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>QDMapSelectDialog</class>
+   <extends>QWidget</extends>
+   <header>qdmdsel.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

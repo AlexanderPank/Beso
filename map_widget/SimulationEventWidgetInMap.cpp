@@ -59,14 +59,16 @@ SimulationEventWidgetInMap::~SimulationEventWidgetInMap(){
 
 void SimulationEventWidgetInMap::filterLog() {
     m_filter_text = m_textEditFilter->toPlainText();
-    if (m_filter_text.isEmpty())
+    if (m_filter_text.isEmpty()) {
         this->m_textEdit->setText(m_log_text);
+    }
     else {
         QString filtered_text_list = "";
         for (QString text : m_log_text_list)
             if (text.contains(m_filter_text)) filtered_text_list+=text + "\n";
         this->m_textEdit->setText(filtered_text_list);
     }
+    m_textEditFilter->setTextColor(QColor(0, 0, 0, 200));
 }
 bool SimulationEventWidgetInMap::eventFilter(QObject *obj, QEvent *event)
 {
@@ -199,7 +201,7 @@ void SimulationEventWidgetInMap::updateEventList(const QJsonArray &events)
 
         QColor color = getColorForType(type);
         m_textEdit->setTextColor(color);
-        m_log_text += formattedText;
+        m_log_text += formattedText + "\n";
         m_log_text_list.append(formattedText);
         if (m_filter_text.isEmpty() || formattedText.contains(m_filter_text))
             m_textEdit->append(formattedText);

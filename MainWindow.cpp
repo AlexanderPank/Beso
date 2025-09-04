@@ -64,7 +64,6 @@ MainWindow::MainWindow(QWidget *parent)
     mapWidget = new MapWidget(this, "maps/Sochi2/K3704.map", "maps/Sochi2/");
  //    mapWidget = new MapWidget(this, "maps/RU4MDLM0-map/RU4MDLM0-s57.mpt", "maps/violit");
     this->ui->mapLayout->addWidget(mapWidget);
-
     eventLog = new SimulationEventWidgetInMap(mapWidget);
 
     forceEditor = new ForcesEditor();
